@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');
     Route::post('/complete-signup/upload-picture/', 'UploadPictureController@uploadPicture')->name("upload-picture");
     Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
+    Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
 
