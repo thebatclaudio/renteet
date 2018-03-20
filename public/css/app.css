@@ -80,6 +80,9 @@ li.nav-item.dropdown {
   .carousel {
     margin-bottom: 4rem;
   }
+  .card .carousel {
+    margin-bottom: 0px;
+  }
   /* Since positioning the image, we need to help out the caption */
   .carousel-caption {
     bottom: 3rem;
@@ -91,6 +94,9 @@ li.nav-item.dropdown {
     height: 600px;
     background-size: cover;
     background-position: bottom;
+  }
+  .card .carousel-item {
+    height: 200px;
   }
   .carousel-item > img {
     position: absolute;
@@ -294,6 +300,11 @@ li.nav-item.dropdown {
     color: #000;
     font-size: 22px;
     padding-top: 10px;
+  }
+
+  .small-user-pic {
+    width: 80px;
+    margin: 0px 5px;
   }
 
   /* RESPONSIVE CSS
