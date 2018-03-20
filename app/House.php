@@ -23,7 +23,8 @@ class House extends Model
     }
 
     public function getPreviewImageUrlAttribute() {
-        return \URL::to('/images/houses/1.jpg');
+        $fileName = $this->photos->first()->file_name;
+        return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
     }
 
     public function hasUser($id) {
@@ -34,5 +35,9 @@ class House extends Model
         }
 
         return false;
+    }
+
+    public function getUrlAttribute() {
+        return \URL::to('/rent/'.$this->id);
     }
 }

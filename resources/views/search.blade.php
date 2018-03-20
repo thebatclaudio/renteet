@@ -32,6 +32,7 @@
 
             <div class="card-body">
                 <h5 class="card-title"><strong>{{$house->name}}</strong> <small>{{$house->street_name}}, {{$house->number}}</small></h5>
+                <div class="house-users">
                 @foreach($house->rooms as $room)
                     @foreach($room->acceptedUsers as $user)
                         <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
@@ -40,6 +41,10 @@
                         <img class="rounded-circle small-user-pic" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="80" height="80">
                     @endfor
                 @endforeach
+                </div>
+                <div class="actions margin-top-20">
+                    <a href="{{$house->url}}" class="btn btn-primary pull-right">Visualizza &rarr;</a>
+                </div>
             </div>
         </div>
         @empty
