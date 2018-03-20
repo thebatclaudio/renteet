@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\House;
+
+class CreateFakeHouse extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $faker = Faker\Factory::create();
+        $house = new House;
+        $house->name = "Casa dolce casa";
+        $house->street_name = "Via del Cacio Cavallo";
+        $house->number = 69;
+        $house->city = "Palermo";
+        $house->latitude = "38.105106";
+        $house->longitude = "13.351390";
+        $house->owner_id = 5;
+        $house->save();
+    }
+}

@@ -1,0 +1,7 @@
+.houses-list .card-block, .card.room-el .card-block {
+    padding: 20px;
+}
+
+.card.room-el {
+    min-height: 400px;
+}

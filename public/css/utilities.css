@@ -1,0 +1,33 @@
+body {
+    padding-top: 70px;
+    padding-bottom: 3rem;
+    color: #5a5a5a;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.form-control, .btn {
+    border-radius: 5px;
+}
+
+.mt-md-0 {
+    width: 50%;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.search-icon {
+    z-index: 9999;
+    position: absolute;
+    color: rgba(253, 127, 124, 0.5);
+    margin-left: 15px;
+}
