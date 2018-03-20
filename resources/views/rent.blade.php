@@ -8,11 +8,13 @@
 
       <div id="houseCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/1.jpg")}})"></div>
-          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/2.jpg")}})"></div>
-          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/3.jpg")}})"></div>
-          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/4.jpg")}})"></div>
-          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/5.jpg")}})"></div>
+          @foreach($house->photos as $photo)
+            @if ($loop->first)
+              <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
+            @else
+              <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
+            @endif
+          @endforeach
         </div>
         <a class="carousel-control-prev" href="#houseCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>

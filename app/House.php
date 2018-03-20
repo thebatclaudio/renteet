@@ -14,6 +14,10 @@ class House extends Model
         return $this->hasMany('App\Room');
     }
 
+    public function photos() {
+        return $this->hasMany('App\Photo');
+    }
+
     public function getBedsAttribute($value) {
         return $this->rooms()->sum("beds");
     }
