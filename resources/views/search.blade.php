@@ -32,7 +32,7 @@
 
             <div class="card-body">
                 <h5 class="card-title"><strong>{{$house->name}}</strong> <small>{{$house->street_name}}, {{$house->number}}</small></h5>
-                <div class="house-users">
+                <div class="house-users margin-top-20">
                 @foreach($house->rooms as $room)
                     @foreach($room->acceptedUsers as $user)
                         <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
