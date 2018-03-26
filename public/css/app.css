@@ -346,6 +346,17 @@ li.nav-item.dropdown {
     border: 1px solid rgba(0,0,0,.125);
   }
 
+  .no-style .free-place, .no-style .user-name {
+    color: #5a5a5a;
+  }
+
+  .no-style:hover, 
+  .no-style .user-name:hover, 
+  .no-style .user-name:active, 
+  .no-style .user-name:visited {
+    text-decoration: none;
+  }
+  
   /* RESPONSIVE CSS
   -------------------------------------------------- */
   

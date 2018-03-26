@@ -47,10 +47,12 @@
 
             {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
             @foreach($room->acceptedUsers as $user)
-            <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-              <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
-              <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
-            </div>
+              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+                <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
+                  <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
+                  <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
+                </a>
+              </div>
             @endforeach
 
             {{-- se ci sono posti liberi --}}

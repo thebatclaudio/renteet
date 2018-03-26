@@ -34,7 +34,7 @@ class User extends Authenticatable
     ];
 
     public function getProfileUrlAttribute() {
-        return "/user/".$this->id;
+        return "/profile/".$this->id;
     }
 
     public function getProfilePicAttribute() {
