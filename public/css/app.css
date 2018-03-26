@@ -356,6 +356,27 @@ li.nav-item.dropdown {
   .no-style .user-name:visited {
     text-decoration: none;
   }
+
+  .interests-container {
+    margin: 40px 0px;
+    padding: 20px 0px;
+    font-size: 14px;
+    background-color: whitesmoke;
+    border-top: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    text-align: left;
+  }
+
+  .interests-container h4 {
+    margin: 0px 20px 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  .interests-container .interests-list {
+    list-style-type: none;
+    padding-left: 20px;
+  }
   
   /* RESPONSIVE CSS
   -------------------------------------------------- */

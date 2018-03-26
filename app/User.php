@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function rooms() {
         return $this->belongsToMany('App\Room')->withPivot('accepted_by_owner', 'interested');
     }
+
+    public function interests() {
+        return $this->belongsToMany('App\Interest', 'users_interests');
+    }
 }

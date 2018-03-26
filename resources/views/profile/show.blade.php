@@ -15,6 +15,15 @@
                     <li class="list-group-item">Vive a <strong>{{$user->living_city}}</strong></li>
                     <li class="list-group-item">Nato a <strong>{{$user->born_city}}</strong></li>
                 </ul>
+
+                <div class="interests-container">
+                    <h4>Interessi</h4>
+                    <ul class="interests-list">
+                    @foreach($user->interests as $interest)
+                        <li>#{{$interest->name}}</li>
+                    @endforeach
+                    <ul>
+                </div>
             </div>
         </div>
         <div class="col-md-9">
