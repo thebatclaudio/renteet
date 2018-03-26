@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
     Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');
     Route::post('/complete-signup/upload-picture/', 'UploadPictureController@uploadPicture')->name("upload-picture");
+    Route::get('/complete-signup/crop-picture/', 'UploadPictureController@showCropPicture');
+    Route::post('/complete-signup/crop-picture/', 'UploadPictureController@cropPicture')->name("crop-picture");
     Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 

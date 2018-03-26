@@ -27,8 +27,21 @@ class UploadPictureController extends Controller
 
         request()->profile_picture->move(public_path('images/profile_pics'), \Auth::user()->id.".jpg");
 
-        return redirect('/home');
+        return redirect('/complete-signup/crop-picture');
     
+    }
+
+    public function showCropPicture() {
+        return view("profile.cropPicture");
+    }
+
+    public function cropPicture(Request $request) {
+        $path = public_path('images/profile_pics')."/".\Auth::user()->id.".jpg";
+
+        \Image::make(file_get_contents($request->blob))->save($path);
+
+        return redirect('/home');
+
     }
     
 }
