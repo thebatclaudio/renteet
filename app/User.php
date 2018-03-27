@@ -38,7 +38,7 @@ class User extends Authenticatable
     }
 
     public function getProfilePicAttribute() {
-        return "/images/profile_pics/".$this->id.".jpg";
+        return "/images/profile_pics/".$this->id.".jpg?".rand();
     }
 
     public function getProfileCompleteAttribute() {

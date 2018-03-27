@@ -15,8 +15,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.5/jquery.fullpage.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
-        <link rel="stylesheet" href="/css/app.css">
-        <link rel="stylesheet" href="/css/utilities.css">
+        <link rel="stylesheet" href="/css/app.css?{{rand()}}">
+        <link rel="stylesheet" href="/css/utilities.css?{{rand()}}">
 
         @yield('styles')
     </head>
