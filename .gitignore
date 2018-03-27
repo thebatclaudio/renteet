@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .env.dev.example
 /storage
+.vscode
