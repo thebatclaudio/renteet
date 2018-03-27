@@ -23,7 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(!\Auth::user()->profile_complete) {
+            return redirect()->to('/complete-signup/upload-picture');
+        } else {
+            return view('home');
+        }
     }
 
     public function dashboard() {

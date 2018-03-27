@@ -30,7 +30,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'profile_url', 'profile_pic', 'profile_complete',
+        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete',
     ];
 
     public function getProfileUrlAttribute() {
@@ -38,15 +38,27 @@ class User extends Authenticatable
     }
 
     public function getProfilePicAttribute() {
-        return "/images/profile_pics/".$this->id.".jpg?".rand();
+        if(file_exists( public_path() . '/images/profile_pics/' . $this->id . '-cropped.jpg')) {
+            return "/images/profile_pics/".$this->id."-cropped.jpg?".rand();
+        } else {
+            return "/images/default-user.png";
+        }
+    }
+
+    public function getProfilePicRealSizeAttribute() {
+        if(file_exists( public_path() . '/images/profile_pics/' . $this->id . '.jpg')) {
+            return "/images/profile_pics/".$this->id.".jpg?".rand();
+        } else {
+            return "/images/default-user.png";
+        }
     }
 
     public function getProfileCompleteAttribute() {
         //check if profile is completed
-        if(!file_exists( public_path() . '/images/profile_pics/' . $this->id . '.jpg')) {
+        if(!file_exists( public_path() . '/images/profile_pics/' . $this->id . '-cropped.jpg')) {
             return false;
         }
-        return false;
+        return true;
     }
     
     public function houses() {

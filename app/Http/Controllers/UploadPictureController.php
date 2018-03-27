@@ -36,7 +36,7 @@ class UploadPictureController extends Controller
     }
 
     public function cropPicture(Request $request) {
-        $path = public_path('images/profile_pics')."/".\Auth::user()->id.".jpg";
+        $path = public_path('images/profile_pics')."/".\Auth::user()->id."-cropped.jpg";
 
         \Image::make(file_get_contents($request->blob))->save($path);
 

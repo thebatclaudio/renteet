@@ -22,7 +22,7 @@
             }
         });
         basic.croppie('bind', {
-            url: '{{\Auth::user()->profile_pic}}'
+            url: '{{\Auth::user()->profile_pic_real_size}}'
         });
         //on button click
         $("#crop-btn").on('click', function () {
@@ -45,7 +45,7 @@
                     <form id="crop-form" class="form-horizontal" method="POST" action="{{ route('crop-picture') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        <div class="panel-body">
+                        <div class="panel-body text-center">
                             <div id="image-to-crop"></div>
 
                             <button type="button" id="crop-btn" class="btn btn-success">Salva</button>

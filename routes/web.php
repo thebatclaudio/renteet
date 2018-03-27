@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if(\Auth::check()) {
-        return redirect()->to("/rent/1");
+        return redirect()->to("/home");
     }
     return view('welcome');
 });
