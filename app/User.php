@@ -30,11 +30,15 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete',
+        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete', 'lessor'
     ];
 
     public function getProfileUrlAttribute() {
         return "/profile/".$this->id;
+    }
+
+    public function getLessorAttribute() {
+        return $this->houses()->count() > 0;
     }
 
     public function getProfilePicAttribute() {

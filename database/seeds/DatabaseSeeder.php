@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateFakeUsers::class);
         $this->call(CreateFakeHouse::class);
         $this->call(CreateFakeRooms::class);
+        $this->call(CreateFakeReview::class);
     }
 }
