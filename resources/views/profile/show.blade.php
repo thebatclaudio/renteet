@@ -114,7 +114,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link" id="roommate-tab" data-toggle="tab" href="#roommate" role="tab" aria-controls="roommate" aria-selected="false">Coinquilino</a>
+                        <a class="nav-link" id="roommate-tab" data-toggle="tab" href="#roommate" role="tab" aria-controls="roommate" aria-selected="false">Coinquilini</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
