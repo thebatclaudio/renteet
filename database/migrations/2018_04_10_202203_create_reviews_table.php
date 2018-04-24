@@ -22,6 +22,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('from_user_id')->references('id')->on('users');
             $table->integer('to_user_id')->unsigned();
             $table->foreign('to_user_id')->references('id')->on('users');
+            $table->boolean('lessor');
             $table->timestamps();
         });
     }
