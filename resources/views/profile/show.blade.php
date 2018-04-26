@@ -71,6 +71,32 @@
     margin-top: unset;
     margin-left: 16px !important;
 }
+div[class^=circle] {
+    background:white;
+    border-radius:100%;
+    display:inline-block;
+    height:20px;
+    width:20px;
+    overflow:hidden;
+    position:relative;
+}
+div[class^=circle]:after {
+    content:'';
+    position:absolute;
+    display:block;
+    height:100%;
+    left:0;
+    background:orange;
+}
+div.half:after {
+    width: 50px;
+}
+div.full:after {
+    width:100%;
+}
+.nav-item {
+    width: 50%;
+}
 </style>
 @section('styles')
 
@@ -102,11 +128,42 @@
         </div>
         <div class="col-md-5">
             <div class="timeline-column">
-
+                <div class="container text-center h-100">
+                    <div class="row h-100">
+                        <div class="col-sm-12 my-auto">
+                            <br>
+                            <strong>Rating medio Coinquilini:</strong>
+                            {{ number_format(App\Review::where('to_user_id', $user->id)->where('lessor', false)->avg('rate'), 2) }} <br>
+                            @for($i = 0; $i < 5; $i++)
+                                @if($i < floor(App\Review::where('to_user_id', $user->id)->where('lessor', false)->avg('rate')))
+                                    <div class='circle full'></div>
+                                @elseif(round(App\Review::where('to_user_id', $user->id)->where('lessor', false)->avg('rate') * 2) % 2)
+                                    <div class="circle half"></div>
+                                @else
+                                    <div class="circle"></div>
+                                @endif
+                            @endfor
+                            <br><br>
+                            <button class="btn btn-primary btn-block btn-large">Visualizza gli annunci di {{ $user->first_name }}</button>
+                            <br>
+                            <strong>Rating medio Coinquilini:</strong>
+                            {{ number_format(App\Review::where('to_user_id', $user->id)->where('lessor', true)->avg('rate'), 2) }} <br>
+                            @for($i = 0; $i < 5; $i++)
+                                @if($i < floor(App\Review::where('to_user_id', $user->id)->where('lessor', true)->avg('rate')))
+                                    <div class='circle full'></div>
+                                @elseif(round(App\Review::where('to_user_id', $user->id)->where('lessor', true)->avg('rate') * 2) % 2)
+                                    <div class="circle half"></div>
+                                @else
+                                    <div class="circle"></div>
+                                @endif
+                            @endfor
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="timeline-column reviews-column">
+            <div class="container timeline-column reviews-column">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     @if($user->lessor)
                     <li class="nav-item">
@@ -114,7 +171,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link" id="roommate-tab" data-toggle="tab" href="#roommate" role="tab" aria-controls="roommate" aria-selected="false">Coinquilini</a>
+                        <a class="nav-link {{ $user->lessor ? '' : 'active' }}" id="roommate-tab" data-toggle="tab" href="#roommate" role="tab" aria-controls="roommate" aria-selected="false">Coinquilini</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -145,7 +202,7 @@
                                 </li>
                             @endif
                         @empty
-                            <strong>{{ $user->first_name }} non ha ancora recensioni come Locatore.</strong>
+                            <strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong>
                         @endforelse
                         </ul>
                     </div>
