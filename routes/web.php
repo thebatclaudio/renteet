@@ -25,10 +25,23 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
+
+    //step 1: carica foto
     Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');
     Route::post('/complete-signup/upload-picture/', 'UploadPictureController@uploadPicture')->name("upload-picture");
+
+    //step 2: crop foto
     Route::get('/complete-signup/crop-picture/', 'UploadPictureController@showCropPicture');
     Route::post('/complete-signup/crop-picture/', 'UploadPictureController@cropPicture')->name("crop-picture");
+
+    // step 3: dati personali
+    Route::get('/complete-signup/personal-info/', 'UserController@showCompletePersonalInfoForm');
+    Route::post('/complete-signup/personal-info/', 'UserController@completePersonalInfo')->name("complete-personal-info");
+
+    // step 4: interessi
+    Route::get('/complete-signup/interests', 'UserController@showInterestsForm');
+    Route::post('/complete-signup/interests', 'UserController@saveInterests')->name("save-interests");
+    
     Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 
