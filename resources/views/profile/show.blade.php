@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', $user->first_name.' '.$user->last_name)
+
+@section('styles')
 <style>
 .reviews-column .list-group-item {
     background: none;
@@ -94,12 +96,10 @@ div.half:after {
 div.full:after {
     width:100%;
 }
-.nav-item {
+.reviews-column .nav-tabs .nav-item {
     width: 50%;
 }
 </style>
-@section('styles')
-
 @endsection
 
 @section('content')
@@ -164,7 +164,7 @@ div.full:after {
         </div>
         <div class="col-md-4">
             <div class="container timeline-column reviews-column">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <ul class="nav nav-tabs" id="reviewsTab" role="tablist">
                     @if($user->lessor)
                     <li class="nav-item">
                         <a class="nav-link active" id="lessor-tab" data-toggle="tab" href="#lessor" role="tab" aria-controls="lessor" aria-selected="true">Ospiti</a>
@@ -174,7 +174,7 @@ div.full:after {
                         <a class="nav-link {{ $user->lessor ? '' : 'active' }}" id="roommate-tab" data-toggle="tab" href="#roommate" role="tab" aria-controls="roommate" aria-selected="false">Coinquilini</a>
                     </li>
                 </ul>
-                <div class="tab-content" id="myTabContent">
+                <div class="tab-content" id="reviewsTabContent">
                     <div class="tab-pane fade show active" id="lessor" role="tabpanel" aria-labelledby="lessor-tab">
                         <ul class="list-group">
                         @forelse (App\Review::where('to_user_id', $user->id)->where('lessor', true)->cursor() as $review)
