@@ -39,17 +39,20 @@ $('input').tagsinput({
         <div class="row margin-top-40">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" data-role="tagsinput">
+                    <form class="form-horizontal" method="POST" action="{{ route('save-interests') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" name="interests" data-role="tagsinput">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row margin-top-20">
-                        <div class="col-md-12">                    
-                            <button type="submit" class="btn btn-success">Salva</button>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">                    
+                                <button type="submit" class="btn btn-success">Salva</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

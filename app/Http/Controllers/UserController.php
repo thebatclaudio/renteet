@@ -45,4 +45,26 @@ class UserController extends Controller
     public function showInterestsForm() {
         return view('profile.interestsForm');
     }
+
+    public function saveInterests(Request $request){
+        $interests = explode(",",$request->interests);
+        $interestsToAdd = [];
+        foreach($interests as $interest){
+
+            \Log::info($interest);
+
+            if($checkInterest = \App\Interest::where('name', $interest)->first()) {
+                $interestsToAdd[] = $checkInterest->id;
+            } else {
+                $newInterest = new \App\Interest;
+                $newInterest->name = $interest;
+                $newInterest->save();
+                $interestsToAdd[] = $newInterest->id;
+            }
+
+            \Auth::user()->interests()->syncWithoutDetaching($interestsToAdd);
+        }
+
+        return redirect()->to('home');
+    }
 }
