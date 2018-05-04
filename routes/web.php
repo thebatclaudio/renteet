@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
+    
+    Route::get('/house', 'UserController@showHouse')->name('house');
 
     // admin routes, for who manage houses
     Route::prefix('admin')->name('admin.')->group(function () {

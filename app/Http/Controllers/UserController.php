@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,5 +45,11 @@ class UserController extends Controller
 
     public function showInterestsForm() {
         return view('profile.interestsForm');
+    }
+
+    public function showHouse() {
+        return view('house', [
+            'house' => \App\Room::find(\App\RoomUser::where('user_id', Auth::user()->id)->first()->room_id)->house
+        ]);
     }
 }
