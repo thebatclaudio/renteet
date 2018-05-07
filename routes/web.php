@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
     
     Route::get('/house', 'UserController@showHouse')->name('house');
+    Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
 
     // admin routes, for who manage houses
     Route::prefix('admin')->name('admin.')->group(function () {

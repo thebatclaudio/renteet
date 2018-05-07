@@ -18,6 +18,31 @@
     white-space:normal !important;
     word-wrap: break-word; 
 }
+div[class^=circle] {
+    background:white;
+    border-radius:100%;
+    display:inline-block;
+    height:20px;
+    width:20px;
+    overflow:hidden;
+    position:relative;
+    border: 2px solid orange;
+}
+div[class^=circle]:after {
+    content:'';
+    position:absolute;
+    display:block;
+    height:100%;
+    left:0;
+    border-radius:100%;
+    height:20px;
+    width:20px;
+}
+div.full:hover:after {
+    border-radius:100%;
+    width:100%;
+    background: orange;
+}
 </style>
 @endsection
 
@@ -62,6 +87,80 @@
         <div class="col-md-3">
             <button class="btn btn-block btn-danger btn-lg">Recedi dal contratto di locazione</button>
         </div>
+        <div class="col-md-2 justify-content-center align-self-center">
+            <strong>I tuoi coinquilini</strong>
+        </div>
+        <div class="col-md-6">
+            @foreach(App\House::find($house->id)->rooms as $room)
+                @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
+                    <img src="{{ App\User::find($room_user->user_id)->profile_pic }}" class="img-circle img-responsive img-thumbnail col-md-2 mx-auto d-block">
+                @endforeach
+            @endforeach
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-lg btn-outline">Leggi contratto d'affitto</button>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    Chat della casa
+                </div>
+                <div class="card-body">
+
+                </div>
+                <div class="card-footer">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Inserisci qui il messaggio..." aria-label="Inserisci qui il messaggio..." aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-success" type="button"><i class="fa fa-send"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex flex-row">
+        <form action="{{ route('user.rating') }}" method="post">
+        @foreach(App\House::find($house->id)->rooms as $room)
+            @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
+                <div class="p-2 text-center">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="uid" value="{{ App\User::find($room_user->user_id)->id }}">
+                    <input type="hidden" name="rating" value="">
+                    <img src="{{ App\User::find($room_user->user_id)->profile_pic }}" class="img-circle img-responsive col-md-4"><br>
+                    <strong>{{ App\User::find($room_user->user_id)->first_name }} {{ App\User::find($room_user->user_id)->last_name }}</strong><br>
+                    <br>
+                    <div class="review">
+                        <div class='circle full' data-value="1">1</div>
+                        <div class='circle full' data-value="2">2</div>
+                        <div class='circle full' data-value="3">3</div>
+                        <div class='circle full' data-value="4">4</div>
+                        <div class='circle full' data-value="5">5</div>
+                    </div>
+                    <br><br>
+                    <input type="text" name="title" placeholder="Inserisci qui il titolo..." class="form-control"><br>
+                    <textarea name="message" id="" cols="14" rows="10" placeholder="Inserisci qui il tuo messaggio..." class="form-control"></textarea><br>
+                    <button type="submit" class="btn btn-lg btn-primary">Recensisci</button>
+                </div>
+            @endforeach
+        @endforeach
+        </form>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+$('.circle').click(() => {
+    $('#rate').val($(this).data('value'));
+});
+</script>
 @endsection
