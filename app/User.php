@@ -80,4 +80,12 @@ class User extends Authenticatable
     public function interests() {
         return $this->belongsToMany('App\Interest', 'users_interests');
     }
+
+    public function bornCity() {
+        return $this->belongsTo('App\City', 'born_city_id');
+    }
+
+    public function livingCity() {
+        return $this->belongsTo('App\City', 'living_city_id');
+    }
 }

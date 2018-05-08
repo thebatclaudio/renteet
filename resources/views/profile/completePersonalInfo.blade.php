@@ -2,13 +2,63 @@
 
 @section('title', 'Completa il tuo profilo')
 
+@section('scripts')
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("maps", "3.x", {callback: initialize, other_params:'sensor=false&libraries=places&key=AIzaSyAgn7e4Tc95WlmbyqCz71oGDctx3rXf6oQ'});
+    function initialize() {
+        var inputLivingCity = document.getElementById('living_city');
+        var autocompleteLivingCity = new google.maps.places.Autocomplete(inputLivingCity, { types: ['(cities)'], region:'EU' });
+        google.maps.event.addListener(autocompleteLivingCity, 'place_changed', function() {
+            var place = autocompleteLivingCity.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+            document.getElementById('living_city_id').value = place.id;
+        });
+
+        var inputBornCity = document.getElementById('born_city');
+        var autocompleteBornCity = new google.maps.places.Autocomplete(inputBornCity, { types: ['(cities)'], region:'EU' });
+        google.maps.event.addListener(autocompleteBornCity, 'place_changed', function() {
+            var place = autocompleteBornCity.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+            document.getElementById('born_city_id').value = place.id;
+        });
+    }
+
+    function validationFunction() {
+
+        if(!$("#living_city_id").val()) {
+            return false;
+        }
+
+        if(!$("#born_city_id").val()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if( (event.keyCode == 13) && (validationFunction() == false) ) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
+@endsection
+
 @section('content')
     <div class="container margin-top-20">
         <h1 class="page-title">{{'Completa i tuoi dati'}}</h1>
         <div class="row margin-top-40">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <form class="form-horizontal" method="POST" action="{{ route('complete-personal-info') }}" enctype="multipart/form-data">
+                    <form id="personal-info-form" class="form-horizontal" method="POST" action="{{ route('complete-personal-info') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         @if(isset($error))
@@ -35,7 +85,8 @@
                                 <div class="form-group row">
                                     <label for="gender" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="living_city" class="form-control" value="{{ old('living_city') }}">
+                                        <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city') }}">
+                                        <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +97,8 @@
                                 <div class="form-group row">
                                     <label for="gender" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="born_city" class="form-control" value="{{ old('born_city') }}">
+                                        <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city') }}">
+                                        <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
                                     </div>
                                 </div>
                             </div>

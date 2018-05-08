@@ -24,17 +24,35 @@ class UserController extends Controller
     }
 
     public function completePersonalInfo(Request $request) {
-
+        
         $validatedData = $request->validate([
             'gender' => 'required',
             'living_city' => 'required',
-            'born_city' => 'required'
+            'living_city_id' => 'required',
+            'born_city' => 'required',
+            'born_city_id' => 'required',
         ]);
 
         $user = \Auth::user();
         $user->gender = $request->gender;
-        $user->living_city = $request->living_city;
-        $user->born_city = $request->born_city;
+        // controllo se le città esistono già
+        if(!$livingCity = \App\City::where('google_place_id', $request->living_city_id)->first()) {
+            $livingCity = new \App\City;
+            $livingCity->google_place_id = $request->living_city_id;
+            $livingCity->text = $request->living_city;
+            $livingCity->save();
+        }
+
+        $user->living_city_id = $livingCity->id;
+
+        if(!$bornCity = \App\City::where('google_place_id', $request->born_city_id)->first()) {
+            $bornCity = new \App\City;
+            $bornCity->google_place_id = $request->born_city_id;
+            $bornCity->text = $request->born_city;
+            $bornCity->save();
+        }
+
+        $user->born_city_id = $bornCity->id;
         
         if($user->save()) {
             return redirect()->to('/complete-signup/interests/');
