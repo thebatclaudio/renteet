@@ -22,7 +22,7 @@ Auth::routes();
 
 // authenticated routes
 Route::middleware(['auth'])->group(function (){
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home')->middleware('profile.complete');
 
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
 
