@@ -34,7 +34,7 @@ class ProfileComplete
             }
 
             // controllo se l'utente ha almeno un interesse
-            if($user->interests()->count()) {
+            if(!$user->interests()->count()) {
                 return redirect('/complete-signup/interests');
             }
         }
