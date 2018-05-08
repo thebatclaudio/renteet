@@ -32,6 +32,11 @@ class ProfileComplete
             if(empty($user->born_city) OR empty($user->living_city) OR empty($user->gender)) {
                 return redirect('/complete-signup/personal-info/');
             }
+
+            // controllo se l'utente ha almeno un interesse
+            if($user->interests()->count()) {
+                return redirect('/complete-signup/interests');
+            }
         }
 
         return $next($request);
