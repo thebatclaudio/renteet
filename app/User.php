@@ -64,6 +64,10 @@ class User extends Authenticatable
         }
         return true;
     }
+
+    public function hasHouse() {
+        return RoomUser::where('user_id', $this->id)->first()->exists;
+    }
     
     public function houses() {
         return $this->hasMany('App\House', 'owner_id');
