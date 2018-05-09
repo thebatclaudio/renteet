@@ -43,6 +43,10 @@ div.full:hover:after {
     width:100%;
     background: orange;
 }
+div.selected {
+    border-radius:100%;
+    background: orange;
+}
 </style>
 @endsection
 
@@ -127,40 +131,40 @@ div.full:hover:after {
     </div>
     <br>
     <div class="d-flex flex-row">
-        <form action="{{ route('user.rating') }}" method="post">
         @foreach(App\House::find($house->id)->rooms as $room)
-            @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
+        @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
+            <form action="{{ route('user.rating') }}" method="post">
                 <div class="p-2 text-center">
                     {{ csrf_field() }}
                     <input type="hidden" name="uid" value="{{ App\User::find($room_user->user_id)->id }}">
-                    <input type="hidden" name="rating" value="">
+                    <input type="hidden" id="rating" name="rating" value="">
                     <img src="{{ App\User::find($room_user->user_id)->profile_pic }}" class="img-circle img-responsive col-md-4"><br>
                     <strong>{{ App\User::find($room_user->user_id)->first_name }} {{ App\User::find($room_user->user_id)->last_name }}</strong><br>
                     <br>
                     <div class="review">
-                        <div class='circle full' data-value="1">1</div>
-                        <div class='circle full' data-value="2">2</div>
-                        <div class='circle full' data-value="3">3</div>
-                        <div class='circle full' data-value="4">4</div>
-                        <div class='circle full' data-value="5">5</div>
+                        <div class='circle full' onclick="setRating(this, 1)"></div>
+                        <div class='circle full' onclick="setRating(this, 2)"></div>
+                        <div class='circle full' onclick="setRating(this, 3)"></div>
+                        <div class='circle full' onclick="setRating(this, 4)"></div>
+                        <div class='circle full' onclick="setRating(this, 5)"></div>
                     </div>
                     <br><br>
                     <input type="text" name="title" placeholder="Inserisci qui il titolo..." class="form-control"><br>
-                    <textarea name="message" id="" cols="14" rows="10" placeholder="Inserisci qui il tuo messaggio..." class="form-control"></textarea><br>
+                    <textarea name="message" id="" cols="14" rows="6" placeholder="Inserisci qui il tuo messaggio..." class="form-control"></textarea><br>
                     <button type="submit" class="btn btn-lg btn-primary">Recensisci</button>
                 </div>
+            </form>
             @endforeach
         @endforeach
-        </form>
     </div>
 </div>
 @endsection
 
-
 @section('scripts')
 <script>
-$('.circle').click(() => {
-    $('#rate').val($(this).data('value'));
-});
+function setRating(element, value) {
+    document.getElementById('rating').value = value;
+    element.classList.add('selected');
+}
 </script>
 @endsection
