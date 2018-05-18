@@ -12,6 +12,7 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "nesbot/carbon": "^1.22",
+        "spatie/geocoder": "^3.3",
         "spatie/laravel-permission": "^2.7"
     },
     "require-dev": {
