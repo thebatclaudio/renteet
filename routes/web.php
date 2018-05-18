@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function (){
     // admin routes, for who manage houses
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+        Route::get('house/new', 'AdminController@showNewHouseForm')->name('house.new');
         Route::get('house/{id}', 'AdminController@house')->name('house');
     });
 });

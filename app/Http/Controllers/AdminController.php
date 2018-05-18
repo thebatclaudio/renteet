@@ -13,4 +13,8 @@ class AdminController extends Controller
             }
         }
     }
+
+    public function showNewHouseForm() {
+        return view('admin.newHouse');
+    }
 }

@@ -72,6 +72,9 @@ li.nav-item.dropdown {
   z-index: 1;
 }
 
+h3.page-title {
+  display: inline-block;
+}
   
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
