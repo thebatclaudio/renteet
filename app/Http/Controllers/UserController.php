@@ -40,6 +40,8 @@ class UserController extends Controller
             $livingCity = new \App\City;
             $livingCity->google_place_id = $request->living_city_id;
             $livingCity->text = $request->living_city;
+            $livingCity->latitude = $request->living_city_lat;
+            $livingCity->longitude = $request->living_city_lng;
             $livingCity->save();
         }
 
@@ -49,6 +51,8 @@ class UserController extends Controller
             $bornCity = new \App\City;
             $bornCity->google_place_id = $request->born_city_id;
             $bornCity->text = $request->born_city;
+            $bornCity->latitude = $request->born_city_lat;
+            $bornCity->longitude = $request->born_city_lng;
             $bornCity->save();
         }
 

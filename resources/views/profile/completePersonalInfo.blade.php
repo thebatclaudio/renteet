@@ -14,7 +14,10 @@
             if (!place.geometry) {
                 return;
             }
+
             document.getElementById('living_city_id').value = place.id;
+            document.getElementById('living_city_lat').value = place.geometry.location.lat();
+            document.getElementById('living_city_lng').value = place.geometry.location.lng();
         });
 
         var inputBornCity = document.getElementById('born_city');
@@ -25,6 +28,8 @@
                 return;
             }
             document.getElementById('born_city_id').value = place.id;
+            document.getElementById('born_city_lat').value = place.geometry.location.lat();
+            document.getElementById('born_city_lng').value = place.geometry.location.lng();
         });
     }
 
@@ -87,6 +92,8 @@
                                     <div class="col-md-8">
                                         <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city') }}">
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
+                                        <input type="hidden" id="living_city_lat" name="living_city_lat" value="{{ old('living_city_lat') }}">
+                                        <input type="hidden" id="living_city_lng" name="living_city_lng" value="{{ old('living_city_lng') }}">
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +106,8 @@
                                     <div class="col-md-8">
                                         <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city') }}">
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
+                                        <input type="hidden" id="born_city_lat" name="born_city_lat" value="{{ old('born_city_lat') }}">
+                                        <input type="hidden" id="born_city_lng" name="born_city_lng" value="{{ old('born_city_lng') }}">
                                     </div>
                                 </div>
                             </div>

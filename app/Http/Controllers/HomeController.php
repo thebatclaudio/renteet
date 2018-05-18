@@ -22,7 +22,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $userCity = \Auth::user()->livingCity;
+        $houses = SearchController::getHousesByLatLng($userCity->latitude, $userCity->longitude);
+        
+        return view('home', [
+            'houses' => $houses
+        ]);
     }
 
     public function dashboard() {
