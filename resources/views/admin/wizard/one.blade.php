@@ -35,12 +35,16 @@
         </div>
         <div class="row margin-top-20">
             <div class="col-md-6">
-                <label for="max_guests">Quante persone puoi ospitare?</label>
-                <input id="max_guests" name="max_guests" class="form-control" type="number" min="0" default="0" />
+                <label for="bedrooms">Quante stanze da letto sono presenti?</label>
+                <input id="bedrooms" name="bedrooms" class="form-control" type="number" min="0" default="0" />
             </div>
-            <div class="col-md-6">
-                <label class="margin-left" for="bedrooms">Quante stanze da letto sono presenti?</label>
-                <input id="bedrooms" name="bedrooms" class="form-control margin-left" type="number" min="0" default="0" />
+        </div>
+
+        <div id="rooms-container" style="display: none">
+            <h5 class="step-title margin-top-40">Posti letto</h5>
+
+            <div id="rooms-container-inputs">
+
             </div>
         </div>
         
@@ -87,6 +91,27 @@
                 return false;
             }
         });
+    });
+
+    $("#bedrooms").on('change', function() {
+        var value = $(this).val();
+        var roomsContainer = $("#rooms-container");
+
+        if(value == 0) {
+            roomsContainer.hide();
+        } else {
+            roomsContainer.show();
+        }
+
+        var html = '';
+
+        for(var i = 0; i < value; i++) {
+            html += '<div class="row"><div class="col-md-6"><label for="bedrooms">Stanza '+(i+1)+'</label><input name="rooms[]" class="form-control" type="number" min="0" default="0" /></div></div>';
+        }
+
+        console.log(html);
+
+        $("#rooms-container-inputs").html(html);
     });
 </script>
 @endsection
