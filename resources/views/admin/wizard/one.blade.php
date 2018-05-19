@@ -12,7 +12,7 @@
     <h3 class="step-title">Di che ambiente si tratta?</h3>
 
 
-    <form class="form-horizontal" method="POST" action="">
+    <form class="form-horizontal" method="POST" action="{{route('admin.house.wizard.one.save')}}">
         {{ csrf_field() }}
         
         <div class="row">
@@ -28,9 +28,11 @@
             <div class="col-md-6">
                 <label class="margin-left" for="address">Inserisci l'indirizzo</label>
                 <input id="address" name="address" class="form-control margin-left" type="text" placeholder="Inserisci una via" />
-                <input id="address_id" name="address_id" type="hidden" />
-                <input id="address_lat" name="address_id" type="hidden" />
-                <input id="address_lng" name="address_id" type="hidden" />
+                <input id="address_lat" name="address_lat" type="hidden" />
+                <input id="address_lng" name="address_lng" type="hidden" />
+                <input id="address_city" name="address_city" type="hidden" />
+                <input id="address_number" name="address_number" type="hidden" />
+                <input id="address_name" name="address_name" type="hidden" />
             </div>
         </div>
         <div class="row margin-top-20">
@@ -43,9 +45,7 @@
         <div id="rooms-container" style="display: none">
             <h5 class="step-title margin-top-40">Posti letto</h5>
 
-            <div id="rooms-container-inputs">
-
-            </div>
+            <div id="rooms-container-inputs"></div>
         </div>
         
         <div class="actions margin-top-20 text-right">
@@ -69,9 +69,24 @@
                 return;
             }
 
-            document.getElementById('address_id').value = place.id;
             document.getElementById('address_lat').value = place.geometry.location.lat();
             document.getElementById('address_lng').value = place.geometry.location.lng();
+
+            for(var i in place.address_components){
+                var element = place.address_components[i];
+
+                if(element.types.indexOf('street_number') !== -1) {
+                    document.getElementById('address_number').value = element.long_name;
+                }
+
+                if(element.types.indexOf('route') !== -1) {
+                    document.getElementById('address_name').value = element.long_name;
+                }
+
+                if(element.types.indexOf('locality') !== -1) {
+                    document.getElementById('address_city').value = element.long_name;
+                }
+            }
         });
     }
 
@@ -108,8 +123,6 @@
         for(var i = 0; i < value; i++) {
             html += '<div class="row"><div class="col-md-6"><label for="bedrooms">Stanza '+(i+1)+'</label><input name="rooms[]" class="form-control" type="number" min="0" default="0" /></div></div>';
         }
-
-        console.log(html);
 
         $("#rooms-container-inputs").html(html);
     });

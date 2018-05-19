@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function (){
         Route::prefix('house')->name('house.')->group(function () {
             Route::prefix('new/wizard')->name('wizard.')->group(function () {
                 Route::get('first-step', 'AdminController@newHouseWizardStepOne')->name('one');
+                Route::post('first-step', 'AdminController@newHouseWizardStepOneSave')->name('one.save');
                 Route::get('second-step', 'AdminController@newHouseWizardStepTwo')->name('two');
                 Route::get('third-step', 'AdminController@newHouseWizardStepThree')->name('three');
                 Route::get('last-step', 'AdminController@newHouseWizardStepFour')->name('four');
