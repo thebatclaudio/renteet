@@ -9,7 +9,21 @@
 
 <div class="container margin-top-20">
     <h6 class="step-number">Secondo passo</h6>
-    <h3 class="step-title">Di che ambiente si tratta?</h3>
+    <h3 class="step-title">Descrivi meglio il tuo immobile</h3>
 
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                @foreach($services as $service)
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="">
+                        {{$service->name}}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </form>
 </div>
 @endsection
