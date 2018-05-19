@@ -58,7 +58,8 @@ class AdminController extends Controller
 
     public function newHouseWizardStepTwo(){
         return view('admin.wizard.two', [
-            'services' => \App\Service::all()
+            'servicesQuantity' => \App\Service::quantityNeeded(true)->get(),
+            'servicesWithoutQuantity' => \App\Service::quantityNeeded(false)->get(),
         ]);
     }
 
