@@ -14,12 +14,10 @@ class AdminController extends Controller
         }
     }
 
-    public function showNewHouseForm() {
-        return view('admin.newHouse');
-    }
-
     public function newHouseWizardStepOne(){
-        return view('admin.wizard.one');
+        return view('admin.wizard.one', [
+            'houseTypes' => \App\HouseType::all()
+        ]);
     }
 
     public function newHouseWizardStepTwo(){
