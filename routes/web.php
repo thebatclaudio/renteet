@@ -50,10 +50,17 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/house', 'UserController@showHouse')->name('house');
     Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
 
-    // admin routes, for who manage houses
+    // admin routes, for who manage houses @remember: route name preceded always by "admin."
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
-        Route::get('house/new', 'AdminController@showNewHouseForm')->name('house.new');
+        Route::prefix('house')->name('house.')->group(function () {
+            Route::prefix('new/wizard')->name('wizard.')->group(function () {
+                Route::get('first-step', 'AdminController@newHouseWizardStepOne')->name('one');
+                Route::get('second-step', 'AdminController@newHouseWizardStepTwo')->name('two');
+                Route::get('third-step', 'AdminController@newHouseWizardStepThree')->name('three');
+                Route::get('last-step', 'AdminController@newHouseWizardStepFour')->name('four');
+            });
+        });
         Route::get('house/{id}', 'AdminController@house')->name('house');
     });
 });

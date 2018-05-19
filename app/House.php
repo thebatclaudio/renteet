@@ -18,6 +18,10 @@ class House extends Model
         return $this->hasMany('App\Photo');
     }
 
+    public function services() {
+        return $this->belongsToMany('App\Services')->withPivot('quantity');
+    }
+
     public function getBedsAttribute($value) {
         return $this->rooms()->sum("beds");
     }
