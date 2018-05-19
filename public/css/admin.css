@@ -5,3 +5,24 @@
 .card.room-el {
     min-height: 400px;
 }
+
+.wizard-progress {
+    border-radius: 0;
+}
+
+.wizard-progress .progress-bar {
+    background-color: #609ad3;
+}
+
+.step-number {
+    text-transform: uppercase;
+    color: #999;
+}
+
+.form-control {
+    width: 66%;
+}
+
+.margin-left {
+    margin-left: 34%;
+}

@@ -216,6 +216,10 @@ h3.page-title {
     cursor: pointer;
   }
 
+  button.btn.btn-primary.btn-lg {
+    padding: .5rem 2.4rem;
+  }
+
   .bed-container.free-bed .btn {
     display: none;
   }

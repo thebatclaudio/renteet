@@ -4,6 +4,6 @@
 
 @section('content')
 <div class="container margin-top-20">
-    <h1 class="page-title">{{'Inserisci una nuova casa'}}</h1>
+    <h1 class="page-title">{{'Inserisci un annuncio'}}</h1>
 </div>
 @endsection
