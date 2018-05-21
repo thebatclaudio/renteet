@@ -52,15 +52,28 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('admin.house.wizard.two');
+        return redirect()->route('admin.house.wizard.two', ['id' => $house->id]);
     }
 
 
-    public function newHouseWizardStepTwo(){
+    public function newHouseWizardStepTwo(Request $request){
         return view('admin.wizard.two', [
             'servicesQuantity' => \App\Service::quantityNeeded(true)->get(),
             'servicesWithoutQuantity' => \App\Service::quantityNeeded(false)->get(),
+            'id' => $request->input('id')
         ]);
+    }
+
+    public function newHouseWizardStepTwoSave(Request $request){
+        if($house = House::find($request->input('id'))) {
+            foreach($request->input('services') as $service) {
+                $house->services()->sync([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+            }
+
+            return redirect()->route('admin.house.wizard.three', ['id' => $house->id]);
+        }
+
+        return redirect()->back();
     }
 
     public function newHouseWizardStepThree(){

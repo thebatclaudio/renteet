@@ -19,7 +19,7 @@ class House extends Model
     }
 
     public function services() {
-        return $this->belongsToMany('App\Services')->withPivot('quantity');
+        return $this->belongsToMany('App\Service', 'houses_services')->withPivot('quantity');
     }
 
     public function getBedsAttribute($value) {

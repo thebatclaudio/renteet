@@ -11,7 +11,11 @@
     <h6 class="step-number">Secondo passo</h6>
     <h3 class="step-title">Descrivi meglio il tuo immobile</h3>
 
-    <form class="margin-top-20">
+    <form class="margin-top-20" method="post" action="{{route('admin.house.wizard.two.save')}}">
+        {{ csrf_field() }}
+
+        <input type="hidden" value="{{$id}}" name="id" />
+
         <div class="row">
             <div class="col-md-6">
                 <div class="list-group">
@@ -21,7 +25,7 @@
                             <div class="col-md-9 checkbox-column">
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input data-id="{{$service->id}}" class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="">
+                                        <input data-id="{{$service->id}}" class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="{{$service->id}}">
                                         {{$service->name}}
                                     </label>
                                 </div>
