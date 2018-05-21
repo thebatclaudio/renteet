@@ -27,8 +27,13 @@ class House extends Model
     }
 
     public function getPreviewImageUrlAttribute() {
-        $fileName = $this->photos->first()->file_name;
-        return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
+        if($this->photos->count()){
+            $fileName = $this->photos->first()->file_name;
+            return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
+        } else {
+            return "";
+        }
+
     }
 
     public function hasUser($id) {
