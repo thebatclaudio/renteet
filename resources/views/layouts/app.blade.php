@@ -24,7 +24,7 @@
 
         <header>
             <nav class="main-navbar navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <a class="navbar-brand" href="{{url('/')}}" title="{{ config('app.name', 'Laravel') }} - Home">
+                <a class="navbar-brand" href="{{url('/')}}" title="{{ config('app.name', 'Renteet') }} - Home">
                     <img class="logo" src="/images/renteet-logo.png">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
                     @else
                         <li class="nav-item dropdown">
+
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <img src="{{ Auth::user()->profile_pic }}" class="profile-pic">
                             </a>
@@ -67,6 +68,11 @@
                                     {{ csrf_field() }}
                                 </form>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-sm" style="margin-top: 5px">
+                                Inserisci un annuncio
+                            </a>
                         </li>
                     @endguest
                 </ul>
