@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="tipologia">Scegli una tipologia</label>
-                <select name="tipologia" class="form-control">
+                <select name="tipologia" class="form-control" required>
                     <option value="-1" disabled selected required>Selezionane una</option>
                     @foreach($houseTypes as $type)
                         <option value="{{$type->id}}">{{$type->name}}</option>
@@ -27,19 +27,26 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label class="margin-left" for="address">Inserisci l'indirizzo</label>
-                <input id="address" name="address" class="form-control margin-left" type="text" placeholder="Inserisci una via" />
+                <label for="address">Inserisci l'indirizzo</label>
+                <div class="row">
+                    <div class="col-md-10" style="padding-right: 1px">
+                        <input id="address" name="address" class="form-control w-100" type="text" placeholder="Inserisci una via" required />
+                    </div>
+                    <div class="col-md-2" style="padding-left: 1px">
+                        <input id="address_number" name="address_number" class="form-control w-100" type="text" placeholder="N°" required />
+                    </div>
+                </div>
+                
                 <input id="address_lat" name="address_lat" type="hidden" />
                 <input id="address_lng" name="address_lng" type="hidden" />
                 <input id="address_city" name="address_city" type="hidden" />
-                <input id="address_number" name="address_number" type="hidden" />
                 <input id="address_name" name="address_name" type="hidden" />
             </div>
         </div>
         <div class="row margin-top-20">
             <div class="col-md-6">
                 <label for="bedrooms">Quante stanze da letto sono presenti?</label>
-                <input id="bedrooms" name="bedrooms" class="form-control" type="number" min="0" default="0" />
+                <input id="bedrooms" name="bedrooms" class="form-control" type="number" min="0" value="0" required />
             </div>
         </div>
 
