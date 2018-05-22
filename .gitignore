@@ -1,6 +1,7 @@
 /node_modules
 /public/storage
 /public/images/profile_pics/*
+/public/images/houses/*
 /storage/*.key
 /vendor
 /.idea
@@ -13,4 +14,3 @@ yarn-error.log
 .env.dev.example
 /storage
 .vscode
-/public/houses
