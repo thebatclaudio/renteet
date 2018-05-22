@@ -28,12 +28,23 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    @if($house->last_step != 4)
-                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-outline-primary btn-sm">Completa</a>
-                                    @else
-                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary btn-sm">Gestisci</a>
-                                    @endif
-                                    
+                                    @switch($house->last_step)
+                                        @case(1)
+                                            <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
+                                            @break
+
+                                        @case(2)
+                                            <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
+                                            @break
+
+                                        @case(3)
+                                            <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
+                                            @break
+
+                                        @case(4)
+                                            <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary btn-sm">Gestisci</a>
+                                            @break
+                                    @endswitch
                                 </div>
                             </div>
                         </div>
