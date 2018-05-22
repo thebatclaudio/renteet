@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function (){
                 Route::post('third-step-upload', 'AdminController@newHouseWizardStepThreeUpload')->name('three.upload');
                 Route::post('third-step', 'AdminController@newHouseWizardStepThreeSave')->name('three.save');
                 Route::get('last-step', 'AdminController@newHouseWizardStepFour')->name('four');
+                Route::post('last-step', 'AdminController@newHouseWizardStepFourSave')->name('four.save');
             });
         });
         Route::get('house/{id}', 'AdminController@house')->name('house');

@@ -44,6 +44,7 @@ class AdminController extends Controller
         $house->latitude = $request->address_lat;
         $house->longitude = $request->address_lng;
         $house->owner_id = \Auth::user()->id;
+        $house->last_step = 1;
         if($house->save()) {
             foreach($request->rooms as $roomBeds){
                 $room = new Room;
@@ -70,6 +71,9 @@ class AdminController extends Controller
             foreach($request->input('services') as $service) {
                 $house->services()->sync([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
             }
+
+            $house->last_step = 2;
+            $house->save();
 
             return redirect()->route('admin.house.wizard.three', ['id' => $house->id]);
         }
@@ -113,6 +117,7 @@ class AdminController extends Controller
         if($house = House::find($request->input('id'))) {
             $house->name = $request->input('name');
             $house->description = $request->input('description');
+            $house->last_step = 3;
             $house->save();
 
             return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
@@ -121,5 +126,9 @@ class AdminController extends Controller
 
     public function newHouseWizardStepFour(){
         return view('admin.wizard.four');
+    }
+
+    public function newHouseWizardStepFourSave(){
+        return redirect()->route('admin.dashboard');
     }
 }
