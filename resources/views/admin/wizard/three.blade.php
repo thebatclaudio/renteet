@@ -47,7 +47,7 @@
             <div class="row margin-top-20">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input class="form-control w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" required>
+                        <input class="form-control form-control-lg w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" required>
                         <p class="name-hints">Prova <strong>La casa di {{\Auth::user()->first_name}}</strong> o <strong>La casa di {{$streetName}}</strong></p>
                     </div>
                     <div class="form-group">
