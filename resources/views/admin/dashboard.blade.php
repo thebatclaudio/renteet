@@ -5,23 +5,37 @@
 @section('content')
 <div class="container margin-top-20">
     <div class="panel panel-default">
-        <div class="panel-heading">Dashboard</div>
+        <div class="panel-heading">Bentornato {{$user->first_name}}</div>
 
         <div class="panel-body">
-            <h3 class="page-title">Bentornato {{$user->first_name}}!</h3>
+            <h3 class="page-title">Gestisci i tuoi immobili</h3>
             <a class="btn btn-primary pull-right" href="{{route('admin.house.wizard.one')}}"><i class="fa fa-plus"></i> Inserisci un nuovo immobile</a>
-            
             <hr>
-            <h4>Le tue case:</h4>
             <div class="row houses-list">
-                @foreach($user->houses as $house)
+                @foreach($houses as $house)
                 <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{$house->preview_image_url}}" alt="{{$house->name}}">
+                        <div class="house-card-img card-img-top" style="background-image: url({{$house->preview_image_url}})"></div>
                         <div class="card-block">
-                            <h5 class="card-title">{{$house->name}}</h5>
+                            <h5 class="card-title text-truncate">{{$house->name}}</h5>
                             <!--p class="card-text"></p-->
-                            <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary">Gestisci</a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if($house->last_step != 4)
+                                        <span class="badge badge-warning">Da completare</span>
+                                    @else
+                                        <span class="badge badge-success">Pubblicato</span>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    @if($house->last_step != 4)
+                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-outline-primary btn-sm">Completa</a>
+                                    @else
+                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary btn-sm">Gestisci</a>
+                                    @endif
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

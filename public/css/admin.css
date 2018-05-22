@@ -45,3 +45,10 @@ p.name-hints {
 .houses-list .card {
     margin-bottom: 20px;
 }
+
+.house-card-img {
+    height: 220px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

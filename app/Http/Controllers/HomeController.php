@@ -31,6 +31,9 @@ class HomeController extends Controller
     }
 
     public function dashboard() {
-        return view('admin.dashboard')->withUser(\Auth::user());
+        return view('admin.dashboard', [
+            'user' => \Auth::user(),
+            'houses' => \Auth::user()->houses()->orderBy('last_step', 'ASC')->orderBy('updated_at', 'DESC')->get()
+        ]);
     }
 }
