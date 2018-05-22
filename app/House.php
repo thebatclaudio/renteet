@@ -31,7 +31,7 @@ class House extends Model
             $fileName = $this->photos->first()->file_name;
             return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
         } else {
-            return "";
+            return \URL::to('images/renteet-logo.png');
         }
 
     }
