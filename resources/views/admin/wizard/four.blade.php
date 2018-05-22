@@ -16,23 +16,25 @@
     <form method="POST" action="{{route('admin.house.wizard.four.save')}}">
         {{ csrf_field() }}
 
+        <input type="hidden" value="{{$id}}" name="id" />
+
         <h5 class="margin-top-20">Vuoi accettare personalmente gli ospiti?</h5>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptFalse" value="false">
+            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptFalse" value="0">
             <label class="form-check-label" for="autoAcceptFalse">Si</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptTrue" value="true">
+            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptTrue" value="1">
             <label class="form-check-label" for="autoAcceptTrue">No</label>
         </div>
 
         <h5 class="margin-top-40">Qual'&egrave; il genere dei tuoi ospiti?</h5>
 
         <select class="form-control form-control-lg w-25" name="gender" id="gender">
+            <option value="mixed">Misto</option>
             <option value="male">Uomo</option>
             <option value="female">Donna</option>
-            <option value="mixed">Misto</option>
         </select>
 
         <h5 class="margin-top-40">Inserisci il numero minimo di mesi di preavviso al recesso (minimo 3 mesi)</h5>

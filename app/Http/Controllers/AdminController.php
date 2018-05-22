@@ -126,14 +126,32 @@ class AdminController extends Controller
             $house->save();
 
             return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
+        } else {
+            return redirect()->back();
         }
     }
 
-    public function newHouseWizardStepFour(){
-        return view('admin.wizard.four');
+    public function newHouseWizardStepFour(Request $request){
+        return view('admin.wizard.four', ['id' => $request->input('id')]);
     }
 
-    public function newHouseWizardStepFourSave(){
-        return redirect()->route('admin.dashboard');
+    public function newHouseWizardStepFourSave(Request $request){
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'auto_accept' => 'required',
+            'gender' => 'required',
+            'notice_months' => 'required'
+        ]);
+
+        if($house = House::find($request->input('id'))) {
+            $house->auto_accept = $request->input('auto_accept');
+            $house->gender = $request->input('gender');
+            $house->notice_months = $request->input('notice_months');
+            $house->save();
+
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->back();
+        }
     }
 }
