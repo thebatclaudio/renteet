@@ -14,7 +14,7 @@
     background-color: #609ad3;
 }
 
-.step-number {
+.step-number, .hints-title {
     text-transform: uppercase;
     color: #999;
 }
@@ -29,4 +29,15 @@
 
 .checkbox-column {
     padding-top: 7px;
+}
+
+.hints-container ul {
+    padding-left: 20px;
+}
+
+p.name-hints {
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
 }

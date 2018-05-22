@@ -78,10 +78,19 @@ class AdminController extends Controller
     }
 
     public function newHouseWizardStepThree(Request $request){
-        return view('admin.wizard.three', ['id' => $request->input('id')]);
+        $validatedData = $request->validate([
+            'id' => 'required',
+        ]);
+
+        if($house = House::find($request->input('id'))) {
+            return view('admin.wizard.three', ['id' => $request->input('id'), 'streetName' => $house->street_name]);
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
-    public function newHouseWizardStepThreeSave(Request $request){
+    public function newHouseWizardStepThreeUpload(Request $request){
         if($house = House::find($request->input('id'))) {
             $imageName = request()->file->getClientOriginalName();
             request()->file->move(public_path('images/houses/'.$house->id), $imageName);
@@ -92,8 +101,22 @@ class AdminController extends Controller
 
             return response()->json(['uploaded' => '/images/houses/'.$house->id.'/'.$imageName]);
         }
+    }
 
-        //return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
+    public function newHouseWizardStepThreeSave(Request $request){
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        if($house = House::find($request->input('id'))) {
+            $house->name = $request->input('name');
+            $house->description = $request->input('description');
+            $house->save();
+
+            return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
+        }
     }
 
     public function newHouseWizardStepFour(){
