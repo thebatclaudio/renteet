@@ -31,7 +31,8 @@ class House extends Model
             $fileName = $this->photos->first()->file_name;
             return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
         } else {
-            return \URL::to('images/renteet-logo.png');
+            // TODO: creare immagine placeholder
+            return 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
         }
 
     }
