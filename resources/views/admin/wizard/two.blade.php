@@ -11,6 +11,8 @@
     <h6 class="step-number">Secondo passo</h6>
     <h3 class="step-title">Descrivi meglio il tuo immobile</h3>
 
+    <hr>
+
     <form class="margin-top-20" method="post" action="{{route('admin.house.wizard.two.save')}}">
         {{ csrf_field() }}
 

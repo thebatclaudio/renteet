@@ -11,6 +11,7 @@
     <h6 class="step-number">Primo passo</h6>
     <h3 class="step-title">Di che ambiente si tratta?</h3>
 
+    <hr>
 
     <form class="form-horizontal" method="POST" action="{{route('admin.house.wizard.one.save')}}">
         {{ csrf_field() }}

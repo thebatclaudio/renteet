@@ -16,6 +16,8 @@
     <h6 class="step-number">Terzo passo</h6>
     <h3 class="step-title">Rendi unico il tuo immobile <small id="step-small-title">Aggiungi le tue foto</small></h3>
 
+    <hr>
+
     <div id="step-one-container">
         <div class="row margin-top-20">
             <div class="col-md-8">
