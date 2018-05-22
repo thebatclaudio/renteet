@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\House;
 use App\Room;
+use App\Photo;
 class AdminController extends Controller
 {
     public function house($id) {
@@ -76,8 +77,23 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function newHouseWizardStepThree(){
-        return view('admin.wizard.three');
+    public function newHouseWizardStepThree(Request $request){
+        return view('admin.wizard.three', ['id' => $request->input('id')]);
+    }
+
+    public function newHouseWizardStepThreeSave(Request $request){
+        if($house = House::find($request->input('id'))) {
+            $imageName = request()->file->getClientOriginalName();
+            request()->file->move(public_path('images/houses/'.$house->id), $imageName);
+            $photo = new Photo;
+            $photo->file_name = $imageName;
+            $photo->house_id = $house->id;
+            $photo->save();
+
+            return response()->json(['uploaded' => '/images/houses/'.$house->id.'/'.$imageName]);
+        }
+
+        //return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
     }
 
     public function newHouseWizardStepFour(){

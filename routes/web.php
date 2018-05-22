@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function (){
                 Route::get('second-step', 'AdminController@newHouseWizardStepTwo')->name('two');
                 Route::post('second-step', 'AdminController@newHouseWizardStepTwoSave')->name('two.save');
                 Route::get('third-step', 'AdminController@newHouseWizardStepThree')->name('three');
+                Route::post('third-step', 'AdminController@newHouseWizardStepThreeSave')->name('three.save');
                 Route::get('last-step', 'AdminController@newHouseWizardStepFour')->name('four');
             });
         });

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="progress wizard-progress">
-    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
 <div class="container margin-top-20">
