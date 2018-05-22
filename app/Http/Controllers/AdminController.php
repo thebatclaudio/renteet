@@ -69,7 +69,12 @@ class AdminController extends Controller
     public function newHouseWizardStepTwoSave(Request $request){
         if($house = House::find($request->input('id'))) {
             foreach($request->input('services') as $service) {
-                $house->services()->sync([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+                if(isset($request->input('servicesQuantity')[$service])) {
+                    $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+                } else {
+                    $house->services()->attach($service);
+                }
+                
             }
 
             $house->last_step = 2;
