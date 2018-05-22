@@ -310,8 +310,9 @@ h3.page-title {
   }
 
   .small-user-pic {
-    width: 80px;
+    width: 40px;
     margin: 0px 5px;
+    height: 40px;
   }
 
   .profile-info-column {
