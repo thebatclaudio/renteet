@@ -147,6 +147,7 @@ class AdminController extends Controller
             $house->auto_accept = $request->input('auto_accept');
             $house->gender = $request->input('gender');
             $house->notice_months = $request->input('notice_months');
+            $house->last_step = 4;
             $house->save();
 
             return redirect()->route('admin.dashboard');
