@@ -21,24 +21,24 @@ class RentController extends Controller
         if($room = Room::find($id)){
             // controllo se ci sono posti liberi
             if($room->acceptedUsers()->count() < $room->beds) {
-                // allego l'utente alla casa
-                $room->users()->attach(\Auth::user()->id, [
-                    'accepted_by_owner' => false,
-                    'interested' => false
-                ]);
-                return response()->json([
-                    'status' => 'OK'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => 'KO'
-                ]);                
+                // controllo se l'utente è il proprietario
+                if($room->house->owner_id != \Auth::user()->id){
+                    // allego l'utente alla casa
+                    $room->users()->attach(\Auth::user()->id, [
+                        'accepted_by_owner' => false,
+                        'interested' => false
+                    ]);
+                    
+                    return response()->json([
+                        'status' => 'OK'
+                    ]);
+                }
             }
-        } else {
-            return response()->json([
-                'status' => 'KO'
-            ]);
         }
+        
+        return response()->json([
+            'status' => 'KO'
+        ]);
     }
 
     public function allowUser($room, $user, Request $request){
