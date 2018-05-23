@@ -24,8 +24,12 @@ class RentController extends Controller
                 // controllo se l'utente è il proprietario
                 if($room->house->owner_id != \Auth::user()->id){
                     // allego l'utente alla casa
+
+                    \Log::info($room->house->auto_accept);
+                    \Log::info(print_r($room->house, true));
+
                     $room->users()->attach(\Auth::user()->id, [
-                        'accepted_by_owner' => false,
+                        'accepted_by_owner' => $room->house->auto_accept,
                         'interested' => false
                     ]);
                     
