@@ -14,7 +14,7 @@ class SearchController extends Controller
 
         return view('search')->with([
             'houses' => $houses,
-            'searchInput' => $searchInput
+            'searchInput' => $request->searchInput
         ]);
     }
 
