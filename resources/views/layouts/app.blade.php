@@ -70,7 +70,12 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-sm" style="margin-top: 5px">
+                            <a href="#" class="nav-link">
+                                Come funziona?
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success">
                                 Inserisci un annuncio
                             </a>
                         </li>

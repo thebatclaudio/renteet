@@ -10,7 +10,7 @@
     <div class="search-results row margin-top-40">
         @forelse($houses as $house)
         <div class="col-md-4">
-            <div class="card">
+            <div class="card margin-top-20">
                 <div id="house-{{$house->id}}-carousel" class="carousel slide">
                     <div class="carousel-inner">
                         @foreach($house->photos as $photo)

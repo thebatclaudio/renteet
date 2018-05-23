@@ -4,35 +4,44 @@
 
 @section('content')
 <div class="container margin-top-20">
-    <h3>Immobili condivisi nei dintorni di <strong>{{Auth::user()->livingCity->text}}</strong></h3>
+    <h3 class="text-center">Immobili attualmente disponibili a <strong>{{Auth::user()->livingCity->text}}</strong></h3>
 
-        <div class="search-results row margin-top-40">
+    <hr>
+
+    <div class="search-results row margin-top-40">
         @forelse($houses as $house)
         <div class="col-md-4">
-            <div class="card">
-                <div id="house-{{$house->id}}-carousel" class="carousel slide">
-                    <div class="carousel-inner">
-                        @foreach($house->photos as $photo)
-                            @if ($loop->first)
-                            <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
-                            @else
-                            <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <a class="carousel-control-prev" href="#house-{{$house->id}}-carousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#house-{{$house->id}}-carousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+            <div id="house-{{$house->id}}" class="house">
+                
+                <div class="owner-container {{$house->owner->gender}}">
+                    <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
+                    <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
                 </div>
 
-                <div class="card-body">
-                    <h5 class="card-title"><strong>{{$house->name}}</strong> <small>{{$house->street_name}}, {{$house->number}}</small></h5>
-                    <div class="house-users margin-top-20">
+                <div class="photos-container">
+                    <div class="row">
+                        @if(isset($house->photos[1]))
+                        <div class="col-md-7">
+                        @else
+                        <div class="col-md-12">
+                        @endif
+                            @if(isset($house->photos[0]))
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$house->photos[0]->file_name)}})"></div>
+                            @else
+                            @endif
+                        </div>
+                        <div class="col-md-5">
+                            @if(isset($house->photos[1]) && isset($house->photos[2]))
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$house->photos[1]->file_name)}})"></div>
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$house->photos[2]->file_name)}})"></div>
+                            @elseif(isset($house->photos[1]))
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$house->photos[1]->file_name)}})"></div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="house-users text-center text-nowrap margin-top-20">
                     @foreach($house->rooms as $room)
                         @foreach($room->acceptedUsers as $user)
                             <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
@@ -41,10 +50,11 @@
                             <img class="rounded-circle small-user-pic" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="80" height="80">
                         @endfor
                     @endforeach
-                    </div>
-                    <div class="actions margin-top-20">
-                        <a href="{{$house->url}}" class="btn btn-primary pull-right">Visualizza &rarr;</a>
-                    </div>
+                </div>
+
+                <div class="house-price margin-top-40 text-right">
+                    A partire da <strong class="price">110€</strong>
+                    <a href="{{$house->url}}" class="btn btn-dark btn-sm margin-left-5">Visualizza L'appartamento</a>
                 </div>
             </div>
         </div>
