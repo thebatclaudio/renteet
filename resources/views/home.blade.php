@@ -27,7 +27,6 @@
                         @endif
                             @if(isset($house->photos[0]))
                             <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$house->photos[0]->file_name)}})"></div>
-                            @else
                             @endif
                         </div>
                         <div class="col-md-5">

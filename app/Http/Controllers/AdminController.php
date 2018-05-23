@@ -68,19 +68,21 @@ class AdminController extends Controller
 
     public function newHouseWizardStepTwoSave(Request $request){
         if($house = House::find($request->input('id'))) {
-            foreach($request->input('services') as $service) {
-                if(isset($request->input('servicesQuantity')[$service])) {
-                    $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
-                } else {
-                    $house->services()->attach($service);
+            if($house->owner->id === \Auth::user()->id) {
+                foreach($request->input('services') as $service) {
+                    if(isset($request->input('servicesQuantity')[$service])) {
+                        $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+                    } else {
+                        $house->services()->attach($service);
+                    }
+                    
                 }
-                
+
+                $house->last_step = 2;
+                $house->save();
+
+                return redirect()->route('admin.house.wizard.three', ['id' => $house->id]);
             }
-
-            $house->last_step = 2;
-            $house->save();
-
-            return redirect()->route('admin.house.wizard.three', ['id' => $house->id]);
         }
 
         return redirect()->back();
@@ -101,14 +103,16 @@ class AdminController extends Controller
 
     public function newHouseWizardStepThreeUpload(Request $request){
         if($house = House::find($request->input('id'))) {
-            $imageName = request()->file->getClientOriginalName();
-            request()->file->move(public_path('images/houses/'.$house->id), $imageName);
-            $photo = new Photo;
-            $photo->file_name = $imageName;
-            $photo->house_id = $house->id;
-            $photo->save();
+            if($house->owner->id === \Auth::user()->id) {
+                $imageName = request()->file->getClientOriginalName();
+                request()->file->move(public_path('images/houses/'.$house->id), $imageName);
+                $photo = new Photo;
+                $photo->file_name = $imageName;
+                $photo->house_id = $house->id;
+                $photo->save();
 
-            return response()->json(['uploaded' => '/images/houses/'.$house->id.'/'.$imageName]);
+                return response()->json(['uploaded' => '/images/houses/'.$house->id.'/'.$imageName]);
+            }
         }
     }
 
@@ -120,15 +124,17 @@ class AdminController extends Controller
         ]);
 
         if($house = House::find($request->input('id'))) {
-            $house->name = $request->input('name');
-            $house->description = $request->input('description');
-            $house->last_step = 3;
-            $house->save();
+            if($house->owner->id === \Auth::user()->id) {
+                $house->name = $request->input('name');
+                $house->description = $request->input('description');
+                $house->last_step = 3;
+                $house->save();
 
-            return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
-        } else {
-            return redirect()->back();
+                return redirect()->route('admin.house.wizard.four', ['id' => $house->id]);
+            }
         }
+        
+        return redirect()->back();
     }
 
     public function newHouseWizardStepFour(Request $request){
@@ -144,15 +150,17 @@ class AdminController extends Controller
         ]);
 
         if($house = House::find($request->input('id'))) {
-            $house->auto_accept = $request->input('auto_accept');
-            $house->gender = $request->input('gender');
-            $house->notice_months = $request->input('notice_months');
-            $house->last_step = 4;
-            $house->save();
+            if($house->owner->id === \Auth::user()->id) {
+                $house->auto_accept = $request->input('auto_accept');
+                $house->gender = $request->input('gender');
+                $house->notice_months = $request->input('notice_months');
+                $house->last_step = 4;
+                $house->save();
 
-            return redirect()->route('admin.dashboard');
-        } else {
-            return redirect()->back();
+                return redirect()->route('admin.dashboard');
+            }
         }
+        
+        return redirect()->back();
     }
 }
