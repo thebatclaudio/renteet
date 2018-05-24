@@ -31,9 +31,9 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <form id="searchForm" class="form-inline mt-2 mt-md-0" action="{{route('search.coordinates')}}" method="GET">
-                    <input id="lat" name="lat" type="hidden">
-                    <input id="lng" name="lng" type="hidden">
-                    <input id="search-input" name="searchInput" class="form-control" type="text" placeholder="Prova &quot;Universit&agrave; degli studi di Palermo&quot;" aria-label="Cerca">
+                    <input id="lat" name="lat" type="hidden" required>
+                    <input id="lng" name="lng" type="hidden" required>
+                    <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Universit&agrave; degli studi di Palermo&quot;" aria-label="Cerca">
                     <i class="search-icon fa fa-search fa-2x" aria-hidden="true"></i>
                 </form>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -96,17 +96,18 @@
         </main>
 
         <script>
+
+        var autocomplete = null;
         function initMap() {
             var input = document.getElementById('search-input');
     
-            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete = new google.maps.places.Autocomplete(input);
     
             autocomplete.addListener('place_changed', function() {
                 var place = autocomplete.getPlace();
                 if (!place.geometry) {
                     // User entered the name of a Place that was not suggested and
                     // pressed the Enter key, or the Place Details request failed.
-                    window.alert("No details available for input: '" + place.name + "'");
                     return;
                 }
         
@@ -119,15 +120,29 @@
                     ].join(' ');
                 }
 
-                console.log(place.geometry.location.lat());
-                console.log(place.geometry.location.lng());
-
                 $("#lat").val(place.geometry.location.lat());
                 $("#lng").val(place.geometry.location.lng());
 
                 $("#searchForm").submit();
 
             });
+        }
+
+        function geolocate() {
+            if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                var circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+            }
         }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgn7e4Tc95WlmbyqCz71oGDctx3rXf6oQ&libraries=places&callback=initMap"
@@ -141,5 +156,16 @@
 
         <!-- Scripts -->
         @yield('scripts')
+
+        <script>
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+                }
+            });
+        });
+        </script>
     </body>
 </html>
