@@ -112,8 +112,14 @@ div.full:after {
                 <ul class="list-group margin-top-20">
                     <li class="list-group-item">{{$user->first_name}} {{$user->last_name}}</li>
                     <li class="list-group-item">Nato il <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d', $user->birthday)->format('d M Y')}}</strong></li>
+                    
+                    @if($user->livingCity()->count())
                     <li class="list-group-item">Vive a <strong>{{$user->livingCity->text}}</strong></li>
+                    @endif
+
+                    @if($user->bornCity()->count())
                     <li class="list-group-item">Nato a <strong>{{$user->bornCity->text}}</strong></li>
+                    @endif
                 </ul>
 
                 <div class="interests-container">

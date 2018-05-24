@@ -33,11 +33,13 @@
             <p class="house-location"><i class="fa fa-map-marker"></i> {{$house->street_name}}, {{$house->number}} - {{$house->city}}</p>
           </div>
 
-          <div class="owner-container {{$house->owner->gender}}">
-            <div class="host-title">Host</div>
-            <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
-            <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
-          </div>
+          <a href="{{$house->owner->profile_url}}">
+            <div class="owner-container {{$house->owner->gender}}">
+              <div class="host-title">Host</div>
+              <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
+              <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
+            </div>
+          </a>
         </div>
       </div>
 
@@ -132,17 +134,34 @@
 
       @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
       $(".free-bed").on("click", function () {
-        var button = $(this).children("p").children(".rent-house");
 
-        var url = '{{route('rent.room', ':id')}}';
+        swal({
+          title: "Stai per inviare una richiesta di adesione",
+          text: "L'host potrà accettare o rifiutare la tua adesione all'immobile",
+          showCancelButton: true,
+          confirmButtonText: 'Prendi posto'
+        })
+        .then((send) => {
+          if (send) {
+            var button = $(this).children("p").children(".rent-house");
+            var url = '{{route('rent.room', ':id')}}';
+            $.post(url.replace(':id', button.data("id")), function( data ) {
+              if(data.status === 'OK') {
+                $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("pending");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
+                //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("In attesa di approvazione");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
 
-        $.post(url.replace(':id', button.data("id")), function( data ) {
-          if(data.status === 'OK') {
-            $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("pending");
-            $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
-            //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
-            $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("In attesa di approvazione");
-            $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
+                swal("Richiesta di adesione inviata!", {
+                  icon: "success"
+                });
+              } else {
+                swal("Si è verificato un errore", "Riprova più tardi", "error");
+              }
+            });
+
+
           }
         });
       });
