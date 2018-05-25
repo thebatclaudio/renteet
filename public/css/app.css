@@ -1,6 +1,10 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
 
+html, body, main {
+  height: 100%;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
@@ -82,7 +86,27 @@ li.nav-item.dropdown {
 h3.page-title {
   display: inline-block;
 }
-  
+
+#login-wrapper {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/images/homepage/background.jpg');
+  height: 100%;
+  padding-top: 10%;
+}
+
+.login-box {
+  width: 25%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding-top: 20px;
+}
+
+.btn-login {
+  background-color: #138d53;
+}
+
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   
