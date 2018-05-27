@@ -23,6 +23,7 @@ class CreateFakeHouse extends Seeder
         $house->latitude = "38.105106";
         $house->longitude = "13.351390";
         $house->owner_id = User::first()->id;
+        $house->last_step = 4;
         $house->save();
 
         $house->photos()->saveMany([

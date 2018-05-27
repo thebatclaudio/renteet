@@ -13,6 +13,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "nesbot/carbon": "^1.22",
+        "pusher/pusher-php-server": "^3.0",
         "spatie/geocoder": "^3.3",
         "spatie/laravel-permission": "^2.7"
     },

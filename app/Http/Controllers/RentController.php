@@ -7,6 +7,7 @@ use App\User;
 use App\House;
 use App\Room;
 use App\RoomUser;
+use \App\Events\AdhesionToHouse;
 
 class RentController extends Controller
 {
@@ -28,14 +29,22 @@ class RentController extends Controller
                     \Log::info($room->house->auto_accept);
                     \Log::info(print_r($room->house, true));
 
-                    $room->users()->attach(\Auth::user()->id, [
+                    /*$room->users()->attach(\Auth::user()->id, [
                         'accepted_by_owner' => $room->house->auto_accept,
                         'interested' => false
-                    ]);
+                    ]);*/
+
+                    event(new AdhesionToHouse(\Auth::user()->id, $room->house->id));
                     
-                    return response()->json([
-                        'status' => 'OK'
-                    ]);
+                    if($room->house->auto_accept){
+                        return response()->json([
+                            'status' => 'OK'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => 'WAITING'
+                        ]);                        
+                    }
                 }
             }
         }

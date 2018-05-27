@@ -147,15 +147,22 @@
             var url = '{{route('rent.room', ':id')}}';
             $.post(url.replace(':id', button.data("id")), function( data ) {
               if(data.status === 'OK') {
+                console.log('ok');
+                $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("{{\Auth::user()->gender}}");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
+                //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
+                $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
+
+                swal("Buona convivenza!", "Contatta il locatore per organizzare il primo incontro", "success");
+              } else if(data.status === 'WAITING') {
                 $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("pending");
                 $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
                 //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
                 $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("In attesa di approvazione");
                 $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
 
-                swal("Richiesta di adesione inviata!", {
-                  icon: "success"
-                });
+                swal("Richiesta di adesione inviata!", "Attendi una risposta dal locatore", "success");
               } else {
                 swal("Si è verificato un errore", "Riprova più tardi", "error");
               }
