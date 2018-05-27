@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\House;
+use App\User;
 
 class CreateFakeHouse extends Seeder
 {
@@ -20,7 +21,7 @@ class CreateFakeHouse extends Seeder
         $house->city = "Palermo";
         $house->latitude = "38.105106";
         $house->longitude = "13.351390";
-        $house->owner_id = 5;
+        $house->owner_id = User::first()->id;
         $house->save();
     }
 }

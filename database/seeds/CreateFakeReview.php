@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Review;
+use App\User;
 
 class CreateFakeReview extends Seeder
 {
@@ -17,8 +18,8 @@ class CreateFakeReview extends Seeder
         $review->title = "Ottimo davvero";
         $review->text = "esperienza ottima";
         $review->rate = 5;
-        $review->from_user_id = 6;
-        $review->to_user_id = 5;
+        $review->from_user_id = User::first()->id;
+        $review->to_user_id = User::first()->id+1;
         $review->lessor = true;
         $review->save();
     }
