@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\House;
 use App\User;
+use App\Photo;
 
 class CreateFakeHouse extends Seeder
 {
@@ -23,5 +24,13 @@ class CreateFakeHouse extends Seeder
         $house->longitude = "13.351390";
         $house->owner_id = User::first()->id;
         $house->save();
+
+        $house->photos()->saveMany(
+            new Photo(['filename' => '1.jpg']),
+            new Photo(['filename' => '2.jpg']),
+            new Photo(['filename' => '3.jpg']),
+            new Photo(['filename' => '4.jpg']),
+            new Photo(['filename' => '5.jpg'])
+        );
     }
 }
