@@ -25,12 +25,12 @@ class CreateFakeHouse extends Seeder
         $house->owner_id = User::first()->id;
         $house->save();
 
-        $house->photos()->saveMany(
-            new Photo(['file_name' => '1.jpg']),
-            new Photo(['file_name' => '2.jpg']),
-            new Photo(['file_name' => '3.jpg']),
-            new Photo(['file_name' => '4.jpg']),
-            new Photo(['file_name' => '5.jpg'])
-        );
+        $house->photos()->saveMany([
+            new Photo(['filename' => '1.jpg']),
+            new Photo(['filename' => '2.jpg']),
+            new Photo(['filename' => '3.jpg']),
+            new Photo(['filename' => '4.jpg']),
+            new Photo(['filename' => '5.jpg']),
+        ]);
     }
 }
