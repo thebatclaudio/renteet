@@ -69,10 +69,10 @@
                                 {{$user->description}}
                                 </h4>
                             </div>
-                            @endif
                             <hr>
-                            @for($i = 0; $i < 5; $i++)
-                                @if($i < floor($user->rating))
+                            @endif
+                            @for($i = 1; $i < 6; $i++)
+                                @if($i <= floor($user->rating))
                                     <span class="fas fa-star fa-3x checked"></span>
                                 @elseif($i-floor($user->rating) < 0.5)
                                     <span class="far fa-star fa-3x star-border"></span>
@@ -108,6 +108,7 @@
                 <div class="row">
                     <div class="col-sm-12 tab-col">
                         <div class="tab-content" id="reviewsTabContent">
+                            @if($user->lessor)
                             <div class="tab-pane fade show active" id="guests-tab" role="tabpanel" aria-labelledby="lessor-tab">
                                 @forelse ($user->reviews()->where('lessor', true)->get() as $review)
                                     <div class="review">
@@ -158,6 +159,34 @@
                                 @endforelse
                                 </ul>
                             </div>
+                            @else
+                            <div class="tab-pane fade show active" id="roommate-tab" role="tabpanel" aria-labelledby="roommate-tab">
+                                <ul class="list-group">
+                                @forelse ($user->reviews()->where('lessor', false)->get() as $review)
+                                    <div class="review">
+                                        <div class="speech-bubble">
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
+                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p>{{ $review->text }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong>
+                                @endforelse
+                                </ul>
+                            </div>
+                            @endif            
                         </div>                   
                     </div>
                 </div>
