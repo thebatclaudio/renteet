@@ -1,0 +1,133 @@
+.profile-info-column {
+    text-align: center;
+}
+
+.personal-info-container, .interests-container, .languages-container {
+    width: 260px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+h3.profile-name {
+    font-weight: 600;
+}
+
+.personal-info-container .profile-personal-info {
+    text-align: left;
+}
+
+.personal-info-container ul {
+    padding-left: 0px;
+}
+
+.personal-info-container ul li {
+    list-style-type: none;
+}
+
+.profile-info-column img {
+    border: 10px solid rgba(97, 155, 213, 0.30);
+}
+
+.languages-container h4, .interests-container h4 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-top: 60px;
+}
+
+.languages-list, .interests-list {
+    padding-left: 0px;
+}
+
+.interests-list li {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 5px;
+    color: #619bd5;
+}
+
+.languages-list li {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 5px;
+    color: #619bd5;
+}
+
+.user-description h4 {
+    margin-top: 40px;
+    font-style: italic;
+}
+
+.star-border {
+    position: absolute;
+}
+
+.reviews-users-count {
+    margin-top: 10px;
+}
+
+.avatar {
+    max-width: 100%;
+    width: 100%;
+}
+
+.btn-guests-reviews {
+    background-color: #000;
+}
+
+.btn-roommates-reviews {
+    background-color: #000;
+}
+
+#reviewsTabContent .tab-pane {
+    padding: 5px 0px;
+}
+
+#reviewsTabContent .tab-pane .review {
+    padding: 10px 20px;
+    margin: 20px 0px;
+}
+
+#reviewsTabContent .tab-pane .review .speech-bubble {
+    min-height: 80px;
+    background-color: #FFF;
+    padding: 10px 20px 20px;
+    border-radius: 5px;
+    font-style: italic;
+}
+
+.review-name {
+    font-size: 18px;
+    font-style: normal;
+}
+
+.review-date {
+    font-style: normal;
+    color: #777;
+    display: block;
+}
+
+.speech-bubble p {
+    margin-top: 20px;
+}
+
+.tab-active {
+    border-top: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tab-inactive {
+    border-bottom: 1px solid #DDD;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tab-col {
+    border-bottom: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;   
+}

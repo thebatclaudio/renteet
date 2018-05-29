@@ -346,45 +346,6 @@ h3.page-title {
     height: 40px;
   }
 
-  .profile-info-column {
-    background-color: #EEEEEE;
-    text-align: center;
-    margin-top: 20px;
-    min-height: 500px;
-    border: 1px solid rgba(0,0,0,.125);
-  }
-
-  .profile-info-column img {
-    margin-top: 20px;
-  }
-
-  .profile-info-column .list-group .list-group-item {
-    background-color: #F5F5F5;
-    border-left: 0px;
-    border-right: 0px;
-    text-align: left;
-    font-size: 14px;
-  }
-
-  .profile-info-column .list-group .list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .profile-info-column .list-group .list-group-item:last-child {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-  }
-
-  .timeline-column {
-    background-color: #EEEEEE;
-    min-height: 500px;
-    margin-top: 20px;
-    border: 1px solid rgba(0,0,0,.125);
-  }
-
   .no-style .free-place, .no-style .user-name {
     color: #5a5a5a;
   }
@@ -394,27 +355,6 @@ h3.page-title {
   .no-style .user-name:active, 
   .no-style .user-name:visited {
     text-decoration: none;
-  }
-
-  .interests-container {
-    margin: 40px 0px;
-    padding: 20px 0px;
-    font-size: 14px;
-    background-color: whitesmoke;
-    border-top: 1px solid rgba(0,0,0,.125);
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    text-align: left;
-  }
-
-  .interests-container h4 {
-    margin: 0px 20px 10px;
-    font-size: 16px;
-    text-transform: uppercase;
-  }
-
-  .interests-container .interests-list {
-    list-style-type: none;
-    padding-left: 20px;
   }
 
   .house {

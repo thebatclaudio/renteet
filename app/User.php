@@ -30,7 +30,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete', 'lessor'
+        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete', 'lessor', 'age', 'rating'
     ];
 
     public function getProfileUrlAttribute() {
@@ -65,6 +65,10 @@ class User extends Authenticatable
         return true;
     }
 
+    public function getAgeAttribute() {
+        return \Carbon\Carbon::now()->format('Y')-\Carbon\Carbon::createFromFormat('Y-m-d', $this->birthday)->format('Y');
+    }
+
     public function hasHouse() {
         return RoomUser::where('user_id', $this->id)->exists();
     }
@@ -81,11 +85,23 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Interest', 'users_interests');
     }
 
+    public function languages() {
+        return $this->belongsToMany('App\Language', 'languages_users');
+    }
+
     public function bornCity() {
         return $this->belongsTo('App\City', 'born_city_id');
     }
 
     public function livingCity() {
         return $this->belongsTo('App\City', 'living_city_id');
+    }
+    
+    public function reviews() {
+        return $this->hasMany('App\Review', 'to_user_id');
+    }
+
+    public function getRatingAttribute() {
+        return $this->reviews()->avg('rate');
     }
 }
