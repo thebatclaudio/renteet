@@ -70,6 +70,7 @@
                                 </h4>
                             </div>
                             <hr>
+                            <div class="rating-stars-container">
                             @endif
                             @for($i = 1; $i < 6; $i++)
                                 @if($i <= floor($user->rating))
@@ -81,6 +82,7 @@
                                     <span class="far fa-star fa-3x"></span>
                                 @endif
                             @endfor
+                            </div>
                             <div class="reviews-users-count">{{$user->reviews()->count()}} Recensioni</div>
                         </div>
                     </div>
