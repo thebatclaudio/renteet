@@ -8,6 +8,7 @@ use App\House;
 use App\Room;
 use App\RoomUser;
 use \App\Events\AdhesionToHouse;
+use \App\Events\AdhesionAcceptance;
 
 class RentController extends Controller
 {
@@ -62,6 +63,10 @@ class RentController extends Controller
                     $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->first();
                     if($roomUser) {
                         $roomUser->accepted_by_owner = true;
+
+                    // lancio l'evento per inviare la notifica push
+                    event(new AdhesionAcceptance($user, $room->house->id));
+
                         if($roomUser->save()) {
                             return response()->json([
                                 'status' => 'OK'

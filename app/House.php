@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
+    protected $appends = ['url'];
+
     public function owner() {
         return $this->belongsTo('App\User');
     }
