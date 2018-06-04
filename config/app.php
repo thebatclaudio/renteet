@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Spatie\Geocoder\GeocoderServiceProvider::class
+        Spatie\Geocoder\GeocoderServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
     ],
 
 ];

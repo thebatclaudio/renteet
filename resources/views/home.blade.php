@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container margin-top-20">
-    <h3 class="text-center">Immobili attualmente disponibili a <strong>{{Auth::user()->livingCity->text}}</strong></h3>
+    <h3 class="text-center">Immobili attualmente disponibili a <strong>{{$locationName}}</strong></h3>
 
     <hr>
 

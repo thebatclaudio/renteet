@@ -142,7 +142,6 @@
           confirmButtonText: 'Prendi posto'
         })
         .then((send) => {
-          console.log(send);
           if (send.value) {
             var button = $(this).children("p").children(".rent-house");
             var url = '{{route('rent.room', ':id')}}';

@@ -23,10 +23,17 @@ class HomeController extends Controller
     public function index()
     {
         $userCity = \Auth::user()->livingCity;
-        $houses = SearchController::getHousesByLatLng($userCity->latitude, $userCity->longitude);
-        
+        if(geoip()->getLocation()->lat && geoip()->getLocation()->lon) {
+            $houses = SearchController::getHousesByLatLng(geoip()->getLocation()->lat, geoip()->getLocation()->lon);
+            $locationName = geoip()->getLocation()->city;
+        } else {
+            $houses = SearchController::getHousesByLatLng($userCity->latitude, $userCity->longitude);
+            $locationName = $userCity->livingCity->name;
+        }
+
         return view('home', [
-            'houses' => $houses
+            'houses' => $houses,
+            'locationName' => $locationName
         ]);
     }
 
