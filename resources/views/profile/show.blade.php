@@ -70,8 +70,8 @@
                                 </h4>
                             </div>
                             <hr>
-                            <div class="rating-stars-container">
                             @endif
+                            <div class="rating-stars-container">
                             @for($i = 1; $i < 6; $i++)
                                 @if($i <= floor($user->rating))
                                     <span class="fas fa-star fa-3x checked"></span>
