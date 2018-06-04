@@ -47,6 +47,16 @@ class House extends Model
         return false;
     }
 
+    public function hasUserPending($id) {
+        foreach($this->rooms as $room) {
+            if($room->hasUserPending($id)) {
+                return true;
+            }
+        }
+
+        return false;        
+    }
+
     public function getUrlAttribute() {
         return \URL::to('/rent/'.$this->id);
     }

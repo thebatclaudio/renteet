@@ -7,7 +7,32 @@
 @endsection
 
 @section('content')
-<div class="container margin-top-20">
+<div class="container {{$margin}}">
+
+    @if(isset($pendingRequestHouse))
+    <div class="pending-request-house">
+        <div class="row justify-content-center">
+        <div class="col-sm-1"><img class="img-fluid" src="{{$pendingRequestHouse->preview_image_url}}"></div>
+        <div class="col-sm-4">
+        <h4 class="text-left"><strong>{{$user->first_name}}</strong> ha richiesto di accedere al tuo immobile <a href="{{$pendingRequestHouse->url}}" title="{{$pendingRequestHouse->name}}">{{$pendingRequestHouse->name}}</a></h4>
+        <button id="accept-user" data-room="{{$pendingRequestRoom->id}}" class="btn btn-primary">Accetta la richiesta</button> <a href="{{route('admin.house', $pendingRequestHouse->id)}}" class="btn btn-success">Gestisci immobile</a>       
+        </div>
+        </div>
+    </div>
+    @endif
+
+    @if(isset($livingHouse))
+    <div class="living-house">
+        <div class="row justify-content-center">
+        <div class="col-sm-1"><img class="img-fluid" src="{{$livingHouse->preview_image_url}}"></div>
+        <div class="col-sm-4">
+        <h4 class="text-left"><strong>{{$user->first_name}}</strong> vive nel tuo immobile <a href="{{$livingHouse->url}}" title="{{$livingHouse->name}}">{{$livingHouse->name}}</a></h4>
+        <a href="{{route('admin.house', $livingHouse->id)}}" class="btn btn-primary">Gestisci immobile</a> <a href="{{route('house', $livingHouse->id)}}" class="btn btn-success">Visualizza annuncio</a>
+        </div>
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <div class="col-md-3">
             <div class="profile-info-column">
@@ -219,4 +244,7 @@ $("#guests-reviews-button").on('click', function() {
     roommateButtonContainer.addClass('tab-inactive').removeClass('tab-active');
 });
 </script>
+
+@include('partials.acceptUser')
+
 @endsection

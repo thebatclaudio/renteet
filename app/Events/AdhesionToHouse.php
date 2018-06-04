@@ -27,8 +27,6 @@ class AdhesionToHouse implements ShouldBroadcast
      */
     public function __construct($user_id, $house_id)
     {
-        \Log::info($user_id);
-        \Log::info($house_id);
         $user = User::find($user_id);
         $house = House::find($house_id);
         if($user && $house) {

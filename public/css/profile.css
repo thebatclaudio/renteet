@@ -135,3 +135,15 @@ h3.profile-name {
 .rating-stars-container {
     font-size: 14px;
 }
+
+.living-house, .pending-request-house {
+    margin-top: -80px;
+    padding: 20px;
+    background-color: #e2fff1;
+    width: 100%;
+    position: absolute;
+    top: 150px;
+    left: 0px;
+    z-index: 88;
+    height: 130px;
+}

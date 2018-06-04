@@ -25,16 +25,13 @@ class RentController extends Controller
                 // controllo se l'utente è il proprietario
                 if($room->house->owner_id != \Auth::user()->id){
                     // allego l'utente alla casa
-
-                    \Log::info($room->house->auto_accept);
-                    \Log::info(print_r($room->house, true));
-
-                    /*$room->users()->attach(\Auth::user()->id, [
+                    $room->users()->attach(\Auth::user()->id, [
                         'accepted_by_owner' => $room->house->auto_accept,
                         'interested' => false
-                    ]);*/
+                    ]);
 
-                    event(new AdhesionToHouse(\Auth::user()->id, $room->house->id));
+                    // lancio l'evento per inviare la notifica push
+                    event(new AdhesionToHouse(\Auth::user()->id, $room->house->id, $room->house->auto_accept));
                     
                     if($room->house->auto_accept){
                         return response()->json([

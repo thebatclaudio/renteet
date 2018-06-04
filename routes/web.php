@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function (){
 
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
     
-    Route::get('/house', 'UserController@showHouse')->name('house');
+    Route::get('/house', 'UserController@showHouse')->name('myHouse');
     Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
 
     // admin routes, for who manage houses @remember: route name preceded always by "admin."
@@ -70,5 +70,5 @@ Route::middleware(['auth'])->group(function (){
     });
 });
 
-Route::get('/rent/{id}', 'RentController@getHouse');
+Route::get('/rent/{id}', 'RentController@getHouse')->name('house');
 Route::get('/search', 'SearchController@searchByCoordinates')->name('search.coordinates');
