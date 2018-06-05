@@ -33,6 +33,8 @@ class RentController extends Controller
 
                     // lancio l'evento per inviare la notifica push
                     event(new AdhesionToHouse(\Auth::user()->id, $room->house->id, $room->house->auto_accept));
+
+                    $room->house->owner->notify(new \App\Notifications\AdhesionToHouse(\Auth::user()->id, $room->house->id, $room->house->auto_accept));
                     
                     if($room->house->auto_accept){
                         return response()->json([
