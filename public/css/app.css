@@ -36,8 +36,34 @@ li.nav-item.dropdown {
   margin-left: 20px;
 }
 
+.notifications-menu .profile-pic {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 20px;
+}
+
 .dropdown.show .profile-pic {
     border: 2px solid rgba(253, 127, 124, 0.5);;
+}
+
+button.btn.btn-notifications {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0px;
+  margin-top: 5px;
+}
+
+.notifications-menu {
+  min-width: 400px;
+}
+
+.notifications-menu .all-notifications-link {
+  font-size: 14px;
+}
+
+.notifications-menu .dropdown-header {
+  margin-bottom: 10px;
 }
 
 .user-menu {

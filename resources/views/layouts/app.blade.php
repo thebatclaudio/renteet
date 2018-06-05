@@ -71,6 +71,20 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            <button type="button" id="btn-notifications" class="btn btn-xs btn-notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fas fa-bell"></i>
+                            </button>
+
+                            <div class="notifications-menu dropdown-menu dropdown-menu-right" role="menu">
+                                <h6 class="dropdown-header text-center text-uppercase">Notifiche</h6>
+                                <div id="notifications-menu-content">
+                                    <a class="dropdown-item disabled text-center">Nessuna notifica</a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center text-uppercase all-notifications-link" href="#">Visualizza tutte le notifiche</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 Come funziona?
                             </a>
@@ -79,7 +93,7 @@
                             <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success">
                                 Inserisci un annuncio
                             </a>
-                        </li>
+                        </li>                        
                     @endguest
                 </ul>
             </nav>

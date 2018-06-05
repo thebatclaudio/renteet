@@ -46,6 +46,10 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
+
+    Route::prefix('ajax')->name('ajax.')->group(function () {
+        Route::get('notifications', 'NotificationsController@ajaxIndex')->name('notifications');
+    });
     
     Route::get('/house', 'UserController@showHouse')->name('myHouse');
     Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');

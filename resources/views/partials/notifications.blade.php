@@ -54,3 +54,15 @@
         $(this).trigger('notify-hide');
     });
 </script>
+
+<script>
+$("#btn-notifications").on('click', function() {
+    $.get('{{route("ajax.notifications")}}', function (data) {
+        html = "";
+        for(var i in data) {
+            html+= '<a href="'+data[i].url+'" class="dropdown-item notification-item"><img src="'+data[i].image+'" class="profile-pic"> '+data[i].text+'</a>'
+        }
+        $("#notifications-menu-content").html(html);
+    });
+});
+</script>
