@@ -33,9 +33,13 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Iscriviti</a></li>
+                    </ul>
                 </div>
 
-                <ul class="navbar-nav mr-auto hidden-xs flex-row-reverse">
+                <ul class="navbar-nav mr-auto d-none d-sm-block flex-row-reverse">
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Iscriviti</a></li>
                 </ul>

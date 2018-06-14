@@ -67,7 +67,7 @@
         <div class="container">
           <div class="row justify-content-end">
             <div class="col-md-6 text-center">
-              <h3 class="claim">Migliora il rapporto tra <strong>coinquilini</strong> e <strong>locatori</strong></h3>
+              <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
               <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
             </div>
           </div>

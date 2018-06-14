@@ -216,3 +216,38 @@ h6.renteet-slogan {
     color: #138d53;
     margin-top: -10px;
 }
+
+@media(max-width: 1024px) {
+    .logo {
+        max-height: 40px;
+        margin: 0px;
+    }
+
+    .navbar-collapse ul.mr-auto.navbar-nav {
+        background-color: rgba(52, 58, 64, 0.9);
+        margin: 0px !important;
+    }
+
+    .navbar-toggler {
+        border-width: 0px;
+    }
+
+    #section4 {
+        background-size: 100%;
+    }
+
+    #section4::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        position: absolute;
+        top: 0px;
+        z-index: 2;
+    }
+
+    #section4 .content {
+        z-index: 3;
+    }
+}
