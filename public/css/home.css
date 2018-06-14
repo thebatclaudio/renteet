@@ -1,0 +1,218 @@
+/* Style for our header texts
+* --------------------------------------- */
+h1, h2, h3{
+    margin:0;
+    padding:0;
+}
+/* Backgrounds will cover all the section
+* --------------------------------------- */
+.section{
+    background-size: cover;
+    background-position: center center;
+}
+.slide{
+    background-size: cover;
+    background-position: center center;
+}
+.container {
+    max-width: 90%;
+}
+
+nav.navbar-dark {
+    transition: background-color 0.5s ease, padding 0.5s ease, height 0.5s ease;
+    height: 90px;
+}
+
+nav.transparent-navbar {
+    background: none!important;
+    padding-left: 5%;
+    padding-right: 5%;
+    transition: background-color 0.5s ease, padding 0.5s ease, height 0.5s ease;
+    height: 135px;
+}
+
+.logo {
+    max-height: 69px;
+    margin: 20px 20px;
+}
+.navbar-dark .navbar-nav .nav-link {
+    font-size: 1.3rem;
+    color: rgba(255,255,255,.9);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+    color: #fed37e;
+}
+
+.blur {
+    height: 100%;
+    background-color: rgba(19, 28, 39, 0.8);
+}
+
+.padded-content {
+    padding: 120px;
+}
+
+.content {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+.full-height {
+    height: 100%;
+}
+
+video {
+    border-radius: 40px;
+}
+
+h3.claim {
+    font-size: 2.2rem;
+}
+
+h4.sub-claim {
+    margin-top: 20px;
+}
+
+a.btn {
+    text-transform: uppercase;
+    padding: 10px 30px;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
+    color: #FFF;
+}
+
+a.btn.btn-how-it-works {
+    background-color: #fd7f7b;
+}
+
+/* Defining each section background and styles
+* --------------------------------------- */
+#section0{
+    background-image: url(../images/homepage/background.jpg);
+}
+
+#section0 h1 {
+    font-size: 4rem;
+    color: #619bd5;
+    text-transform: lowercase;
+    font-weight: 800;
+    letter-spacing: 0.2rem;
+}
+
+#section0 h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    text-transform: lowercase;
+    font-weight: 800;
+    letter-spacing: 0.2rem;
+}
+
+#section0 #search-input {
+    width: 70%;
+}
+
+/* ===== SECTION 2 ======= */
+
+#section2 {
+    background-color: #282831;
+    padding: 0;
+}
+
+#section2 h3.claim {
+    color: #fed37e;
+}
+
+#section2 h3.claim strong {
+    color: #fd7f7b;
+}
+
+#section2 h4.sub-claim {
+    color: #FFFFFE;
+}
+
+/* ===== SECTION 3 ======= */
+
+#section3 {
+    background-color: #fff6f6;
+    padding: 0;
+}
+
+#section3 h3.claim {
+    color: #000000;
+}
+
+#section3 h3.claim strong {
+    color: #ffac08;
+}
+
+#section3 h4.sub-claim {
+    color: #000000;
+}
+
+#section3 .btn-how-it-works {
+    background-color: #ffac08;
+}
+
+/* ===== SECTION 4 ======= */
+
+#section4 {
+    background-color: #0f111f;
+    background-image: url(../images/homepage/join-the-community.jpg);
+    background-size: 48% auto;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+}
+
+#section4 h3.claim {
+    color: #FFFFFF;
+}
+
+#section4 h4.sub-claim {
+    color: #FFFFFF;
+}
+
+#section4 h3.claim strong {
+    color: #ffac08;
+}
+
+#section4 h3.claim strong:first-child {
+    color: #fd7f7b;
+}
+
+#call-to-action {
+    height: 40vh;
+    background-image: url(../images/homepage/join-renteet-community.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+#call-to-action h3.claim {
+    color: #FFFFFF;
+}
+
+#section4 .btn-register {
+    background-color: #ffac08;
+}
+
+#section3 .btn-how-it-works:hover, #call-to-action .btn-register:hover {
+    color: #FFF;
+}
+
+footer {
+    padding: 40px;
+}
+
+h5.renteet-footer {
+    text-transform: lowercase;
+    font-size: 4rem;
+    color: #619bd5;
+}
+
+h6.renteet-slogan {
+    text-transform: lowercase;
+    font-size: 2rem;
+    color: #138d53;
+    margin-top: -10px;
+}
