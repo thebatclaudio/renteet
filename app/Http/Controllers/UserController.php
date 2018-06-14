@@ -56,6 +56,7 @@ class UserController extends Controller
             'living_city_id' => 'required',
             'born_city' => 'required',
             'born_city_id' => 'required',
+            'description' => 'required',
         ]);
 
         $user = \Auth::user();
@@ -82,6 +83,13 @@ class UserController extends Controller
         }
 
         $user->born_city_id = $bornCity->id;
+
+        if($request->university !== "") $user->university = $request->university;
+       
+        if($request->job !== "") $user->job = $request->job;
+
+        $user->description = $request->description;
+
         
         if($user->save()) {
             return redirect()->to('/complete-signup/interests/');
@@ -101,6 +109,7 @@ class UserController extends Controller
     }
 
     public function saveInterests(Request $request){
+
         $interests = explode(",",$request->interests);
         $interestsToAdd = [];
         foreach($interests as $interest){
@@ -118,6 +127,25 @@ class UserController extends Controller
 
             \Auth::user()->interests()->syncWithoutDetaching($interestsToAdd);
         }
+
+        $languages = explode(",",$request->languages);
+        $languagesToAdd = [];
+        foreach($languages as $language){
+
+            \Log::info($language);
+
+            if($checkLanguage = \App\Language::where('name', $language)->first()) {
+                $languagesToAdd[] = $checkLanguage->id;
+            } else {
+                $newLanguage = new \App\Language;
+                $newLanguage->name = $language;
+                $newLanguage->save();
+                $languagesToAdd[] = $newLanguage->id;
+            }
+
+            \Auth::user()->languages()->syncWithoutDetaching($languagesToAdd);
+        }
+
 
         return redirect()->to('home');
     }

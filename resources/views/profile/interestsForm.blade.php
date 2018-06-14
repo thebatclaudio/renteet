@@ -35,7 +35,7 @@ $('input').tagsinput({
 
 @section('content')
     <div class="container margin-top-20">
-        <h1 class="page-title">{{'Inserisci i tuoi interessi'}}</h1>
+        <h1 class="page-title">{{'L\'ultimo Passo'}}</h1>
         <div class="row margin-top-40">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -43,7 +43,12 @@ $('input').tagsinput({
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" name="interests" data-role="tagsinput">
+                                <input type="text" placeholder="I tuoi interessi" name="interests" data-role="tagsinput">
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Che lingue conosci ?" name="languages" data-role="tagsinput">
                             </div>
                         </div>
 
