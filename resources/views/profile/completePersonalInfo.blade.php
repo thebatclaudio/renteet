@@ -88,7 +88,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="gender" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
+                                    <label for="living_city" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
                                     <div class="col-md-8">
                                         <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city') }}">
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
@@ -102,12 +102,45 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="gender" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
+                                    <label for="born_city" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
                                     <div class="col-md-8">
                                         <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city') }}">
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
                                         <input type="hidden" id="born_city_lat" name="born_city_lat" value="{{ old('born_city_lat') }}">
                                         <input type="hidden" id="born_city_lng" name="born_city_lng" value="{{ old('born_city_lng') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="university" class="col-md-4 col-form-label">Universit&agrave;</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="university" name="university" class="form-control" value="{{ old('university') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="job" class="col-md-4 col-form-label">Lavoro</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="job" name="job" class="form-control" value="{{ old('job') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="description" class="col-md-4 col-form-label">Descrizione</label>
+                                    <div class="col-md-8">
+                                        <textarea placeholder="Raccontaci qualcosa di te.." rows="4" maxlength="150" id="description" name="description" class="form-control" value="{{ old('description') }}"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -120,4 +153,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section("styles")
+<style>
+textarea{
+    resize:none;
+}
+</style>
 @endsection

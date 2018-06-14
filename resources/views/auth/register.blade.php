@@ -136,6 +136,12 @@
             <div class="col-md-6">
                 <input type="checkbox" id="condition" name="condition">
                 <label for="condition" class="control-label">Ho letto e accetto i <a href="#">termini e le condizioni di utilizzo</a></label>
+                @if ($errors->has('condition'))
+                    <span class="help-block">
+                        <br>
+                        <strong>{{ $errors->first('condition') }}</strong>
+                    </span>
+                @endif
             </div>
         </div>
 
