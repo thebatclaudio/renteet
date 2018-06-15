@@ -51,9 +51,11 @@
         <div class="container">
           <div class="row">
             <div class="col-md-5 text-center">
-              <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
-              <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupaziome offrendo ai tuoi ospiti un’esperieza unica</h4>
-              <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-warning btn-how-it-works margin-top-20">Scopri i vantaggi</a>
+              <div class="content">
+                <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
+                <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupaziome offrendo ai tuoi ospiti un’esperieza unica</h4>
+                <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-warning btn-how-it-works margin-top-20">Scopri i vantaggi</a>
+              </div>
             </div>
             <div class="col-md-7 text-center">
               <img class="img-fluid" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
