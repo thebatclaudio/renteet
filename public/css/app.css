@@ -127,6 +127,7 @@ h3.page-title {
   border-color: #fd7f7b;
   border-width: 2px;
   box-shadow: 0 0 0 0.2rem #f274742e;
+  font-weight: 800;
 }
 
 .login-box {
