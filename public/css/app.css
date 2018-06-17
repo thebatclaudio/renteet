@@ -495,6 +495,19 @@ small.notification-date {
     width: 56px;
     height: 56px;
   }
+
+  #register-wrapper {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(/images/homepage/background.jpg);
+    height: 100%;
+    padding-top: 2%;
+  }
+
+  .register-card {
+    padding: 20px;
+  }
   
   /* RESPONSIVE CSS
   -------------------------------------------------- */

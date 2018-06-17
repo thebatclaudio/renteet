@@ -76,13 +76,3 @@
     </div>
 </div>
 @endsection
-
-@section('scripts')
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#fullpage').fullpage({
-      verticalCentered: false
-    });
-  });
-</script>
-@endsection
