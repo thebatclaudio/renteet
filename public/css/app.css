@@ -178,6 +178,15 @@ small.notification-date {
   font-size: 1rem;
 }
 
+#notifications-menu-content .dropdown-item {
+  white-space: normal;
+}
+
+.notifications-menu {
+  max-width: 440px;
+  right: 40px !important;
+}
+
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   
