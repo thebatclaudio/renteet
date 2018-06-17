@@ -87,7 +87,7 @@
                                     <a class="dropdown-item disabled text-center">Nessuna notifica</a>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center text-uppercase all-notifications-link" href="#">Visualizza tutte le notifiche</a>
+                                <a class="dropdown-item text-center text-uppercase all-notifications-link" href="{{route('notifications')}}">Visualizza tutte le notifiche</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -107,13 +107,8 @@
         
         <main role="main">
             @yield('content')
-
-            <!-- FOOTER -->
-            <!--footer class="container">
-                <p class="float-right"><a href="#">Torna su</a></p>
-                <p>&copy; {{date('Y')}} Renteet, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-            </footer-->
-
+            
+            @include('partials.footer')
         </main>
 
         <script>

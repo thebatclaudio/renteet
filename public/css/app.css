@@ -141,6 +141,43 @@ h3.page-title {
   background-color: #138d53;
 }
 
+.shadow {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shadow:hover {
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.shadow-nohover {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-title-container {
+  background-color: #619bd5;
+  width: auto;
+  position: absolute;
+  top: 120px;
+  z-index: 9;
+  color: #FFF;
+  text-transform: uppercase;
+  left: 0px;
+  padding: 5px 10px 5px 50px;
+  letter-spacing: 5px;
+}
+
+.notification-link:link, .notification-link:hover, .notification-link:active, .notification-link:visited {
+  color: #5a5a5a;
+  text-decoration: none;
+}
+
+small.notification-date {
+  display: block;
+  font-size: 1rem;
+}
+
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   
