@@ -8,7 +8,7 @@ class NotificationsController extends Controller
 {
     public function ajaxIndex() {
         $notifications = [];
-        foreach(\Auth::user()->unreadNotifications as $notification) {
+        foreach(\Auth::user()->unreadNotifications()->limit(5)->get() as $notification) {
             switch($notification->type) {
                 case "App\Notifications\AdhesionToHouse":
                     if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {

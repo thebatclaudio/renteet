@@ -71,9 +71,15 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            @if(\Auth::user()->unreadNotifications()->count())
+                            <button type="button" id="btn-notifications" class="btn btn-xs btn-notifications dropdown-toggle unread" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{\Auth::user()->unreadNotifications()->count()}}
+                            </button>
+                            @else
                             <button type="button" id="btn-notifications" class="btn btn-xs btn-notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <i class="fas fa-bell"></i>
                             </button>
+                            @endif
 
                             <div class="notifications-menu dropdown-menu dropdown-menu-right" role="menu">
                                 <h6 class="dropdown-header text-center text-uppercase">Notifiche</h6>

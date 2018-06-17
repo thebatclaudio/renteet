@@ -122,6 +122,13 @@ h3.page-title {
   padding-top: 10%;
 }
 
+#btn-notifications.unread {
+  color: #fd7f7b;
+  border-color: #fd7f7b;
+  border-width: 2px;
+  box-shadow: 0 0 0 0.2rem #f274742e;
+}
+
 .login-box {
   width: 25%;
   margin: 0 auto;
