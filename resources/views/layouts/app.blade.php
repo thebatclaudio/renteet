@@ -107,9 +107,9 @@
         
         <main role="main">
             @yield('content')
-            
-            @include('partials.footer')
         </main>
+            
+        @include('partials.footer')
 
         <script>
 

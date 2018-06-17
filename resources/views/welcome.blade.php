@@ -33,14 +33,16 @@
         <div class="container">
           <div class="row">
             <div class="col-md-7">
-              <video width="500px" height="auto" autoplay="autoplay" loop="loop">
+              <video width="100%" height="auto" autoplay loop="loop">
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
             <div class="col-md-4 text-center">
-              <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong>con chi</strong> vivere</h3>
-              <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
-              <a href="{{url('/come-funziona/')}}" title="Come funziona" class="btn btn-danger btn-how-it-works margin-top-20">Come funziona</a>
+              <div class="content">
+                <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong>con chi</strong> vivere</h3>
+                <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
+                <a href="{{url('/come-funziona/')}}" title="Come funziona" class="btn btn-danger btn-how-it-works margin-top-20">Come funziona</a>
+              </div>
             </div>
           </div>
         </div>
@@ -58,7 +60,7 @@
               </div>
             </div>
             <div class="col-md-7 text-center">
-              <img class="img-fluid" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
+              <img class="img-fluid d-none d-sm-block" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
             </div>
           </div>
         </div>
