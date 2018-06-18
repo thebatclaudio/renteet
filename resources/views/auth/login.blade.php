@@ -79,16 +79,7 @@
         <a href="/facebook/redirect" class="fa fa-facebook"></a>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#fullpage').fullpage({
-      verticalCentered: false
-    });
-  });
-</script>
+<<<<<<< HEAD
 @endsection
 
 @section("styles")
@@ -115,3 +106,6 @@ textarea{
 }
 </style>
 @endsection
+=======
+@endsection
+>>>>>>> 8e03d4f62588a3567df18bbba19d528303c8fd29

@@ -122,6 +122,14 @@ h3.page-title {
   padding-top: 10%;
 }
 
+#btn-notifications.unread {
+  color: #fd7f7b;
+  border-color: #fd7f7b;
+  border-width: 2px;
+  box-shadow: 0 0 0 0.2rem #f274742e;
+  font-weight: 800;
+}
+
 .login-box {
   width: 25%;
   margin: 0 auto;
@@ -131,6 +139,52 @@ h3.page-title {
 
 .btn-login {
   background-color: #138d53;
+}
+
+.shadow {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shadow:hover {
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.shadow-nohover {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-title-container {
+  background-color: #619bd5;
+  width: auto;
+  position: absolute;
+  top: 120px;
+  z-index: 9;
+  color: #FFF;
+  text-transform: uppercase;
+  left: 0px;
+  padding: 5px 10px 5px 50px;
+  letter-spacing: 5px;
+}
+
+.notification-link:link, .notification-link:hover, .notification-link:active, .notification-link:visited {
+  color: #5a5a5a;
+  text-decoration: none;
+}
+
+small.notification-date {
+  display: block;
+  font-size: 1rem;
+}
+
+#notifications-menu-content .dropdown-item {
+  white-space: normal;
+}
+
+.notifications-menu {
+  max-width: 440px;
+  right: 40px !important;
 }
 
   /* CUSTOMIZE THE CAROUSEL
@@ -440,6 +494,20 @@ h3.page-title {
   .house .house-users .small-user-pic {
     width: 56px;
     height: 56px;
+  }
+
+  #register-wrapper {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(/images/homepage/background.jpg);
+    min-height: 100%;
+    padding-top: 2%;
+    background-attachment: fixed;
+  }
+
+  .register-card {
+    padding: 20px;
   }
   
   /* RESPONSIVE CSS

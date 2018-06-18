@@ -31,7 +31,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <form id="searchForm" class="form-inline mt-2 mt-md-0" action="{{route('search.coordinates')}}" method="GET">
+                <form id="searchForm" class="form-inline mt-2 mt-md-0 d-none d-sm-inline-flex" action="{{route('search.coordinates')}}" method="GET">
                     <input id="lat" name="lat" type="hidden" required>
                     <input id="lng" name="lng" type="hidden" required>
                     <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Universit&agrave; degli studi di Palermo&quot;" aria-label="Cerca">
@@ -71,9 +71,15 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            @if(\Auth::user()->unreadNotifications()->count())
+                            <button type="button" id="btn-notifications" class="btn btn-xs btn-notifications dropdown-toggle unread" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{\Auth::user()->unreadNotifications()->count()}}
+                            </button>
+                            @else
                             <button type="button" id="btn-notifications" class="btn btn-xs btn-notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <i class="fas fa-bell"></i>
                             </button>
+                            @endif
 
                             <div class="notifications-menu dropdown-menu dropdown-menu-right" role="menu">
                                 <h6 class="dropdown-header text-center text-uppercase">Notifiche</h6>
@@ -81,7 +87,7 @@
                                     <a class="dropdown-item disabled text-center">Nessuna notifica</a>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-center text-uppercase all-notifications-link" href="#">Visualizza tutte le notifiche</a>
+                                <a class="dropdown-item text-center text-uppercase all-notifications-link" href="{{route('notifications')}}">Visualizza tutte le notifiche</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -101,14 +107,9 @@
         
         <main role="main">
             @yield('content')
-
-            <!-- FOOTER -->
-            <!--footer class="container">
-                <p class="float-right"><a href="#">Torna su</a></p>
-                <p>&copy; {{date('Y')}} Renteet, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-            </footer-->
-
         </main>
+            
+        {{--@include('partials.footer')--}}
 
         <script>
 

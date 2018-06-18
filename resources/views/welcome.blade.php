@@ -33,14 +33,16 @@
         <div class="container">
           <div class="row">
             <div class="col-md-7">
-              <video width="500px" height="auto" autoplay="autoplay" loop="loop">
+              <video width="100%" height="auto" autoplay loop="loop">
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
             <div class="col-md-4 text-center">
-              <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong>con chi</strong> vivere</h3>
-              <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
-              <a href="{{url('/come-funziona/')}}" title="Come funziona" class="btn btn-danger btn-how-it-works margin-top-20">Come funziona</a>
+              <div class="content">
+                <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong>con chi</strong> vivere</h3>
+                <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
+                <a href="{{url('/come-funziona/')}}" title="Come funziona" class="btn btn-danger btn-how-it-works margin-top-20">Come funziona</a>
+              </div>
             </div>
           </div>
         </div>
@@ -51,12 +53,14 @@
         <div class="container">
           <div class="row">
             <div class="col-md-5 text-center">
-              <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
-              <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupaziome offrendo ai tuoi ospiti un’esperieza unica</h4>
-              <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-warning btn-how-it-works margin-top-20">Scopri i vantaggi</a>
+              <div class="content">
+                <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
+                <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupaziome offrendo ai tuoi ospiti un’esperieza unica</h4>
+                <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-warning btn-how-it-works margin-top-20">Scopri i vantaggi</a>
+              </div>
             </div>
             <div class="col-md-7 text-center">
-              <img class="img-fluid" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
+              <img class="img-fluid d-none d-sm-block" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
             </div>
           </div>
         </div>
@@ -67,7 +71,7 @@
         <div class="container">
           <div class="row justify-content-end">
             <div class="col-md-6 text-center">
-              <h3 class="claim">Migliora il rapporto tra <strong>coinquilini</strong> e <strong>locatori</strong></h3>
+              <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
               <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
             </div>
           </div>

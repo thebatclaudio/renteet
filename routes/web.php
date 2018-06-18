@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function (){
 
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
 
+    Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
+
     //step 1: carica foto
     Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');
     Route::post('/complete-signup/upload-picture/', 'UploadPictureController@uploadPicture')->name("upload-picture");
