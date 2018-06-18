@@ -20,6 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
+Route::get('/facebook/callback', 'Auth\SocialAuthController@callback');
+
 // authenticated routes
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', 'HomeController@index')->name('home')->middleware('profile.complete');

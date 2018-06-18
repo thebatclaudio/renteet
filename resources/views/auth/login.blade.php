@@ -2,6 +2,10 @@
 
 @section('title', 'Accedi')
 
+@section('link')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@endsection
+
 @section('content')
 <div id="login-wrapper">
     <div class="card login-box">
@@ -71,8 +75,37 @@
                         </a>
                 </div>
             </div>            
-
         </form>
+        <a href="/facebook/redirect" class="fa fa-facebook"></a>
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
+
+@section("styles")
+<style>
+textarea{
+    resize:none;
+}
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+</style>
+@endsection
+=======
+@endsection
+>>>>>>> 8e03d4f62588a3567df18bbba19d528303c8fd29
