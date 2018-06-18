@@ -31,7 +31,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <form id="searchForm" class="form-inline mt-2 mt-md-0" action="{{route('search.coordinates')}}" method="GET">
+                <form id="searchForm" class="form-inline mt-2 mt-md-0 d-none d-sm-inline-flex" action="{{route('search.coordinates')}}" method="GET">
                     <input id="lat" name="lat" type="hidden" required>
                     <input id="lng" name="lng" type="hidden" required>
                     <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Universit&agrave; degli studi di Palermo&quot;" aria-label="Cerca">

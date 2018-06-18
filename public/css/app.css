@@ -501,8 +501,9 @@ small.notification-date {
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(/images/homepage/background.jpg);
-    height: 100%;
+    min-height: 100%;
     padding-top: 2%;
+    background-attachment: fixed;
   }
 
   .register-card {
