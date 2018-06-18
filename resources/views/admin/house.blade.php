@@ -8,13 +8,12 @@
         <div class="panel-heading">Casa</div>
 
         <div class="panel-body">
-            <h3>{{$house->name}}</h3>
+            <h2>{{$house->name}}</h2>
             <hr>
-            <h4>Stanze</h4>
             <div class="rooms-list row">
                 @foreach($house->rooms as $index => $room)
                 <div class="col-md-4">
-                    <div class="card room-el">
+                    <div class="card room-el margin-top-20">
                         <img class="card-img-top" src="{{$house->preview_image_url}}" alt="{{$index+1}}">
                         <div class="card-block">
                             <h4 class="card-title">Stanza {{$index+1}}</h4>
