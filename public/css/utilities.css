@@ -58,3 +58,13 @@ body {
     color: rgba(253, 127, 124, 0.5);
     margin-left: 15px;
 }
+
+.no-padding {
+    padding: 0px;
+}
+
+.align-vertical-center {
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+}

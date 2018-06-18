@@ -30,7 +30,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete', 'lessor', 'age', 'rating'
+        'profile_url', 'profile_pic', 'profile_pic_real_size', 'profile_complete', 'lessor', 'age', 'rating', 'complete_name'
     ];
 
     public function getProfileUrlAttribute() {
@@ -69,8 +69,16 @@ class User extends Authenticatable
         return \Carbon\Carbon::now()->format('Y')-\Carbon\Carbon::createFromFormat('Y-m-d', $this->birthday)->format('Y');
     }
 
-    public function hasHouse() {
-        return RoomUser::where('user_id', $this->id)->exists();
+    public function getCompleteNameAttribute() {
+        return $this->first_name." ".$this->last_name;
+    }
+
+    public function isLessor() {
+        return !!$this->houses()->count();
+    }
+
+    public function isTenant() {
+        return !!$this->rooms()->where('accepted_by_owner', true)->count();
     }
     
     public function houses() {

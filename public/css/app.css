@@ -5,6 +5,10 @@ html, body, main {
   height: 100%;
 }
 
+a:hover, a:focus {
+  text-decoration: none;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
@@ -75,7 +79,7 @@ button.btn.btn-notifications {
 }
 
 .btn-success {
-  background-color: #099154;
+  background-color: #099154!important;
 }
 
 /* Search input */

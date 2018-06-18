@@ -55,14 +55,18 @@
                             </a>
 
                             <div class="user-menu dropdown-menu dropdown-menu-right" role="menu">
-                                @if(\Auth::user()->houses()->count() >= 1)
+                                @if(\Auth::user()->isLessor())
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Gestisci le tue case</a>
                                 @endif
-                                @if(\Auth::user()->hasHouse())
+
+                                @if(\Auth::user()->isTenant())
                                 <a class="dropdown-item" href="{{ route('myHouse') }}">La tua casa</a>
                                 @endif
+
                                 <a class="dropdown-item" href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
+                                
                                 <div class="dropdown-divider"></div>
+                                
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Esci da Renteet</a>
                                 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

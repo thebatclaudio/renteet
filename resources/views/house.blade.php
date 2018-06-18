@@ -3,60 +3,20 @@
 @section('title', 'La tua casa')
 
 @section('styles')
-<style>
-.preview .first-coloumn {
-    padding: 12px;
-    max-height: 120px;
-}
-.preview div[class^=col-md] {
-    margin-top: 20px;
-}
-.avatar {
-    margin-top: -20px;
-}
-.btn{
-    white-space:normal !important;
-    word-wrap: break-word; 
-}
-div[class^=circle] {
-    background:white;
-    border-radius:100%;
-    display:inline-block;
-    height:20px;
-    width:20px;
-    overflow:hidden;
-    position:relative;
-    border: 2px solid orange;
-}
-div[class^=circle]:after {
-    content:'';
-    position:absolute;
-    display:block;
-    height:100%;
-    left:0;
-    border-radius:100%;
-    height:20px;
-    width:20px;
-}
-div.full:hover:after {
-    border-radius:100%;
-    width:100%;
-    background: orange;
-}
-div.selected {
-    border-radius:100%;
-    background: orange;
-}
-</style>
+<link rel="stylesheet" href="/css/myhouse.css?{{rand()}}">
 @endsection
 
 @section('content')
 <div class="container-fluid preview">
     <div class="row">
-        <div class="col-md-2 bg-dark text-white first-coloumn">
-            {{ $house->street_name }} <br>
+        <div class="col-md-2 bg-dark text-white first-column">
+            <h4>{{$house->name}}</h4>
+            <ul class="list-unstyled">
+                <li>{{ $house->street_name }} {{ $house->number }}</li>
+                <li>{{ $house->city }}</li>
+            </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 no-padding">
             <div id="demo" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
                     <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -82,8 +42,10 @@ div.selected {
                 </a>                    
             </div>
         </div>
-        <div class="col-md-2 bg-dark first-coloumn">
-            <img src="{{ App\User::find($house->owner->id)->profile_pic }}" class="avatar img-fluid col-md-11">
+        <div class="col-md-2 bg-dark last-column">
+            <img src="{{ $house->owner->profile_pic }}" class="avatar img-fluid">
+            <h6 class="text-center margin-top-40">Locatore</h6>
+            <h5 class="text-center">{{$house->owner->first_name}} {{$house->owner->last_name}}</h5>
         </div>
     </div>
 </div>
@@ -91,27 +53,43 @@ div.selected {
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <button class="btn btn-block btn-danger btn-lg">Recedi dal contratto di locazione</button>
+            <div class="align-vertical-center">
+                <button class="btn btn-block btn-success btn-lg">Leggi contratto d'affitto</button>
+                <button class="btn btn-block btn-danger btn-lg">Recedi dal contratto di locazione</button>
+            </div>
         </div>
-        <div class="col-md-2 justify-content-center align-self-center">
-            <strong>I tuoi coinquilini</strong>
+        <div class="col-md-2 text-right border-left">
+            <div class="align-vertical-center">
+                <h4>I tuoi coinquilini:</h4>
+            </div>
         </div>
         <div class="col-md-6">
-            @foreach(App\House::find($house->id)->rooms as $room)
-                @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
-                    <img src="{{ App\User::find($room_user->user_id)->profile_pic }}" class="img-circle img-responsive img-thumbnail col-md-2 mx-auto d-block">
+            <div class="row">
+            @foreach($house->rooms as $room)
+
+                @foreach($room->acceptedUsers as $user)
+                    <div class="col">
+                        <a href="{{ $user->profile_url }}" title="{{ $user->complete_name }}">
+                            <img src="{{ $user->profile_pic }}" class="img-fluid rounded-circle roommate-img {{\Auth::user()->gender}}">
+                            <h6 class="roommate-name text-center text-nowrap {{\Auth::user()->gender}} margin-top-10">{{$user->complete_name}}</h6>
+                        </a>
+                    </div>
                 @endforeach
+
+                @for($i = 0; $i < $room->beds - $room->acceptedUsers()->count(); $i++)
+                    <div class="col">
+                        <img src="/images/empty-place.png" class="img-fluid rounded-circle roommate-img empty-place {{\Auth::user()->gender}}">
+                    </div>
+                @endfor
+
             @endforeach
+            </div>
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <button class="btn btn-lg btn-outline">Leggi contratto d'affitto</button>
-        </div>
-    </div>
-    <br>
-    <div class="row justify-content-center">
+
+    <hr class="margin-top-40">
+    
+    <div class="row justify-content-center margin-top-40">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-center">
