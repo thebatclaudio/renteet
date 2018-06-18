@@ -1,0 +1,104 @@
+.preview .first-column, .preview .last-column {
+    padding: 12px;
+    max-height: 120px;
+}
+
+.preview div[class^=col-md] {
+    margin-top: 20px;
+}
+
+.avatar {
+    margin-top: -20px;
+    border-radius: 50%;
+    width: 60%;
+    margin: -20px 20%;
+}
+
+.btn{
+    white-space:normal !important;
+    word-wrap: break-word; 
+}
+
+div[class^=circle] {
+    background:white;
+    border-radius:100%;
+    display:inline-block;
+    height:20px;
+    width:20px;
+    overflow:hidden;
+    position:relative;
+    border: 2px solid orange;
+}
+
+div[class^=circle]:after {
+    content:'';
+    position:absolute;
+    display:block;
+    height:100%;
+    left:0;
+    border-radius:100%;
+    height:20px;
+    width:20px;
+}
+
+div.full:hover:after {
+    border-radius:100%;
+    width:100%;
+    background: orange;
+}
+
+div.selected {
+    border-radius:100%;
+    background: orange;
+}
+
+div.border-left {
+    border-left: 1px solid #333;
+}
+
+.roommate-name {
+    text-transform: uppercase;
+}
+
+.roommate-name.male {
+    color: #619bd5;
+}
+
+.roommate-name.female {
+    color: #fd7f7b;
+}
+
+a:hover .roommate-img, a:focus .roommate-img {
+    border-style: solid;
+    border-width: 3px;
+}
+
+a:hover .roommate-img.male, a:focus .roommate-img.male {
+    border-color: #619bd5;
+}
+
+a:hover .roommate-img.female, a:focus .roommate-img.female {
+    border-color: #fd7f7b;
+}
+
+.empty-place {
+    opacity: 0.5;
+}
+
+@media(max-width: 1440px) {
+    .avatar {
+        width: 80%;
+        margin: -20px 10%;
+    }
+}
+
+@media (max-width: 1024px){
+    .avatar {
+        width: 100%;
+        margin: auto auto;
+    }
+
+    .preview .first-column, .preview .last-column {
+        max-height: 180px;
+    }
+}
