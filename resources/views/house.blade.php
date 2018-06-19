@@ -54,8 +54,12 @@
     <div class="row">
         <div class="col-md-3">
             <div class="align-vertical-center">
-                <button class="btn btn-block btn-success btn-lg">Leggi contratto d'affitto</button>
-                <button class="btn btn-block btn-danger btn-lg">Recedi dal contratto di locazione</button>
+                <div>
+                    <button class="btn btn-block btn-success btn-lg">Leggi contratto d'affitto</button>
+                </div>
+                <div class="margin-top-10">
+                    <button class="btn btn-block btn-black btn-lg">Recedi dal contratto di locazione</button>
+                </div>
             </div>
         </div>
         <div class="col-md-2 text-right border-left">

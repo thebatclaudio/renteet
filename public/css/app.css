@@ -17,6 +17,10 @@ a:hover, a:focus {
   color: #fed37e;
 }
 
+.btn-black {
+  background-color: #333!important;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
