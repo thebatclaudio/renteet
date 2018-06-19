@@ -74,34 +74,14 @@
                             Registrati
                         </a>
                 </div>
-            </div>            
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12 col-md-offset-4">
+                    <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
+                </div>
+            </div>
         </form>
-        <a href="/facebook/redirect" class="fa fa-facebook"></a>
     </div>
 </div>
-@endsection
-
-@section("styles")
-<style>
-textarea{
-    resize:none;
-}
-.fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 50px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-}
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.fa-facebook {
-  background: #3B5998;
-  color: white;
-}
-</style>
 @endsection

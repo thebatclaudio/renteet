@@ -82,6 +82,11 @@ button.btn.btn-notifications {
   background-color: #099154!important;
 }
 
+.btn-fb {
+  background-color: #3b5998!important;
+  color: #fff!important;
+}
+
 /* Search input */
 #search-input {
   height: 50px;
