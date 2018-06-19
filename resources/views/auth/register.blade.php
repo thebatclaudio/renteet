@@ -140,9 +140,9 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <input type="checkbox" id="condition" name="condition">
+                        <div class="col-md-12">
+                            <div class="form-check checkbox-primary">
+                                <input type="checkbox" class="form-check-input" id="condition" name="condition">
                                 <label for="condition" class="control-label">Ho letto e accetto i <a href="#">termini e le condizioni di utilizzo</a></label>
                                 @if ($errors->has('condition'))
                                     <span class="help-block">

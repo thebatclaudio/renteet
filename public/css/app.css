@@ -58,12 +58,17 @@ li.nav-item.dropdown {
     border: 2px solid rgba(253, 127, 124, 0.5);;
 }
 
-button.btn.btn-notifications {
+.btn.btn-notifications {
   border-radius: 50%;
   width: 32px;
   height: 32px;
   padding: 0px;
   margin-top: 5px;
+  background-color: #FFF;
+}
+
+a.btn.btn-notifications {
+  padding-top: 7px;
 }
 
 .notifications-menu {
@@ -540,6 +545,21 @@ small.notification-date {
     }
   }
   
+  li.nav-item.profile-nav-item {
+    color: #FFF;
+    padding: 20px 0px;
+    height: 100px;
+    background-color: rgba(255,255,255,0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 575px) {
+    .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
+      color: #ffffff;
+    }
+  }
+
   /* RESPONSIVE CSS
   -------------------------------------------------- */
   

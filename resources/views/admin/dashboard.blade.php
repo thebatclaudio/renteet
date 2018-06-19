@@ -5,11 +5,9 @@
 @section('content')
 <div class="container margin-top-20">
     <div class="panel panel-default">
-        <div class="panel-heading">Bentornato {{$user->first_name}}</div>
-
+        <a class="btn btn-success float-sm-right" href="{{route('admin.house.wizard.one')}}"><i class="fa fa-plus"></i> Inserisci un nuovo immobile</a>
         <div class="panel-body">
-            <h3 class="page-title">Gestisci i tuoi immobili</h3>
-            <a class="btn btn-primary pull-right" href="{{route('admin.house.wizard.one')}}"><i class="fa fa-plus"></i> Inserisci un nuovo immobile</a>
+            <h3 class="page-title margin-top-10">Gestisci i tuoi immobili</h3>
             <hr>
             <div class="row houses-list">
                 @foreach($houses as $house)
