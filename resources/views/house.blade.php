@@ -58,7 +58,7 @@
                     <button class="btn btn-block btn-success btn-lg">Leggi contratto d'affitto</button>
                 </div>
                 <div class="margin-top-10">
-                    <button class="btn btn-block btn-black btn-lg">Recedi dal contratto di locazione</button>
+                    <button class="btn btn-block btn-elegant btn-lg">Recedi dal contratto di locazione</button>
                 </div>
             </div>
         </div>
@@ -93,75 +93,6 @@
 
     <hr class="margin-top-40">
     
-    <div class="row justify-content-center margin-top-40">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center">
-                    Chat della casa
-                </div>
-                <div class="card-body">
-
-                </div>
-                <div class="card-footer">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Inserisci qui il messaggio..." aria-label="Inserisci qui il messaggio..." aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-success" type="button"><i class="fa fa-send"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="d-flex flex-row">
-        <form action="{{ route('user.rating') }}" method="post">
-            <div class="p-1 text-center">
-                {{ csrf_field() }}
-                <input type="hidden" name="uid" value="{{ $house->owner_id }}">
-                <input type="hidden" id="rating" name="rating" value="">
-                <img src="{{ App\User::find($house->owner_id)->profile_pic }}" class="img-circle img-responsive col-md-4"><br>
-                <strong>{{ App\User::find($house->owner_id)->first_name }} {{ App\User::find($house->owner_id)->last_name }}</strong> <span class="badge badge-danger">Locatore</span><br>
-                <br>
-                <div class="review">
-                    <div class='circle full' onclick="setRating(this, 1)"></div>
-                    <div class='circle full' onclick="setRating(this, 2)"></div>
-                    <div class='circle full' onclick="setRating(this, 3)"></div>
-                    <div class='circle full' onclick="setRating(this, 4)"></div>
-                    <div class='circle full' onclick="setRating(this, 5)"></div>
-                </div>
-                <br><br>
-                <input type="text" name="title" placeholder="Inserisci qui il titolo..." class="form-control"><br>
-                <textarea name="message" id="" cols="14" rows="6" placeholder="Inserisci qui il tuo messaggio..." class="form-control"></textarea><br>
-                <button type="submit" class="btn btn-lg btn-primary">Recensisci</button>
-            </div>
-        </form>
-        @foreach(App\House::find($house->id)->rooms as $room)
-        @foreach(App\RoomUser::where('room_id', $room->id)->where('accepted_by_owner', true)->get() as $room_user)
-            <form action="{{ route('user.rating') }}" method="post">
-                <div class="p-2 text-center">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="uid" value="{{ App\User::find($room_user->user_id)->id }}">
-                    <input type="hidden" id="rating" name="rating" value="">
-                    <img src="{{ App\User::find($room_user->user_id)->profile_pic }}" class="img-circle img-responsive col-md-4"><br>
-                    <strong>{{ App\User::find($room_user->user_id)->first_name }} {{ App\User::find($room_user->user_id)->last_name }}</strong><br>
-                    <br>
-                    <div class="review">
-                        <div class='circle full' onclick="setRating(this, 1)"></div>
-                        <div class='circle full' onclick="setRating(this, 2)"></div>
-                        <div class='circle full' onclick="setRating(this, 3)"></div>
-                        <div class='circle full' onclick="setRating(this, 4)"></div>
-                        <div class='circle full' onclick="setRating(this, 5)"></div>
-                    </div>
-                    <br><br>
-                    <input type="text" name="title" placeholder="Inserisci qui il titolo..." class="form-control"><br>
-                    <textarea name="message" id="" cols="14" rows="6" placeholder="Inserisci qui il tuo messaggio..." class="form-control"></textarea><br>
-                    <button type="submit" class="btn btn-lg btn-primary">Recensisci</button>
-                </div>
-            </form>
-            @endforeach
-        @endforeach
-    </div>
 </div>
 @endsection
 
