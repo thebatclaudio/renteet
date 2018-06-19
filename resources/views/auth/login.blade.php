@@ -76,6 +76,12 @@
                 </div>
             </div>
 
+            <hr>
+
+            <div class="form-group text-center">
+                <span class="text-uppercase"><small>oppure</small></span>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-12 col-md-offset-4">
                     <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
