@@ -9,6 +9,14 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+.btn-link {
+  color: #619bd5;
+}
+
+.btn-link.yellow-link {
+  color: #fed37e;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
@@ -517,6 +525,19 @@ small.notification-date {
 
   .register-card {
     padding: 20px;
+  }
+
+  @media (max-width: 565px) {
+    #login-wrapper {
+      padding-top: 0px;
+    }
+
+    .login-box {
+      width: 100%;
+      background-color: rgba(23, 23, 23, 0.8);
+      color: #FFF;
+      border-radius: 0px;
+    }
   }
   
   /* RESPONSIVE CSS

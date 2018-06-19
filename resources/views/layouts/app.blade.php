@@ -40,9 +40,16 @@
                     <i class="search-icon fa fa-search fa-2x" aria-hidden="true"></i>
                 </form>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto d-block d-sm-none">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Come funziona?</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrati</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
+                    </ul>
                 </div>
 
-                <ul class="navbar-nav mr-auto hidden-xs flex-row-reverse">
+                <ul class="navbar-nav mr-auto d-none d-sm-flex flex-row-reverse">
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="#">Come funziona?</a>
