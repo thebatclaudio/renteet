@@ -62,7 +62,7 @@
                     <button class="btn btn-block btn-success btn-lg" disabled>Leggi contratto d'affitto</button>
                 </div>
                 <div class="margin-top-10">
-                    <button class="btn btn-block btn-elegant btn-lg">Abbandona l'immobile</button>
+                    <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>
                 </div>
             </div>
         </div>
@@ -102,9 +102,26 @@
 
 @section('scripts')
 <script>
-function setRating(element, value) {
-    document.getElementById('rating').value = value;
-    element.classList.add('selected');
-}
+
+const swalWithBootstrapButtons = swal.mixin({
+  confirmButtonClass: 'btn btn-danger',
+  cancelButtonClass: 'btn btn-primary',
+  buttonsStyling: false,
+})
+
+$("#exitButton").on('click', function () {
+    swalWithBootstrapButtons({
+        title: "Sei sicuro di voler abbandonare l'immobile?",
+        text: "Questa operazione non potrà essere annullata",
+        showCancelButton: true,
+        confirmButtonText: 'Abbandona',
+        cancelButtonText: 'Annulla',
+        type: 'warning'
+    }).then((send) => {
+        if (send.value) {
+            
+        }
+    });
+});
 </script>
 @endsection
