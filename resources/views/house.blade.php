@@ -17,11 +17,15 @@
             </ul>
         </div>
         <div class="col-md-8 no-padding">
-            <div id="demo" class="carousel slide" data-ride="carousel">
+            <div id="homeCarousel" class="carousel slide" data-ride="carousel">
                 <ul class="carousel-indicators">
-                    <li data-target="#demo" data-slide-to="0" class="active"></li>
-                    <li data-target="#demo" data-slide-to="1"></li>
-                    <li data-target="#demo" data-slide-to="2"></li>
+                    @for($i = 0; $i < $house->photos()->count(); $i++)
+                        @if($i == 0)
+                            <li data-target="#homeCarousel" data-slide-to="{{$i}}" class="active"></li>
+                        @else
+                            <li data-target="#homeCarousel" data-slide-to="{{$i}}"></li>
+                        @endif
+                    @endfor
                 </ul>
                 
                 <div class="carousel-inner">
@@ -34,10 +38,10 @@
                     @endforeach
                 </div>
                 
-                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <a class="carousel-control-prev" href="#homeCarousel" data-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next">
+                <a class="carousel-control-next" href="#homeCarousel" data-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </a>                    
             </div>
@@ -55,10 +59,10 @@
         <div class="col-md-3">
             <div class="align-vertical-center">
                 <div>
-                    <button class="btn btn-block btn-success btn-lg">Leggi contratto d'affitto</button>
+                    <button class="btn btn-block btn-success btn-lg" disabled>Leggi contratto d'affitto</button>
                 </div>
                 <div class="margin-top-10">
-                    <button class="btn btn-block btn-elegant btn-lg">Recedi dal contratto di locazione</button>
+                    <button class="btn btn-block btn-elegant btn-lg">Abbandona l'immobile</button>
                 </div>
             </div>
         </div>
