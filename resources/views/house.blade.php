@@ -103,24 +103,21 @@
 @section('scripts')
 <script>
 
-const swalWithBootstrapButtons = swal.mixin({
-  confirmButtonClass: 'btn btn-danger',
-  cancelButtonClass: 'btn btn-primary',
-  buttonsStyling: false,
-})
 
 $("#exitButton").on('click', function () {
-    swalWithBootstrapButtons({
-        title: "Sei sicuro di voler abbandonare l'immobile?",
-        text: "Questa operazione non potrà essere annullata",
-        showCancelButton: true,
-        confirmButtonText: 'Abbandona',
-        cancelButtonText: 'Annulla',
-        type: 'warning'
-    }).then((send) => {
-        if (send.value) {
-            
-        }
+
+    swal({
+        content: {
+            title: ''
+            element: "input",
+            attributes: {
+                type: "date",
+                id: "exitDate",
+                value: "{{\Carbon\Carbon::now()->format('Y-m-d')}}"
+            },
+        },
+    }).then(function(){
+        $("#exitDate").val("{{\Carbon\Carbon::now()->format('Y-m-d')}}");
     });
 });
 </script>

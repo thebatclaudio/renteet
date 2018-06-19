@@ -138,11 +138,11 @@
         swal({
           title: "Stai per inviare una richiesta di adesione",
           text: "L'host potrà accettare o rifiutare la tua adesione all'immobile",
-          showCancelButton: true,
-          confirmButtonText: 'Prendi posto'
+          buttons: [true, 'Prendi posto'],
+          icon: 'warning'
         })
         .then((send) => {
-          if (send.value) {
+          if (send) {
             var button = $(this).children("p").children(".rent-house");
             var url = '{{route('rent.room', ':id')}}';
             $.post(url.replace(':id', button.data("id")), function( data ) {

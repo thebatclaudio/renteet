@@ -86,12 +86,9 @@
                         @endif
 
                         <li class="nav-item">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Esci da Renteet</a>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); ">Esci da Renteet</a>
                         </li>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-block">
@@ -242,7 +239,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
         <script src="//js.pusher.com/3.1/pusher.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.5/jquery.fullpage.min.js"></script>
-        <script src="//unpkg.com/sweetalert2@7.20.8/dist/sweetalert2.all.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="{{url('/js/notify.min.js')}}"></script>
 
         <!-- Scripts -->

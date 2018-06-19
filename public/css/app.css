@@ -554,6 +554,28 @@ small.notification-date {
     margin-bottom: 20px;
   }
 
+  /** ====== SWEETALERT =============**/
+
+  .swal-button {
+    background-color: #619bd5;
+  }
+
+  .swal-button:active {
+    background-color: #2f97ff;
+  }
+
+  .swal-button--cancel {
+    background-color: #efefef;
+  }
+
+  .swal-button--cancel:active {
+    background-color: #d7d7d7;
+  }
+  
+  .swal-text {
+    text-align: center;
+  }
+
   @media (max-width: 575px) {
     .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
       color: #ffffff;
