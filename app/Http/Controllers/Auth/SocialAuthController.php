@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\SocialAccount;
 use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,7 @@ class SocialAuthController extends Controller
     protected function callback()
     {
         $user = Socialite::driver('facebook')->fields([
-            'first_name', 'last_name', 'email', 'gender'
+            'first_name', 'last_name', 'email'
         ])->user();
 
         $authUser = $this->findOrCreateUser($user);
@@ -68,6 +69,7 @@ class SocialAuthController extends Controller
         if(file_exists($path) === false){
             \Image::make($user->getAvatar())->save($path);
         }
+        
         return redirect()->to('/home');
     } 
 
@@ -79,10 +81,26 @@ class SocialAuthController extends Controller
      */
     protected function findOrCreateUser($user)
     {
-        $authUser = User::where('email', $user['email'])->first();
+        /**
+         * 
+         * Try found User in SocialAccount table
+         * @return \App\User
+         * 
+         */
+        $authUser = SocialAccount::where('provider', 'facebook')
+        ->where('provider_user_id',$user->getId())        
+        ->first();
+        //$authUser = SocialAccount::whereProvider('facebook')->whereProviderUserId($providerUser->getID())->first();
         if ($authUser) {
-            return $authUser;
+            return User::where('id',$authUser->user_id)->first();
         }
+
+        /**
+         * 
+         * Create new Account and insert also into SocialAccount
+         * @return App\User
+         * 
+         */
 
 
         $createUser = User::create([
@@ -90,8 +108,15 @@ class SocialAuthController extends Controller
             'last_name' => $user['last_name'],
             'birthday' => '1995-10-17',
             'email' => $user['email'],
-            'password' =>"123",
+            'password' =>"RandomOrNull",
         ]);
+          
+        SocialAccount::create([
+            'user_id'=> $createUser->id,
+            'provider'=>'facebook',
+            'provider_user_id'=>$user->getId(),
+        ]);
+
         return $createUser;
 
     }
