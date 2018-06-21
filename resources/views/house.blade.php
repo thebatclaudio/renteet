@@ -105,19 +105,21 @@
 
 
 $("#exitButton").on('click', function () {
-
     swal({
-        content: {
-            title: ''
-            element: "input",
-            attributes: {
-                type: "date",
-                id: "exitDate",
-                value: "{{\Carbon\Carbon::now()->format('Y-m-d')}}"
-            },
-        },
-    }).then(function(){
-        $("#exitDate").val("{{\Carbon\Carbon::now()->format('Y-m-d')}}");
+        title: "Sei sicuro di voler abbandonare l'immobile?",
+        text: "L'operazione non potrà essere annullata",
+        buttons: [true, 'Abbandona'],
+        icon: 'warning'
+    })
+    .then((send) => {
+        if (send) {
+            swal({
+                title: "Operazione riuscita!",
+                text: "Invia un messaggio al locatore e organizzatevi per il checkout",
+                buttons: [true, 'Ok'],
+                icon: 'success'
+            })
+        }
     });
 });
 </script>
