@@ -47,7 +47,11 @@ class SocialAuthController extends Controller
 
     protected function redirect()
     {
-        return Socialite::driver('facebook')->redirect();   
+        return Socialite::driver('facebook')->fields([
+            'first_name', 'last_name', 'email', 'gender', 'birthday', 'hometown', 'location'
+        ])->scopes([
+            'email', 'user_birthday','user_hometown','user_location'
+        ])->redirect();
     }  
 
     /**
@@ -60,15 +64,12 @@ class SocialAuthController extends Controller
     protected function callback()
     {
         $user = Socialite::driver('facebook')->fields([
-            'first_name', 'last_name', 'email', 'gender', 'birthday'
-        ])->setScopes([
-            'email', 'user_birthday'
+            'first_name', 'last_name', 'email', 'gender', 'birthday', 'hometown', 'location'
         ])->user();
-
-        \Log::info(print_r($user, true));
-
+        
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
+        
         $path = public_path('images/profile_pics')."/".Auth::user()->id."-cropped.jpg";
         if(file_exists($path) === false){
             \Image::make($user->getAvatar())->save($path);
@@ -92,9 +93,9 @@ class SocialAuthController extends Controller
          * 
          */
         $authUser = SocialAccount::where('provider', 'facebook')
-        ->where('provider_user_id',$user->getId())        
-        ->first();
-        //$authUser = SocialAccount::whereProvider('facebook')->whereProviderUserId($providerUser->getID())->first();
+            ->where('provider_user_id',$user->getId())        
+            ->first();
+
         if ($authUser) {
             return User::where('id',$authUser->user_id)->first();
         }
@@ -108,9 +109,9 @@ class SocialAuthController extends Controller
         $createUser = User::create([
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
-            'birthday' => '1995-10-17',
+            'birthday' => \Carbon\Carbon::createFromFormat('m/d/Y', $user['birthday'])->format('Y-m-d'),
             'email' => $user['email'],
-            'password' =>"RandomOrNull",
+            'password' => "RandomOrNull",
         ]);
           
         SocialAccount::create([
@@ -120,6 +121,5 @@ class SocialAuthController extends Controller
         ]);
 
         return $createUser;
-
     }
 }

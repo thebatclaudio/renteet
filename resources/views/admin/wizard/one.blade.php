@@ -57,7 +57,7 @@
         </div>
         
         <div class="actions margin-top-20 text-right">
-            <button type="submit" class="btn btn-primary btn-lg">Avanti</button>
+            <button type="submit" id="next-button" class="btn btn-primary btn-lg">Avanti</button>
         </div>
     </form>
 
@@ -134,5 +134,7 @@
 
         $("#rooms-container-inputs").html(html);
     });
+
+    $("#next-button").on('click', validationFunctionWithSubmit());
 </script>
 @endsection
