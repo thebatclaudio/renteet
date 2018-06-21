@@ -118,7 +118,7 @@
                                 <div class="form-group row">
                                     <label for="university" class="col-md-4 col-form-label">Universit&agrave;</label>
                                     <div class="col-md-8">
-                                        <input type="text" id="university" name="university" class="form-control" value="{{ old('university') }}">
+                                        <input type="text" id="university" name="university" class="form-control" value="{{ old('university') }}" placeholder="Inserisci la tua Università">
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                 <div class="form-group row">
                                     <label for="job" class="col-md-4 col-form-label">Lavoro</label>
                                     <div class="col-md-8">
-                                        <input type="text" id="job" name="job" class="form-control" value="{{ old('job') }}">
+                                        <input type="text" id="job" name="job" class="form-control" value="{{ old('job') }}" placeholder="Inserisci il tuo lavoro">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 <div class="form-group row">
                                     <label for="description" class="col-md-4 col-form-label">Descrizione</label>
                                     <div class="col-md-8">
-                                        <textarea placeholder="Raccontaci qualcosa di te.." rows="4" maxlength="150" id="description" name="description" class="form-control" value="{{ old('description') }}"></textarea>
+                                        <textarea placeholder="Scrivi una breve descrizione di te..." rows="4" maxlength="150" id="description" name="description" class="form-control" value="{{ old('description') }}"></textarea>
                                     </div>
                                 </div>
                             </div>
