@@ -102,7 +102,11 @@
 
 @section('scripts')
 <script>
-
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
 $("#exitButton").on('click', function () {
     swal({
@@ -111,14 +115,25 @@ $("#exitButton").on('click', function () {
         buttons: [true, 'Abbandona'],
         icon: 'warning'
     })
-    .then((send) => {
+    .then(function (send) {
         if (send) {
-            swal({
-                title: "Operazione riuscita!",
-                text: "Invia un messaggio al locatore e organizzatevi per il checkout",
-                buttons: [true, 'Ok'],
-                icon: 'success'
-            })
+            $.post('{{route("ajax.exit.room", \Auth::user()->rooms()->first()->id)}}', function(data) {
+                if(data.status == 'OK') {
+                    swal({
+                        title: "Operazione riuscita!",
+                        text: "Invia un messaggio al locatore e organizzatevi per il checkout",
+                        buttons: [true, 'Ok'],
+                        icon: 'success'
+                    });
+                } else {
+                    swal({
+                        title: "Operazione non riuscita!",
+                        text: "Riprova più tardi",
+                        buttons: [true, 'Ok'],
+                        icon: 'error'
+                    });
+                }
+            });
         }
     });
 });

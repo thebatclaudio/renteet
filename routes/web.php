@@ -47,13 +47,14 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/complete-signup/interests', 'UserController@showInterestsForm');
     Route::post('/complete-signup/interests', 'UserController@saveInterests')->name("save-interests");
     
-    Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
 
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
 
     Route::prefix('ajax')->name('ajax.')->group(function () {
         Route::get('notifications', 'NotificationsController@ajaxIndex')->name('notifications');
+        Route::post('/room/{id}/exit', 'RentController@exitFromHouse')->name('exit.room');
+        Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
     });
     
     Route::get('/house', 'UserController@showHouse')->name('myHouse');

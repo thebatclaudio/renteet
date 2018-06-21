@@ -144,7 +144,7 @@
         .then((send) => {
           if (send) {
             var button = $(this).children("p").children(".rent-house");
-            var url = '{{route('rent.room', ':id')}}';
+            var url = '{{route('ajax.rent.room', ':id')}}';
             $.post(url.replace(':id', button.data("id")), function( data ) {
               if(data.status === 'OK') {
                 console.log('ok');

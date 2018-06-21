@@ -99,4 +99,28 @@ class RentController extends Controller
             ]);
         }
     }
+   
+    public function exitFromHouse($id) {
+        $room = \Auth::user()->rooms()->where('room_id', $id)->wherePivot('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->wherePivot('stop', NULL);
+        if($room->count()) {
+            $roomUser = RoomUser::where([
+                'user_id' => \Auth::user()->id, 
+                'room_id' => $room->first()->id
+            ])->first();
+            $roomUser->stop = \Carbon\Carbon::now()->format('Y-m-d');
+            if($roomUser->save()) {
+                return response()->json([
+                    'status' => 'OK'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'KO'
+                ]);                
+            }
+        } else {
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
 }
