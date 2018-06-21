@@ -85,6 +85,13 @@ a:hover .roommate-img.female, a:focus .roommate-img.female {
     opacity: 0.5;
 }
 
+.roommate-img.unknown {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+
 @media(max-width: 1440px) {
     .avatar {
         width: 80%;

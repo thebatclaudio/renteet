@@ -50,7 +50,7 @@ class SocialAuthController extends Controller
         return Socialite::driver('facebook')->fields([
             'first_name', 'last_name', 'email', 'gender', 'birthday', 'hometown', 'location'
         ])->scopes([
-            'email', 'user_birthday','user_hometown','user_location'
+            'email', 'user_birthday','user_hometown','user_location','user_gender'
         ])->redirect();
     }  
 

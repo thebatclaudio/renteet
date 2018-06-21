@@ -76,7 +76,7 @@
             @foreach($house->rooms as $room)
 
                 @foreach($room->acceptedUsers as $user)
-                    <div class="col">
+                    <div class="col text-center">
                         <a href="{{ $user->profile_url }}" title="{{ $user->complete_name }}">
                             <img src="{{ $user->profile_pic }}" class="img-fluid rounded-circle roommate-img {{\Auth::user()->gender}}">
                             <h6 class="roommate-name text-center text-nowrap {{\Auth::user()->gender}} margin-top-10">{{$user->complete_name}}</h6>
