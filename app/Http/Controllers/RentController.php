@@ -28,7 +28,8 @@ class RentController extends Controller
                     // allego l'utente alla casa
                     $room->users()->attach(\Auth::user()->id, [
                         'accepted_by_owner' => $room->house->auto_accept,
-                        'interested' => false
+                        'interested' => false,
+                        'start' => $request->startDate
                     ]);
 
                     // lancio l'evento per inviare la notifica push
@@ -66,8 +67,8 @@ class RentController extends Controller
                     if($roomUser) {
                         $roomUser->accepted_by_owner = true;
 
-                    // lancio l'evento per inviare la notifica push
-                    event(new AdhesionAcceptance($user, $room->house->id));
+                        // lancio l'evento per inviare la notifica push
+                        event(new AdhesionAcceptance($user, $room->house->id));
 
                         if($roomUser->save()) {
                             return response()->json([

@@ -116,6 +116,7 @@ $("#exitButton").on('click', function () {
         icon: 'warning'
     })
     .then(function (send) {
+        console.log8
         if (send) {
             $.post('{{route("ajax.exit.room", \Auth::user()->rooms()->first()->id)}}', function(data) {
                 if(data.status == 'OK') {

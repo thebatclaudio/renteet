@@ -30,7 +30,7 @@
         <div class="container">
           <div class="house-name-container">
             <h1 class="house-name">{{$house->name}}</h1>
-            <p class="house-location"><i class="fa fa-map-marker"></i> {{$house->street_name}}, {{$house->number}} - {{$house->city}}</p>
+            <p class="house-location">{{$house->street_name}}</p>
           </div>
 
           <a href="{{$house->owner->profile_url}}">
@@ -135,40 +135,77 @@
       @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
       $(".free-bed").on("click", function () {
 
+        var dateSelect = document.createElement("select");
+        dateSelect.classList.add("form-control");
+        dateSelect.id = "start-date";
+
+        moment.locale('it');
+
+        option = document.createElement('option');
+        option.value = -1;
+        option.textContent =  "Seleziona una data";
+        option.disabled = true;
+        option.selected = true;
+        dateSelect.appendChild( option );
+
+        var date = moment().subtract(1, 'days');
+        for(var i = 0; i < 90; i++) {
+          date.add(1, 'days');
+          option = document.createElement('option');
+          option.value = date.format("YYYY-MM-DD");
+          option.textContent =  date.format("D MMMM");
+          dateSelect.appendChild( option );
+        }
+
         swal({
-          title: "Stai per inviare una richiesta di adesione",
-          text: "L'host potrà accettare o rifiutare la tua adesione all'immobile",
-          buttons: [true, 'Prendi posto'],
-          icon: 'warning'
+          title: "Inserisci la data in cui inizierai il tuo soggiorno",
+          text: "Il proprietario potrà approvare o rifiutare la tua richiesta di adesione all'immobile",
+          buttons: [true, {
+            text: 'Prendi posto',
+            closeModal: false
+          }],
+          content: dateSelect
         })
         .then((send) => {
-          if (send) {
-            var button = $(this).children("p").children(".rent-house");
-            var url = '{{route('ajax.rent.room', ':id')}}';
-            $.post(url.replace(':id', button.data("id")), function( data ) {
-              if(data.status === 'OK') {
-                console.log('ok');
-                $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("{{\Auth::user()->gender}}");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
-                //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
 
-                swal("Buona convivenza!", "Contatta il locatore per organizzare il primo incontro", "success");
-              } else if(data.status === 'WAITING') {
-                $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("pending");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id.".jpg")}}");
-                //$("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("In attesa di approvazione");
-                $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
+          if (!send) throw null;
 
-                swal("Richiesta di adesione inviata!", "Attendi una risposta dal locatore", "success");
-              } else {
-                swal("Si è verificato un errore", "Riprova più tardi", "error");
-              }
-            });
+          var button = $(this).children("p").children(".rent-house");
+          var select = $("#start-date");
 
+          if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
 
+          var url = '{{route('ajax.rent.room', ':id')}}';
+          $.post(url.replace(':id', button.data("id")), { startDate: select.val() }, function( data ) {
+            if(data.status === 'OK') {
+              $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("{{\Auth::user()->gender}}");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id."-cropped.jpg")}}");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
+
+              swal("Buona convivenza!", "Contatta il locatore per organizzare il primo incontro", "success");
+            } else if(data.status === 'WAITING') {
+              $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("pending");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id."-cropped.jpg")}}");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("In attesa di approvazione");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
+
+              swal("Richiesta di adesione inviata!", "Attendi una risposta dal locatore", "success");
+            } else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+          });
+        })
+        .catch(err => {
+          if (err) {
+            if(err === 'MISSING_DATE') {
+              swal("Inserisci la data in cui inizierai il tuo soggiorno", "", "error");
+            } else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+          } else {
+            swal.stopLoading();
+            swal.close();
           }
         });
       });
@@ -179,4 +216,5 @@
       });
       @endif;
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 @endsection
