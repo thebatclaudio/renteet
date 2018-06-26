@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
 
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
+    Route::get('/profile/requests/pending', 'UserController@pendingRequests')->name('pendingRequests');
 
     //step 1: carica foto
     Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');

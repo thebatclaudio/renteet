@@ -101,6 +101,10 @@ a.btn.btn-notifications {
   color: #fff!important;
 }
 
+.dropdown-menu {
+  min-width: 20rem;
+}
+
 /* Search input */
 #search-input {
   height: 50px;

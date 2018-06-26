@@ -11,15 +11,15 @@ class Room extends Model
     }
 
     public function users() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop');
+        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at');
     }
 
     public function acceptedUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop')->where('accepted_by_owner', true);
+        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at')->where('accepted_by_owner', true);
     }
 
     public function pendingUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop')->where('accepted_by_owner', false);
+        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at')->where('accepted_by_owner', false);
     }
 
     public function hasUser($id) {

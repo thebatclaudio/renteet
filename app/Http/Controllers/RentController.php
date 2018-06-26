@@ -29,7 +29,8 @@ class RentController extends Controller
                     $room->users()->attach(\Auth::user()->id, [
                         'accepted_by_owner' => $room->house->auto_accept,
                         'interested' => false,
-                        'start' => $request->startDate
+                        'start' => $request->startDate,
+                        'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s')
                     ]);
 
                     // lancio l'evento per inviare la notifica push

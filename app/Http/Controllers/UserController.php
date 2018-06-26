@@ -149,4 +149,10 @@ class UserController extends Controller
 
         return redirect()->to('home');
     }
+
+    public function pendingRequests() {
+        return view('profile.pendingRequests', [
+            'requests' => \Auth::user()->pendingRequests
+        ]);
+    }
 }

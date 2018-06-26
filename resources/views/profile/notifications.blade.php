@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Notifiche - Renteet")
+@section('title', "Notifiche")
 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{url('/css/profile.css')}}" />

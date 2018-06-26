@@ -85,6 +85,12 @@
                         </li>
                         @endif
 
+                        @if(\Auth::user()->pendingRequests()->count() >= 1)
+                        <li class="nav-item">
+                            <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
+                        </li>
+                        @endif
+
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); ">Esci da Renteet</a>
                         </li>
@@ -126,6 +132,10 @@
                                 @if(\Auth::user()->isTenant())
                                 <a class="dropdown-item" href="{{ route('myHouse') }}">La tua casa</a>
                                 @endif
+
+                                                        @if(\Auth::user()->pendingRequests()->count() >= 1)
+                            <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
+                        @endif
 
                                 <a class="dropdown-item" href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
                                 
