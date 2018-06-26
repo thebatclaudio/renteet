@@ -8,7 +8,7 @@
     <div class="row margin-top-40">
         <div class="col-md-6">
             <div class="panel-body">
-                <h3>Scegli un'immagine che ti rappresenti così i tuoi coinquilini potranno vedere quanto sei troia e richiedere di entrare nelle case in cui stai per poterti trombare fino a farti piangere.</h3>
+                <h3>Scegli un'immagine che ti rappresenti per poter trovare i coinquilini perfetti per te</h3>
             </div>
         </div>
         <div class="col-md-6">
