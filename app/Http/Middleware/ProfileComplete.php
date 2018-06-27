@@ -19,7 +19,7 @@ class ProfileComplete
             $user = \Auth::user();
 
             // controllo se c'è l'immagine del profilo
-            if(!file_exists( public_path() . '/images/profile_pics/' . $user->id . '.jpg')) {
+            if(!file_exists( public_path() . '/images/profile_pics/' . $user->id . '.jpg') AND !file_exists( public_path() . '/images/profile_pics/' . $user->id . '-cropped.jpg')) {
                 return redirect('/complete-signup/upload-picture/');
             }
 
@@ -29,7 +29,7 @@ class ProfileComplete
             }
 
             // controllo se sono stati inseriti i dati personali
-            if(empty($user->born_city_id) OR empty($user->living_city_id) OR empty($user->gender)) {
+            if((empty($user->born_city_id) OR empty($user->living_city_id) OR empty($user->gender)) AND $user->description === NULL) {
                 return redirect('/complete-signup/personal-info/');
             }
 

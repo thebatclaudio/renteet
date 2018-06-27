@@ -62,23 +62,23 @@ class UserController extends Controller
         $user = \Auth::user();
         $user->gender = $request->gender;
         // controllo se le città esistono già
-        if(!$livingCity = \App\City::where('google_place_id', $request->living_city_id)->first()) {
+        if(!$livingCity = \App\City::where('text', $request->living_city)->first()) {
+            $city = \Geocoder::getCoordinatesForAddress($request->living_city);
             $livingCity = new \App\City;
-            $livingCity->google_place_id = $request->living_city_id;
-            $livingCity->text = $request->living_city;
-            $livingCity->latitude = $request->living_city_lat;
-            $livingCity->longitude = $request->living_city_lng;
+            $livingCity->text = $city['formatted_address'];
+            $livingCity->latitude = $city['lat'];
+            $livingCity->longitude = $city['lng'];
             $livingCity->save();
         }
 
         $user->living_city_id = $livingCity->id;
 
-        if(!$bornCity = \App\City::where('google_place_id', $request->born_city_id)->first()) {
+        if(!$bornCity = \App\City::where('text',$request->born_city)->first()) {
+            $city = \Geocoder::getCoordinatesForAddress($request->born_city);
             $bornCity = new \App\City;
-            $bornCity->google_place_id = $request->born_city_id;
-            $bornCity->text = $request->born_city;
-            $bornCity->latitude = $request->born_city_lat;
-            $bornCity->longitude = $request->born_city_lng;
+            $bornCity->text = $city['formatted_address'];
+            $bornCity->latitude = $city['lat'];
+            $bornCity->longitude = $city['lng'];
             $bornCity->save();
         }
 

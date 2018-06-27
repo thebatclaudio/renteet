@@ -7,6 +7,7 @@ use App\SocialAccount;
 use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Geocoder\GeocoderServiceProvider;
 
 class SocialAuthController extends Controller
 {
@@ -69,13 +70,9 @@ class SocialAuthController extends Controller
         
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
-        
-        $path = public_path('images/profile_pics')."/".Auth::user()->id."-cropped.jpg";
-        if(file_exists($path) === false){
-            \Image::make($user->getAvatar())->save($path);
-        }
-        
+            
         return redirect()->to('/home');
+        //return $user['location']['name'];
     } 
 
     /**
@@ -106,12 +103,12 @@ class SocialAuthController extends Controller
          * @return App\User
          * 
          */
+
         $createUser = User::create([
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
             'birthday' => \Carbon\Carbon::createFromFormat('m/d/Y', $user['birthday'])->format('Y-m-d'),
-            'email' => $user['email'],
-            'password' => "RandomOrNull",
+            'email' => $user['email']
         ]);
           
         SocialAccount::create([
@@ -120,6 +117,42 @@ class SocialAuthController extends Controller
             'provider_user_id'=>$user->getId(),
         ]);
 
+        $path = public_path('images/profile_pics')."/".$createUser->id."-cropped.jpg";
+        if(file_exists($path) === false){
+            \Image::make($user->getAvatar())->save($path);
+        }
+
+        if($createUser->gender === NULL AND !empty($user['gender'])){
+            $createUser->gender = $user['gender'];
+        }
+    
+        if($createUser->born_city_id === NULL AND !empty($user['hometown']['name'])){
+            $city = \Geocoder::getCoordinatesForAddress($user['hometown']['name']);
+            if(!$bornCity = \App\City::where('text', $city['formatted_address'])->first()) {
+                $bornCity = new \App\City;
+                $bornCity->text = $city['formatted_address'];
+                $bornCity->latitude = $city['lat'];
+                $bornCity->longitude = $city['lng'];
+                $bornCity->save();
+            }
+            $createUser->born_city_id = $bornCity->id;
+        }
+
+        if($createUser->living_city_id === NULL AND !empty($user['location']['name'])){
+            $city = \Geocoder::getCoordinatesForAddress($user['location']['name']);
+            if(!$livingCity = \App\City::where('text', $city['formatted_address'])->first()) {
+                $livingCity = new \App\City;
+                $livingCity->text = $city['formatted_address'];
+                $livingCity->latitude = $city['lat'];
+                $livingCity->longitude = $city['lng'];
+                $livingCity->save();
+            }
+            $createUser->living_city_id = $livingCity->id;
+        }
+
+        $createUser->save();
+
         return $createUser;
     }
+
 }
