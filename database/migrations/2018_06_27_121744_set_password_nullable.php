@@ -14,7 +14,8 @@ class SetPasswordNullable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('password',191)->nullable()->change();
+            $table->dropColumn('password');
+            $table->string('password',191)->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ class SetPasswordNullable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('password', 191)->change();
+            $table->dropColumn('password');
         });
     }
 }
