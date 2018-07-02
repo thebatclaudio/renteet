@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
-    protected $appends = ['url'];
+    protected $appends = ['url','admin_url'];
+    
 
     public function owner() {
         return $this->belongsTo('App\User');
@@ -61,5 +62,9 @@ class House extends Model
 
     public function getUrlAttribute() {
         return \URL::to('/rent/'.$this->id);
+    }
+
+    public function getAdminUrlAttribute() {
+        return \URL::to('/admin/house/'.$this->id);
     }
 }

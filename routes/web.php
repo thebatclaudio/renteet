@@ -19,6 +19,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/test',function(){
+$users = \App\User::all();
+foreach($users as $user){
+    $user->password = bcrypt('password');
+    $user->save();
+}
+});
 
 Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
 Route::get('/facebook/callback', 'Auth\SocialAuthController@callback');

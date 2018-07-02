@@ -9,6 +9,7 @@ use App\Room;
 use App\RoomUser;
 use \App\Events\AdhesionToHouse;
 use \App\Events\AdhesionAcceptance;
+use \App\Events\ExitFromHouse;
 
 class RentController extends Controller
 {
@@ -103,7 +104,7 @@ class RentController extends Controller
     }
    
     public function exitFromHouse($id, Request $request) {
-        $room = \Auth::user()->rooms()->where('room_id', $id)->wherePivot('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->wherePivot('stop', NULL);
+        $room = \Auth::user()->rooms()->where('room_id', $id)->wherePivot('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->wherePivot('stop', NULL)->get();
         if($room->count()) {
             $roomUser = RoomUser::where([
                 'user_id' => \Auth::user()->id, 
@@ -111,6 +112,7 @@ class RentController extends Controller
             ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('stop', NULL)->first();
             $roomUser->stop = $request->stopDate;
             if($roomUser->save()) {
+                event(new ExitFromHouse(\Auth::user()->id, $room->first()->house->id));
                 return response()->json([
                     'status' => 'OK'
                 ]);

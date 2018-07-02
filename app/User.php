@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
 
     public function isTenant() {
-        return !!$this->rooms()->where('accepted_by_owner', true)->count();
+        return !!$this->livingRooms()->count();
     }
     
     public function houses() {

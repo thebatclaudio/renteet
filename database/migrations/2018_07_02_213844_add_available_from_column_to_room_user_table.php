@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateCitiesDropGooglePlaceId extends Migration
+class AddAvailableFromColumnToRoomUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateCitiesDropGooglePlaceId extends Migration
      */
     public function up()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->dropColumn('google_place_id');
+        Schema::table('room_user', function (Blueprint $table) {
+            $table->date('available_from')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class UpdateCitiesDropGooglePlaceId extends Migration
      */
     public function down()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->string('google_place_id',191);
+        Schema::table('room_user', function (Blueprint $table) {
+            $table->dropColumn('available_from');
         });
     }
 }

@@ -37,6 +37,22 @@
             autoHideDelay: 15000
         });
     });
+    
+    channel.bind('App\\Events\\ExitFromHouse', function(data) {
+
+        console.log(data);
+
+        $.notify({
+            title: '<strong>'+data.user.first_name+' '+data.user.last_name+'</strong> ha abbandonato il tuo immobile <strong>'+data.house.name+'</strong>. Seleziona la data in cui tornerà disponibile.',
+            image: '<img class="img-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
+            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-primary btn-xs">Gestisci il tuo immobile</a>'
+        }, {
+            style: 'notification',
+            autoHide: true,
+            clickToHide: false,
+            autoHideDelay: 15000
+        });
+    });
 
     $.notify.addStyle('notification', {
     html: 
