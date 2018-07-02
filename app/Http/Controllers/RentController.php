@@ -102,24 +102,26 @@ class RentController extends Controller
         }
     }
    
-    public function exitFromHouse($id) {
+    public function exitFromHouse($id, Request $request) {
         $room = \Auth::user()->rooms()->where('room_id', $id)->wherePivot('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->wherePivot('stop', NULL);
         if($room->count()) {
             $roomUser = RoomUser::where([
                 'user_id' => \Auth::user()->id, 
                 'room_id' => $room->first()->id
-            ])->first();
-            $roomUser->stop = \Carbon\Carbon::now()->format('Y-m-d');
+            ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('stop', NULL)->first();
+            $roomUser->stop = $request->stopDate;
             if($roomUser->save()) {
                 return response()->json([
                     'status' => 'OK'
                 ]);
             } else {
+                \Log::info("suca suca 1");
                 return response()->json([
                     'status' => 'KO'
                 ]);                
             }
         } else {
+            \Log::info("suca suca 2");
             return response()->json([
                 'status' => 'KO'
             ]);

@@ -109,33 +109,67 @@ $.ajaxSetup({
 });
 
 $("#exitButton").on('click', function () {
-    swal({
-        title: "Sei sicuro di voler abbandonare l'immobile?",
-        text: "L'operazione non potrà essere annullata",
-        buttons: [true, 'Abbandona'],
-        icon: 'warning'
-    })
-    .then(function (send) {
-        if (send) {
-            $.post('{{route("ajax.exit.room", \Auth::user()->rooms()->first()->id)}}', function(data) {
-                if(data.status == 'OK') {
-                    swal({
-                        title: "Operazione riuscita!",
-                        text: "Invia un messaggio al locatore e organizzatevi per il checkout",
-                        buttons: [true, 'Ok'],
-                        icon: 'success'
-                    });
-                } else {
-                    swal({
-                        title: "Operazione non riuscita!",
-                        text: "Riprova più tardi",
-                        buttons: [true, 'Ok'],
-                        icon: 'error'
-                    });
-                }
-            });
+
+    var dateSelect = document.createElement("select");
+        dateSelect.classList.add("form-control");
+        dateSelect.id = "stop-date";
+
+        moment.locale('it');
+
+        option = document.createElement('option');
+        option.value = -1;
+        option.textContent =  "Seleziona una data";
+        option.disabled = true;
+        option.selected = true;
+        dateSelect.appendChild( option );
+
+        var date = moment().subtract(1, 'days');
+        for(var i = 0; i < 90; i++) {
+          date.add(1, 'days');
+          option = document.createElement('option');
+          option.value = date.format("YYYY-MM-DD");
+          option.textContent =  date.format("D MMMM");
+          dateSelect.appendChild( option );
         }
-    });
+
+        swal({
+          title: "Inserisci la data in cui abbandonerai l'immobile",
+          buttons: [true, {
+            text: "Abbandona l'immobile",
+            closeModal: false
+          }],
+          content: dateSelect
+        })
+        .then((send) => {
+
+          if (!send) throw null;
+
+          var select = $("#stop-date");
+
+          if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
+
+          var url = '{{route('ajax.exit.room', $user->livingRooms()->first()->id)}}';
+          $.post(url, { stopDate: select.val() }, function( data ) {
+            if(data.status === 'OK') {
+              swal("Operazione riuscita", "Invia un messaggio al locatore e organizzatevi per il checkout", "success");
+            } else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+          });
+        })
+        .catch(err => {
+          if (err) {
+            if(err === 'MISSING_DATE') {
+              swal("Inserisci la data in cui abbandonerai l'immobile", "", "error");
+            } else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
+        });
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 @endsection

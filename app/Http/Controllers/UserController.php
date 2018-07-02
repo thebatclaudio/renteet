@@ -45,7 +45,9 @@ class UserController extends Controller
     }
 
     public function showCompletePersonalInfoForm() {
-        return view('profile.completePersonalInfo');
+        return view('profile.completePersonalInfo',[
+            'user'=>\Auth::user()
+        ]);
     }
 
     public function completePersonalInfo(Request $request) {
@@ -103,8 +105,9 @@ class UserController extends Controller
     }
 
     public function showHouse() {
+
         return view('house', [
-            'house' => \App\Room::find(\App\RoomUser::where('user_id', Auth::user()->id)->first()->room_id)->house
+            'house' => \Auth::user()->livingRooms()->first()->house
         ]);
     }
 

@@ -90,7 +90,7 @@ class User extends Authenticatable
     }
 
     public function livingRooms() {
-        return $this->rooms()->where('accepted_by_owner', true);
+        return $this->rooms()->where('accepted_by_owner', true)->where('start','<=',\Carbon\Carbon::now()->format('Y-m-d'))->where('stop',NULL);
     }
 
     public function pendingRequests() {
