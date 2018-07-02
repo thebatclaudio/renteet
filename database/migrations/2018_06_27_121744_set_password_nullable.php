@@ -28,6 +28,7 @@ class SetPasswordNullable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('password');
+            $table->string('password',191);
         });
     }
 }

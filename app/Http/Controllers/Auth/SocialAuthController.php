@@ -121,13 +121,15 @@ class SocialAuthController extends Controller
         if(file_exists($path) === false){
             \Image::make($user->getAvatar())->save($path);
         }
+        
+        \Log::info("gender ".$createUser->gender);
 
         if($createUser->gender === NULL AND !empty($user['gender'])){
             $createUser->gender = $user['gender'];
         }
-    
+        
         if($createUser->born_city_id === NULL AND !empty($user['hometown']['name'])){
-            $city = \Geocoder::getCoordinatesForAddress($user['hometown']['name']);
+            $city = \Geocoder::setLanguage('it')->getCoordinatesForAddress($user['hometown']['name']);
             if(!$bornCity = \App\City::where('text', $city['formatted_address'])->first()) {
                 $bornCity = new \App\City;
                 $bornCity->text = $city['formatted_address'];
@@ -139,7 +141,7 @@ class SocialAuthController extends Controller
         }
 
         if($createUser->living_city_id === NULL AND !empty($user['location']['name'])){
-            $city = \Geocoder::getCoordinatesForAddress($user['location']['name']);
+            $city = \Geocoder::setLanguage('it')->getCoordinatesForAddress($user['location']['name']);
             if(!$livingCity = \App\City::where('text', $city['formatted_address'])->first()) {
                 $livingCity = new \App\City;
                 $livingCity->text = $city['formatted_address'];

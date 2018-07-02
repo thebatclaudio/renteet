@@ -29,7 +29,7 @@ class ProfileComplete
             }
 
             // controllo se sono stati inseriti i dati personali
-            if((empty($user->born_city_id) OR empty($user->living_city_id) OR empty($user->gender)) AND $user->description === NULL) {
+            if(empty($user->born_city_id) OR empty($user->living_city_id) OR empty($user->gender) OR empty($user->description)) {
                 return redirect('/complete-signup/personal-info/');
             }
 
