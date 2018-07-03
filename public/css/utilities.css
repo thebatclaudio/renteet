@@ -52,6 +52,14 @@ body {
     margin-left: 5px;
 }
 
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
 .search-icon {
     z-index: 9999;
     position: absolute;
@@ -61,6 +69,14 @@ body {
 
 .no-padding {
     padding: 0px;
+}
+
+.padding-left-10{
+    padding-left:10px;
+}
+
+.padding-left-20{
+    padding-left:20px;
 }
 
 .align-vertical-center {

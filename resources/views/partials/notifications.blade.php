@@ -54,6 +54,22 @@
         });
     });
 
+    channel.bind('App\\Events\\RemovedFromHouse', function(data) {
+
+    console.log(data);
+
+    $.notify({
+            title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+"</strong> ti ha rimosso dall'immobile <strong>"+data.house.name+'</strong>',
+            image: '<img class="img-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
+            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-primary btn-xs">Gestisci il tuo immobile</a>'
+        }, {
+            style: 'notification',
+            autoHide: true,
+            clickToHide: false,
+            autoHideDelay: 15000
+        });
+    });
+
     $.notify.addStyle('notification', {
     html: 
         "<div class='notification-container'>" +

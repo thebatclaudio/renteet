@@ -10,6 +10,7 @@ use App\RoomUser;
 use \App\Events\AdhesionToHouse;
 use \App\Events\AdhesionAcceptance;
 use \App\Events\ExitFromHouse;
+use \App\Events\RemovedFromHouse;
 
 class RentController extends Controller
 {
@@ -117,16 +118,78 @@ class RentController extends Controller
                     'status' => 'OK'
                 ]);
             } else {
-                \Log::info("suca suca 1");
                 return response()->json([
                     'status' => 'KO'
                 ]);                
             }
         } else {
-            \Log::info("suca suca 2");
             return response()->json([
                 'status' => 'KO'
             ]);
         }
+    }
+
+    public function selectAvailableDate($room, $user, Request $request){
+        $roomUser = RoomUser::where([
+            'user_id' => $user, 
+            'room_id' => $room
+        ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->whereNotNull('stop')->first();
+        
+        if($roomUser){
+            if(Room::find($room)->house->owner_id === Auth::user()->id){
+                $roomUser->available_from = $request->available_from;
+                if($roomUser->save()){
+                    return response()->json([
+                        'status' => 'OK'
+                    ]);
+                }else{
+                    return response()->json([
+                        'status' => 'KO'
+                    ]);       
+                }
+            }else{
+                return response()->json([
+                    'status' => 'KO'
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
+
+    public function remove($room, $user, Request $request){
+       // \Log::info($user." ".$room);
+        $roomUser = RoomUser::where([
+            'user_id' => $user, 
+            'room_id' => $room
+        ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('stop',NULL)->where('accepted_by_owner',true);
+       // \Log::info(\Carbon\Carbon::now()->format('Y-m-d'));
+            if($roomUser->count()){
+                $currentRoom = Room::find($room);
+                if($currentRoom->house->owner_id === \Auth::user()->id){
+                    $roomUser = $roomUser->first();
+                    $roomUser->stop = $request->stop;
+                    if($roomUser->save()){
+                        event(new RemovedFromHouse($user, $currentRoom->house->id));
+                        return response()->json([
+                            'status' => 'OK'
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => 'KO1'
+                        ]);       
+                    }
+                }else{
+                    return response()->json([
+                        'status' => 'KO2'
+                    ]);
+                }
+            }else{
+                return response()->json([
+                    'status' => 'KO3'
+                ]);
+            }
     }
 }
