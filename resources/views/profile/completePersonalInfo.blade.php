@@ -108,8 +108,8 @@
                                         @if(!empty(old('living_city')))
                                             <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}" disabled="disabled">
                                         @else
-                                            @if($living = $user->livingCity())
-                                                <input type="text" id="living_city" name="living_city" class="form-control" value="{{$living->getResults()->text}}" disabled="disabled">
+                                            @if($user->livingCity()->count())
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="{{$user->livingCity()->getResults()->text}}" disabled="disabled">
                                             @else
                                                 <input type="text" id="living_city" name="living_city" class="form-control" value="" disabled="disabled">
                                             @endif
@@ -131,8 +131,8 @@
                                         @if(!empty(old('born_city')))
                                             <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}" disabled="disabled">
                                         @else
-                                            @if($born = $user->bornCity())
-                                                <input type="text" id="born_city" name="born_city" class="form-control" value="{{$born->getResults()->text}}" disabled="disabled">
+                                            @if($user->bornCity()->count())
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="{{$user->bornCity()->getResults()->text}}" disabled="disabled">
                                             @else
                                                 <input type="text" id="born_city" name="born_city" class="form-control" value="" disabled="disabled">
                                             @endif
