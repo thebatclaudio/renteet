@@ -104,14 +104,14 @@
                                 <div class="form-group row">
                                     <label for="living_city" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
                                     <div class="col-md-8">
-                                        <i class="inside fas fa-pencil-alt" id="iLiving" onclick="enableLiving()"></i>
                                         @if(!empty(old('living_city')))
-                                            <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}" disabled="disabled">
+                                            <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}">
                                         @else
                                             @if($user->livingCity()->count())
+                                                <i class="inside fas fa-pencil-alt" id="iLiving" onclick="enableLiving()"></i>
                                                 <input type="text" id="living_city" name="living_city" class="form-control" value="{{$user->livingCity()->getResults()->text}}" disabled="disabled">
                                             @else
-                                                <input type="text" id="living_city" name="living_city" class="form-control" value="" disabled="disabled">
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="">
                                             @endif
                                         @endif
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
@@ -127,14 +127,14 @@
                                 <div class="form-group row">
                                     <label for="born_city" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
                                     <div class="col-md-8">
-                                        <i class="inside fas fa-pencil-alt" id="iBorn" onclick="enableBorn()"></i>
                                         @if(!empty(old('born_city')))
-                                            <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}" disabled="disabled">
+                                            <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}">
                                         @else
                                             @if($user->bornCity()->count())
+                                                <i class="inside fas fa-pencil-alt" id="iBorn" onclick="enableBorn()"></i>
                                                 <input type="text" id="born_city" name="born_city" class="form-control" value="{{$user->bornCity()->getResults()->text}}" disabled="disabled">
                                             @else
-                                                <input type="text" id="born_city" name="born_city" class="form-control" value="" disabled="disabled">
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="">
                                             @endif
                                         @endif
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
