@@ -43,10 +43,27 @@
                 <input id="address_name" name="address_name" type="hidden" />
             </div>
         </div>
+
+        <div class="row margin-top-20">
+            <div class="col-md-6">
+                <label for="mq">Quante &egrave; grande il tuo immobile?</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">m<sup>2</sup></span>
+                    </div>
+                    <input id="mq" name="mq" class="form-control col-md-7" type="number" min="1" value="0" required aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="bathrooms">Quanti bagni sono presenti?</label>
+                <input id="bathrooms" name="bathrooms" class="form-control" type="number" min="1" value="0" required />
+            </div>
+        </div>
+
         <div class="row margin-top-20">
             <div class="col-md-6">
                 <label for="bedrooms">Quante stanze da letto sono presenti?</label>
-                <input id="bedrooms" name="bedrooms" class="form-control" type="number" min="0" value="0" required />
+                <input id="bedrooms" name="bedrooms" class="form-control" type="number" min="1" value="0" required />
             </div>
         </div>
 

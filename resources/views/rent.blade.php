@@ -120,8 +120,76 @@
           </div>
           @endforeach
         </div><!-- /.row -->
-
       </div><!-- /.container -->
+
+      <div class="container">
+        
+        <div class="row">
+            <div class="page-target-container margin-top-80">
+              <h3 class="page-target">Informazioni immobile</h3>
+            </div>
+          <div class="margin-top-120">
+            <ul class="margin-top-40 list-unstyled">
+              <li>Numero stanze: {{$house->rooms()->count()}}</li>
+              <li>Numero bagni: {{$house->bathrooms}}</li>
+              <li>MQ: {{$house->mq}}</li>
+              <li>Genere coinquilini: {{$house->gender}}</li>
+            </ul>
+          </div>  
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Servizi</h3>
+          </div>
+            <div class="col-md-6 margin-top-120">
+              <ul class="margin-top-40 list-unstyled">
+                @foreach($house->services()->quantityNeeded(true)->get() as $service)
+                <li>
+                  <div class="row">
+                    <div class="col-md-6">
+                      {{$service->name}}
+                    </div>
+                    <div class="col-md-6">
+                    <h5><span class="badge badge-dark">{{$service->pivot->quantity}}</span></h5>
+                    </div>
+                  </div>
+                </li>
+                @endforeach
+              </ul>
+            </div>
+            <div class="col-md-6 margin-top-120">
+              <ul class="margin-top-40 list-unstyled">
+              @foreach($house->services()->quantityNeeded(false)->get() as $service)
+                <li>{{$service->name}}</li>
+              @endforeach
+              </ul>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Posizione approssimata</h3>
+          </div>
+          <div class="col-md-6 margin-top-120">
+            <div class="margin-top-40" id="map"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Recensioni</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Proprietario</h3>
+          </div>
+        </div>
+
+      </div>
+
 @endsection
 
 @section('scripts')
@@ -130,6 +198,29 @@
         headers: {
           'X-CSRF-TOKEN': "{{ csrf_token() }}"
         }
+      });
+
+      $(document).ready(function(){
+        
+        var latitudeApprox = {{$house->latitude}};
+        var longitudeApprox = {{$house->longitude}};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          center: {lat: latitudeApprox, lng: longitudeApprox},
+          mapTypeId: 'terrain'
+        });
+
+        var cityCircle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: {lat: latitudeApprox, lng: longitudeApprox},
+          radius: 100
+        });
       });
 
       @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
@@ -217,4 +308,12 @@
       @endif;
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+@endsection
+
+@section('styles')
+<style>
+#map {
+  height: 400px;
+}
+</style>
 @endsection

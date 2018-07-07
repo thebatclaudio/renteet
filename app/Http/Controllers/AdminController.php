@@ -32,7 +32,9 @@ class AdminController extends Controller
             'address_number' => 'required',
             'address_city' => 'required',
             'bedrooms' => 'required',
-            'rooms' => 'required'
+            'rooms' => 'required',
+            'mq' => 'required',
+            'bathrooms' => 'required'
         ]);
 
         //TODO: l'ideale sarebbe gestirlo con il place_id di google maps
@@ -43,6 +45,8 @@ class AdminController extends Controller
         $house->city = $request->address_city;
         $house->latitude = $request->address_lat;
         $house->longitude = $request->address_lng;
+        $house->mq = $request->mq;
+        $house->bathrooms = $request->bathrooms;
         $house->owner_id = \Auth::user()->id;
         $house->last_step = 1;
         if($house->save()) {

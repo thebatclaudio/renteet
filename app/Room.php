@@ -15,7 +15,11 @@ class Room extends Model
     }
 
     public function acceptedUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')->where('accepted_by_owner', true);
+        return $this->belongsToMany('App\User')
+        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+        ->where('accepted_by_owner', true)
+        ->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))
+        ->where('stop','>=',\Carbon\Carbon::now()->format('Y-m-d'));
     }
 
     public function pendingUsers() {

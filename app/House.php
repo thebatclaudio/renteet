@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
-    protected $appends = ['url','admin_url'];
+    protected $appends = ['url', 'admin_url', 'latitude', 'longitude'];
+    protected $hiddens = ['latitude', 'longitude'];
     
 
     public function owner() {
@@ -27,6 +28,31 @@ class House extends Model
 
     public function getBedsAttribute($value) {
         return $this->rooms()->sum("beds");
+    }
+
+    public function getLatitudeAttribute($value){
+
+        $mMult = cos($value * (pi()/180));
+        $meterValue = 0.0000089831; //1 Metro espresso in gradi (equatore)
+
+        $latOffset = rand(1,100) * ($meterValue * $mMult);
+        if(rand(0,1)){
+            return $value - $latOffset;
+        }else{
+            return $value + $latOffset;
+        }
+    }
+
+    public function getLongitudeAttribute($value){
+
+        $meterValue = 0.0000089831; //1 Metro espresso in gradi (equatore)
+        $lngOffset = rand(1,50) * $meterValue;
+
+        if(rand(0,1)){
+            return $value - $lngOffset;
+        }else{
+            return $value + $lngOffset;
+        }
     }
 
     public function getPreviewImageUrlAttribute() {
@@ -66,5 +92,14 @@ class House extends Model
 
     public function getAdminUrlAttribute() {
         return \URL::to('/admin/house/'.$this->id);
+    }
+
+    public function scopeWithRoomsUsersCount($query) {
+        return $query->whereHas('rooms', function($query){
+            return $query->withCount(['users'=>function($query){
+                return $query->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))
+                    ->where('stop','>=',\Carbon\Carbon::now()->format('Y-m-d'));
+            }]);
+        });
     }
 }
