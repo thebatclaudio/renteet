@@ -103,6 +103,15 @@ class SocialAuthController extends Controller
          * @return App\User
          * 
          */
+        $createUser = User::where('email',$user['email'])->first();
+        if($createUser){
+            SocialAccount::create([
+                'user_id'=> $createUser->id,
+                'provider'=>'facebook',
+                'provider_user_id'=>$user->getId(),
+            ]);
+            return $createUser;
+        }
 
         $createUser = User::create([
             'first_name' => $user['first_name'],

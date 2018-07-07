@@ -105,7 +105,15 @@
                                     <label for="living_city" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
                                     <div class="col-md-8">
                                         <i class="inside fas fa-pencil-alt" id="iLiving" onclick="enableLiving()"></i>
-                                        <input type="text" id="living_city" name="living_city" class="form-control" value="{{ (old('living_city')) ? old('living_city') : $user->livingCity()->getResults()->text }}" disabled="disabled">
+                                        @if(!empty(old('living_city')))
+                                            <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}" disabled="disabled">
+                                        @else
+                                            @if($living = $user->livingCity())
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="{{$living->getResults()->text}}" disabled="disabled">
+                                            @else
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="" disabled="disabled">
+                                            @endif
+                                        @endif
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
                                         <input type="hidden" id="living_city_lat" name="living_city_lat" value="{{ old('living_city_lat') }}">
                                         <input type="hidden" id="living_city_lng" name="living_city_lng" value="{{ old('living_city_lng') }}">
@@ -120,7 +128,15 @@
                                     <label for="born_city" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
                                     <div class="col-md-8">
                                         <i class="inside fas fa-pencil-alt" id="iBorn" onclick="enableBorn()"></i>
-                                        <input type="text" id="born_city" name="born_city" class="form-control" value="{{ (old('born_city')) ? old('born_city') : $user->bornCity()->getResults()->text }}" disabled = "disabled">
+                                        @if(!empty(old('born_city')))
+                                            <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}" disabled="disabled">
+                                        @else
+                                            @if($born = $user->bornCity())
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="{{$born->getResults()->text}}" disabled="disabled">
+                                            @else
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="" disabled="disabled">
+                                            @endif
+                                        @endif
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
                                         <input type="hidden" id="born_city_lat" name="born_city_lat" value="{{ old('born_city_lat') }}">
                                         <input type="hidden" id="born_city_lng" name="born_city_lng" value="{{ old('born_city_lng') }}">
