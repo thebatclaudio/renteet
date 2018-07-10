@@ -13,18 +13,29 @@ $("#accept-user").on("click", function () {
     swal({
         title: "Sei sicuro di voler accettare la richiesta di adesione?",
         text: "L'operazione non potrà essere annullata",
-        showCancelButton: true,
-        confirmButtonText: 'Approva richiesta'
+        buttons: [true, {
+            text: 'Approva richiesta',
+            closeModal: false
+          }]
     })
     .then((send) => {
-        if (send.value) {
-            $.post(url.replace(':room', button.data("room")).replace(':user', {{$user->id}}), function( data ) {
-                if(data.status === 'OK') {
-                    swal("Richiesta di adesione approvata!", "Accogli il tuo nuovo coinquilino inviandogli un messaggio", "success");
-                    button.attr('disabled', true);
-                }
-            });
-        }
+        if (!send) throw null;
+        $.post(url.replace(':room', button.data("room")).replace(':user', {{$user->id}}), function( data ) {
+            if(data.status === 'OK') {
+                swal("Richiesta di adesione approvata!", "Accogli il tuo nuovo coinquilino inviandogli un messaggio", "success");
+                button.attr('disabled', true);
+            }else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+        });    
+    })
+    .catch(err => {
+          if (err) {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");  
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
     });
 });
 </script>

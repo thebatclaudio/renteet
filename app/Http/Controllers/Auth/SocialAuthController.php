@@ -72,7 +72,6 @@ class SocialAuthController extends Controller
         Auth::login($authUser, true);
             
         return redirect()->to('/home');
-        //return $user['location']['name'];
     } 
 
     /**
@@ -126,9 +125,9 @@ class SocialAuthController extends Controller
             'provider_user_id'=>$user->getId(),
         ]);
 
-        $path = public_path('images/profile_pics')."/".$createUser->id."-cropped.jpg";
+        $path = public_path('images/profile_pics')."/".$createUser->id.".jpg";
         if(file_exists($path) === false){
-            \Image::make($user->getAvatar())->save($path);
+            \Image::make(str_replace("type=normal","width=1920",$user->getAvatar()))->save($path);
         }
         
         \Log::info("gender ".$createUser->gender);

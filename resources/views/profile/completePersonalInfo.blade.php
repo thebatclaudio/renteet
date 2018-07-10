@@ -106,12 +106,14 @@
                                     <div class="col-md-8">
                                         @if(!empty(old('living_city')))
                                             <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}">
+                                            <input type="hidden" name="living_city_required" value="true">
                                         @else
                                             @if($user->livingCity()->count())
                                                 <i class="inside fas fa-pencil-alt" id="iLiving" onclick="enableLiving()"></i>
                                                 <input type="text" id="living_city" name="living_city" class="form-control" value="{{$user->livingCity()->getResults()->text}}" disabled="disabled">
                                             @else
                                                 <input type="text" id="living_city" name="living_city" class="form-control" value="">
+                                                <input type="hidden" name="living_city_required" value="true">
                                             @endif
                                         @endif
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
@@ -129,12 +131,14 @@
                                     <div class="col-md-8">
                                         @if(!empty(old('born_city')))
                                             <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}">
+                                            <input type="hidden" name="born_city_required" value="true">
                                         @else
                                             @if($user->bornCity()->count())
                                                 <i class="inside fas fa-pencil-alt" id="iBorn" onclick="enableBorn()"></i>
                                                 <input type="text" id="born_city" name="born_city" class="form-control" value="{{$user->bornCity()->getResults()->text}}" disabled="disabled">
                                             @else
                                                 <input type="text" id="born_city" name="born_city" class="form-control" value="">
+                                                <input type="hidden" name="born_city_required" value="true">
                                             @endif
                                         @endif
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
