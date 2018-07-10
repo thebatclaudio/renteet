@@ -10,7 +10,7 @@
 <script>
 $(document).ready(function(){
     $('.tagsinput').tagsinput({
-        confirmKeys: [13,32,188]
+        confirmKeys: [13,32,188,44]
     });
 });
 </script>
