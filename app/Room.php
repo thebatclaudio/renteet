@@ -11,15 +11,30 @@ class Room extends Model
     }
 
     public function users() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at');
+        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from');
+    }
+
+    public function notAvailableBeds(){
+        return $this->belongsToMany('App\User')
+        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+        ->where('accepted_by_owner', true)
+        ->where('available_from','>',\Carbon\Carbon::now()->format('Y-m-d'))
+        ->where('stop','<=',\Carbon\Carbon::now()->format('Y-m-d'));
     }
 
     public function acceptedUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at')->where('accepted_by_owner', true);
+        return $this->belongsToMany('App\User')
+        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+        ->where('accepted_by_owner', true)
+        ->where(function($query){
+            $query->where('stop','>=',\Carbon\Carbon::now()->format('Y-m-d'))
+            ->orWhereNull('stop');
+        });
+        
     }
 
     public function pendingUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at')->where('accepted_by_owner', false);
+        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')->where('accepted_by_owner', false);
     }
 
     public function hasUser($id) {

@@ -46,6 +46,18 @@
         return true;
     }
 
+    function enableBorn(){
+        document.getElementById('born_city').removeAttribute("disabled");
+        document.getElementById('born_city').value = "";
+        document.getElementById('iBorn').style.display = 'none';
+    }
+
+    function enableLiving(){
+        document.getElementById('living_city').removeAttribute("disabled");
+        document.getElementById('living_city').value = "";
+        document.getElementById('iLiving').style.display = 'none';
+    }
+
     $(document).ready(function() {
         $(window).keydown(function(event){
             if( (event.keyCode == 13) && (validationFunction() == false) ) {
@@ -54,6 +66,8 @@
             }
         });
     });
+
+
 </script>
 @endsection
 
@@ -90,7 +104,18 @@
                                 <div class="form-group row">
                                     <label for="living_city" class="col-md-4 col-form-label">Citt&agrave; di residenza</label>
                                     <div class="col-md-8">
-                                        <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city') }}">
+                                        @if(!empty(old('living_city')))
+                                            <input type="text" id="living_city" name="living_city" class="form-control" value="{{ old('living_city')}}">
+                                            <input type="hidden" name="living_city_required" value="true">
+                                        @else
+                                            @if($user->livingCity()->count())
+                                                <i class="inside fas fa-pencil-alt" id="iLiving" onclick="enableLiving()"></i>
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="{{$user->livingCity()->getResults()->text}}" disabled="disabled">
+                                            @else
+                                                <input type="text" id="living_city" name="living_city" class="form-control" value="">
+                                                <input type="hidden" name="living_city_required" value="true">
+                                            @endif
+                                        @endif
                                         <input type="hidden" id="living_city_id" name="living_city_id" value="{{ old('living_city_id') }}">
                                         <input type="hidden" id="living_city_lat" name="living_city_lat" value="{{ old('living_city_lat') }}">
                                         <input type="hidden" id="living_city_lng" name="living_city_lng" value="{{ old('living_city_lng') }}">
@@ -104,7 +129,18 @@
                                 <div class="form-group row">
                                     <label for="born_city" class="col-md-4 col-form-label">Citt&agrave; di nascita</label>
                                     <div class="col-md-8">
-                                        <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city') }}">
+                                        @if(!empty(old('born_city')))
+                                            <input type="text" id="born_city" name="born_city" class="form-control" value="{{ old('born_city')}}">
+                                            <input type="hidden" name="born_city_required" value="true">
+                                        @else
+                                            @if($user->bornCity()->count())
+                                                <i class="inside fas fa-pencil-alt" id="iBorn" onclick="enableBorn()"></i>
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="{{$user->bornCity()->getResults()->text}}" disabled="disabled">
+                                            @else
+                                                <input type="text" id="born_city" name="born_city" class="form-control" value="">
+                                                <input type="hidden" name="born_city_required" value="true">
+                                            @endif
+                                        @endif
                                         <input type="hidden" id="born_city_id" name="born_city_id" value="{{ old('born_city_id') }}">
                                         <input type="hidden" id="born_city_lat" name="born_city_lat" value="{{ old('born_city_lat') }}">
                                         <input type="hidden" id="born_city_lng" name="born_city_lng" value="{{ old('born_city_lng') }}">
@@ -129,7 +165,7 @@
                                 <div class="form-group row">
                                     <label for="job" class="col-md-4 col-form-label">Lavoro</label>
                                     <div class="col-md-8">
-                                        <input type="text" id="job" name="job" class="form-control" value="{{ old('job') }}" placeholder="Inserisci il tuo lavoro">
+                                        <input type="text" id="job" name="job" class="form-control" value="{{ (old('job')) ? old('job') : $user->job }}" placeholder="Inserisci il tuo lavoro">
                                     </div>
                                 </div>
                             </div>
@@ -160,5 +196,16 @@
 textarea{
     resize:none;
 }
+.inside {
+position:absolute;
+text-indent:5px;
+margin-top:10px;
+cursor:pointer;
+}
+
+#living_city,#born_city {
+text-indent:20px;
+}
+
 </style>
 @endsection

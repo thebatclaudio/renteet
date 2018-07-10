@@ -58,14 +58,7 @@ div.border-left {
 
 .roommate-name {
     text-transform: uppercase;
-}
-
-.roommate-name.male {
-    color: #619bd5;
-}
-
-.roommate-name.female {
-    color: #fd7f7b;
+    color:#212121;
 }
 
 a:hover .roommate-img, a:focus .roommate-img {

@@ -8,27 +8,11 @@
 
 @section('scripts')
 <script>
-{{-- var citynames = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: {
-    url: 'assets/citynames.json',
-    filter: function(list) {
-      return $.map(list, function(cityname) {
-        return { name: cityname }; });
-    }
-  }
+$(document).ready(function(){
+    $('.tagsinput').tagsinput({
+        confirmKeys: [13,32,188]
+    });
 });
-citynames.initialize();
-
-$('input').tagsinput({
-  typeaheadjs: {
-    name: 'citynames',
-    displayKey: 'name',
-    valueKey: 'name',
-    source: citynames.ttAdapter()
-  }
-}); --}}
 </script>
 <script src="/js/tagsinput.js"></script>
 @endsection
@@ -43,12 +27,12 @@ $('input').tagsinput({
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" placeholder="I tuoi interessi" name="interests" data-role="tagsinput">
+                                <input type="text" placeholder="I tuoi interessi" name="interests" class="tagsinput">
                             </div>
                         </div>
                         <div class="row margin-top-20">
                             <div class="col-md-12">
-                                <input type="text" placeholder="Che lingue conosci ?" name="languages" data-role="tagsinput">
+                                <input type="text" placeholder="Che lingue conosci ?" name="languages" class="tagsinput">
                             </div>
                         </div>
 

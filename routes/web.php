@@ -55,6 +55,8 @@ Route::middleware(['auth'])->group(function (){
     Route::prefix('ajax')->name('ajax.')->group(function () {
         Route::get('notifications', 'NotificationsController@ajaxIndex')->name('notifications');
         Route::post('/room/{id}/exit', 'RentController@exitFromHouse')->name('exit.room');
+        Route::post('/room/{room}/user/{user}/setAvailableFrom', 'RentController@selectAvailableDate')->name('setAvailableFrom.room');
+        Route::post('/room/{room}/user/{user}/remove', 'RentController@remove')->name('remove.room');
         Route::post('/room/{id}', 'RentController@rentHouse')->name('rent.room');
     });
     

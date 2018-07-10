@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
 
     public function isTenant() {
-        return !!$this->rooms()->where('accepted_by_owner', true)->count();
+        return !!$this->livingRooms()->count();
     }
     
     public function houses() {
@@ -86,11 +86,11 @@ class User extends Authenticatable
     }
 
     public function rooms() {
-        return $this->belongsToMany('App\Room')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at');
+        return $this->belongsToMany('App\Room')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from');
     }
 
     public function livingRooms() {
-        return $this->rooms()->where('accepted_by_owner', true);
+        return $this->rooms()->where('accepted_by_owner', true)->where('start','<=',\Carbon\Carbon::now()->format('Y-m-d'))->where('stop',NULL);
     }
 
     public function pendingRequests() {

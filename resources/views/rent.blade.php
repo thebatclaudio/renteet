@@ -57,8 +57,16 @@
               </div>
             @endforeach
 
+            {{-- PER OGNI STANZA STAMPO I POSTI VUOTI MA NON ANCORA DISPONIBILI --}}
+            @foreach($room->notAvailableBeds as $user)
+              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
+                <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
+              </div>
+            @endforeach
+
             {{-- se ci sono posti liberi --}}
-            @if($room->beds - $room->acceptedUsers->count())
+            @if($room->beds - ($room->acceptedUsers->count() + $room->notAvailableBeds->count()))
             
               {{-- controllo se l'utente è loggato --}}
               @if(\Auth::check())
@@ -120,8 +128,105 @@
           </div>
           @endforeach
         </div><!-- /.row -->
-
       </div><!-- /.container -->
+
+      <div class="container">
+
+      <div class="row">
+            <div class="page-target-container margin-top-80">
+              <h3 class="page-target">Descrizione</h3>
+            </div>
+          <div class="margin-top-120">
+            <p class="margin-top-40">{{$house->description}}</p>
+          </div>  
+        </div>
+        
+        <div class="row">
+            <div class="page-target-container margin-top-80">
+              <h3 class="page-target">Informazioni</h3>
+            </div>
+          <div class="margin-top-120">
+            <ul class="margin-top-40 list-unstyled">
+              <li>Numero stanze: {{$house->rooms()->count()}}</li>
+              <li>Numero bagni: {{$house->bathrooms}}</li>
+              <li>MQ: {{$house->mq}}</li>
+              <li>Genere coinquilini: {{$house->gender}}</li>
+            </ul>
+          </div>  
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Servizi</h3>
+          </div>
+            <div class="col-md-6 margin-top-120">
+              <ul class="margin-top-40 list-unstyled">
+                @foreach($house->services()->quantityNeeded(true)->get() as $service)
+                <li>
+                  <div class="row">
+                    <div class="col-md-6">
+                      {{$service->name}}
+                    </div>
+                    <div class="col-md-6">
+                    <h5><span class="badge badge-dark">{{$service->pivot->quantity}}</span></h5>
+                    </div>
+                  </div>
+                </li>
+                @endforeach
+              </ul>
+            </div>
+            <div class="col-md-6 margin-top-120">
+              <ul class="margin-top-40 list-unstyled">
+              @foreach($house->services()->quantityNeeded(false)->get() as $service)
+                <li>{{$service->name}}</li>
+              @endforeach
+              </ul>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Posizione approssimata</h3>
+          </div>
+          <div class="col-md-6 margin-top-120">
+            <div class="margin-top-40" id="map"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Proprietario</h3>
+          </div>
+          <div class="card margin-top-180 col-md-8">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <a href="{{$house->owner->profile_url}}">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" class="rounded-circle img-fluid">
+                  </a>
+                  <buttom class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                </div>
+                <div class="col-sm-9 padding-left-20">
+                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
+                  <ul class="list-unstyled">
+                    <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
+                    <li>{{$house->owner->livingCity()->getResults()->text}}</li>
+                  </ul>
+                  <p>Email: <a href="mailto:{{$house->owner->email}}">{{$house->owner->email}}</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Recensioni</h3>
+          </div>
+        </div>
+
+      </div>
+
 @endsection
 
 @section('scripts')
@@ -130,6 +235,29 @@
         headers: {
           'X-CSRF-TOKEN': "{{ csrf_token() }}"
         }
+      });
+
+      $(document).ready(function(){
+        
+        var latitudeApprox = {{$house->latitude}};
+        var longitudeApprox = {{$house->longitude}};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          center: {lat: latitudeApprox, lng: longitudeApprox},
+          mapTypeId: 'terrain'
+        });
+
+        var cityCircle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: {lat: latitudeApprox, lng: longitudeApprox},
+          radius: 100
+        });
       });
 
       @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
@@ -209,7 +337,7 @@
           }
         });
       });
-      @else
+      @elseif(!\Auth::check())
 
       $(".free-bed").on("click", function () {
         $("#login-modal").modal("show");
@@ -217,4 +345,12 @@
       @endif;
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+@endsection
+
+@section('styles')
+<style>
+#map {
+  height: 400px;
+}
+</style>
 @endsection
