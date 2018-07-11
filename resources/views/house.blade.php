@@ -16,6 +16,9 @@ label > input + img{ /* IMAGE STYLES */
 label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   border:2px solid #f00;
 }
+textarea{
+    resize:none;
+}
 </style>
 @endsection
 
@@ -128,14 +131,16 @@ $.ajaxSetup({
 
 $('#reviewButton').on('click',function(){
 
-    var radioContainer = document.createElement("div");
+    var radioContainer = document.createElement("form");
         radioContainer.classList.add("row");
+        radioContainer.id = 'radioForm';
     var col = document.createElement("div");
         col.classList.add("col");
     var label = document.createElement("label");
     var input = document.createElement("input");
         input.type = "radio";
         input.name = "type";
+        input.classList.add("radioReview");
         input.value = "house";
     var image = document.createElement("img");
         image.src = "{{$house->preview_image_url}}";
@@ -148,60 +153,71 @@ $('#reviewButton').on('click',function(){
 
         @foreach($house->rooms as $room)
             @foreach($room->acceptedUsers as $user)
-            var col = document.createElement("div");
-            col.classList.add("col");
-            var label = document.createElement("label");
-            var input = document.createElement("input");
-            input.type = "radio";
-            input.name = "type";
-            input.value = "{{$user->id}}";
-            var image = document.createElement("img");
-            image.src = "{{$user->profile_pic}}";
-            image.classList.add("img-fluid"); 
-            image.classList.add("rounded-circle");
-            label.appendChild(input);
-            label.appendChild(image);
-            col.appendChild(label);
-            radioContainer.appendChild(col);
+                @if($user->id !== \Auth::user()->id)
+                    var col = document.createElement("div");
+                    col.classList.add("col");
+                    var label = document.createElement("label");
+                    var input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = "type";
+                    input.classList.add("radioReview");
+                    input.value = "{{$user->id}}";
+                    var image = document.createElement("img");
+                    image.src = "{{$user->profile_pic}}";
+                    image.classList.add("img-fluid"); 
+                    image.classList.add("rounded-circle");
+                    label.appendChild(input);
+                    label.appendChild(image);
+                    col.appendChild(label);
+                    radioContainer.appendChild(col);
+                @endif
             @endforeach
         @endforeach
 
     swal({
-          title: "Inserisci la data in cui abbandonerai l'immobile",
+          title: "Chi vuoi recensire?",
           buttons: [true, {
-            text: "Abbandona l'immobile",
+            text: "Avanti",
+            className: "nextButtonSwal",
             closeModal: false
           }],
           content: radioContainer
         })
         .then((send) => {
 
-          if (!send) throw null;
+            if (!send) throw null;
+            var formVal = $('input[name=type]:checked','#radioForm').val();
+            if(!formVal) throw null;
+            swal({
+                title: "Chi vuoi recensire?",
+                buttons: [true, {
+                    text: "Avanti",
+                    className: "nextButtonSwal",
+                    closeModal: false
+                }],
+                content: ratingSystem()
+            }).then((send) =>{
+                if(!send) throw null;
+                var url = '{{route('user.rate', ':id')}}';
+                $.post(url.replace(':id',formVal), { rating: $('#hiddenInputStar').val(),message:$('#textareaReview').val(),room_user_id:{{$room_user_id}}}, function( data ) {
+                    if(data.status === 'OK') {
+                        swal("Recensione inserita correttamente", "", "success");
+                    } else {
+                        swal("Si è verificato un errore", "Riprova più tardi", "error");
+                    }
+                });
 
-          var select = $("#stop-date");
-
-          if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
-
-          var url = '{{route('ajax.exit.room', $user->livingRooms()->first()->id)}}';
-          $.post(url, { stopDate: select.val() }, function( data ) {
-            if(data.status === 'OK') {
-              swal("Operazione riuscita", "Invia un messaggio al locatore e organizzatevi per il checkout", "success");
-            } else {
-              swal("Si è verificato un errore", "Riprova più tardi", "error");
-            }
-          });
+            })
+            .catch((err)=>{
+                swal("Si è verificato un errore", "Riprova più tardi", "error");
+            });
         })
         .catch(err => {
-          if (err) {
-            if(err === 'MISSING_DATE') {
-              swal("Inserisci la data in cui abbandonerai l'immobile", "", "error");
-            } else {
-              swal("Si è verificato un errore", "Riprova più tardi", "error");
-            }
-          } else {
-            swal.stopLoading();
-            swal.close();
-          }
+            swal("Si è verificato un errore", "Riprova più tardi", "error");
+        });
+        $('.nextButtonSwal').attr('disabled',true);
+        $('.radioReview').on('change',function(){
+            $('.nextButtonSwal').attr('disabled',false);
         });
 });
 
@@ -266,6 +282,44 @@ $("#exitButton").on('click', function () {
             swal.close();
           }
         });
+});
+
+function ratingSystem(){
+    var starsContainer = document.createElement("form");
+    starsContainer.classList.add('rating-stars-container');
+    for(i = 0; i < 5; i++){
+        var star = document.createElement("i");
+        star.classList.add('icon-circle-empty');
+        star.classList.add('ratingStar');
+        star.dataset.rate = i;
+        star.id = 'star-'+i;
+        starsContainer.appendChild(star);
+    };
+    var inputStar = document.createElement('input');
+    inputStar.type = 'hidden';
+    inputStar.id = 'hiddenInputStar';
+    
+    var textArea = document.createElement('textarea');
+    textArea.name = 'textareaReview';
+    textArea.id = 'textareaReview';
+    textArea.classList.add('form-control');
+    textArea.classList.add('margin-top-40');
+    textArea.rows="6"; 
+    textArea.placeholder ='Lascia qui una recensione';
+    starsContainer.appendChild(inputStar);
+    starsContainer.appendChild(textArea);
+    
+    return starsContainer;
+}
+
+$('body').on('click','.ratingStar',function(){
+    var rating = $(this).data('rate');
+    $('#hiddenInputStar').val(rating);
+    $('.ratingStar').removeClass('icon-circle-full').addClass('icon-circle-empty');
+    
+    for(i = 0; i<=rating;i++){
+        $('#star-'+i).removeClass('icon-circle-empty').addClass('icon-circle-full');
+    }
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>

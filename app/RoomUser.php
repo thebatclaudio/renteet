@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class RoomUser extends Model
 {
     protected $table = "room_user";
+
+    public function room(){
+        return $this->belongsTo('App\Room');
+    }
 }

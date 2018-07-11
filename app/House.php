@@ -56,14 +56,7 @@ class House extends Model
     }
 
     public function getPreviewImageUrlAttribute() {
-        if($this->photos->count()){
-            $fileName = $this->photos->first()->file_name;
-            return \URL::to('/images/houses/'.$this->id.'/'.$fileName);
-        } else {
-            // TODO: creare immagine placeholder
-            return 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
-        }
-
+        return route('house.thumbnail',$this->id);
     }
 
     public function hasUser($id) {

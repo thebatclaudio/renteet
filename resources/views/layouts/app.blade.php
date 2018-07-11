@@ -20,6 +20,7 @@
 
         <link rel="stylesheet" href="/css/app.css?{{rand()}}">
         <link rel="stylesheet" href="/css/utilities.css?{{rand()}}">
+        <link rel="stylesheet" href="/css/icons.css?{{rand()}}">
 
         @yield('styles')
     </head>

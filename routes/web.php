@@ -61,7 +61,10 @@ Route::middleware(['auth'])->group(function (){
     });
     
     Route::get('/house', 'UserController@showHouse')->name('myHouse');
-    Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
+    Route::get('/house/{id}/thumbnail','HouseController@getThumbnail')->name('house.thumbnail');
+    Route::post('/user/{id}/review','ReviewController@rateUser')->name('user.rate');
+    //Not Used
+    // Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
 
     // admin routes, for who manage houses @remember: route name preceded always by "admin."
     Route::prefix('admin')->name('admin.')->group(function () {
