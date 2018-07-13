@@ -54,17 +54,5 @@ class ReviewController extends Controller
         return response()->json([
             'status'=>'KO'
         ]);
-
-/*
-        Review::create([
-            'text' => $request->message,
-            'rate' => $request->rating,
-            'from_user_id' => \Auth::user()->id,
-            'to_user_id' => $id,
-            'lessor' => $request->lessor
-        ]);
-
-        return redirect()->to('house');
-        */
     }
 }

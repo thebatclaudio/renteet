@@ -23,17 +23,27 @@ textarea{
 @endsection
 
 @section('content')
-<div class="container-fluid preview">
+
+<div class="container">
     <div class="row">
-        <div class="col-md-2 bg-dark text-white first-column">
-            <h4>{{$house->name}}</h4>
-            <ul class="list-unstyled">
-                <li>{{ $house->street_name }} {{ $house->number }}</li>
-                <li>{{ $house->city }}</li>
-            </ul>
+        <div class="col-md-4 margin-top-20 align-self-center">
+            <div class="card border-dark" style="max-width: 18rem;">
+                <div class="card-header text-center"><h5>{{$house->name}}</h5></div>
+                <div class="card-body text-dark">
+                    <p class="card-text text-center">{{ $house->city }},{{ $house->street_name }} {{ $house->number }}</p>
+                    <div class="text-center margin-top-40">
+                        <a href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
+                            <img src="{{ $house->owner->profile_pic }}" class="img-fluid rounded-circle" style="max-width:150px;" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}">
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-8 no-padding">
-            <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+        <div class="col-md-8 margin-top-40 no-padding align-self-start">
+            <div class="col-md-5 margin-bottom-10 float-right">
+                <button class="btn btn-block btn-outline-success waves-effect btn-lg">Vai alla chat della casa</button> 
+            </div>
+            <div id="homeCarousel" class="carousel slide padding-right-10" data-ride="carousel">
                 <ul class="carousel-indicators">
                     @for($i = 0; $i < $house->photos()->count(); $i++)
                         @if($i == 0)
@@ -47,9 +57,9 @@ textarea{
                 <div class="carousel-inner">
                     @foreach($house->photos as $photo)
                         @if ($loop->first)
-                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
+                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}}); max-height:50%;"></div>
                         @else
-                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}})"></div>
+                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}}); max-height:50%;"></div>
                         @endif
                     @endforeach
                 </div>
@@ -62,16 +72,9 @@ textarea{
                 </a>                    
             </div>
         </div>
-        <div class="col-md-2 bg-dark last-column">
-            <a href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
-                <img src="{{ $house->owner->profile_pic }}" class="avatar img-fluid">
-            </a>
-            <h6 class="text-center margin-top-40">Locatore</h6>
-            <h5 class="text-center">{{$house->owner->first_name}} {{$house->owner->last_name}}</h5>
-        </div>
+    
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="col-md-3 padding-right-30">
@@ -109,10 +112,10 @@ textarea{
     </div>
     <div class="row justify-content-between margin-top-40">
         <div class="col-auto">
-            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Recensisci</button> 
+            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button> 
         </div>
         <div class="col-auto">
-            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Vai alla chat della casa</button> 
+            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Lascia una recensione</button> 
         </div>
     </div>
 
