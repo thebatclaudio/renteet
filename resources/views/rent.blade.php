@@ -121,7 +121,7 @@
         <div class="beds-container row">
           @foreach($house->rooms as $room)
           <div class="col-lg-4 text-center beds-number" style="width: {{(100/$house->beds)*$room->beds}}%; flex: 0 0 {{(100/$house->beds)*$room->beds}}%; max-width: {{(100/$house->beds)*$room->beds}}%;">
-            <i class="fa fa-bed"></i>
+            <i class="fas fa-bed"></i>
             @if($room->beds > 1)
              x {{$room->beds}}
             @endif
@@ -132,7 +132,7 @@
 
       <div class="container">
 
-      <div class="row">
+        <div class="row">
             <div class="page-target-container margin-top-80">
               <h3 class="page-target">Descrizione</h3>
             </div>
@@ -193,7 +193,58 @@
           </div>
         </div>
 
+
         <div class="row">
+          <div class="page-target-container margin-top-80">
+            <h3 class="page-target">Recensioni</h3>
+          </div>
+          <div id="reviewsCarousel" class="carousel slide col-md-12" data-ride="carousel">
+            <div class="carousel-inner margin-top-180">
+              @foreach($house->previewReviews as $review)
+                @if ($loop->index % 3 === 0)
+                  @if($loop->first)
+                    <div class="carousel-item active">
+                    <div class="row">
+                  @else
+                    <div class="carousel-item">
+                    <div class="row">
+                  @endif
+                @endif
+                <div class="col-md-4 text-center">
+                <img src="{{$review->fromUser->profile_pic}}" alt="{{$review->fromUser->first_name}} {{$review->fromUser->last_name}}" class="rounded-circle" style="max-width:120px;">
+                <h6 class="margin-top-15">{{$review->fromUser->first_name}}</h6>
+                <div class="rating-stars-container margin-top-20">
+                  @for($i = 1; $i < 6; $i++)
+                    @if($i <= $user->rating)
+                        <span class="fas fa-star checked"></span>
+                    @else
+                        <span class="far fa-star"></span>
+                    @endif
+                  @endfor
+                </div>
+                <p class="margin-top-10">{{$review->text}}</p>
+                </div>
+                @if($loop->index % 3 === 2)
+                  </div>
+                  </div>
+                @elseif($loop->last)
+                  </div>
+                  </div>
+                @endif
+              @endforeach
+            </div>
+              <a class="carousel-control-prev" href="#reviewsCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#reviewsCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+              </a>
+          </div>
+        </div>
+
+        <div class="row margin-bottom-40">
           <div class="page-target-container margin-top-80">
             <h3 class="page-target">Proprietario</h3>
           </div>
@@ -202,7 +253,7 @@
               <div class="row">
                 <div class="col-sm-3">
                   <a href="{{$house->owner->profile_url}}">
-                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" class="rounded-circle img-fluid">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
                   </a>
                   <buttom class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
                 </div>
@@ -216,12 +267,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="page-target-container margin-top-80">
-            <h3 class="page-target">Recensioni</h3>
           </div>
         </div>
 
@@ -351,6 +396,22 @@
 <style>
 #map {
   height: 400px;
+}
+#reviewsCarousel .carousel-inner{
+  width:90%;
+  margin:180px auto 0px;
+}
+
+#reviewsCarousel .carousel-control-prev, #reviewsCarousel .carousel-control-next{
+  width:5%;
+}
+
+#reviewsCarousel .carousel-control-prev-icon, #reviewsCarousel .carousel-control-next-icon{
+  background-color:#212121;
+}
+
+#reviewsCarousel .carousel-item{
+  height:auto;
 }
 </style>
 @endsection

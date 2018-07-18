@@ -15,4 +15,8 @@ class Review extends Model
     public function toUser() {
         return $this->belongsTo('App\User', 'to_user_id');
     }
+
+    public function roomUser(){
+        return $this->belongsTo('App\RoomUser','room_user_id');
+    }
 }

@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Message;
+use App\House;
 
 class User extends Authenticatable
 {
@@ -97,6 +99,13 @@ class User extends Authenticatable
             });
     }
 
+    public function relatedHouses(){
+        return House::where(function($query){
+            return $query->whereIn('id',$this->houses->pluck('id'))
+            ->orWhereIn('id',$this->livingRooms->pluck('house_id'));
+        })->get();
+    }
+
     public function pendingRequests() {
         return $this->rooms()->where('accepted_by_owner', false);
     }
@@ -123,5 +132,26 @@ class User extends Authenticatable
 
     public function getRatingAttribute() {
         return $this->reviews()->avg('rate');
+    }
+
+    public function receivedMessages(){
+        return Message::where(function($query){
+            $query->where('to_user_id',$this->id)->orWhere(function($query){
+                return $query->whereIn('to_house_id',$this->houses->pluck('id'))
+                ->orWhereIn('to_house_id',$this->livingRooms->pluck('house_id'));
+            });
+        });
+    }
+
+    public function houseConversations(){
+        return $this->receivedMessages()->whereNotNull('to_house_id')->join('houses', 'messages.to_house_id', '=', 'houses.id')->groupBy('to_house_id')->select(\DB::raw("MAX(messages.id) as id"),\DB::raw("'house' as type"),\DB::raw('MAX(messages.created_at) as created_at'),\DB::raw('SUM(unreaded) as unreaded'),\DB::raw('houses.name as name'))->get();
+    }
+
+    public function userConversations(){
+        return $this->receivedMessages()->whereNull('to_house_id')->join('users', 'messages.from_user_id', '=', 'users.id')->groupBy('from_user_id')->select(\DB::raw("MAX(messages.id) as id"),\DB::raw("'user' as type"),\DB::raw('MAX(messages.created_at) as created_at'),\DB::raw('SUM(unreaded) as unreaded'),\DB::raw("CONCAT(users.first_name,' ',users.last_name) as name"))->get();
+    }
+
+    public function conversations(){
+        return $this->userConversations()->merge($this->houseConversations())->all();
     }
 }

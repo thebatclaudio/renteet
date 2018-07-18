@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/house', 'UserController@showHouse')->name('myHouse');
     Route::get('/house/{id}/thumbnail','HouseController@getThumbnail')->name('house.thumbnail');
     Route::post('/user/{id}/review','ReviewController@rateUser')->name('user.rate');
+    
     //Not Used
     // Route::post('/user/rating', 'ReviewController@rateUser')->name('user.rating');
 
@@ -84,6 +85,10 @@ Route::middleware(['auth'])->group(function (){
         });
         Route::get('house/{id}', 'AdminController@house')->name('house');
     });
+
+    Route::get('/chat','ChatController@showChat')->name('chat.show');
+    Route::get('/chat/{type}/{id}','ChatController@getMessages')->name('ajax.chat.messages');
+    Route::post('/chat/{type}/{id}','ChatController@sendMessage')->name('ajax.chat.sendMessage');
 });
 
 Route::get('/rent/{id}', 'RentController@getHouse')->name('house');

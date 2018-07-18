@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
-    protected $appends = ['url', 'admin_url', 'latitude', 'longitude'];
+    protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews'];
     protected $hiddens = ['latitude', 'longitude'];
     
 
@@ -95,4 +95,17 @@ class House extends Model
             }]);
         });
     }
+
+    private function reviews(){
+        return \App\Review::whereHas('roomUser',function($query){
+            return $query->whereHas('room',function($query){
+                return $query->whereIn('id',$this->rooms->pluck('id'));
+            });
+        })->where('lessor',true);
+    }
+
+    public function getPreviewReviewsAttribute(){
+        return $this->reviews()->orderBy('created_at')->limit(9)->get();
+    }
+
 }
