@@ -108,4 +108,15 @@ class House extends Model
         return $this->reviews()->orderBy('created_at')->limit(9)->get();
     }
 
+    public function relatedUsers(){
+        $users = [];
+        foreach($this->rooms as $room){
+            foreach($room->acceptedUsers as $user){
+                $users[] = $user->id;
+            }
+        }
+        $users[] = $this->owner->id;
+        return $users;
+    }
+
 }

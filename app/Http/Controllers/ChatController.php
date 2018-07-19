@@ -3,71 +3,81 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Conversation;
 use App\Message;
 use App\House;
 use App\User;
+use \App\Events\MessageReceived;
 
 class ChatController extends Controller
 {
     public function showChat(){
-        $conversations = \Auth::user()->conversations();
-        $conversationsToReturn = [];
-        foreach($conversations as $conversation){
-            $message = Message::find($conversation->id);
-            $conversation->lastMessage = (strlen($message->message)>80) ? substr($message->message,0,80)."..." : $message->message;
-            if($conversation->type === 'house'){
-                $conversation->image = House::find($message->to_house_id)->preview_image_url;
-                $conversation->chatId = $message->to_house_id;
-            }else{
-                $conversation->image = User::find($message->from_user_id)->profile_pic;
-                $conversation->chatId = $message->from_user_id;
-            }
-            $conversationsToReturn[] = $conversation;
-        }
         return view('chat',[
-            'conversations'=>$conversationsToReturn
+            'conversations'=>\Auth::user()->conversations
         ]);
     }
 
-    public function getMessages($type, $id,Request $request){
-        if($type == 'house'){
-            $messages = Message::where('to_house_id',$id);
-        }else{
-            $messages = Message::where(function($query) use($id){
-                return $query->where('from_user_id',$id)->where('to_user_id',\Auth::user()->id);
-            })->orWhere(function($query) use($id){
-                return $query->where('from_user_id',\Auth::user()->id)->where('to_user_id',$id);
-            });
-        }
-        return response()->json($messages->with('fromUser')->orderBy('created_at','desc')->skip(($request->page-1)*10)->take(10)->get()->sortBy('created_at')->values()->all());
-    }
-
-    public function sendMessage($type, $id,Request $request){
-        if($type == 'user'){
-            Message::create([
-                'from_user_id'=>\Auth::user()->id,
-                'to_user_id'=>$id,
-                'to_house_id'=>null,
-                'message'=>$request->message
-            ]);
-        }else{
-            if(in_array($id,\Auth::user()->relatedHouses()->pluck('id')->toArray())){
-                Message::create([
-                    'from_user_id'=>\Auth::user()->id,
-                    'to_user_id'=>null,
-                    'to_house_id'=>$id,
-                    'message'=>$request->message
-                ]);
-            }else{
-                return response()->json([
-                    'status' => 'KO'
-                ]);
-            }     
+    public function getMessages($id,Request $request){
+        if($conversation = Conversation::find($id)){
+            $messages = Message::where('conversation_id',$id); 
+            if($conversation->house_id != null){
+                $messages = $messages->where('to_user_id',\Auth::user()->id);
+            }
+            return response()->json($messages->with('fromUser')->orderBy('created_at','desc')->skip(($request->page-1)*10)->take(10)->get()->sortBy('created_at')->values()->all());
         }
 
         return response()->json([
-            'status' => 'OK'
+            'status' => 'KO'
         ]);
+    }
 
+    public function sendMessage($id,Request $request){
+        if($conversation = Conversation::find($id)){
+            if($conversation->house_id == null){
+                $toUser = $conversation->users()->where('user_id','!=',\Auth::user()->id)->first()->id;
+                $message = Message::create([
+                    'from_user_id'=>\Auth::user()->id,
+                    'to_user_id'=>$toUser,
+                    'conversation_id'=>$id,
+                    'message'=>$request->message
+                ]);
+                // lancio l'evento per inviare la notifica push
+                event(new MessageReceived($toUser, $message->id,\Auth::user()->id));
+                //User::find($id)->notify(new \App\Notifications\MessageReceived($id, $message->id,\Auth::user()->id));
+                return response()->json([
+                    'status' => 'OK'
+                ]);
+            }else{
+                if(in_array($conversation->house_id,\Auth::user()->relatedHouses()->pluck('id')->toArray())){
+                    foreach($conversation->house->relatedUsers() as $user){
+                        if($user != \Auth::user()->id){
+                            $message = Message::create([
+                                'from_user_id'=>\Auth::user()->id,
+                                'to_user_id'=>$user,
+                                'conversation_id'=>$id,
+                                'message'=>$request->message
+                            ]);
+                            // lancio l'evento per inviare la notifica push
+                            event(new MessageReceived($user, $message->id,\Auth::user()->id));
+                            //User::find($id)->notify(new \App\Notifications\MessageReceived($id, $message->id,\Auth::user()->id));
+                        }else{
+                            Message::create([
+                                'from_user_id'=>\Auth::user()->id,
+                                'to_user_id'=>$user,
+                                'conversation_id'=>$id,
+                                'message'=>$request->message,
+                                'unreaded' => false
+                            ]);
+                        }
+                    }
+                    return response()->json([
+                        'status' => 'OK'
+                    ]);
+                }
+            }
+        }
+        return response()->json([
+            'status' => 'KO'
+        ]);
     }
 }

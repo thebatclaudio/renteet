@@ -8,7 +8,7 @@ class Message extends Model
 {
 
     protected $fillable = [
-        'from_user_id', 'to_user_id', 'to_house_id', 'message',
+        'from_user_id', 'to_user_id', 'message','conversation_id',
     ];
 
     /**
@@ -24,10 +24,5 @@ class Message extends Model
     public function toUser()
     {
     return $this->belongsTo("\App\User","to_user_id");
-    }
-
-    public function toHouse()
-    {
-    return $this->belongsTo("\App\House","to_house_id");
     }
 }

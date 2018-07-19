@@ -143,15 +143,7 @@ class User extends Authenticatable
         });
     }
 
-    public function houseConversations(){
-        return $this->receivedMessages()->whereNotNull('to_house_id')->join('houses', 'messages.to_house_id', '=', 'houses.id')->groupBy('to_house_id')->select(\DB::raw("MAX(messages.id) as id"),\DB::raw("'house' as type"),\DB::raw('MAX(messages.created_at) as created_at'),\DB::raw('SUM(unreaded) as unreaded'),\DB::raw('houses.name as name'))->get();
-    }
-
-    public function userConversations(){
-        return $this->receivedMessages()->whereNull('to_house_id')->join('users', 'messages.from_user_id', '=', 'users.id')->groupBy('from_user_id')->select(\DB::raw("MAX(messages.id) as id"),\DB::raw("'user' as type"),\DB::raw('MAX(messages.created_at) as created_at'),\DB::raw('SUM(unreaded) as unreaded'),\DB::raw("CONCAT(users.first_name,' ',users.last_name) as name"))->get();
-    }
-
     public function conversations(){
-        return $this->userConversations()->merge($this->houseConversations())->all();
+        return $this->belongsToMany('App\Conversation');
     }
 }
