@@ -70,6 +70,14 @@
         });
     });
 
+    channel.bind('App\\Events\\MessageReceived', function(data) {
+        if("{{\Route::currentRouteName()}}" != "chat"){
+            $('#counterMessages').fadeIn();
+            var counter = $('#counterMessages').text();
+            $('#counterMessages').text(parseInt(counter)+1);
+        }
+    });
+
     $.notify.addStyle('notification', {
     html: 
         "<div class='notification-container'>" +

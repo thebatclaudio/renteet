@@ -34,7 +34,7 @@
                                             <span id="counter_{{$conversation->id}}" class="badge red badge-pill" style="display:none;">{{$conversation->unreaded_count}}</span>
                                         @endif
                                     </div>
-                                    <small class="align-text-right">{{$conversation->last_message}}</small>
+                                    <small id="lastMessage_{{$conversation->id}}" class="align-text-right">{{$conversation->last_message}}</small>
                                 </div>
                             </div>
                         </a>
@@ -94,7 +94,16 @@ $(document).ready(function(){
             }
             $("#chatContent").html(html);
             chatContent.scrollTop = chatContent.scrollHeight;
+            
+            //pulisco il counter message nel dropdown del profilo
+            var counter = parseInt($("#counterMessages").text()) - parseInt($("#counter_"+chatId).text());
+            $("#counterMessages").text(counter);
+            if(counter == 0) $("#counterMessages").fadeOut();
+
+            //pulisco il badge counter nel container delle conversations
             $("#counter_"+chatId).fadeOut();
+            $("#counter_"+chatId).text(0);
+            
         });
     })
 
@@ -111,6 +120,7 @@ $(document).ready(function(){
                     $("#chatContent").append(html);
                     chatContent.scrollTop = chatContent.scrollHeight;
                     $('#messageTextArea').val("").focus();
+                    $('#lastMessage_'+chatId).text(message);
                 }else{
                     swal("Si è verificato un errore", "Riprova più tardi", "error");
                 }
@@ -119,7 +129,20 @@ $(document).ready(function(){
     });
 
     channel.bind('App\\Events\\MessageReceived', function(data) {
-        console.log(data);
+       if(data.messageObj.conversation_id == chatId){
+            var html = "";
+            html += '<div class="row margin-top-10">';
+            html+='<div class="col-auto"><img src="'+data.fromUser.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+data.fromUser.complete_name+'"></div>';
+            html+='<div class="col"><p class="text-left"><small>'+data.fromUser.complete_name+'</small><br>'+data.message+'</p></div>';
+            html+='</div>';
+            $("#chatContent").append(html);
+            chatContent.scrollTop = chatContent.scrollHeight;
+       }else{
+            var count = $("#counter_"+data.messageObj.conversation_id).text();
+            $("#counter_"+data.messageObj.conversation_id).text(parseInt(count) + 1);
+            $("#counter_"+data.messageObj.conversation_id).fadeIn();
+       }
+       $('#lastMessage_'+data.messageObj.conversation_id).text(data.message);
     });
 });
 

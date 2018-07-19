@@ -146,4 +146,8 @@ class User extends Authenticatable
     public function conversations(){
         return $this->belongsToMany('App\Conversation');
     }
+
+    public function allUnreadedCount(){
+        return Message::where('to_user_id',$this->id)->sum('unreaded');
+    }
 }

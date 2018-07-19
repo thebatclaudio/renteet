@@ -137,6 +137,14 @@
                                                         @if(\Auth::user()->pendingRequests()->count() >= 1)
                             <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
                         @endif
+                                <a class="dropdown-item" href="{{route('chat.show')}}">I tuoi messaggi
+                                @if(\Auth::user()->allUnreadedCount() > 0)
+                                    <span id="counterMessages" class="float-right badge red badge-pill">{{\Auth::user()->allUnreadedCount()}}</span>
+                                @else
+                                    <span id="counterMessages" class="float-right badge red badge-pill" style="display:none;">{{\Auth::user()->allUnreadedCount()}}</span>
+                                @endif
+
+                                </a>
 
                                 <a class="dropdown-item" href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
                                 

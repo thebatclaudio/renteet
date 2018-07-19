@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/chat','ChatController@showChat')->name('chat.show');
     Route::get('/chat/{id}','ChatController@getMessages')->name('ajax.chat.messages');
     Route::post('/chat/{id}','ChatController@sendMessage')->name('ajax.chat.sendMessage');
+    Route::get('/new-chat/{id}','ChatController@newChat')->name('chat.newChat');
 });
 
 Route::get('/rent/{id}', 'RentController@getHouse')->name('house');
