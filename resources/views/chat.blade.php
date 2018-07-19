@@ -29,7 +29,9 @@
                                     <div class="d-flex w-100 justify-content-between align-items-center">
                                         <h5 class="mb-1">{{$conversation->name}}</h5>
                                         @if($conversation->unreaded_count > 0)
-                                            <span class="badge red badge-pill">{{$conversation->unreaded_count}}</span>
+                                            <span id="counter_{{$conversation->id}}" class="badge red badge-pill">{{$conversation->unreaded_count}}</span>
+                                        @else
+                                            <span id="counter_{{$conversation->id}}" class="badge red badge-pill" style="display:none;">{{$conversation->unreaded_count}}</span>
                                         @endif
                                     </div>
                                     <small class="align-text-right">{{$conversation->last_message}}</small>
@@ -92,6 +94,7 @@ $(document).ready(function(){
             }
             $("#chatContent").html(html);
             chatContent.scrollTop = chatContent.scrollHeight;
+            $("#counter_"+chatId).fadeOut();
         });
     })
 

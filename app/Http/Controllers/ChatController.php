@@ -23,6 +23,7 @@ class ChatController extends Controller
             if($conversation->house_id != null){
                 $messages = $messages->where('to_user_id',\Auth::user()->id);
             }
+            $messages->update(['unreaded'=>false]);
             return response()->json($messages->with('fromUser')->orderBy('created_at','desc')->skip(($request->page-1)*10)->take(10)->get()->sortBy('created_at')->values()->all());
         }
 
