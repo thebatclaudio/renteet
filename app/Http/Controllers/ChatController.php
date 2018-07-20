@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Conversation;
+use App\ConversationUser;
 use App\Message;
 use App\House;
 use App\User;
@@ -80,5 +81,27 @@ class ChatController extends Controller
         return response()->json([
             'status' => 'KO'
         ]);
+    }
+
+    public function newChat($id,Request $request){
+        $userConversation = ConversationUser::where('user_id',\Auth::user()->id)->pluck('conversation_id')->toArray();
+        $conversationUserId = ConversationUser::where('user_id',$id)->whereIn('conversation_id',$userConversation)->pluck('conversation_id')->toArray();
+        $conversation = Conversation::whereNull('house_id')->whereIn('id',$conversationUserId);
+        if($conversation->count()){
+            return $this->sendMessage($conversation->id,$request);
+        }else{
+            $newConversation = new \App\Conversation;
+            $newConversation->house_id = null;
+            $newConversation->save();
+            ConversationUser::create([
+                'conversation_id'=>$newConversation->id,
+                'user_id' => $id
+            ]);
+            ConversationUser::create([
+                'conversation_id'=>$newConversation->id,
+                'user_id' => \Auth::user()->id
+            ]);
+            return $this->sendMessage($newConversation->id,$request);
+        }
     }
 }

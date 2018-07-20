@@ -18,6 +18,10 @@ class Conversation extends Model
         return $this->belongsTo('App\House');
     }
 
+    public function conversationUser(){
+        return $this->hasMany('App\ConversationUser');
+    }
+
     public function getLastMessageAttribute(){
         if($message = $this->messages()->orderBy('created_at','desc')->first()){
             return $message->message;
