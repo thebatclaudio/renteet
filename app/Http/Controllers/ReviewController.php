@@ -47,12 +47,16 @@ class ReviewController extends Controller
                         return response()->json([
                             'status'=>'OK'
                         ]);
+                    }else{
+                        return response()->json([
+                            'status'=>'KO1'
+                        ]);
                     }
                 }
             }
         }
         return response()->json([
-            'status'=>'KO'
+            'status'=>'KO2'
         ]);
     }
 }

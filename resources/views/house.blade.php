@@ -41,7 +41,7 @@ textarea{
         </div>
         <div class="col-md-8 margin-top-40 no-padding align-self-start">
             <div class="col-md-5 margin-bottom-10 float-right">
-                <button class="btn btn-block btn-outline-success waves-effect btn-lg">Vai alla chat della casa</button> 
+                <a href="{{route('chat.show')}}" class="btn btn-block btn-outline-success waves-effect btn-lg">Vai alla chat della casa</a> 
             </div>
             <div id="homeCarousel" class="carousel slide padding-right-10" data-ride="carousel">
                 <ul class="carousel-indicators">
