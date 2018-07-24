@@ -30,11 +30,12 @@ class ReviewController extends Controller
                         'status'=>'OK'
                     ]);
                 }else{
+                    $stop = $roomUser->stop ? $roomUser->stop != null : \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                     if(\App\RoomUser::where('user_id',$id)
                         ->whereIn('room_id',$roomUser->room->house->rooms->pluck('id'))
-                        ->where(function($query) use($roomUser){
-                            $query->whereBetween('start',[$roomUser->start,$roomUser->stop])
-                                ->orWhereBetween('stop',[$roomUser->start,$roomUser->stop]);
+                        ->where(function($query) use($roomUser,$stop){
+                            $query->whereBetween('start',[$roomUser->start,$stop])
+                                ->orWhereBetween('stop',[$roomUser->start,$stop]);
                         })->count()){
                         Review::create([
                             'text' => $request->message,
