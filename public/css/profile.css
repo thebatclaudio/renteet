@@ -139,7 +139,7 @@ h3.profile-name {
 .living-house, .pending-request-house {
     margin-top: -80px;
     padding: 20px;
-    background-color: #e2fff1;
+/*  background-color: #e2fff1; */
     width: 100%;
     position: absolute;
     top: 150px;

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\House;
 use App\Room;
 use App\Photo;
+
 class AdminController extends Controller
 {
     public function house($id) {
@@ -146,6 +147,7 @@ class AdminController extends Controller
     }
 
     public function newHouseWizardStepFourSave(Request $request){
+
         $validatedData = $request->validate([
             'id' => 'required',
             'auto_accept' => 'required',
@@ -160,6 +162,15 @@ class AdminController extends Controller
                 $house->notice_months = $request->input('notice_months');
                 $house->last_step = 4;
                 $house->save();
+
+                $conversation = new \App\Conversation;
+                $conversation->house_id = $house->id;
+                $conversation->save();
+
+                $conversationUser = new \App\ConversationUser;
+                $conversationUser->conversation_id = $conversation->id;
+                $conversationUser->user_id = $house->owner->id;
+                $conversationUser->save();
 
                 return redirect()->route('admin.dashboard');
             }

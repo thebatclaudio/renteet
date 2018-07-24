@@ -292,6 +292,7 @@ function ratingSystem(){
     starsContainer.classList.add('rating-stars-container');
     for(i = 0; i < 5; i++){
         var star = document.createElement("i");
+        star.classList.add('icon');
         star.classList.add('icon-circle-empty');
         star.classList.add('ratingStar');
         star.dataset.rate = i;
