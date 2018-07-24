@@ -58,6 +58,7 @@
                         <li>{{$user->university}}</li>
                         @endif
                     </ul>
+                <buttom id="new-message-button" class="btn btn-outline-elegant waves-effect btn-lg   margin-top-20">Invia messaggio</buttom>
                 </div>
 
                 @if($user->languages()->count())
@@ -242,6 +243,43 @@ $("#guests-reviews-button").on('click', function() {
     guestsTab.addClass('show').addClass('active');
     guestsButtonContainer.removeClass('tab-inactive').addClass('tab-active');
     roommateButtonContainer.addClass('tab-inactive').removeClass('tab-active');
+});
+
+$("#new-message-button").on('click',function(){
+    var messageContainer = document.createElement("form");
+    var textArea = document.createElement('textarea');
+    textArea.name = 'textareaMessage';
+    textArea.id = 'textareaMessage';
+    textArea.classList.add('form-control');
+    textArea.classList.add('margin-top-40');
+    textArea.rows="6"; 
+    textArea.placeholder ='Inserisci il testo del messaggio';
+    messageContainer.appendChild(textArea);
+    
+    swal({
+            title: "Invia un messaggio a {{$user->first_name}}",
+            buttons: [true, {
+                text: "Invia",
+                className: "nextButtonSwal",
+                closeModal: false
+            }],
+            content: messageContainer
+        }).then((send) =>{
+            if(!send) throw null;
+            if($('#textareaMessage').val() == "") throw null;
+            var url = '{{route('chat.newChat', ':id')}}';
+            $.post(url.replace(':id','{{$user->id}}'), {message:$('#textareaMessage').val()}, function( data ) {
+                if(data.status === 'OK') {
+                    swal("Messaggio inviato correttamente", "", "success");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
+
+        })
+        .catch((err)=>{
+            swal("Si è verificato un errore", "Riprova più tardi", "error");
+        });
 });
 </script>
 

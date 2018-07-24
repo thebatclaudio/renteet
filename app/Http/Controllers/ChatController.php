@@ -87,8 +87,9 @@ class ChatController extends Controller
         $userConversation = ConversationUser::where('user_id',\Auth::user()->id)->pluck('conversation_id')->toArray();
         $conversationUserId = ConversationUser::where('user_id',$id)->whereIn('conversation_id',$userConversation)->pluck('conversation_id')->toArray();
         $conversation = Conversation::whereNull('house_id')->whereIn('id',$conversationUserId);
+
         if($conversation->count()){
-            return $this->sendMessage($conversation->id,$request);
+           return $this->sendMessage($conversation->first()->id,$request);
         }else{
             $newConversation = new \App\Conversation;
             $newConversation->house_id = null;

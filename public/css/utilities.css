@@ -136,3 +136,7 @@ body {
     transform: translateY(-50%);
     position: relative;
 }
+
+.grey-color-text {
+    color:grey;
+}

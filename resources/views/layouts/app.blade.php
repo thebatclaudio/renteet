@@ -266,6 +266,7 @@
 
         <script>
         $(document).ready(function() {
+
             $(window).keydown(function(event){
                 if(event.keyCode == 13) {
                     if($(":focus").attr('id') == 'search-input'){
@@ -276,8 +277,36 @@
                     }
                 }
             });
+            
+            moment.locale('it');
+            
+            $('.btn-notifications').on('click',function() {
+                $.get("{{route('ajax.notifications')}}", function( data ) {
+                    var notifications = "";
+                    for(notification in data){
+                        notifications += '<a class="dropdown-item" href='+data[notification].url+'>';
+                        notifications += '<div class="row">';
+                        notifications += '<div class="col-auto margin-left-10">';
+                        notifications += '<img src='+data[notification].image+' class="rounded-circle img-fluid" style="max-width:60px;">';
+                        notifications += '</div>';
+                        notifications += '<div class="col">';
+                        if(data[notification].read_at != null){
+                            notifications +='<p class="grey-color-text">'+data[notification].text;
+                        }else{
+                            notifications +='<p>'+data[notification].text;
+                        }
+                        notifications += '<br><small class="grey-color-text text-left date">'+moment.utc(data[notification].created_at, 'x').fromNow()+'</small></p>'
+                        notifications += '</div>';
+                        notifications += '</div>';
+                        notifications += '</a>';
+                    }
+                    $('#notifications-menu-content').html(notifications);
+                });
+            });
+        
         });
         </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
     
         @if(\Auth::check())
         @include('partials.notifications');
