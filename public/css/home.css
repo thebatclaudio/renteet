@@ -131,16 +131,12 @@ a.btn.btn-how-it-works {
 /* ===== SECTION 3 ======= */
 
 #section3 {
-    background-color: #ffefe3;
+    background-color: #fed58b;
     padding: 0;
 }
 
 #section3 h3.claim {
     color: #000000;
-}
-
-#section3 h3.claim strong {
-    color: #ffac08;
 }
 
 #section3 h4.sub-claim {
