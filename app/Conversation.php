@@ -46,4 +46,8 @@ class Conversation extends Model
         }
         return $this->users()->where('user_id','!=',\Auth::user()->id)->first()->profile_pic;
     }
+
+    public function scopeIsHouse($query){
+        return $query->whereNotNull('house_id');
+    }
 }

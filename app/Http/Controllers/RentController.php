@@ -7,6 +7,7 @@ use App\User;
 use App\House;
 use App\Room;
 use App\RoomUser;
+use App\Conversation;
 use \App\Events\AdhesionToHouse;
 use \App\Events\AdhesionAcceptance;
 use \App\Events\ExitFromHouse;
@@ -70,6 +71,11 @@ class RentController extends Controller
                     if($roomUser) {
                         $roomUser->accepted_by_owner = true;
 
+                        if($roomUser->start == \Carbon\Carbon::now()->format('Y-m-d')){
+                            $conversation = Conversation::find('house_id',$room->house->id);
+                            $conversation->attach($user);
+                        }
+
                         // lancio l'evento per inviare la notifica push
                         event(new AdhesionAcceptance($user, $room->house->id));
 
@@ -114,6 +120,12 @@ class RentController extends Controller
             $roomUser->stop = $request->stopDate;
             if($roomUser->save()) {
                 event(new ExitFromHouse(\Auth::user()->id, $room->first()->house->id));
+                
+                if($request->stopDate == \Carbon\Carbon::now()->format('Y-m-d')){
+                    $conversation = Conversation::find('house_id',$roomUser->house->id);
+                    $conversation->detach($user);
+                }
+
                 return response()->json([
                     'status' => 'OK'
                 ]);
@@ -173,6 +185,12 @@ class RentController extends Controller
                     $roomUser->stop = $request->stop;
                     if($roomUser->save()){
                         event(new RemovedFromHouse($user, $currentRoom->house->id));
+                        
+                        if($request->stop == \Carbon\Carbon::now()->format('Y-m-d')){
+                            $conversation = Conversation::find('house_id',$currentRoom->house->id);
+                            $conversation->detach($user);
+                        }
+                        
                         return response()->json([
                             'status' => 'OK'
                         ]);
