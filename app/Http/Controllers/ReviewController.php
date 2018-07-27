@@ -35,7 +35,11 @@ class ReviewController extends Controller
                         ->whereIn('room_id',$roomUser->room->house->rooms->pluck('id'))
                         ->where(function($query) use($roomUser,$stop){
                             $query->whereBetween('start',[$roomUser->start,$stop])
-                                ->orWhereBetween('stop',[$roomUser->start,$stop]);
+                                ->orWhereBetween('stop',[$roomUser->start,$stop])
+                                ->orWhere(function($query) use($roomUser,$stop){
+                                    return $query->where('start','<=',$roomUser->start)
+                                            ->whereNot('stop','<',$stop);
+                                });
                         })->count()){
                         Review::create([
                             'text' => $request->message,
