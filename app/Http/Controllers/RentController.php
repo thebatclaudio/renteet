@@ -73,7 +73,7 @@ class RentController extends Controller
 
                         if($roomUser->start == \Carbon\Carbon::now()->format('Y-m-d')){
                             $conversation = Conversation::where('house_id',$room->house->id)->first();
-                            $conversation->attach($user);
+                            $conversation->users()->attach($user);
                         }
 
                         // lancio l'evento per inviare la notifica push
@@ -123,7 +123,7 @@ class RentController extends Controller
                 
                 if($request->stopDate == \Carbon\Carbon::now()->format('Y-m-d')){
                     $conversation = Conversation::where('house_id',$roomUser->house->id)->first();
-                    $conversation->detach($user);
+                    $conversation->users()->detach($user);
                 }
 
                 return response()->json([
@@ -188,7 +188,7 @@ class RentController extends Controller
                         
                         if($request->stop == \Carbon\Carbon::now()->format('Y-m-d')){
                             $conversation = Conversation::where('house_id',$currentRoom->house->id)->first();
-                            $conversation->detach($user);
+                            $conversation->users()->detach($user);
                         }
                         
                         return response()->json([
