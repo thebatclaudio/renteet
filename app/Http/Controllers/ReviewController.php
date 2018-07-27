@@ -38,7 +38,10 @@ class ReviewController extends Controller
                                 ->orWhereBetween('stop',[$roomUser->start,$stop])
                                 ->orWhere(function($query) use($roomUser,$stop){
                                     return $query->where('start','<=',$roomUser->start)
-                                            ->whereNot('stop','<',$stop);
+                                            ->where(function($query) use($roomUser,$stop){
+                                                $query->where('stop','>',$roomUser->start)
+                                                    ->orWhereNull('stop');
+                                            });
                                 });
                         })->count()){
                         Review::create([
