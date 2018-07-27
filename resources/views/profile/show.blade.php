@@ -14,27 +14,27 @@
         <div class="row justify-content-center">
             <div class="card col-md-6">
                 <div class="row padding-10">
-                    <div class="col-sm-2">
-                        <img src="{{$pendingRequestHouse->preview_image_url}}" alt="{{$pendingRequestHouse->name}}" class="rounded-circle img-fluid margin-top-10" style="max-width:120%;">
+                    <div class="col-auto">
+                        <img src="{{$pendingRequestHouse->preview_image_url}}" alt="{{$pendingRequestHouse->name}}" class="rounded-circle img-fluid margin-top-10" style="max-width:100px;">
                     </div>
-                    <div class="col-sm-10">
+                    <div class="col">
                         <h4 class="text-left"><strong>{{$user->first_name}}</strong> ha richiesto di accedere al tuo immobile {{$pendingRequestHouse->name}}</h4>
-                        <button id="accept-user" data-room="{{$pendingRequestRoom->id}}" class="btn btn-primary btn-sm">Accetta la richiesta</button> <a href="{{route('admin.house', $pendingRequestHouse->id)}}" class="btn btn-success btn-sm">Gestisci immobile</a>
+                        <button id="accept-user" data-room="{{$pendingRequestRoom->id}}" class="btn btn-outline-success waves-effect btn-sm">Accetta la richiesta</button> <a href="{{route('admin.house', $pendingRequestHouse->id)}}" class="btn btn-outline-elegant waves-effect btn-sm">Gestisci immobile</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     @elseif(isset($livingHouse))
     <div class="living-house">
         <div class="row justify-content-center">
             <div class="card col-md-6">
                 <div class="row padding-10">
-                    <div class="col-sm-2">
-                        <img src="{{$livingHouse->preview_image_url}}" alt="{{$livingHouse->name}}" class="rounded-circle img-fluid margin-top-10" style="max-width:120%;">
+                    <div class="col-auto">
+                        <img src="{{$livingHouse->preview_image_url}}" alt="{{$livingHouse->name}}" class="rounded-circle img-fluid margin-top-10" style="max-width:100px;">
                     </div>
-                    <div class="col-sm-10">
+                    <div class="col">
                         <h4 class="text-left"><strong>{{$user->first_name}}</strong> vive nel tuo immobile {{$livingHouse->name}}</h4>
                         <a href="{{route('admin.house', $livingHouse->id)}}" class="btn btn-outline-elegant waves-effect btn-sm">Gestisci il tuo immobile</a>
                     </div>
