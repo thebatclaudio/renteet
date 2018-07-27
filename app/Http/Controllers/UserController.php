@@ -13,32 +13,23 @@ class UserController extends Controller
 
     public function showProfile($id) {
         if($user = \App\User::find($id)){
-
+            $attributes = [
+                'user'=>$user,
+                'margin'=>'margin-top-20'
+            ];
             // controllo se l'utente loggato è un locatore
             if(\Auth::user()->houses()->count()) {
                 // controllo se l'utente in questione ha richieste in sospeso per una delle case dell'utente loggato
                 foreach(\Auth::user()->houses as $house) {
                     if($house->hasUserPending($id)) {
-                        return view('profile.show', [
-                            'user' => $user,
-                            'pendingRequestHouse' => $house,
-                            'pendingRequestRoom' => $user->rooms()->where('house_id', $house->id)->first(),
-                            'margin' => 'margin-house-topbar'
-                        ]);
+                        $attributes['pendingRequestHouse'] = $house;
+                        $attributes['pendingRequestRoom'] = $user->rooms()->where('house_id', $house->id)->first();
                     } else if($house->hasUser($id)) {
-                        return view('profile.show', [
-                            'user' => $user,
-                            'livingHouse' => $house,
-                            'margin' => 'margin-house-topbar'
-                        ]);                      
+                        $attributes['livingHouse'] = $house;                   
                     }
                 }
             }
-
-            return view('profile.show', [
-                'user' => $user,
-                'margin' => 'margin-top-20'
-            ]);
+            return view('profile.show',$attributes);
         } else {
             return view('404');
         }

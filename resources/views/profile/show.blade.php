@@ -25,9 +25,8 @@
             </div>
         </div>
     </div>
-    @endif
-
-    @if(isset($livingHouse))
+    
+    @elseif(isset($livingHouse))
     <div class="living-house">
         <div class="row justify-content-center">
             <div class="card col-md-6">
