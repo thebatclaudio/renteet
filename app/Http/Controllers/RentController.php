@@ -72,7 +72,7 @@ class RentController extends Controller
                         $roomUser->accepted_by_owner = true;
 
                         if($roomUser->start == \Carbon\Carbon::now()->format('Y-m-d')){
-                            $conversation = Conversation::find('house_id',$room->house->id);
+                            $conversation = Conversation::where('house_id',$room->house->id)->first();
                             $conversation->attach($user);
                         }
 
@@ -122,7 +122,7 @@ class RentController extends Controller
                 event(new ExitFromHouse(\Auth::user()->id, $room->first()->house->id));
                 
                 if($request->stopDate == \Carbon\Carbon::now()->format('Y-m-d')){
-                    $conversation = Conversation::find('house_id',$roomUser->house->id);
+                    $conversation = Conversation::where('house_id',$roomUser->house->id)->first();
                     $conversation->detach($user);
                 }
 
@@ -187,7 +187,7 @@ class RentController extends Controller
                         event(new RemovedFromHouse($user, $currentRoom->house->id));
                         
                         if($request->stop == \Carbon\Carbon::now()->format('Y-m-d')){
-                            $conversation = Conversation::find('house_id',$currentRoom->house->id);
+                            $conversation = Conversation::where('house_id',$currentRoom->house->id)->first();
                             $conversation->detach($user);
                         }
                         

@@ -27,14 +27,16 @@ textarea{
 <div class="container">
     <div class="row">
         <div class="col-md-4 margin-top-20 align-self-center">
-            <div class="card border-dark" style="max-width: 18rem;">
-                <div class="card-header text-center"><h5>{{$house->name}}</h5></div>
-                <div class="card-body text-dark">
+            <div class="card" style="max-width: 18rem;">
+                <div class="card-body text-dark text-center">
+                    <h5>{{$house->name}}</h5>
                     <p class="card-text text-center">{{ $house->city }},{{ $house->street_name }} {{ $house->number }}</p>
                     <div class="text-center margin-top-40">
                         <a href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
                             <img src="{{ $house->owner->profile_pic }}" class="img-fluid rounded-circle" style="max-width:150px;" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}">
                         </a>
+                        <h6 style="font-size: 16px;margin-top: 10px;">{{$house->owner->complete_name}}</h6>
+                        <h6 style="font-size: 12px;">PROPRIETARIO</h6>
                     </div>
                 </div>
             </div>
