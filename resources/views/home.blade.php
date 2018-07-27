@@ -26,15 +26,15 @@
                         <div class="col-md-12">
                         @endif
                             @if(isset($house->photos[0]))
-                            <div class="house-img" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$house->photos[0]->file_name))}})"></div>
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($house->photos[0]->file_name))}})"></div>
                             @endif
                         </div>
                         <div class="col-md-5">
                             @if(isset($house->photos[1]) && isset($house->photos[2]))
-                            <div class="house-img half" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$house->photos[1]->file_name))}})"></div>
-                            <div class="house-img half" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$house->photos[2]->file_name))}})"></div>
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($house->photos[1]->file_name))}})"></div>
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($house->photos[2]->file_name))}})"></div>
                             @elseif(isset($house->photos[1]))
-                            <div class="house-img" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$house->photos[1]->file_name))}})"></div>
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($house->photos[1]->file_name))}})"></div>
                             @endif
                         </div>
                     </div>

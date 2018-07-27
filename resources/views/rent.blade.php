@@ -10,9 +10,9 @@
         <div class="carousel-inner">
           @foreach($house->photos as $photo)
             @if ($loop->first)
-              <div class="carousel-item active" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$photo->file_name))}})"></div>
+              <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($photo->file_name))}})"></div>
             @else
-              <div class="carousel-item" style="background-image: url({{urlencode(URL::to("/images/houses/".$house->id."/".$photo->file_name))}})"></div>
+              <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".urlencode($photo->file_name))}})"></div>
             @endif
           @endforeach
         </div>
