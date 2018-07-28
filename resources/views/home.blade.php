@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="house-price margin-top-40 text-right">
-                    A partire da <strong class="price">110€</strong>
+                    A partire da <strong class="price">{{$house->minorBedPrice()}}€</strong>
                     <a href="{{$house->url}}" class="btn btn-dark btn-sm margin-left-5">Visualizza L'appartamento</a>
                 </div>
             </div>
