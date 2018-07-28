@@ -119,4 +119,7 @@ class House extends Model
         return $users;
     }
 
+    public function minorBedPrice(){
+       return $this->rooms()->orderBy('bed_price','asc')->limit(1)->pluck('bed_price')->first();
+    }
 }

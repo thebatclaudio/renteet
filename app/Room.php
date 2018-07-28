@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    protected $fillable = [
+        'bed_price'
+    ];
+
     public function house() {
         return $this->belongsTo('App\House');
     }

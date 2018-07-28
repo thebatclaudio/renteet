@@ -34,6 +34,7 @@ class AdminController extends Controller
             'address_city' => 'required',
             'bedrooms' => 'required',
             'rooms' => 'required',
+            'prices' => 'required',
             'mq' => 'required',
             'bathrooms' => 'required'
         ]);
@@ -51,11 +52,14 @@ class AdminController extends Controller
         $house->owner_id = \Auth::user()->id;
         $house->last_step = 1;
         if($house->save()) {
-            foreach($request->rooms as $roomBeds){
-                $room = new Room;
-                $room->beds = $roomBeds;
-                $room->house_id = $house->id;
-                $room->save();
+            if(count($request->rooms) == count($request->prices)){
+                foreach($request->rooms as $key => $roomBeds){
+                    $room = new Room;
+                    $room->beds = $roomBeds;
+                    $room->house_id = $house->id;
+                    $room->bed_price = $request->prices[$key];
+                    $room->save();
+                }
             }
         }
 
