@@ -104,7 +104,7 @@ AOS.init();
                 <tbody>
                     <tr>
                         <td class="align-middle" data-aos="slide-right">
-                            <h3>Nessuno saprà ma dove abiti.</h3>
+                            <h3>Nessuno saprà mai dove abiti.</h3>
 
                             <p class="margin-top-20">Ogni immobile disponibile su renteet presenta una posizione approssimata.</p>
 
