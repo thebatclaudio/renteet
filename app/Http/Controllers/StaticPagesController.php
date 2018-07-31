@@ -13,4 +13,12 @@ class StaticPagesController extends Controller
     public function showHowItWorksForLessors(){
         return view('static.howItWorksForLessors');
     }
+
+    public function showAdvantages(){
+        return view('static.advantages');
+    }
+
+    public function showAdvantagesForLessors(){
+        return view('static.advantagesForLessors');
+    }
 }

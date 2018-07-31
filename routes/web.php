@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/come-funziona', 'StaticPagesController@showHowItWorks');
 Route::get('/come-funziona/locatori', 'StaticPagesController@showHowItWorksForLessors');
+Route::get('/scopri-i-vantaggi', 'StaticPagesController@showAdvantages');
+Route::get('/scopri-i-vantaggi/locatori', 'StaticPagesController@showAdvantagesForLessors');
 
 // Auth::routes();
 
