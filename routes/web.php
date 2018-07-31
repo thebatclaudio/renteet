@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/come-funziona', 'StaticPagesController@showHowItWorks');
+Route::get('/come-funziona/locatori', 'StaticPagesController@showHowItWorksForLessors');
+
 // Auth::routes();
 
 // Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');

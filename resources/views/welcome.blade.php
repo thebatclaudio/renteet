@@ -72,7 +72,7 @@ div#mce-error-response {
             <div class="col-md-6 text-center">
               <div class="content">
                 <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
-                <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupaziome offrendo ai tuoi ospiti un’esperieza unica</h4>
+                <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.<br>Ottimizza l’occupazione offrendo ai tuoi ospiti un’esperieza unica</h4>
                 <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-primary btn-how-it-works margin-top-20">Scopri i vantaggi</a>
               </div>
             </div>
