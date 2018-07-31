@@ -40,7 +40,7 @@ AOS.init();
 
                             <p class="margin-top-20">La creazione dell’annuncio è facile e intuitiva.</p>
 
-                            <p>Decidi il genere dei tuoi ospiti, se ammettere animali o meno oppure il tempo di preavviso al recesso, queste ed altre priorità saranno spettabili quando vuoi.</p>
+                            <p>Decidi il genere dei tuoi ospiti, se ammettere animali o meno oppure il tempo di preavviso al recesso, queste ed altre priorità saranno settabili quando vuoi.</p>
 
                             <p>Potrai decidere se usare o meno il contratto d’affitto standard di <strong class="text-lowercase">Renteet</strong>.</p>
                         </td>

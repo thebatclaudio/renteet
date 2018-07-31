@@ -85,7 +85,7 @@ AOS.init();
                 <tbody>
                     <tr>
                         <td class="align-middle" data-aos="slide-left">
-                            <h3>Potrai abbandonare dall’immobile in qualsiasi momento.</h3>
+                            <h3>Potrai abbandonare l'immobile in qualsiasi momento.</h3>
 
                             <p class="margin-top-20">Inserisci la data in cui hai intenzione di abbandonare l’immobile, nel rispetto dei termini di preavviso al recesso stabiliti dal locatore.</p>
 
