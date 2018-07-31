@@ -37,14 +37,14 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto d-block d-sm-none">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">&larr; Torna alla home</a>
+                            <a class="nav-link" href="/">&larr; Torna alla home</a>
                         </li>
                     </ul>
                 </div>
 
                 <ul class="navbar-nav mr-auto d-none d-sm-flex flex-row-reverse">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">&larr; Torna alla home</a>
+                        <a class="nav-link" href="/">&larr; Torna alla home</a>
                     </li>
                 </ul>
             </nav>
