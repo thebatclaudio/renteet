@@ -90,7 +90,7 @@ div#mce-error-response {
             <div class="col-lg-6 text-center">
               <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
               <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
-              <a href="{{url('/scopri-i-vantaggi-come-locatore/')}}" title="Scopri i vantaggi come locatore" class="btn btn-danger btn-how-it-works margin-top-20">Scopri i vantaggi come locatore</a>
+              <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-danger btn-how-it-works margin-top-20">Scopri i vantaggi</a>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@ div#mce-error-response {
       <div class="blur">
         <div class="content text-center">
           <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
-          <h3 class="claim">Iscriviti alla beta</h3>
+          <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter e resta aggiornato sull'uscita della beta</h4>
           <div class="row justify-content-md-center">
             <div class="col-sm-4">
               <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
