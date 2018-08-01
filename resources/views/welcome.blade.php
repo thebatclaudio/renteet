@@ -3,6 +3,7 @@
 @section('title', 'Be friendly')
 
 @section('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.3/aos.css">
 <link rel="stylesheet" href="/css/home.css?{{rand()}}">
 <!-- Begin MailChimp Signup Form -->
 <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
@@ -31,8 +32,8 @@ div#mce-error-response {
         <div class="container">
           <div class="row">
             <div class="col-md-5">
-              <h1>Renteet</h1>
-              <h2>Find interesting people to live with</h2>
+              <h1 data-aos="fade-left">Renteet</h1>
+              <h2 data-aos="fade-left">Find interesting people to live with</h2>
               {{-- <form id="searchForm" class="form-inline margin-top-20" action="{{route('search.coordinates')}}" method="GET">
                   <input id="lat" name="lat" type="hidden" required>
                   <input id="lng" name="lng" type="hidden" required>
@@ -50,12 +51,12 @@ div#mce-error-response {
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <video width="100%" height="auto" muted loop data-autoplay>
+              <video width="100%" height="auto" muted loop data-autoplay data-aos="fade-right">
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
             <div class="col-md-6 text-center">
-              <div class="content">
+              <div class="content" data-aos="fade-left">
                 <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong>con chi</strong> vivere</h3>
                 <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
                 <a href="{{url('/come-funziona/')}}" title="Come funziona" class="btn btn-danger btn-how-it-works margin-top-20">Come funziona</a>
@@ -148,5 +149,10 @@ div#mce-error-response {
 			},
     });
   });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.3/aos.js"></script>
+<script>
+AOS.init();
 </script>
 @endsection
