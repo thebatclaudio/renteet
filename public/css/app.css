@@ -22,6 +22,12 @@ a:hover, a:focus {
   color: #fff!important;
 }
 
+.btn-outline-success {
+  border: 2px solid #099154!important;
+  background-color: transparent!important;
+  color: #099154!important;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
@@ -561,6 +567,42 @@ small.notification-date {
 
   .register-card {
     padding: 20px;
+  }
+
+  footer.page-footer {
+    padding-top: 40px;
+    margin-top: 120px;
+  }
+
+  footer.page-footer h6, footer.page-footer ul.footer-menu>li>a:link, footer.page-footer ul.footer-menu>li>a:visited, footer.page-footer ul.footer-menu>li>a:active, .footer-menu-title {
+    color: #212121;
+  }
+
+  .footer-menu.no-title {
+    margin-top: 45px;
+  }
+
+  .footer-menu-title {
+    margin-bottom: 20px;
+  }
+
+  footer.page-footer .social-links a {
+    color: #212121;
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  .footer-logo {
+    width: 50px;
+    margin-bottom: 10px;
+    opacity: 0.2;
+  }
+
+  .footer-copy {
+    color: #bfbcba;
+    font-size: 16px;
+    margin-left: 15px;
+    font-weight: 600;
   }
 
   @media (max-width: 565px) {
