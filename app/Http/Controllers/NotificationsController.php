@@ -35,7 +35,7 @@ class NotificationsController extends Controller
 
     public function index() {
         $notifications = [];
-        foreach(\Auth::user()->unreadNotifications()->orderBy('created_at', 'desc')->limit(20)->get() as $notification) {
+        foreach(\Auth::user()->notifications()->orderBy('created_at', 'desc')->limit(20)->get() as $notification) {
             switch($notification->type) {
                 case "App\Notifications\AdhesionToHouse":
                     if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {
@@ -49,6 +49,8 @@ class NotificationsController extends Controller
                     }
                 break;
             }
+            $notification->read_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+            $notification->save();
         }
 
         return view('profile.notifications', [

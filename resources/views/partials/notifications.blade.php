@@ -8,65 +8,61 @@
 
     channel.bind('App\\Events\\AdhesionToHouse', function(data) {
 
-        console.log(data);
-
         $.notify({
             title: '<strong>'+data.user.first_name+' '+data.user.last_name+'</strong> ha richiesto di accedere a <strong>'+data.house.name+'</strong>',
-            image: '<img class="img-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
-            profileLink: '<a href="'+data.user.profile_url+'" class="btn btn-primary btn-xs">Visualizza profilo</a>'
+            image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
+            profileLink: '<a href="'+data.user.profile_url+'" class="btn btn-elegant btn-sm">Visualizza profilo</a>'
         }, {
             style: 'notification',
-            autoHide: true,
+            autoHide: false,
             clickToHide: false,
-            autoHideDelay: 15000
+            autoHideDelay: 15000,
+            globalPosition: 'bottom right',
         });
     });
 
     channel.bind('App\\Events\\AdhesionAcceptance', function(data) {
 
-        console.log(data);
-
         $.notify({
             title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+'</strong> ha accettato la tua richiesta di adesione per l\'immobile <strong>'+data.house.name+'</strong>',
             image: '<img class="img-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
-            profileLink: '<a href="'+data.house.url+'" class="btn btn-primary btn-xs">Visualizza l\'immobile</a>'
+            profileLink: '<a href="'+data.house.url+'" class="btn btn-elegant btn-sm">Visualizza l\'immobile</a>'
         }, {
             style: 'notification',
-            autoHide: true,
+            autoHide: false,
             clickToHide: false,
-            autoHideDelay: 15000
+            autoHideDelay: 15000,
+            globalPosition: 'bottom right',
         });
     });
     
     channel.bind('App\\Events\\ExitFromHouse', function(data) {
 
-        console.log(data);
-
         $.notify({
             title: '<strong>'+data.user.first_name+' '+data.user.last_name+'</strong> ha abbandonato il tuo immobile <strong>'+data.house.name+'</strong>. Seleziona la data in cui tornerà disponibile.',
             image: '<img class="img-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
-            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-primary btn-xs">Gestisci il tuo immobile</a>'
+            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-elegant btn-sm">Gestisci il tuo immobile</a>'
         }, {
             style: 'notification',
-            autoHide: true,
+            autoHide: false,
             clickToHide: false,
-            autoHideDelay: 15000
+            autoHideDelay: 15000,
+            globalPosition: 'bottom right',
         });
     });
 
     channel.bind('App\\Events\\RemovedFromHouse', function(data) {
 
-    console.log(data);
-
-    $.notify({
+        $.notify({
             title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+"</strong> ti ha rimosso dall'immobile <strong>"+data.house.name+'</strong>',
             image: '<img class="img-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
-            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-primary btn-xs">Gestisci il tuo immobile</a>'
+            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-elegant btn-sm">Gestisci il tuo immobile</a>'
         }, {
             style: 'notification',
-            autoHide: true,
+            autoHide: false,
             clickToHide: false,
-            autoHideDelay: 15000
+            autoHideDelay: 15000,
+            globalPosition: 'bottom right',
         });
     });
 
@@ -80,14 +76,15 @@
 
     $.notify.addStyle('notification', {
     html: 
-        "<div class='notification-container'>" +
-            '<div class="alert alert-success" role="alert" style="min-width: 200px">'+
-                '<div class="row">'+
-                '<div class="col-sm-3" data-notify-html="image"></div><div class="col-sm-9">'+
-                '<p data-notify-html="title"></p>'+
-                '<p><span data-notify-html="profileLink"></span><a href="" class="btn btn-default btn-xs close-notify">Chiudi</a></p>'+
+        '<div><div class="notification-container card">'+
+            '<div class="row">'+
+                '<div class="col-auto" data-notify-html="image"></div>'+
+                '<div class="col">'+
+                    '<p data-notify-html="title"></p>'+
+                    '<p><span data-notify-html="profileLink"></span><a href="" class="btn btn-outline-elegant btn-sm close-notify">Chiudi</a></p>'+
+                '</div>'+
             '</div>'+
-        "</div>"
+        '</div>'
     });
 
     $(document).on('click', '.close-notify', function() {
