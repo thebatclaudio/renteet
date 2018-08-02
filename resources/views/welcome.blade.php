@@ -86,7 +86,7 @@ footer.page-footer {
             </div>
             <div class="col-md-6 text-left">
               <div class="content">
-                <img class="img-fluid margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
+                <img class="img-fluid d-none d-sm-block margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
               </div>
             </div>
           </div>
