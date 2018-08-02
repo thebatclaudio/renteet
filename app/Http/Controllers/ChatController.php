@@ -14,7 +14,7 @@ class ChatController extends Controller
 {
     public function showChat(){
         return view('chat',[
-            'conversations'=>\Auth::user()->conversations
+            'conversations'=>\Auth::user()->conversations()->orderBy('updated_at','desc')->get()
         ]);
     }
 
@@ -46,6 +46,8 @@ class ChatController extends Controller
                 // lancio l'evento per inviare la notifica push
                 event(new MessageReceived($toUser, $message->id,\Auth::user()->id));
                 //User::find($id)->notify(new \App\Notifications\MessageReceived($id, $message->id,\Auth::user()->id));
+                $conversation->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                $conversation->save();
                 return response()->json([
                     'status' => 'OK'
                 ]);
@@ -72,6 +74,10 @@ class ChatController extends Controller
                             ]);
                         }
                     }
+                    
+                    $conversation->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $conversation->save();
+
                     return response()->json([
                         'status' => 'OK'
                     ]);

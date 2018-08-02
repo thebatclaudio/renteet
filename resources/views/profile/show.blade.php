@@ -69,7 +69,11 @@
                         <li>{{$user->university}}</li>
                         @endif
                     </ul>
+                @if($user->id == \Auth::user()->id)
+                <buttom id="edit-profile-button" class="btn btn-outline-elegant waves-effect btn-lg   margin-top-20">Modifica profilo</buttom>
+                @else
                 <buttom id="new-message-button" class="btn btn-outline-elegant waves-effect btn-lg   margin-top-20">Invia messaggio</buttom>
+                @endif
                 </div>
 
                 @if($user->languages()->count())
@@ -241,6 +245,10 @@ var roommateTab = $("#roommate-tab");
 var guestsTab = $("#guests-tab");
 var roommateButtonContainer = $("#roommates-button-container");
 var guestsButtonContainer = $("#guests-button-container");
+
+$("#edit-profile-button").on('click',function(){
+    window.location = '{{route('user.edit')}}';
+});
 
 $("#roommates-reviews-button").on('click', function() {
     guestsTab.removeClass('show').removeClass('active');
