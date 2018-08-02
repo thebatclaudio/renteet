@@ -22,6 +22,12 @@ a:hover, a:focus {
   color: #fff!important;
 }
 
+.btn-outline-success {
+  border: 2px solid #099154!important;
+  background-color: transparent!important;
+  color: #099154!important;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;

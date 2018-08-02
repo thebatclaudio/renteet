@@ -18,8 +18,8 @@ AOS.init();
 
     <div class="text-center">
         <div class="btn-group" role="group" aria-label="Ospite / Locatore">
-            <a class="btn btn-success" href="/come-funziona" title="Sono un ospite">Sono un ospite</a>
-            <a class="btn btn-primary" href="#" title="Sono un locatore">Sono un locatore</a>
+            <a class="btn btn-outline-success" href="/come-funziona" title="Sono un ospite">Sono un ospite</a>
+            <a class="btn btn-success" href="#" title="Sono un locatore">Sono un locatore</a>
         </div>    
     </div>
 
