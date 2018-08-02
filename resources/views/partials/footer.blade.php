@@ -40,7 +40,7 @@
 
         <hr />
 
-        <img src="./images/renteet-logo-black.png" class="footer-logo"><span class="footer-copy">&copy; renteet</span>
+        <img src="{{url('/images/renteet-logo-black.png')}}" class="footer-logo"><span class="footer-copy">&copy; renteet</span>
     </div>
 
   </footer>
