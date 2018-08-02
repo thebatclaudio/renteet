@@ -64,11 +64,17 @@ nav.transparent-navbar {
 }
 
 h3.claim {
-    font-size: 2.2rem;
+    font-size: calc(28px + 31 * ((100vw - 375px) / 1065));
 }
 
 h4.sub-claim {
+    font-size: 18px;
     margin-top: 20px;
+}
+
+.claim strong {
+    color: #609ad3;
+    font-weight: 800;
 }
 
 a.btn {
@@ -81,6 +87,43 @@ a.btn {
 
 a.btn.btn-how-it-works {
     background-color: #fd7f7b;
+}
+
+.btn {
+    margin-left: 0px;
+}
+
+.arrow-pulse-down {
+	position: absolute;
+    bottom: 0;
+    font-size: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    color: #FFF;
+    animation: arrow-pulse-down 1100ms linear infinite;
+    text-align: center;
+}
+
+@keyframes arrow-pulse-down {
+    0% {
+        bottom: 40px;
+        opacity: 0;
+    }
+    25% {
+        opacity: .25;
+    }
+    50% {
+        opacity: .5;
+    }
+    75% {
+        opacity: .75;
+    }
+    100% {
+        bottom: 20px;
+        opacity: 1;
+    }
 }
 
 /* Defining each section background and styles
@@ -122,6 +165,10 @@ a.btn.btn-how-it-works {
 
 #section2 h3.claim strong {
     color: #fd7f7b;
+}
+
+#section2 h3.claim strong.green-strong {
+    color: #128d52;
 }
 
 #section2 h4.sub-claim {
@@ -175,9 +222,13 @@ a.btn.btn-how-it-works {
 
 #call-to-action {
     height: 60vh;
-    background-image: url(../images/homepage/join-renteet-community.jpg);
+    background-image: url(../images/homepage/cta-background.jpg);
     background-size: cover;
-    background-position: center center;
+    background-position: left center;
+}
+
+#call-to-action .blur {
+    background: none;
 }
 
 #call-to-action h3.claim {
@@ -245,5 +296,9 @@ h6.renteet-slogan {
 
     #home-navbar {
         height: 60px;
+    }
+
+    #call-to-action .blur {
+        background-color: rgba(19, 28, 39, 0.8);
     }
 }
