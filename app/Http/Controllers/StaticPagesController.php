@@ -33,4 +33,8 @@ class StaticPagesController extends Controller
     public function showCookiePolicy(){
         return view('static.cookiePolicy');
     }
+
+    public function showFAQ(){
+        return view('static.faq');
+    }
 }
