@@ -25,4 +25,8 @@ class StaticPagesController extends Controller
     public function showTermsAndConditions(){
         return view('static.termsAndConditions');
     }
+
+    public function showPrivacyPolicy(){
+        return view('static.privacyPolicy');
+    }
 }

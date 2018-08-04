@@ -23,6 +23,7 @@ Route::get('/come-funziona/locatori', 'StaticPagesController@showHowItWorksForLe
 Route::get('/scopri-i-vantaggi', 'StaticPagesController@showAdvantages');
 Route::get('/scopri-i-vantaggi/locatori', 'StaticPagesController@showAdvantagesForLessors');
 Route::get('/termini-e-condizioni', 'StaticPagesController@showTermsAndConditions');
+Route::get('/privacy-policy', 'StaticPagesController@showPrivacyPolicy');
 
 Auth::routes();
 Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
