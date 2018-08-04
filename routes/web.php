@@ -24,6 +24,7 @@ Route::get('/scopri-i-vantaggi', 'StaticPagesController@showAdvantages');
 Route::get('/scopri-i-vantaggi/locatori', 'StaticPagesController@showAdvantagesForLessors');
 Route::get('/termini-e-condizioni', 'StaticPagesController@showTermsAndConditions');
 Route::get('/privacy-policy', 'StaticPagesController@showPrivacyPolicy');
+Route::get('/cookie-policy', 'StaticPagesController@showCookiePolicy');
 
 Auth::routes();
 Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
