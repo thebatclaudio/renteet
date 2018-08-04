@@ -4,13 +4,24 @@
 
 @section('content')
 <div class="container margin-top-20">
-    <h3 class="text-center">Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
-
+    
+    <div class="row">
+        <div class="col-auto">
+            <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
+        </div>
+        <div class="col text-right">
+            <div class="btn-group" role="group" aria-label="Cambia la modalità di visualizzazione degli annunci">
+                <a class="btn btn-change-view btn-elegant" title="Visualizzazione a griglia" data-view="grid"><i class="fas fa-th"></i></a>
+                <a id="list-view" class="btn btn-change-view btn-outline-elegant" title="Visualizzazione a elenco" data-view="list"><i class="fas fa-bars"></i></a>
+            </div>
+        </div>
+    </div>
+    
     <hr>
 
     <div class="search-results row margin-top-40">
         @forelse($houses as $house)
-        <div class="col-md-4">
+        <div class="house-col col-md-4">
             <div id="house-{{$house->id}}" class="house">
                 
                 <div class="owner-container {{$house->owner->gender}}">
@@ -62,4 +73,12 @@
         @endforelse
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+$("#list-view").click(function(){
+    window.location = window.location + "&view=list";
+});
+</script>
 @endsection

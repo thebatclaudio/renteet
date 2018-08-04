@@ -443,10 +443,10 @@ small.notification-date {
   
   .room {
     width: 100%;
-    height: 20px;
-    border-left: 3px solid #000;
-    border-bottom: 3px solid #000;
-    border-right: 3px solid #000;
+    height: 10px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
   }
 
   .free-bed .btn-primary {
@@ -513,6 +513,10 @@ small.notification-date {
       height: 200px;
       background-size: cover;
       background-position: center;
+  }
+
+  .house-col.col-sm-8 .house .house-img {
+    height: 50vh;
   }
 
   .house .house-img.half {

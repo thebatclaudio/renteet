@@ -12,6 +12,13 @@ class SearchController extends Controller
 
         $houses = $this->getHousesByLatLng($latitude, $longitude);
 
+        if($request->view == "list") {
+            return view('searchList')->with([
+                'houses' => $houses,
+                'searchInput' => $request->searchInput
+            ]);
+        }
+
         return view('search')->with([
             'houses' => $houses,
             'searchInput' => $request->searchInput
