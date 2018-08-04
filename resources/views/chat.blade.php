@@ -88,6 +88,11 @@ $(document).ready(function(){
 
     var userId = {{\Auth::user()->id}};
     var chatId = null;
+
+    if( '{{$conversations[0]}}' != null ){
+        chatId = '{{$conversations[0]->id}}';
+    }
+
     var chatContent = document.getElementById('chatContent');
 
     $(".conversation-item").click(function(){
