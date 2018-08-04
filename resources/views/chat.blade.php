@@ -44,9 +44,21 @@
             </div>
         </div>
         
+
         <div class="col-md-8">
             <div class="card">
                 <div id="chatContent" class="card-body" style="height:400px; overflow-y:scroll;">
+                    @foreach($messages as $message)
+                        <div class="row margin-top-10">
+                        @if($message->from_user_id == \Auth::user()->id)
+                            <div class="col"><p class="text-right"><small>{{$message->fromUser->complete_name}}</small><br>{{$message->message}}</p></div>
+                            <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
+                        @else
+                            <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
+                            <div class="col"><p class="text-left"><small>{{$message->fromUser->complete_name}}</small><br>{{$message->message}}</p></div>
+                        @endif
+                        </div>
+                    @endforeach
                 </div>
                 <div class="card-footer">
                     <div class="input-group">
@@ -73,9 +85,11 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
+
     var userId = {{\Auth::user()->id}};
     var chatId = null;
     var chatContent = document.getElementById('chatContent');
+
     $(".conversation-item").click(function(){
         chatId = $(this).data("id");
         var url = "{{route('ajax.chat.messages',['id'=>':id'])}}";
@@ -144,6 +158,7 @@ $(document).ready(function(){
        }
        $('#lastMessage_'+data.messageObj.conversation_id).text(data.message);
     });
+    
 });
 
 

@@ -13,8 +13,19 @@ use \App\Events\MessageReceived;
 class ChatController extends Controller
 {
     public function showChat(){
+
+       if($conversation = \Auth::user()->conversations()->orderBy('updated_at','desc')->first()){
+            $messages = Message::where('conversation_id',$conversation->id);
+            if($conversation->house_id != null){
+                $messages = $messages->where('to_user_id',\Auth::user()->id);
+            }
+            $messages->update(['unreaded'=>false]);
+            $messages = $messages->with('fromUser')->orderBy('created_at','desc')->take(10)->get()->sortBy('created_at')->values()->all();
+       }
+
         return view('chat',[
-            'conversations'=>\Auth::user()->conversations()->orderBy('updated_at','desc')->get()
+            'conversations'=>\Auth::user()->conversations()->orderBy('updated_at','desc')->get(),
+            'messages' => $messages
         ]);
     }
 
