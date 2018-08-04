@@ -1,7 +1,7 @@
 <footer class="page-footer brown lighten-5 text-elegant">
     <div class="container">
         <div class="row">
-            <div class="col-3 text-left">
+            <div class="col-6 col-sm-3 text-left">
                 <h5 class="footer-menu-title">L'azienda</h5>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="/come-funziona" title="Come funziona">Come funziona</a></li>
@@ -9,14 +9,14 @@
                     <li><a href="/i-nostri-valori" title="I nostri valori">I nostri valori</a></li>
                 </ul>
             </div>
-            <div class="col-3 text-left">
+            <div class="col-6 col-sm-3 text-left">
                 <h5 class="footer-menu-title">Opportunità</h5>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="/scopri-i-vantaggi" title="Perché cercare casa su renteet">Perché cercare casa su Renteet</a></li>
                     <li><a href="/scopri-i-vantaggi/locatori" title="Perché ospitare con renteet">Perché ospitare con Renteet</a></li>
                 </ul>
             </div>
-            <div class="col">
+            <div class="col-6 col-sm-3">
                 <h5 class="footer-menu-title">Informazioni</h5>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a></li></a></li>
@@ -24,7 +24,7 @@
                     <li><a href="/termini-e-condizioni" title="Termini e condizioni">Termini e condizioni</a></li></a></li>
                 </ul>            
             </div>
-            <div class="col">
+            <div class="col-6 col-sm-3">
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
