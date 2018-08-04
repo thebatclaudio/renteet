@@ -21,4 +21,8 @@ class StaticPagesController extends Controller
     public function showAdvantagesForLessors(){
         return view('static.advantagesForLessors');
     }
+
+    public function showTermsAndConditions(){
+        return view('static.termsAndConditions');
+    }
 }
