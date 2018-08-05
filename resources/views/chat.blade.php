@@ -19,26 +19,26 @@
             <div class="card">
                 <div style="height:400px; overflow-y:scroll">
                     <div class="list-group">
-                    @foreach($conversations as $conversation)
-                        <a href="#" data-id="{{$conversation->id}}" class="conversation-item list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="row">
-                                <div class="col-md-auto">
-                                    <img src="{{$conversation->image_url}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$conversation->name}}">
-                                </div>
-                                <div class="col">
-                                    <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <h5 class="mb-1">{{$conversation->name}}</h5>
-                                        @if($conversation->unreaded_count > 0)
-                                            <span id="counter_{{$conversation->id}}" class="badge red badge-pill">{{$conversation->unreaded_count}}</span>
-                                        @else
-                                            <span id="counter_{{$conversation->id}}" class="badge red badge-pill" style="display:none;">{{$conversation->unreaded_count}}</span>
-                                        @endif
+                        @foreach($conversations as $conversation)
+                            <a href="#" data-id="{{$conversation->id}}" class="conversation-item list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="row">
+                                    <div class="col-md-auto">
+                                        <img src="{{$conversation->image_url}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$conversation->name}}">
                                     </div>
-                                    <small id="lastMessage_{{$conversation->id}}" class="align-text-right">{{$conversation->last_message}}</small>
+                                    <div class="col">
+                                        <div class="d-flex w-100 justify-content-between align-items-center">
+                                            <h5 class="mb-1">{{$conversation->name}}</h5>
+                                            @if($conversation->unreaded_count > 0)
+                                                <span id="counter_{{$conversation->id}}" class="badge red badge-pill">{{$conversation->unreaded_count}}</span>
+                                            @else
+                                                <span id="counter_{{$conversation->id}}" class="badge red badge-pill" style="display:none;">{{$conversation->unreaded_count}}</span>
+                                            @endif
+                                        </div>
+                                        <small id="lastMessage_{{$conversation->id}}" class="align-text-right">{{$conversation->last_message}}</small>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -89,9 +89,9 @@ $(document).ready(function(){
     var userId = {{\Auth::user()->id}};
     var chatId = null;
 
-    if( '{{$conversations[0]}}' != null ){
-        chatId = '{{$conversations[0]->id}}';
-    }
+    @if($conversations->isNotEmpty())
+        chatId = {{$conversations->first()->id}};
+    @endif
 
     var chatContent = document.getElementById('chatContent');
 
