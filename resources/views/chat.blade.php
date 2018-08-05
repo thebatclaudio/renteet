@@ -19,7 +19,7 @@
             <div class="card">
                 <div style="height:400px; overflow-y:scroll">
                     <div class="list-group">
-                        @foreach($conversations as $conversation)
+                        @forelse($conversations as $conversation)
                             <a href="#" data-id="{{$conversation->id}}" class="conversation-item list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="row">
                                     <div class="col-md-auto">
@@ -38,7 +38,9 @@
                                     </div>
                                 </div>
                             </a>
-                        @endforeach
+                        @empty
+                        <h5 class="padding-10">Invia un messaggio ad un altro utente per iniziare una nuova conversazione</h5>
+                        @endforelse
                     </div>
                 </div>
             </div>
