@@ -59,9 +59,9 @@ textarea{
                 <div class="carousel-inner">
                     @foreach($house->photos as $photo)
                         @if ($loop->first)
-                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}}); max-height:50%;"></div>
+                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}}); max-height:50%;"></div>
                         @else
-                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name)}}); max-height:50%;"></div>
+                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}}); max-height:50%;"></div>
                         @endif
                     @endforeach
                 </div>
