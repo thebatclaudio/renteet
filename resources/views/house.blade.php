@@ -44,7 +44,11 @@ textarea{
             <a href="{{route('chat.show')}}" class="btn btn-block btn-outline-elegant waves-effect btn-lg">Vai alla chat della casa</a> 
             <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Lascia una recensione</button> 
             <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button> 
-            <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>   
+            @if(!$exited)
+                <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>
+            @else
+                <button class="btn btn-block btn-elegant btn-lg" disabled>Abbandonerai l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d', $exited)->format('d/m/Y')}}</button>
+            @endif
         </div>
         <div class="col-md-9 margin-top-40 no-padding align-self-start">
             <div id="homeCarousel" class="carousel slide padding-right-10" data-ride="carousel">
