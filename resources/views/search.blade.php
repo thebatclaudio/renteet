@@ -21,6 +21,9 @@
 
     <div class="search-results row margin-top-40">
         @forelse($houses as $house)
+            @php
+                $bedsCount = 0;
+            @endphp
         <div class="house-col col-md-4">
             <div id="house-{{$house->id}}" class="house">
                 
@@ -54,12 +57,32 @@
                 <div class="house-users text-center text-nowrap margin-top-20">
                     @foreach($house->rooms as $room)
                         @foreach($room->acceptedUsers as $user)
+                            @if($bedsCount < 4)
                             <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
+                            @endif
+                            @php
+                                $bedsCount++;   
+                            @endphp     
                         @endforeach
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
+                            @if($bedsCount < 4)
                             <img class="rounded-circle small-user-pic" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="80" height="80">
+                            @endif
+                            @php
+                                $bedsCount++; 
+                            @endphp    
                         @endfor
                     @endforeach
+                    
+                    @if($house->beds > 4)
+                    <div class="container">
+                            <a href="{{$house->url}}">
+                                <img class="rounded-circle small-user-pic" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Altri posti" width="80" height="80">
+                                <div class="centered">+ {{$house->beds - 4}}</div>
+                            </a>
+                    </div>
+                    @endif
+                
                 </div>
 
                 <div class="house-price margin-top-40 text-right">
@@ -81,4 +104,22 @@ $("#list-view").click(function(){
     window.location = window.location + "&view=list";
 });
 </script>
+@endsection
+
+@section('styles')
+<style>
+.container {
+    position: relative;
+    text-align: center;
+    display: inline;
+}
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:whitesmoke;
+}
+</style>
 @endsection

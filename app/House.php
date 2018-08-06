@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
-    protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews'];
+    protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews','beds'];
     protected $hiddens = ['latitude', 'longitude'];
     
 
