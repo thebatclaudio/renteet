@@ -44,7 +44,7 @@
                     <ul class="navbar-nav mr-auto d-block d-sm-none">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Come funziona?</a>
+                            <a class="nav-link" href="{{url('come-funziona')}}" title="Come funziona?">Come funziona?</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrati</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
@@ -103,7 +103,7 @@
                             </a>
                         </li>  
                         <li class="nav-item margin-bottom-10">
-                            <a href="#" class="btn btn-elegant btn-block">
+                            <a href="{{url('come-funziona')}}" title="Come funziona?"class="btn btn-elegant btn-block">
                                 Come funziona?
                             </a>
                         </li>                      
@@ -114,7 +114,7 @@
                 <ul class="navbar-nav mr-auto d-none d-sm-flex flex-row-reverse">
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Come funziona?</a>
+                            <a class="nav-link" href="{{url('come-funziona')}}" title="Come funziona?">Come funziona?</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrati</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
@@ -178,7 +178,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('come-funziona')}}" title="Come funziona?" class="nav-link">
                                 Come funziona?
                             </a>
                         </li>
