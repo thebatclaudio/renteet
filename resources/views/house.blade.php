@@ -94,19 +94,15 @@ textarea{
             @foreach($house->rooms as $room)
 
                 @foreach($room->acceptedUsers as $user)
-                    <div class="col text-center" style="max-width:30%;">
-                        <a href="{{ $user->profile_url }}" title="{{ $user->complete_name }}">
-                            <img src="{{ $user->profile_pic }}" class="img-fluid rounded-circle roommate-img {{\Auth::user()->gender}}">
-                            <h6 class="roommate-name text-center text-nowrap {{\Auth::user()->gender}} margin-top-10">{{$user->first_name}}</h6>
-                        </a>
-                    </div>
+                    @if($user->id != \Auth::user()->id)
+                        <div class="col text-center" style="max-width:30%;">
+                            <a href="{{ $user->profile_url }}" title="{{ $user->complete_name }}">
+                                <img src="{{ $user->profile_pic }}" class="img-fluid rounded-circle roommate-img {{\Auth::user()->gender}}">
+                                <h6 class="roommate-name text-center text-nowrap {{\Auth::user()->gender}} margin-top-10">{{$user->first_name}}</h6>
+                            </a>
+                        </div>
+                    @endif
                 @endforeach
-
-                @for($i = 0; $i < $room->beds - $room->acceptedUsers()->count(); $i++)
-                    <div class="col">
-                        <img src="/images/empty-place.png" class="img-fluid rounded-circle roommate-img empty-place {{\Auth::user()->gender}}">
-                    </div>
-                @endfor
 
             @endforeach
             </div>
