@@ -58,7 +58,7 @@
                     @foreach($house->rooms as $room)
                         @foreach($room->acceptedUsers as $user)
                             @if($bedsCount<3 OR $house->beds == 4)
-                            <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
+                            <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
                             @endif
                             @php
                                 $bedsCount++;   
@@ -66,7 +66,7 @@
                         @endforeach
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
                             @if($bedsCount<3 OR $house->beds == 4)
-                            <img class="rounded-circle small-user-pic" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="80" height="80">
+                            <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="80" height="80">
                             @endif
                             @php
                                 $bedsCount++; 
@@ -76,7 +76,7 @@
                     
                     @if($house->beds > 4)
                         <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
-                            <div class="circle more-users">
+                            <div class="circle more-users border-shadow">
                                 + {{$house->beds - 3}}
                             </div>
                         </a>

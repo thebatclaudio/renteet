@@ -116,7 +116,7 @@
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)
                     @if($bedsCount<3 OR $house->beds == 4)
                       <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
-                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
                         @if(!$house->hasUser(\Auth::user()->id))
                         <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
@@ -133,7 +133,7 @@
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
                     @if($bedsCount<3 OR $house->beds == 4)
                       <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
-                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
                         @if(!$house->hasUser(\Auth::user()->id))
                         <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
@@ -151,7 +151,7 @@
                 @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
                     @if($bedsCount<3 OR $house->beds == 4)
                       <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
-                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
                         <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       </div>
@@ -168,8 +168,8 @@
           @if($house->beds > 4)
               <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">         
                 <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
-                  <div class="circle more-users">
-                      + {{$house->beds - 4}}
+                  <div class="circle more-users border-shadow">
+                      + {{$house->beds - 3}}
                   </div>
                 </a>
               </div>

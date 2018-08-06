@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="container users">
+      <div class="container users" style="{{($house->beds > 4) ? 'max-width: 90%;' : ''}}">
         <div class="row">
           @foreach($house->rooms as $room)
 
@@ -79,8 +79,8 @@
                   {{-- quindi stampo gli altri posti liberi, sottraendo il posto pending dell'utente loggato --}}
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)   
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                      <h4 class="free-place">Posto libero</h4>
+                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                      <h4 class="free-place">{{$room->bed_price}}€</h4>
                       @if(!$house->hasUser(\Auth::user()->id))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
@@ -90,8 +90,8 @@
                   {{-- viceversa stampo TUTTI gli altri posti liberi --}}
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                      <h4 class="free-place">Posto libero</h4>
+                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                      <h4 class="free-place">{{$room->bed_price}}€</h4>
                       @if(!$house->hasUser(\Auth::user()->id))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
@@ -102,8 +102,8 @@
                 {{-- se l'utente non è loggato stampo TUTTI gli altri posti liberi --}}
                 @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
                   <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                    <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                    <h4 class="free-place">Posto libero</h4>
+                    <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                    <h4 class="free-place">{{$room->bed_price}}€</h4>
                     <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                   </div>
                 @endfor
@@ -115,17 +115,6 @@
         <div class="rooms-container row">
           @foreach($house->rooms as $room)
           <div class="col-lg-4" style="width: {{(100/$house->beds)*$room->beds}}%; flex: 0 0 {{(100/$house->beds)*$room->beds}}%; max-width: {{(100/$house->beds)*$room->beds}}%;"><div class="room"></div></div>
-          @endforeach
-        </div><!-- /.row -->
-
-        <div class="beds-container row">
-          @foreach($house->rooms as $room)
-          <div class="col-lg-4 text-center beds-number" style="width: {{(100/$house->beds)*$room->beds}}%; flex: 0 0 {{(100/$house->beds)*$room->beds}}%; max-width: {{(100/$house->beds)*$room->beds}}%;">
-            <i class="fas fa-bed"></i>
-            @if($room->beds > 1)
-             x {{$room->beds}}
-            @endif
-          </div>
           @endforeach
         </div><!-- /.row -->
       </div><!-- /.container -->

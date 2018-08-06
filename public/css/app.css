@@ -403,6 +403,14 @@ small.notification-date {
     font-weight: 800;
   }
 
+  .border-shadow {
+    box-shadow: 0 0 3pt 1pt rgba(66, 66, 66, 1);
+  }
+
+  .bed-container .rounded-circle {
+    box-shadow: 0 0 3pt 1pt rgba(66, 66, 66, 1);
+  }
+
   .bed-container:hover .rounded-circle {
     box-shadow: 0 0 2pt 3pt rgb(97, 155, 212);
   }
