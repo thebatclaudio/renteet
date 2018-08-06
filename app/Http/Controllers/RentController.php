@@ -148,7 +148,7 @@ class RentController extends Controller
         ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->whereNotNull('stop')->first();
         
         if($roomUser){
-            if(Room::find($room)->house->owner_id === Auth::user()->id){
+            if(Room::find($room)->house->owner_id === \Auth::user()->id){
                 $roomUser->available_from = $request->available_from;
                 if($roomUser->save()){
                     return response()->json([

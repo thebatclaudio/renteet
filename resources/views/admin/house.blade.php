@@ -101,7 +101,7 @@
 
         $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), function( data ) {
             if(data.status === 'OK') {
-                button.fadeOut();
+                location.reload();
             }
         });
     });
