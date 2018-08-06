@@ -4,8 +4,19 @@
 
 @section('content')
 <div class="container margin-top-20">
-    <h3 class="text-center">Immobili attualmente disponibili a <strong>{{$locationName}}</strong></h3>
-
+    
+    <div class="row">
+        <div class="col-auto">
+            <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$locationName}}</strong></h3>
+        </div>
+        <div class="col text-right">
+            <div class="btn-group" role="group" aria-label="Cambia la modalità di visualizzazione degli annunci">
+                <a class="btn btn-change-view btn-elegant" title="Visualizzazione a griglia" data-view="grid"><i class="fas fa-th"></i></a>
+                <a id="list-view" class="btn btn-change-view btn-outline-elegant" title="Visualizzazione a elenco" data-view="list"><i class="fas fa-bars"></i></a>
+            </div>
+        </div>
+    </div>
+    
     <hr>
 
     <div class="search-results row margin-top-40">
@@ -13,7 +24,7 @@
             @php
                 $bedsCount = 0;
             @endphp
-        <div class="col-md-4">
+        <div class="house-col col-md-4">
             <div id="house-{{$house->id}}" class="house">
                 
                 <div class="owner-container {{$house->owner->gender}}">
@@ -46,30 +57,31 @@
                 <div class="house-users text-center text-nowrap margin-top-20">
                     @foreach($house->rooms as $room)
                         @foreach($room->acceptedUsers as $user)
-                            @if($bedsCount < 4)
-                            <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic">
+                            @if($bedsCount<3 OR $house->beds == 4)
+                            <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
                             @endif
                             @php
                                 $bedsCount++;   
                             @endphp     
                         @endforeach
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
-                            @if($bedsCount < 4)
-                            <img class="rounded-circle small-user-pic" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="80" height="80">
+                            @if($bedsCount<3 OR $house->beds == 4)
+                            <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="80" height="80">
                             @endif
                             @php
                                 $bedsCount++; 
                             @endphp    
                         @endfor
                     @endforeach
+                    
                     @if($house->beds > 4)
-                    <div class="container">
-                            <a href="{{$house->url}}">
-                                <img class="rounded-circle small-user-pic" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Altri posti" width="80" height="80">
-                                <div class="centered">+ {{$house->beds - 4}}</div>
-                            </a>
-                    </div>
+                        <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
+                            <div class="circle more-users border-shadow">
+                                + {{$house->beds - 3}}
+                            </div>
+                        </a>
                     @endif
+                
                 </div>
 
                 <div class="house-price margin-top-40 text-right">
@@ -83,4 +95,12 @@
         @endforelse
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+$("#list-view").click(function(){
+    window.location = window.location + "&view=list";
+});
+</script>
 @endsection
