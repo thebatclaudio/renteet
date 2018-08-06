@@ -14,7 +14,7 @@ class NotificationsController extends Controller
                     if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {
                         $new_notification = new \stdClass();
                         $new_notification->image = $user->profile_pic;
-                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha inviato una richiesta d'adesione per l'appartamento ".$house->name;
+                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha inviato una richiesta d'adesione per l'appartamento ".$house->name." dal ".$user->rooms()->where('house_id', $house->id)->first()->pivot->start;
                         $new_notification->url = route("user.profile", $notification->data['user_id']);
                         $new_notification->created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->timestamp * 1000;
                         if($notification->read_at !== null){
@@ -41,7 +41,7 @@ class NotificationsController extends Controller
                     if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {
                         $new_notification = new \stdClass();
                         $new_notification->image = $user->profile_pic;
-                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha inviato una richiesta d'adesione per l'appartamento ".$house->name;
+                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha inviato una richiesta d'adesione per l'appartamento ".$house->name." dal ".$user->rooms()->where('house_id', $house->id)->first()->pivot->start;
                         $new_notification->url = route("user.profile", $notification->data['user_id']);
                         $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
                         $new_notification->user = $user;

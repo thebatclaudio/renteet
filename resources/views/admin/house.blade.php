@@ -27,10 +27,10 @@
                                                     <a href="{{$user->profile_url}}"><img src="{{$user->profile_pic}}" class="rounded-circle img-fluid"></a>
                                                 </div>
                                                 <div class="col-sm-9 padding-left-20">
-                                                    <h5 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}}</h5>
+                                                    <h5 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}} inizierà il soggiorno il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</h5>
                                                     <button class="btn btn-success btn-sm accept-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Accetta</button>
                                                     <button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>
-                                                    <small class="margin-left-20">Dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</small>
+                                                    <small class="margin-left-20">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$user->pivot->created_at)->format('d/m/Y')}}</small>
                                                 </div>
                                             </div>
                                         </div>
