@@ -3,39 +3,34 @@
 @section('title', 'Completa il tuo profilo')
 
 @section('content')
-<div class="container-fluid margin-top-20">
-    <h1 class="page-title">{{'Ritaglia la tua immagine del profilo'}}</h1>
-    <div class="row margin-top-40">
-        <div class="col-md-6">
-            <div class="panel-body">
-                <h3>Scegli un'immagine che ti rappresenti per poter trovare i coinquilini perfetti per te</h3>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel-body">
+<div class="container margin-top-20">
+    <h1 class="page-title text-center">{{'Carica la tua immagine del profilo'}}</h1>
+    <div class="row margin-top-20">
+        <div class="col-md-12 text-center">
+            <h3>Scegli un'immagine che ti rappresenti per poter trovare i coinquilini perfetti per te</h3>
+            <div class="panel-body margin-top-80">
                 <form class="form-horizontal" method="POST" action="{{ route('upload-picture') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('profile_picture') ? ' has-error' : '' }}">
-                        <label for="profile_picture" class="col-md-4 control-label">Scegli un'immagine che ti rappresenta</label>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
 
-                        <div class="col-md-6">
-                            <input id="profile_picture" type="file" class="form-control" name="profile_picture" value="{{ old('profile_picture') }}" required autofocus>
+                                <input id="profile_picture" type="file" class="form-control" name="profile_picture" value="{{ old('profile_picture') }}" required autofocus>
 
-                            @if ($errors->has('profile_picture'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('profile_picture') }}</strong>
-                                </span>
-                            @endif
+                                @if ($errors->has('profile_picture'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('profile_picture') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
-                                Carica la tua immagine del profilo
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Carica la tua immagine del profilo
+                        </button>
                     </div>
                 </form>
             </div>
