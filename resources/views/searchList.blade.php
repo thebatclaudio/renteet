@@ -169,7 +169,7 @@
               <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">         
                 <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
                   <div class="circle more-users">
-                      + {{$house->beds - 3}}
+                      + {{$house->beds - 4}}
                   </div>
                 </a>
               </div>
@@ -185,7 +185,7 @@
           @foreach($house->rooms as $room)
             @if($bedsCount + $room->beds < 4)
               <div class="col-lg-4" style="width: {{($circleWidth)*$room->beds}}%; flex: 0 0 {{($circleWidth)*$room->beds}}%; max-width: {{($circleWidth)*$room->beds}}%;"><div class="room"></div></div>
-            @else
+            @elseif($bedsCount < 4)
               <div class="col-lg-4" style="width: {{($circleWidth)*(4-$bedsCount)}}%; flex: 0 0 {{($circleWidth)*(4-$bedsCount)}}%; max-width: {{($circleWidth)*(4-$bedsCount)}}%;"><div class="room"></div></div>
             @endif
 
