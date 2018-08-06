@@ -4,6 +4,28 @@
 
 @section('styles')
 @parent
+<style>
+div.btn.btn-primary.btn-file {
+    margin: 0px;
+}
+
+.file-footer-buttons {
+    display: none;
+}
+
+button.close.fileinput-remove {
+    font-size: 32px;
+    padding: 5px;
+}
+
+.bg-success {
+    background-color: #128d52!important;
+}
+
+.text-success {
+    color: #128d52!important;
+}
+</style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 @endsection
 
@@ -96,7 +118,7 @@
             return filename.replace('(', '_').replace(']', '_');
         },
         language: 'it',
-        uploadAsync: false,
+        uploadAsync: true,
         showUpload: false,
         showRemove: false,
         minFileCount: 1,

@@ -124,9 +124,9 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="display:inline;">
                                 <img src="{{ Auth::user()->profile_pic }}" class="profile-pic" style="margin-top:10px;">
                                 @if(\Auth::user()->allUnreadedCount() > 0)
-                                    <span id="badge-messages" class="badge badge-warning" style="z-index:15;position:relative;left:-30px;top:-10px;">{{\Auth::user()->allUnreadedCount()}}</span>
+                                    <span id="badge-messages" class="badge badge-danger rounded-circle">{{\Auth::user()->allUnreadedCount()}}</span>
                                 @else
-                                <span id="badge-messages" class="badge badge-warning" style="z-index:15;position:relative;left:-30px;top:-10px;"></span>                                
+                                <span id="badge-messages" class="badge badge-danger rounded-circle"></span>                                
                                 @endif
                             </a>
 
@@ -144,9 +144,9 @@
                                 @endif
                                     <a class="dropdown-item" href="{{route('chat.show')}}">I tuoi messaggi
                                 @if(\Auth::user()->allUnreadedCount() > 0)
-                                    <span id="counterMessages" class="float-right badge red badge-pill">{{\Auth::user()->allUnreadedCount()}}</span>
+                                    <span id="counterMessages" class="float-right badge badge-danger badge-pill">{{\Auth::user()->allUnreadedCount()}}</span>
                                 @else
-                                    <span id="counterMessages" class="float-right badge red badge-pill" style="display:none;">{{\Auth::user()->allUnreadedCount()}}</span>
+                                    <span id="counterMessages" class="float-right badge badge-danger badge-pill" style="display:none;">{{\Auth::user()->allUnreadedCount()}}</span>
                                 @endif
 
                                 </a>

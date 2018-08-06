@@ -25,5 +25,7 @@ class ServicesSeeder extends Seeder
         Service::create(['name' => 'Garage', 'icon_class' => 'fa-fire', 'quantity_needed' => false]);
         Service::create(['name' => 'Phon', 'icon_class' => 'fa-fire', 'quantity_needed' => true]);
         Service::create(['name' => 'Ferro da stiro', 'icon_class' => 'fa-fire', 'quantity_needed' => true]);
+        Service::create(['name' => 'Accessibilità per disabili', 'icon_class' => 'fa-fire', 'quantity_needed' => false]);
+        Service::create(['name' => 'Animali domestici', 'icon_class' => 'fa-fire', 'quantity_needed' => false]);
     }
 }

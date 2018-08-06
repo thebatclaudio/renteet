@@ -511,11 +511,11 @@ small.notification-date {
   }
 
   .house .photos-container .row .col-md-7 {
-    padding-right: 3px;
+    padding-right: 1px;
   }
 
   .house .photos-container .row .col-md-5 {
-    padding-left: 3px;
+    padding-left: 1px;
   }
 
   .house .house-img {
@@ -530,8 +530,8 @@ small.notification-date {
   }
 
   .house .house-img.half {
-      height: 97px;
-      margin-bottom: 6px;
+      height: 99px;
+      margin-bottom: 2px;
   }
 
   .house .owner-container {
@@ -680,6 +680,17 @@ small.notification-date {
   
   .swal-text {
     text-align: center;
+  }
+
+  .badge-danger {
+    background-color: #fc7f7a!important;
+  }
+
+  #badge-messages {
+    z-index: 15;
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
   }
 
   @media (max-width: 575px) {
