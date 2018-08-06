@@ -110,6 +110,7 @@
     var button = $(this);
     var dateSelect = document.createElement("select");
     dateSelect.classList.add("form-control");
+    dateSelect.classList.add("w-100");
     dateSelect.id = "availableFromDate";
 
     moment.locale('it');
@@ -148,7 +149,7 @@
       var url = '{{route('ajax.setAvailableFrom.room', [ 'room' => ':room', 'user' => ':user'])}}';
       $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { available_from: select.val() }, function( data ) {
         if(data.status === 'OK') {
-          swal("Operazione riuscita", "", "success");
+          swal("Operazione riuscita", "", "success").then(() => { location.reload() });
         } else {
           swal("Si è verificato un errore", "Riprova più tardi", "error");
         }
@@ -173,6 +174,7 @@ $(".remove-user").on('click', function () {
     var button = $(this);
     var dateSelect = document.createElement("select");
     dateSelect.classList.add("form-control");
+    dateSelect.classList.add("w-100");
     dateSelect.id = "RemoveDate";
 
     moment.locale('it');
@@ -211,7 +213,7 @@ $(".remove-user").on('click', function () {
       var url = '{{route('ajax.remove.room', [ 'room' => ':room', 'user' => ':user'])}}';
       $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { stop: select.val() }, function( data ) {
         if(data.status === 'OK') {
-          swal("Operazione riuscita", "", "success");
+          swal("Operazione riuscita", "", "success").then(() => { location.reload() });;
         } else {
           swal("Si è verificato un errore", "Riprova più tardi", "error");
         }
@@ -220,13 +222,14 @@ $(".remove-user").on('click', function () {
     .catch(err => {
       if (err) {
         if(err === 'MISSING_DATE') {
-          swal("Inserisci la data in cui la stanza tornerà disponibile", "", "error");
+          swal("Inserisci la data in cui l'utente dovrà abbandonare l'immobile", "", "error");
         } else {
           swal("Si è verificato un errore", "Riprova più tardi", "error");
         }
       } else {
         swal.stopLoading();
         swal.close();
+        location.reload();
       }
     });
 });
