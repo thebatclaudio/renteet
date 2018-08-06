@@ -10,6 +10,9 @@
 
     <div class="search-results row margin-top-40">
         @forelse($houses as $house)
+            @php
+                $bedsCount = 0;
+            @endphp
         <div class="col-md-4">
             <div id="house-{{$house->id}}" class="house">
                 
