@@ -330,7 +330,9 @@ small.notification-date {
   }
 
   .owner-pic {
-    margin-top: -29px;
+    margin-top: -10px;
+    height: 100px;
+    width: 100px;
   }
 
   .owner-name {

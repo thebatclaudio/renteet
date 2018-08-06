@@ -28,18 +28,19 @@
 
       <div class="house-info">
         <div class="container">
-          <div class="house-name-container">
-            <h1 class="house-name">{{$house->name}}</h1>
-            <p class="house-location">{{$house->street_name}}</p>
-          </div>
-
-          <a href="{{$house->owner->profile_url}}">
-            <div class="owner-container {{$house->owner->gender}}">
-              <div class="host-title">Locatore</div>
-              <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
-              <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
+          <div class="row">
+            <div class="col">
+              <div class="house-name-container">
+                <h1 class="house-name">{{$house->name}}</h1>
+                <p class="house-location">{{$house->street_name}}</p>
+              </div>
             </div>
-          </a>
+            <div class="col-auto">
+              <a href="#owner-box">
+                <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}">
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -233,7 +234,7 @@
           </div>
         </div>
 
-        <div class="row margin-bottom-40">
+        <div class="row margin-bottom-40" id="owner-box">
           <div class="page-target-container margin-top-80">
             <h3 class="page-target">Proprietario</h3>
           </div>
