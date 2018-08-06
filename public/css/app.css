@@ -682,6 +682,17 @@ small.notification-date {
     text-align: center;
   }
 
+  .badge-danger {
+    background-color: #fc7f7a!important;
+  }
+
+  #badge-messages {
+    z-index: 15;
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+  }
+
   @media (max-width: 575px) {
     .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
       color: #ffffff;
