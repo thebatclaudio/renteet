@@ -22,7 +22,7 @@ $("#accept-user").on("click", function () {
         if (!send) throw null;
         $.post(url.replace(':room', button.data("room")).replace(':user', {{$user->id}}), function( data ) {
             if(data.status === 'OK') {
-                swal("Richiesta di adesione approvata!", "Accogli il tuo nuovo coinquilino inviandogli un messaggio", "success");
+                swal("Richiesta di adesione approvata!", "Accogli il tuo nuovo coinquilino inviandogli un messaggio", "success").then(() => { location.reload() });;;
                 button.attr('disabled', true);
             }else {
               swal("Si è verificato un errore", "Riprova più tardi", "error");
