@@ -25,7 +25,7 @@
 
         $.notify({
             title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+'</strong> ha accettato la tua richiesta di adesione per l\'immobile <strong>'+data.house.name+'</strong>',
-            image: '<img class="img-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
+            image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
             profileLink: '<a href="'+data.house.url+'" class="btn btn-elegant btn-sm">Visualizza l\'immobile</a>'
         }, {
             style: 'notification',
@@ -40,7 +40,7 @@
 
         $.notify({
             title: '<strong>'+data.user.first_name+' '+data.user.last_name+'</strong> ha abbandonato il tuo immobile <strong>'+data.house.name+'</strong>. Seleziona la data in cui tornerà disponibile.',
-            image: '<img class="img-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
+            image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.user.profile_pic+'">',
             profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-elegant btn-sm">Gestisci il tuo immobile</a>'
         }, {
             style: 'notification',
@@ -55,8 +55,8 @@
 
         $.notify({
             title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+"</strong> ti ha rimosso dall'immobile <strong>"+data.house.name+'</strong>',
-            image: '<img class="img-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
-            profileLink: '<a href="'+data.house.admin_url+'" class="btn btn-elegant btn-sm">Gestisci il tuo immobile</a>'
+            image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
+            profileLink: '<a href="{{url('/house')}}" class="btn btn-elegant btn-sm">Vai alla tua casa</a>'
         }, {
             style: 'notification',
             autoHide: false,
