@@ -62,83 +62,136 @@
 
       <div class="container users">
         <div class="row">
-          @foreach($house->rooms as $room)
 
+          @php
+            $bedsCount = 0;
+            $circleWidth = ($house->beds > 4) ? 25 : (100/$house->beds);
+          @endphp
+
+          @foreach($house->rooms as $room)
+            
             {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
             @foreach($room->acceptedUsers as $user)
-              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+              @if($bedsCount<3 OR $house->beds == 4)
+              <div class="bed-container col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
                 <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
                   <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
                   <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
                 </a>
               </div>
+              @endif
+
+              @php
+                $bedsCount++;
+              @endphp
+              
             @endforeach
 
             {{-- PER OGNI STANZA STAMPO I POSTI VUOTI MA NON ANCORA DISPONIBILI --}}
             @foreach($room->notAvailableBeds as $user)
-              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
-                <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
-              </div>
+              @if($bedsCount<3 OR $house->beds == 4)
+                <div class="bed-container col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
+                  <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
+                  <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
+                </div>
+              @endif
+
+              @php
+                $bedsCount++;
+              @endphp
             @endforeach
 
             {{-- se ci sono posti liberi --}}
             @if($room->beds - ($room->acceptedUsers->count() + $room->notAvailableBeds->count()))
-            
+      
               {{-- controllo se l'utente è loggato --}}
               @if(\Auth::check())
                 {{-- controllo se l'utente loggato è pending, in caso positivo stampo l'utente loggato --}}
                 @if($room->hasUserPending(\Auth::user()->id))
-                  <div class="bed-container col-lg-4 pending" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+                  <div class="bed-container col-lg-4 pending" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
                     <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}" width="140" height="140">
                     <h4 class="user-name {{\Auth::user()->gender}}">In attesa di approvazione</h4>
                   </div>
                   {{-- quindi stampo gli altri posti liberi, sottraendo il posto pending dell'utente loggato --}}
-                  @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)   
-                    <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                      <h4 class="free-place">{{$room->bed_price}}€</h4>
-                      @if(!$house->hasUser(\Auth::user()->id))
-                      <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
-                      @endif
-                    </div>
+                  @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)
+                    @if($bedsCount<3 OR $house->beds == 4)
+                      <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
+                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <h4 class="free-place">{{$room->bed_price}}€</h4>
+                        @if(!$house->hasUser(\Auth::user()->id))
+                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                        @endif
+                      </div>
+                    @endif
+
+                    @php
+                      $bedsCount++;
+                    @endphp
                   @endfor
                 @else
                   {{-- viceversa stampo TUTTI gli altri posti liberi --}}
-                  @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
-                    <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                      <h4 class="free-place">{{$room->bed_price}}€</h4>
-                      @if(!$house->hasUser(\Auth::user()->id))
-                      <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
-                      @endif
-                    </div>
+                  @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
+                    @if($bedsCount<3 OR $house->beds == 4)
+                      <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
+                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <h4 class="free-place">{{$room->bed_price}}€</h4>
+                        @if(!$house->hasUser(\Auth::user()->id))
+                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                        @endif
+                      </div>
+                    @endif
+
+                    @php
+                      $bedsCount++;
+                    @endphp
                   @endfor
                 @endif
               @else
                 {{-- se l'utente non è loggato stampo TUTTI gli altri posti liberi --}}
-                @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
-                  <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                    <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
-                    <h4 class="free-place">{{$room->bed_price}}€</h4>
-                    <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
-                  </div>
+                @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
+                    @if($bedsCount<3 OR $house->beds == 4)
+                      <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
+                        <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Posto libero" width="140" height="140">
+                        <h4 class="free-place">{{$room->bed_price}}€</h4>
+                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                      </div>
+                    @endif
+
+                    @php
+                      $bedsCount++;
+                    @endphp
                 @endfor
               @endif
             @endif
           @endforeach
+
+          @if($house->beds > 4)
+              <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">         
+                <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
+                  <div class="circle more-users">
+                      + {{$house->beds - 3}}
+                  </div>
+                </a>
+              </div>
+            </a>
+          @endif
         </div><!-- /.row -->
         
         <div class="rooms-container row">
-          @foreach($house->rooms as $room)
-          <div class="col-lg-4" style="width: {{(100/$house->beds)*$room->beds}}%; flex: 0 0 {{(100/$house->beds)*$room->beds}}%; max-width: {{(100/$house->beds)*$room->beds}}%;"><div class="room"></div></div>
-          @endforeach
-        </div><!-- /.row -->
+          @php
+            $bedsCount = 0;
+          @endphp
 
-        <div class="beds-container row">
           @foreach($house->rooms as $room)
-          <div class="col-lg-4 text-center beds-number" style="width: {{(100/$house->beds)*$room->beds}}%; flex: 0 0 {{(100/$house->beds)*$room->beds}}%; max-width: {{(100/$house->beds)*$room->beds}}%;">
-          </div>
+            @if($bedsCount + $room->beds < 4)
+              <div class="col-lg-4" style="width: {{($circleWidth)*$room->beds}}%; flex: 0 0 {{($circleWidth)*$room->beds}}%; max-width: {{($circleWidth)*$room->beds}}%;"><div class="room"></div></div>
+            @else
+              <div class="col-lg-4" style="width: {{($circleWidth)*(4-$bedsCount)}}%; flex: 0 0 {{($circleWidth)*(4-$bedsCount)}}%; max-width: {{($circleWidth)*(4-$bedsCount)}}%;"><div class="room"></div></div>
+            @endif
+
+            @php
+              $bedsCount+=$room->beds;
+            @endphp
           @endforeach
         </div><!-- /.row -->
       </div><!-- /.container -->
