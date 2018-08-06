@@ -30,7 +30,7 @@ textarea{
             <div class="card">
                 <div class="card-body text-dark text-center">
                     <h5>{{$house->name}}</h5>
-                    <p class="card-text text-center">{{ $house->city }},{{ $house->street_name }} {{ $house->number }}</p>
+                    <p class="card-text text-center">{{ $house->street_name }} {{ $house->number }} - {{ $house->city }}</p>
                     <div class="text-center margin-top-40">
                         <a href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
                             <img src="{{ $house->owner->profile_pic }}" class="img-fluid rounded-circle" style="max-width:150px;" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}">
