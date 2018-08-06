@@ -241,7 +241,7 @@
           <div class="card margin-top-180 col-md-8">
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 text-center">
                   <a href="{{$house->owner->profile_url}}">
                     <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
                   </a>
