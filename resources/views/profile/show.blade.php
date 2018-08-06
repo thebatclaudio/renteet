@@ -18,7 +18,7 @@
                         <img src="{{$pendingRequestHouse->preview_image_url}}" alt="{{$pendingRequestHouse->name}}" class="rounded-circle img-fluid margin-top-10" style="max-width:100px;">
                     </div>
                     <div class="col">
-                        <h4 class="text-left"><strong>{{$user->first_name}}</strong> ha richiesto di accedere al tuo immobile {{$pendingRequestHouse->name}}</h4>
+                        <h4 class="text-left"><strong>{{$user->first_name}}</strong> ha richiesto di accedere al tuo immobile {{$pendingRequestHouse->name}} il <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$pendingRequestRoom->pivot->start)->format('d/m/Y')}}</strong></h4>
                         <button id="accept-user" data-room="{{$pendingRequestRoom->id}}" class="btn btn-outline-success waves-effect btn-sm">Accetta la richiesta</button> <a href="{{route('admin.house', $pendingRequestHouse->id)}}" class="btn btn-outline-elegant waves-effect btn-sm">Gestisci immobile</a>
                     </div>
                 </div>
