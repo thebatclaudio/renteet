@@ -183,7 +183,7 @@
           </div>
         </div>
 
-
+        @if($house->previewReviews->count())
         <div class="row">
           <div class="page-target-container margin-top-80">
             <h3 class="page-target">Recensioni</h3>
@@ -233,6 +233,7 @@
               </a>
           </div>
         </div>
+        @endif
 
         <div class="row margin-bottom-40" id="owner-box">
           <div class="page-target-container margin-top-80">
