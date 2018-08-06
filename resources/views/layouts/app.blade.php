@@ -121,23 +121,28 @@
                     @else
                         <li class="nav-item dropdown">
 
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <img src="{{ Auth::user()->profile_pic }}" class="profile-pic">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="display:inline;">
+                                <img src="{{ Auth::user()->profile_pic }}" class="profile-pic" style="margin-top:10px;">
+                                @if(\Auth::user()->allUnreadedCount() > 0)
+                                    <span id="badge-messages" class="badge badge-warning" style="z-index:15;position:relative;left:-30px;top:-10px;">{{\Auth::user()->allUnreadedCount()}}</span>
+                                @else
+                                <span id="badge-messages" class="badge badge-warning" style="z-index:15;position:relative;left:-30px;top:-10px;"></span>                                
+                                @endif
                             </a>
 
                             <div class="user-menu dropdown-menu dropdown-menu-right" role="menu">
                                 @if(\Auth::user()->isLessor())
-                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Gestisci le tue case</a>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Gestisci le tue case</a>
                                 @endif
 
                                 @if(\Auth::user()->isTenant())
-                                <a class="dropdown-item" href="{{ route('myHouse') }}">La tua casa</a>
+                                    <a class="dropdown-item" href="{{ route('myHouse') }}">La tua casa</a>
                                 @endif
 
-                                                        @if(\Auth::user()->pendingRequests()->count() >= 1)
-                            <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
-                        @endif
-                                <a class="dropdown-item" href="{{route('chat.show')}}">I tuoi messaggi
+                                @if(\Auth::user()->pendingRequests()->count() >= 1)
+                                    <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
+                                @endif
+                                    <a class="dropdown-item" href="{{route('chat.show')}}">I tuoi messaggi
                                 @if(\Auth::user()->allUnreadedCount() > 0)
                                     <span id="counterMessages" class="float-right badge red badge-pill">{{\Auth::user()->allUnreadedCount()}}</span>
                                 @else
