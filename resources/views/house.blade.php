@@ -26,8 +26,8 @@ textarea{
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4 margin-top-20 align-self-center">
-            <div class="card" style="max-width: 18rem;">
+        <div class="house-info-col col-md-3 margin-top-40">
+            <div class="card">
                 <div class="card-body text-dark text-center">
                     <h5>{{$house->name}}</h5>
                     <p class="card-text text-center">{{ $house->city }},{{ $house->street_name }} {{ $house->number }}</p>
@@ -40,11 +40,13 @@ textarea{
                     </div>
                 </div>
             </div>
+
+            <a href="{{route('chat.show')}}" class="btn btn-block btn-outline-elegant waves-effect btn-lg">Vai alla chat della casa</a> 
+            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Lascia una recensione</button> 
+            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button> 
+            <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>   
         </div>
-        <div class="col-md-8 margin-top-40 no-padding align-self-start">
-            <div class="col-md-5 margin-bottom-10 float-right">
-                <a href="{{route('chat.show')}}" class="btn btn-block btn-outline-success waves-effect btn-lg">Vai alla chat della casa</a> 
-            </div>
+        <div class="col-md-9 margin-top-40 no-padding align-self-start">
             <div id="homeCarousel" class="carousel slide padding-right-10" data-ride="carousel">
                 <ul class="carousel-indicators">
                     @for($i = 0; $i < $house->photos()->count(); $i++)
@@ -80,9 +82,7 @@ textarea{
 <div class="container">
     <div class="row">
         <div class="col-md-3 padding-right-30">
-            <div class="align-vertical-center">
-                <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>    
-            </div>
+
         </div>
         <div class="col-md-2 text-right border-left">
             <div class="align-vertical-center">
@@ -108,16 +108,6 @@ textarea{
             </div>
         </div>
     </div>
-    <div class="row justify-content-between margin-top-40">
-        <div class="col-auto">
-            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button> 
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Lascia una recensione</button> 
-        </div>
-    </div>
-
-    <hr class="margin-top-40">
     
 </div>
 @endsection

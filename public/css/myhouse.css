@@ -84,6 +84,10 @@ a:hover .roommate-img.female, a:focus .roommate-img.female {
     margin-bottom: 10px;
 }
 
+.house-info-col .btn-block {
+    margin-top: 10px;
+}
+
 
 @media(max-width: 1440px) {
     .avatar {
