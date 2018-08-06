@@ -39,7 +39,7 @@
                                 </div>
                             </a>
                         @empty
-                        <h5 class="padding-10">Invia un messaggio ad un altro utente per iniziare una nuova conversazione</h5>
+                            <h5 class="text-center text-muted margin-top-20">Nessuna conversazione</h5>
                         @endforelse
                     </div>
                 </div>
