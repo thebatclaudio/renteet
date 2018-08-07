@@ -78,6 +78,8 @@ class RentController extends Controller
 
                         // lancio l'evento per inviare la notifica push
                         event(new AdhesionAcceptance($user, $room->house->id));
+                        // creo la notifica nel db
+                        User::find($user)->notify(new \App\Notifications\AdhesionAcceptance($user, $room->house->id));
 
                         if($roomUser->save()) {
                             return response()->json([
