@@ -25,7 +25,7 @@ h3.profile-name {
 }
 
 .profile-info-column img {
-    border: 10px solid rgba(97, 155, 213, 0.30);
+    max-width: 65%;
 }
 
 .languages-container h4, .interests-container h4 {
@@ -52,11 +52,6 @@ h3.profile-name {
     list-style-type: none;
     margin-right: 5px;
     color: #619bd5;
-}
-
-.user-description h4 {
-    margin-top: 40px;
-    font-style: italic;
 }
 
 .star-border {
