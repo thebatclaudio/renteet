@@ -67,7 +67,7 @@
     });
 
     channel.bind('App\\Events\\MessageReceived', function(data) {
-        if("{{\Route::currentRouteName()}}" != "chat"){
+        if("{{\Route::currentRouteName()}}" != "chat.show"){
             $('#counterMessages').fadeIn();
             var counter = $('#counterMessages').text();
             $('#counterMessages').text(parseInt(counter)+1);
