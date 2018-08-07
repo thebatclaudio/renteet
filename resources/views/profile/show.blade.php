@@ -187,17 +187,20 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-sm-2">
+                                                <div class="col-auto">
                                                     <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                 </div>
-                                                <div class="col-sm-10">
-                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
-                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
+                                                    <div class="review-rating">
+                                                    @for($i = 1; $i < 6; $i++)
+                                                        @if($i <= ($review->rate))
+                                                            <span class="fas fa-star checked"></span>
+                                                        @else
+                                                            <span class="far fa-star"></span>
+                                                        @endif
+                                                    @endfor
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -214,17 +217,20 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-sm-2">
+                                                <div class="col-auto">
                                                     <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                 </div>
-                                                <div class="col-sm-10">
-                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
-                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
+                                                    <div class="review-rating">
+                                                    @for($i = 1; $i < 6; $i++)
+                                                        @if($i <= ($review->rate))
+                                                            <span class="fas fa-star checked"></span>
+                                                        @else
+                                                            <span class="far fa-star"></span>
+                                                        @endif
+                                                    @endfor
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
