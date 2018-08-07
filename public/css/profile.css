@@ -80,14 +80,14 @@ h3.profile-name {
 }
 
 #reviewsTabContent .tab-pane .review {
-    padding: 10px 20px;
+    padding: 5px;
     margin: 20px 0px;
 }
 
 #reviewsTabContent .tab-pane .review .speech-bubble {
     min-height: 80px;
     background-color: #FFF;
-    padding: 10px 20px 20px;
+    padding: 15px 0px;
     border-radius: 5px;
     font-style: italic;
 }
