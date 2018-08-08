@@ -98,8 +98,12 @@ $("#list-view").click(function(){
 });
 
 function getLocation() {
+    console.log('geolocation');
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        console.log('bellaaaa');
+        navigator.geolocation.getCurrentPosition(showPosition, function() {
+            $("#main-container").show();
+        });
     } else {
         $("#main-container").show();
     }
