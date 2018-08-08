@@ -41,6 +41,32 @@ class NotificationsController extends Controller
                         $notifications[] = $new_notification;
                     }
                 break;
+
+                case "App\Notifications\ReviewReceived":
+                    if($user = \App\User::find($notification->data['user_id']) AND $review = \App\Review::find($notification->data['review_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $user->profile_pic;
+                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha lasciato una recensione";
+                        $new_notification->url = $user->profile_url;
+                        
+                        if($review->lessor == true){
+                            if($house = \App\House::find($notification->data['house_id'])){
+                                $new_notification->text = $new_notification->text." per l'appartamento ".$house->name;
+                                $new_notification->url = $house->url;
+                            }
+                        }
+
+                        $new_notification->created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->timestamp * 1000;
+                        if($notification->read_at !== null){
+                            $new_notification->read_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->read_at)->timestamp * 1000;
+                        }else{
+                            $new_notification->read_at = $notification->read_at;
+                        }
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
+
             }
             $notification->read_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
             $notification->save();
@@ -73,6 +99,27 @@ class NotificationsController extends Controller
                         $new_notification->url = $house->url;
                         $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
                         $new_notification->user = $user;
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
+                case "App\Notifications\ReviewReceived":
+                    if($user = \App\User::find($notification->data['user_id']) AND $review = \App\Review::find($notification->data['review_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $user->profile_pic;
+                        $new_notification->text = $user->first_name." ".$user->last_name." ti ha lasciato una recensione";
+                        $new_notification->url = $user->profile_url;
+                        
+                        if($review->lessor == true){
+                            if($house = \App\House::find($notification->data['house_id'])){
+                                $new_notification->text = $new_notification->text." per l'appartamento ".$house->name;
+                                $new_notification->url = $house->url;
+                            }
+                        }
+
+                        $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
+                        $new_notification->user = $user;
+
                         $notifications[] = $new_notification;
                     }
                 break;
