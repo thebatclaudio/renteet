@@ -102,5 +102,20 @@
 $("#list-view").click(function(){
     window.location = window.location + "?view=list";
 });
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log('non disponibile');
+    }
+}
+function showPosition(position) {
+    console.log(position.coords)
+}
+
+$(document).ready(function() {
+    getLocation();
+});
 </script>
 @endsection
