@@ -3,18 +3,12 @@
 @section('title', 'Be friendly')
 
 @section('content')
-<div class="container margin-top-20">
+<div id="main-container" class="container margin-top-20" style="display: none">
     
     <div class="row">
         <div class="col-auto">
             <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$locationName}}</strong></h3>
         </div>
-        <!--div class="col text-right">
-            <div class="btn-group" role="group" aria-label="Cambia la modalità di visualizzazione degli annunci">
-                <a class="btn btn-change-view btn-elegant" title="Visualizzazione a griglia" data-view="grid"><i class="fas fa-th"></i></a>
-                <a id="list-view" class="btn btn-change-view btn-outline-elegant" title="Visualizzazione a elenco" data-view="list"><i class="fas fa-bars"></i></a>
-            </div>
-        </div-->
     </div>
     
     <hr>
@@ -106,6 +100,8 @@ $("#list-view").click(function(){
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        $("#main-container").show();
     }
 }
 function showPosition(position) {
