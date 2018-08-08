@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="profile-info-column">
-                <img src="{{$user->profile_pic}}" class="rounded-circle {{$user->gender}}" height="240" width="240">
+                <img src="{{$user->profile_pic}}" class="rounded-circle">
 
                 <div class="personal-info-container margin-top-20">
                     <h3 class="profile-name">{{$user->first_name}} {{$user->last_name}}</h3>
@@ -70,9 +70,9 @@
                         @endif
                     </ul>
                 @if($user->id == \Auth::user()->id)
-                <buttom id="edit-profile-button" class="btn btn-outline-elegant waves-effect btn-lg   margin-top-20">Modifica profilo</buttom>
+                <buttom id="edit-profile-button" class="btn btn-outline-elegant waves-effect btn-sm margin-top-10" style="margin-left: 0px">Modifica profilo</buttom>
                 @else
-                <buttom id="new-message-button" class="btn btn-outline-elegant waves-effect btn-lg   margin-top-20">Invia messaggio</buttom>
+                <buttom id="new-message-button" class="btn btn-outline-elegant waves-effect btn-sm margin-top-10" style="margin-left: 0px">Invia messaggio</buttom>
                 @endif
                 </div>
 
@@ -104,27 +104,28 @@
                 <div class="container text-center h-100">
                     <div class="row h-100">
                         <div class="col-sm-12 my-auto">
-                            @if($user->description)
-                            <div class="user-description">
-                                <h4 class="text-center">
-                                {{$user->description}}
-                                </h4>
-                            </div>
-                            <hr>
-                            @endif
                             <div class="rating-stars-container">
                             @for($i = 1; $i < 6; $i++)
                                 @if($i <= floor($user->rating))
-                                    <span class="fas fa-star fa-3x checked"></span>
+                                    <span class="fas fa-star fa-2x checked"></span>
                                 @elseif($i-floor($user->rating) < 0.5)
-                                    <span class="far fa-star fa-3x star-border"></span>
-                                    <span class="fas fa-star-half fa-3x"></span>
+                                    <span class="far fa-star fa-2x star-border"></span>
+                                    <span class="fas fa-star-half fa-2x"></span>
                                 @else
-                                    <span class="far fa-star fa-3x"></span>
+                                    <span class="far fa-star fa-2x"></span>
                                 @endif
                             @endfor
                             </div>
                             <div class="reviews-users-count">{{$user->reviews()->count()}} Recensioni</div>
+                            @if($user->description)
+                            <hr>
+                            <div class="user-description">
+                                <h5 class="text-success">Descrizione</h5>
+                                <h4 class="text-center margin-top-10">
+                                {{$user->description}}
+                                </h4>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -133,23 +134,24 @@
         <div class="col-md-4">
             <div class="container timeline-column reviews-column">
 
-                <div class="row">
+                <div class="text-center">
+
+                    <h5>Recensioni</h5>
+
                     @if($user->lessor)
-                    <div id="roommates-button-container" class="col-sm-6 tab-inactive">
-                        <button type="button" id="roommates-reviews-button" class="btn btn-block btn-success">Recensioni Coinquilini</button>
-                    </div>
-                    <div id="guests-button-container" class="col-sm-6 tab-active">
-                        <button type="button" id="guests-reviews-button" class="btn btn-block btn-primary">Recensioni Ospiti</button>
-                    </div>
+                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Coinquilino">
+                            <button id="guests-reviews-button" class="btn btn-sm btn-success">Locatore</button>
+                            <button id="roommates-reviews-button" class="btn btn-sm btn-outline-success">Coinquilino</a>
+                        </div>
                     @else
-                    <div class="col-sm-12 tab-active">
-                        <button type="button" id="roommates-reviews-button" class="btn btn-block btn-success">Recensioni Coinquilini</button>
-                    </div>                    
+                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Coinquilino">
+                            <button id="roommates-reviews-button" class="btn btn-success">Coinquilino</a>
+                        </div>    
                     @endif
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12 tab-col">
+                    <div class="col-sm-12">
                         <div class="tab-content" id="reviewsTabContent">
                             @if($user->lessor)
                             <div class="tab-pane fade show active" id="guests-tab" role="tabpanel" aria-labelledby="lessor-tab">
@@ -157,23 +159,26 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-sm-2">
+                                                <div class="col-auto">
                                                     <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                 </div>
-                                                <div class="col-sm-10">
-                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
-                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
+                                                    <div class="review-rating">
+                                                    @for($i = 1; $i < 6; $i++)
+                                                        @if($i <= ($review->rate))
+                                                            <span class="fas fa-star checked"></span>
+                                                        @else
+                                                            <span class="far fa-star"></span>
+                                                        @endif
+                                                    @endfor
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 @empty
-                                    <strong>{{ $user->first_name }} non ha ancora recensioni come Locatore.</strong>
+                                    <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Locatore.</strong></div>
                                 @endforelse
                             </div>
                             <div class="tab-pane fade" id="roommate-tab" role="tabpanel" aria-labelledby="roommate-tab">
@@ -182,23 +187,26 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-sm-2">
+                                                <div class="col-auto">
                                                     <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                 </div>
-                                                <div class="col-sm-10">
-                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
-                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
+                                                    <div class="review-rating">
+                                                    @for($i = 1; $i < 6; $i++)
+                                                        @if($i <= ($review->rate))
+                                                            <span class="fas fa-star checked"></span>
+                                                        @else
+                                                            <span class="far fa-star"></span>
+                                                        @endif
+                                                    @endfor
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 @empty
-                                    <strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong>
+                                    <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong></div>
                                 @endforelse
                                 </ul>
                             </div>
@@ -209,23 +217,26 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-sm-2">
+                                                <div class="col-auto">
                                                     <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                 </div>
-                                                <div class="col-sm-10">
-                                                    <strong class="review-name">{{ $review->fromUser->first_name }} {{ $review->fromUser->last_name }}</strong>
-                                                    <span class="review-date">{{\Carbon\Carbon::parse($review->created_at)->diffForHumans()}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
+                                                <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
+                                                    <div class="review-rating">
+                                                    @for($i = 1; $i < 6; $i++)
+                                                        @if($i <= ($review->rate))
+                                                            <span class="fas fa-star checked"></span>
+                                                        @else
+                                                            <span class="far fa-star"></span>
+                                                        @endif
+                                                    @endfor
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 @empty
-                                    <strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong>
+                                    <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong></div>
                                 @endforelse
                                 </ul>
                             </div>
@@ -243,25 +254,25 @@
 <script>
 var roommateTab = $("#roommate-tab");
 var guestsTab = $("#guests-tab");
-var roommateButtonContainer = $("#roommates-button-container");
-var guestsButtonContainer = $("#guests-button-container");
+var guestsButton = $("#guests-reviews-button");
+var roommateButton = $("#roommates-reviews-button");
 
 $("#edit-profile-button").on('click',function(){
     window.location = '{{route('user.edit')}}';
 });
 
-$("#roommates-reviews-button").on('click', function() {
+roommateButton.on('click', function() {
     guestsTab.removeClass('show').removeClass('active');
     roommateTab.addClass('show').addClass('active');
-    roommateButtonContainer.removeClass('tab-inactive').addClass('tab-active');
-    guestsButtonContainer.addClass('tab-inactive').removeClass('tab-active');
+    roommateButton.removeClass('btn-outline-success').addClass('btn-success');
+    guestsButton.addClass('btn-outline-success').removeClass('btn-success');
 });
 
-$("#guests-reviews-button").on('click', function() {
+guestsButton.on('click', function() {
     roommateTab.removeClass('show').removeClass('active');
     guestsTab.addClass('show').addClass('active');
-    guestsButtonContainer.removeClass('tab-inactive').addClass('tab-active');
-    roommateButtonContainer.addClass('tab-inactive').removeClass('tab-active');
+    guestsButton.removeClass('btn-outline-success').addClass('btn-success');
+    roommateButton.addClass('btn-outline-success').removeClass('btn-success');
 });
 
 $("#new-message-button").on('click',function(){

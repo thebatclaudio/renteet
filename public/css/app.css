@@ -28,6 +28,10 @@ a:hover, a:focus {
   color: #099154!important;
 }
 
+.text-success {
+  color: #099154!important;
+}
+
 .logo {
   max-height: 50px;
   margin: 5px 20px;
@@ -534,6 +538,19 @@ small.notification-date {
       margin-bottom: 2px;
   }
 
+  .house-col.col-sm-8 .house .house-img.half {
+    height: 24vh;
+    margin-bottom: 0.5vh;
+  }
+
+  .house-col.col-sm-8 .house .photos-container .row .col-md-7 {
+    padding-right: 0.25vh;
+  }
+
+  .house-col.col-sm-8 .house .photos-container .row .col-md-5 {
+    padding-left: 0.25vh;
+  }
+
   .house .owner-container {
     position: absolute;
     height: 24px;
@@ -612,6 +629,10 @@ small.notification-date {
     opacity: 0.2;
   }
 
+  .opacity-1 {
+    opacity: 1!important;
+  }
+
   .footer-copy {
     color: #bfbcba;
     font-size: 16px;
@@ -636,6 +657,11 @@ small.notification-date {
     height: 140px;
     font-size: 28px;
     line-height: 140px;
+  }
+
+  .reviews-column {
+    border: 1px solid #e6e6e6;
+    padding: 20px;
   }
 
   @media (max-width: 565px) {

@@ -25,7 +25,7 @@ h3.profile-name {
 }
 
 .profile-info-column img {
-    border: 10px solid rgba(97, 155, 213, 0.30);
+    max-width: 65%;
 }
 
 .languages-container h4, .interests-container h4 {
@@ -54,11 +54,6 @@ h3.profile-name {
     color: #619bd5;
 }
 
-.user-description h4 {
-    margin-top: 40px;
-    font-style: italic;
-}
-
 .star-border {
     position: absolute;
 }
@@ -68,7 +63,7 @@ h3.profile-name {
 }
 
 .avatar {
-    max-width: 100%;
+    max-width: 70px;
     width: 100%;
 }
 
@@ -85,14 +80,14 @@ h3.profile-name {
 }
 
 #reviewsTabContent .tab-pane .review {
-    padding: 10px 20px;
+    padding: 5px;
     margin: 20px 0px;
 }
 
 #reviewsTabContent .tab-pane .review .speech-bubble {
     min-height: 80px;
     background-color: #FFF;
-    padding: 10px 20px 20px;
+    padding: 15px 0px;
     border-radius: 5px;
     font-style: italic;
 }
@@ -106,10 +101,6 @@ h3.profile-name {
     font-style: normal;
     color: #777;
     display: block;
-}
-
-.speech-bubble p {
-    margin-top: 20px;
 }
 
 .tab-active {

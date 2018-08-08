@@ -40,7 +40,16 @@
 
         <hr />
 
-        <img src="{{url('/images/renteet-logo-black.png')}}" class="footer-logo"><span class="footer-copy">&copy; renteet</span>
+        <div class="row">
+            <div class="col-sm-9">
+                <img src="{{url('/images/renteet-logo-black.png')}}" class="footer-logo"><span class="footer-copy">&copy; renteet</span>
+            </div>
+            <div class="col-sm-3">
+                <span class="footer-copy margin-right-10">partners </span><img src="{{url('/images/logo-udu-palermo.png')}}" class="footer-logo opacity-1 margin-right-10"><img src="{{url('/images/logo-rum.png')}}" class="footer-logo opacity-1">
+            </div>
+        </div>
+
+        
     </div>
 
   </footer>
