@@ -102,5 +102,18 @@
 $("#list-view").click(function(){
     window.location = window.location + "?view=list";
 });
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+function showPosition(position) {
+    window.location.href = "{{url('/search')}}?lat="+position.coords.latitude+"&lng="+position.coords.longitude;
+}
+
+$(document).ready(function() {
+    getLocation();
+});
 </script>
 @endsection

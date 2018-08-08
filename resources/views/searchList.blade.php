@@ -15,7 +15,11 @@
     
     <div class="row">
         <div class="col-auto">
-            <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
+            @if($searchInput)
+                <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
+            @else
+                <h3>Immobili attualmente disponibili nei tuoi dintorni</h3>
+            @endif
         </div>
         <div class="col text-right">
             <div class="btn-group" role="group" aria-label="Cambia la modalità di visualizzazione degli annunci">
