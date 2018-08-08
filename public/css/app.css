@@ -538,6 +538,11 @@ small.notification-date {
       margin-bottom: 2px;
   }
 
+  .house-col.col-sm-8 .house .house-img.half {
+    height: 24vh;
+    margin-bottom: 0.5vh;
+  }
+
   .house .owner-container {
     position: absolute;
     height: 24px;
