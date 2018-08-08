@@ -543,6 +543,14 @@ small.notification-date {
     margin-bottom: 0.5vh;
   }
 
+  .house-col.col-sm-8 .house .photos-container .row .col-md-7 {
+    padding-right: 0.25vh;
+  }
+
+  .house-col.col-sm-8 .house .photos-container .row .col-md-5 {
+    padding-left: 0.25vh;
+  }
+
   .house .owner-container {
     position: absolute;
     height: 24px;
