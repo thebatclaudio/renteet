@@ -85,7 +85,9 @@
             </div>
         </div>
         @empty
-            <h4 class="text-muted text-center">Nessuna casa trovata</h4>
+            <div class="col">
+                <h4 class="text-muted text-center">Nessun immobile trovato</h4>
+            </div>
         @endforelse
     </div>
 </div>
