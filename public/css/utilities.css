@@ -145,6 +145,10 @@ body {
     color:grey;
 }
 
+.btn {
+    margin-left: 0px;
+} 
+
 .btn-outline-success {
     border: 2px solid #099154!important;
     background-color: transparent!important;
