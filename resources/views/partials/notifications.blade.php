@@ -66,6 +66,35 @@
         });
     });
 
+    channel.bind('App\\Events\\ReviewReceived', function(data) {
+
+        if(data.review.lessor == 1){
+            $.notify({
+                title: '<strong>'+data.from_user.first_name+' '+data.from_user.last_name+"</strong> ti ha lasciato una recensione per l'appartamento <strong>"+data.house.name+'</strong>',
+                image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.from_user.profile_pic+'">',
+                profileLink: '<a href="'+data.from_user.profile_url+'" class="btn btn-elegant btn-sm">Visualizza profilo</a>'
+            }, {
+                style: 'notification',
+                autoHide: false,
+                clickToHide: false,
+                autoHideDelay: 15000,
+                globalPosition: 'bottom right',
+            });
+        }else{
+            $.notify({
+                title: '<strong>'+data.from_user.first_name+' '+data.from_user.last_name+'</strong> ti ha lasciato una recensione',
+                image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.from_user.profile_pic+'">',
+                profileLink: '<a href="'+data.from_user.profile_url+'" class="btn btn-elegant btn-sm">Visualizza profilo</a>'
+            }, {
+                style: 'notification',
+                autoHide: false,
+                clickToHide: false,
+                autoHideDelay: 15000,
+                globalPosition: 'bottom right',
+            });
+        }
+    });
+
     channel.bind('App\\Events\\MessageReceived', function(data) {
         if("{{\Route::currentRouteName()}}" != "chat.show"){
             $('#counterMessages').fadeIn();

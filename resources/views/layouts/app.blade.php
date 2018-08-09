@@ -121,8 +121,8 @@
                     @else
                         <li class="nav-item dropdown">
 
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="display:inline;">
-                                <img src="{{ Auth::user()->profile_pic }}" class="profile-pic" style="margin-top:10px;">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <img src="{{ Auth::user()->profile_pic }}" class="profile-pic" style="display:inline;">
                                 @if(\Auth::user()->allUnreadedCount() > 0)
                                     <span id="badge-messages" class="badge badge-danger rounded-circle">{{\Auth::user()->allUnreadedCount()}}</span>
                                 @else
