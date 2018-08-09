@@ -53,22 +53,24 @@
                     @foreach($messages as $message)
                         <div class="row margin-top-10">
                         @if($message->from_user_id == \Auth::user()->id)
-                            <div class="col"><p class="text-right"><small>{{$message->fromUser->complete_name}}</small><br>{{$message->message}}</p></div>
+                            <div class="col"><p class="text-right"><small>{{$message->fromUser->complete_name}}</small><br>{!!$message->html_message!!}</p></div>
                             <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
                         @else
                             <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
-                            <div class="col"><p class="text-left"><small>{{$message->fromUser->complete_name}}</small><br>{{$message->message}}</p></div>
+                            <div class="col"><p class="text-left"><small>{{$message->fromUser->complete_name}}</small><br>{!!$message->html_message!!}</p></div>
                         @endif
                         </div>
                     @endforeach
                 </div>
                 <div class="card-footer">
-                    <div class="input-group">
-                        <textarea id="messageTextArea" style="resize:none;" class="form-control input-md" rows="1" placeholder="Inserisci il tuo messaggio..."></textarea>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary btn-sm" id="btn-chat">Invia</button>
-                        </span>
-                    </div>
+                    <form id="form-chat">
+                        <div class="input-group">
+                            <textarea id="messageTextArea" style="resize:none;" class="form-control input-md" rows="1" placeholder="Inserisci il tuo messaggio..."></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-sm" type="submit" id="btn-chat">Invia</button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -86,49 +88,13 @@ $.ajaxSetup({
   }
 });
 
+
 $(document).ready(function(){
 
     var userId = {{\Auth::user()->id}};
     var chatId = null;
 
-    @if($conversations->isNotEmpty())
-        chatId = {{$conversations->first()->id}};
-    @endif
-
-    var chatContent = document.getElementById('chatContent');
-
-    $(".conversation-item").click(function(){
-        chatId = $(this).data("id");
-        var url = "{{route('ajax.chat.messages',['id'=>':id'])}}";
-        $.get(url.replace(':id',chatId),{page:0},function(result){
-            var html = "";
-            for (var i in result){
-                html += '<div class="row margin-top-10">';
-                if(result[i].from_user_id == userId){
-                    html+='<div class="col"><p class="text-right"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].message+'</p></div>';
-                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
-                }else{
-                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
-                    html+='<div class="col"><p class="text-left"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].message+'</p></div>';
-                }
-                html+='</div>';   
-            }
-            $("#chatContent").html(html);
-            chatContent.scrollTop = chatContent.scrollHeight;
-            
-            //pulisco il counter message nel dropdown del profilo
-            var counter = parseInt($("#counterMessages").text()) - parseInt($("#counter_"+chatId).text());
-            $("#counterMessages").text(counter);
-            if(counter == 0) $("#counterMessages").fadeOut();
-
-            //pulisco il badge counter nel container delle conversations
-            $("#counter_"+chatId).fadeOut();
-            $("#counter_"+chatId).text(0);
-            
-        });
-    })
-
-    $('#btn-chat').click(function(){
+    function sendChat(){
         var url = "{{route('ajax.chat.sendMessage',['id'=>':id'])}}";
         var message = $('#messageTextArea').val();
         if(message !== "" && message !== null && chatId !== null){
@@ -146,6 +112,58 @@ $(document).ready(function(){
                     swal("Si è verificato un errore", "Riprova più tardi", "error");
                 }
             });
+        }
+    }
+
+    @if($conversations->isNotEmpty())
+        chatId = {{$conversations->first()->id}};
+    @endif
+
+    var chatContent = document.getElementById('chatContent');
+
+    $(".conversation-item").click(function(){
+        chatId = $(this).data("id");
+        var url = "{{route('ajax.chat.messages',['id'=>':id'])}}";
+        $.get(url.replace(':id',chatId),{page:0},function(result){
+            var html = "";
+            for (var i in result){
+                console.log(result[i])
+                html += '<div class="row margin-top-10">';
+                if(result[i].from_user_id == userId){
+                    html+='<div class="col"><p class="text-right"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].html_message+'</p></div>';
+                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
+                }else{
+                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
+                    html+='<div class="col"><p class="text-left"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].html_message+'</p></div>';
+                }
+                html+='</div>';   
+            }
+            $("#chatContent").html(html);
+            chatContent.scrollTop = chatContent.scrollHeight;
+            
+            //pulisco il counter message nel dropdown del profilo
+            var counter = parseInt($("#counterMessages").text()) - parseInt($("#counter_"+chatId).text());
+            $("#counterMessages").text(counter);
+            if(counter == 0) $("#counterMessages").fadeOut();
+
+            //pulisco il badge counter nel container delle conversations
+            $("#counter_"+chatId).fadeOut();
+            $("#counter_"+chatId).text(0);
+            $('#chatContent').scrollTop($('#chatContent')[0].scrollHeight);
+        });
+    })
+
+    $('#btn-chat').click(sendChat());
+    $('#form-chat').submit(function(event){
+        event.preventDefault();
+        sendChat();
+    });
+    $("#messageTextArea").keypress(function (e) {
+        if(e.which == 13) {
+            if(!e.shiftKey) {
+                e.preventDefault();
+                sendChat();
+            }
         }
     });
 
@@ -166,6 +184,8 @@ $(document).ready(function(){
        $('#lastMessage_'+data.messageObj.conversation_id).text(data.message);
     });
     
+    $('#chatContent').scrollTop($('#chatContent')[0].scrollHeight);
+
 });
 
 

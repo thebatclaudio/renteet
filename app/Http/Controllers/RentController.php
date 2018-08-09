@@ -147,7 +147,7 @@ class RentController extends Controller
         $roomUser = RoomUser::where([
             'user_id' => $user, 
             'room_id' => $room
-        ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->whereNotNull('stop')->first();
+        ])->whereNotNull('stop')->first();
         
         if($roomUser){
             if(Room::find($room)->house->owner_id === \Auth::user()->id){
@@ -178,7 +178,7 @@ class RentController extends Controller
         $roomUser = RoomUser::where([
             'user_id' => $user, 
             'room_id' => $room
-        ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('stop',NULL)->where('accepted_by_owner',true);
+        ])->where('stop',NULL)->where('accepted_by_owner',true);
        // \Log::info(\Carbon\Carbon::now()->format('Y-m-d'));
             if($roomUser->count()){
                 $currentRoom = Room::find($room);
@@ -198,17 +198,17 @@ class RentController extends Controller
                         ]);
                     }else{
                         return response()->json([
-                            'status' => 'KO1'
+                            'status' => 'KO'
                         ]);       
                     }
                 }else{
                     return response()->json([
-                        'status' => 'KO2'
+                        'status' => 'KO'
                     ]);
                 }
             }else{
                 return response()->json([
-                    'status' => 'KO3'
+                    'status' => 'KO'
                 ]);
             }
     }

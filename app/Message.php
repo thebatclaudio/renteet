@@ -11,6 +11,10 @@ class Message extends Model
         'from_user_id', 'to_user_id', 'message','conversation_id','unreaded'
     ];
 
+    protected $appends = [
+        'html_message'
+    ];
+
     /**
      * A message belong to a user
      *
@@ -24,5 +28,9 @@ class Message extends Model
     public function toUser()
     {
     return $this->belongsTo("\App\User","to_user_id");
+    }
+
+    public function getHtmlMessageAttribute() {
+        return nl2br(htmlentities($this->message));
     }
 }
