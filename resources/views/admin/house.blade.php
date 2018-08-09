@@ -46,7 +46,7 @@
                                                 <div class="col-sm-9 padding-left-20">
                                                     <h5>Attuale inquilino</h5>
                                                     <h3 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}}</h3>
-                                                    <button class="btn btn-elegant btn-sm remove-user pull-right" data-user="{{$user->id}}" data-room="{{$room->id}}">Rimuovi</button>
+                                                    <button class="btn btn-elegant btn-sm remove-user pull-right" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->start}}">Rimuovi</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                         <h3 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}} ha abbandonato l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</h3>
                                                     @endif
                                                     <p>Quando vuoi che la stanza torni disponibile?</p>
-                                                    <button class="btn btn-primary btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}">Seleziona una data</button>
+                                                    <button class="btn btn-primary btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Seleziona una data</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,7 +122,7 @@
     option.selected = true;
     dateSelect.appendChild( option );
 
-    var date = moment().subtract(1, 'days');
+    var date = moment(button.data("start-date"), 'YYYY-MM-DD').subtract(1, 'days');
     for(var i = 0; i < 90; i++) {
       date.add(1, 'days');
       option = document.createElement('option');
@@ -186,7 +186,7 @@ $(".remove-user").on('click', function () {
     option.selected = true;
     dateSelect.appendChild( option );
 
-    var date = moment().subtract(1, 'days');
+    var date = moment(button.data("start-date"), 'YYYY-MM-DD').subtract(1, 'days');
     for(var i = 0; i < 90; i++) {
       date.add(1, 'days');
       option = document.createElement('option');
