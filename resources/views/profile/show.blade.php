@@ -107,12 +107,11 @@
                             <div class="rating-stars-container">
                             @for($i = 1; $i < 6; $i++)
                                 @if($i <= floor($user->rating))
-                                    <span class="fas fa-star fa-2x checked"></span>
-                                @elseif($i-floor($user->rating) < 0.5)
-                                    <span class="far fa-star fa-2x star-border"></span>
-                                    <span class="fas fa-star-half fa-2x"></span>
+                                    <span class="fas fa-star checked"></span>
+                                @elseif($i-$user->rating < 0.5)
+                                    <span class="fas fa-star-half-alt"></span>
                                 @else
-                                    <span class="far fa-star fa-2x"></span>
+                                    <span class="far fa-star"></span>
                                 @endif
                             @endfor
                             </div>

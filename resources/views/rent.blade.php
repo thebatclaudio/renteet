@@ -31,6 +31,17 @@
           <div class="row">
             <div class="col">
               <div class="house-name-container">
+              
+              @for($i = 1; $i < 6; $i++)
+                  @if($i <= floor($house->rating))
+                      <span class="fas fa-star checked" style="color:#ffffff;"></span>
+                  @elseif($i-$house->rating < 0.5)
+                      <span class="fas fa-star-half-alt" style="color:#ffffff;"></span>
+                  @else
+                      <span class="far fa-star" style="color:#ffffff;"></span>
+                  @endif
+              @endfor
+
                 <h1 class="house-name">{{$house->name}}</h1>
                 <p class="house-location">{{$house->street_name}}</p>
               </div>
@@ -137,6 +148,7 @@
             </div>
           <div class="margin-top-120">
             <ul class="margin-top-40 list-unstyled">
+              <li>Tipologia: </li>
               <li>Numero stanze: {{$house->rooms()->count()}}</li>
               <li>Numero bagni: {{$house->bathrooms}}</li>
               <li>MQ: {{$house->mq}}</li>
@@ -205,7 +217,7 @@
                 <h6 class="margin-top-15">{{$review->fromUser->first_name}}</h6>
                 <div class="rating-stars-container margin-top-20">
                   @for($i = 1; $i < 6; $i++)
-                    @if($i <= $user->rating)
+                    @if($i <= $review->rate)
                         <span class="fas fa-star checked"></span>
                     @else
                         <span class="far fa-star"></span>

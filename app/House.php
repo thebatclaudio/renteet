@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class House extends Model
 {
-    protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews','beds'];
+    protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews','beds','rating'];
     protected $hiddens = ['latitude', 'longitude'];
     
 
@@ -94,6 +94,10 @@ class House extends Model
                     ->where('stop','>=',\Carbon\Carbon::now()->format('Y-m-d'));
             }]);
         });
+    }
+
+    public function getRatingAttribute(){
+        return $this->reviews()->groupBy('to_user_id')->avg('rate');
     }
 
     private function reviews(){

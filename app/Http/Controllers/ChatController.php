@@ -66,21 +66,21 @@ class ChatController extends Controller
                 ]);
             }else{
                 if(in_array($conversation->house_id,\Auth::user()->relatedHouses()->pluck('id')->toArray())){
-                    foreach($conversation->house->relatedUsers() as $user){
-                        if($user != \Auth::user()->id){
+                    foreach($conversation->users as $user){
+                        if($user->id != \Auth::user()->id){
                             $message = Message::create([
                                 'from_user_id'=>\Auth::user()->id,
-                                'to_user_id'=>$user,
+                                'to_user_id'=>$user->id,
                                 'conversation_id'=>$id,
                                 'message'=>$request->message
                             ]);
                             // lancio l'evento per inviare la notifica push
-                            event(new MessageReceived($user, $message->id,\Auth::user()->id));
+                            event(new MessageReceived($user->id, $message->id,\Auth::user()->id));
                             //User::find($id)->notify(new \App\Notifications\MessageReceived($id, $message->id,\Auth::user()->id));
                         }else{
                             Message::create([
                                 'from_user_id'=>\Auth::user()->id,
-                                'to_user_id'=>$user,
+                                'to_user_id'=>$user->id,
                                 'conversation_id'=>$id,
                                 'message'=>$request->message,
                                 'unreaded' => false
