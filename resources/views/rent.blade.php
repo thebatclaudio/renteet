@@ -258,7 +258,9 @@
                   <a href="{{$house->owner->profile_url}}">
                     <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
                   </a>
-                  <buttom id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                  @if(\Auth::user()->id != $house->owner->id)
+                    <buttom id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                  @endif
                 </div>
                 <div class="col-sm-9 padding-left-20">
                   <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
