@@ -94,14 +94,16 @@
 
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); ">Esci da Renteet</a>
-                        </li>
+                        </li> 
 
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-block">
-                                Inserisci un annuncio
-                            </a>
-                        </li>  
+                        @if(\Auth::user()->signup_complete == true)
+                            <li class="nav-item">
+                                <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-block">
+                                    Inserisci un annuncio
+                                </a>
+                            </li>
+                        @endif  
                         <li class="nav-item margin-bottom-10">
                             <a href="{{url('come-funziona')}}" title="Come funziona?"class="btn btn-elegant btn-block">
                                 Come funziona?
@@ -187,11 +189,13 @@
                                 Come funziona?
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-sm">
-                                Inserisci un annuncio
-                            </a>
-                        </li>                        
+                        @if(\Auth::user()->signup_complete == true)
+                            <li class="nav-item">
+                                <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-sm">
+                                    Inserisci un annuncio
+                                </a>
+                            </li>
+                        @endif                        
                     @endguest
                 </ul>
             </nav>
