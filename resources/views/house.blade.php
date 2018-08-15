@@ -141,8 +141,11 @@ $('#reviewButton').on('click',function(){
         image.src = "{{$house->preview_image_url}}";
         image.classList.add("img-fluid"); 
         image.classList.add("rounded-circle");
+    var pName = document.createElement("p");
+        pName.innerText = "{{$house->name}}";    
         label.appendChild(input);
         label.appendChild(image);
+        label.appendChild(pName);
         col.appendChild(label);
         radioContainer.appendChild(col);
 
@@ -161,8 +164,11 @@ $('#reviewButton').on('click',function(){
                     image.src = "{{$user->profile_pic}}";
                     image.classList.add("img-fluid"); 
                     image.classList.add("rounded-circle");
+                    var pName = document.createElement("p");
+                    pName.innerText = "{{$user->complete_name}}";
                     label.appendChild(input);
                     label.appendChild(image);
+                    label.appendChild(pName);
                     col.appendChild(label);
                     radioContainer.appendChild(col);
                 @endif
@@ -184,7 +190,7 @@ $('#reviewButton').on('click',function(){
             var formVal = $('input[name=type]:checked','#radioForm').val();
             if(!formVal) throw null;
             swal({
-                title: "Chi vuoi recensire?",
+                title: "Lascia qui la tua recensione",
                 buttons: [true, {
                     text: "Avanti",
                     className: "nextButtonSwal",
@@ -193,6 +199,7 @@ $('#reviewButton').on('click',function(){
                 content: ratingSystem()
             }).then((send) =>{
                 if(!send) throw null;
+                if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw null;
                 var url = '{{route('user.rate', ':id')}}';
                 $.post(url.replace(':id',formVal), { rating: $('#hiddenInputStar').val(),message:$('#textareaReview').val(),room_user_id:{{$room_user_id}}}, function( data ) {
                     if(data.status === 'OK') {
@@ -284,8 +291,8 @@ function ratingSystem(){
     starsContainer.classList.add('rating-stars-container');
     for(i = 0; i < 5; i++){
         var star = document.createElement("i");
-        star.classList.add('icon');
-        star.classList.add('icon-circle-empty');
+        star.classList.add('far');
+        star.classList.add('fa-star');
         star.classList.add('ratingStar');
         star.dataset.rate = i;
         star.id = 'star-'+i;
@@ -311,10 +318,10 @@ function ratingSystem(){
 $('body').on('click','.ratingStar',function(){
     var rating = $(this).data('rate');
     $('#hiddenInputStar').val(rating);
-    $('.ratingStar').removeClass('icon-circle-full').addClass('icon-circle-empty');
+    $('.ratingStar').removeClass('checked').removeClass('fas').addClass('far');
     
     for(i = 0; i<=rating;i++){
-        $('#star-'+i).removeClass('icon-circle-empty').addClass('icon-circle-full');
+        $('#star-'+i).addClass('checked').removeClass('far').addClass('fas');
     }
 });
 </script>
