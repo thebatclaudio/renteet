@@ -310,6 +310,7 @@
                         notifications += '</a>';
                     }
                     $('#notifications-menu-content').html(notifications);
+                    $('.btn-notifications').html('<i class="fas fa-bell"></i>');
                 });
             });
         
@@ -318,7 +319,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
     
         @if(\Auth::check())
-        @include('partials.notifications');
+        @include('partials.notifications')
         @endif
     </body>
 </html>
