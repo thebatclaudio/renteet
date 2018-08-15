@@ -47,7 +47,6 @@ class UserController extends Controller
             'gender' => 'required',
             'living_city' => 'required_if:living_city_required,true',
             'born_city' => 'required_if:born_city_required,true',
-            'description' => 'required',
         ]);
 
         $user = \Auth::user();
@@ -82,7 +81,7 @@ class UserController extends Controller
        
         if($request->job !== "") $user->job = $request->job;
 
-        $user->description = $request->description;
+        if($user->description !== "") $user->description = $request->description;
 
         
         if($user->save()) {
@@ -145,7 +144,8 @@ class UserController extends Controller
             \Auth::user()->languages()->syncWithoutDetaching($languagesToAdd);
         }
 
-
+        \Auth::user()->signup_complete = 1;
+        \Auth::user()->save();
         return redirect()->to('home');
     }
 
