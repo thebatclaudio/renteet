@@ -54,9 +54,17 @@
                         <div class="row margin-top-10">
                         @if($message->from_user_id == \Auth::user()->id)
                             <div class="col"><p class="text-right"><small>{{$message->fromUser->complete_name}}</small><br>{!!$message->html_message!!}</p></div>
-                            <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
+                            <div class="col-auto">
+                                <a class="no-style" href="{{$message->fromUser->profile_url}}" title="{{$message->fromUser->first_name}} {{$message->fromUser->last_name}}">
+                                    <img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}">
+                                </a>
+                            </div>
                         @else
-                            <div class="col-auto"><img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}"></div>
+                            <div class="col-auto">
+                                <a class="no-style" href="{{$message->fromUser->profile_url}}" title="{{$message->fromUser->first_name}} {{$message->fromUser->last_name}}">
+                                    <img src="{{$message->fromUser->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$message->fromUser->complete_name}}">
+                                </a>
+                            </div>
                             <div class="col"><p class="text-left"><small>{{$message->fromUser->complete_name}}</small><br>{!!$message->html_message!!}</p></div>
                         @endif
                         </div>
@@ -102,7 +110,8 @@ $(document).ready(function(){
                 if(result.status == 'OK'){
                     var html = '<div class="row margin-top-10">';
                     html+='<div class="col"><p class="text-right"><small>{{\Auth::user()->complete_name}}</small><br>'+message+'</p></div>';
-                    html+='<div class="col-auto"><img src="{{\Auth::user()->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{\Auth::user()->complete_name}}"></div>';
+                    html+='<div class="col-auto"><a class="no-style" href="{{\Auth::user()->profile_url}}" title="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}">';
+                    html+='<img src="{{\Auth::user()->profile_pic}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{\Auth::user()->complete_name}}"></a></div>';
                     html+='</div>';
                     $("#chatContent").append(html);
                     chatContent.scrollTop = chatContent.scrollHeight;
@@ -120,6 +129,7 @@ $(document).ready(function(){
     @endif
 
     var chatContent = document.getElementById('chatContent');
+    chatContent.scrollTop = chatContent.scrollHeight;
 
     $(".conversation-item").click(function(){
         chatId = $(this).data("id");
@@ -127,13 +137,14 @@ $(document).ready(function(){
         $.get(url.replace(':id',chatId),{page:0},function(result){
             var html = "";
             for (var i in result){
-                console.log(result[i])
                 html += '<div class="row margin-top-10">';
                 if(result[i].from_user_id == userId){
                     html+='<div class="col"><p class="text-right"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].html_message+'</p></div>';
-                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
+                    html+='<div class="col-auto"><a class="no-style" href="'+result[i].from_user.profile_url+'" title="'+result[i].from_user.complete_name+'">';
+                    html+='<img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></a></div>';
                 }else{
-                    html+='<div class="col-auto"><img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></div>';
+                    html+='<div class="col-auto"><a class="no-style" href="'+result[i].from_user.profile_url+'" title="'+result[i].from_user.complete_name+'">';
+                    html+='<img src="'+result[i].from_user.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+result[i].from_user.complete_name+'"></a></div>';
                     html+='<div class="col"><p class="text-left"><small>'+result[i].from_user.complete_name+'</small><br>'+result[i].html_message+'</p></div>';
                 }
                 html+='</div>';   
@@ -171,7 +182,8 @@ $(document).ready(function(){
        if(data.messageObj.conversation_id == chatId){
             var html = "";
             html += '<div class="row margin-top-10">';
-            html+='<div class="col-auto"><img src="'+data.fromUser.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+data.fromUser.complete_name+'"></div>';
+            html+='<div class="col-auto"><a class="no-style" href="'+data.fromUser.profile_url+'" title="'+data.fromUser.complete_name+'">';
+            html+='<img src="'+data.fromUser.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+data.fromUser.complete_name+'"></a></div>';
             html+='<div class="col"><p class="text-left"><small>'+data.fromUser.complete_name+'</small><br>'+data.message+'</p></div>';
             html+='</div>';
             $("#chatContent").append(html);
