@@ -40,7 +40,7 @@ AOS.init();
 
     <h3 class="margin-top-40">Contratti Dinamici</h3>
 
-    <p>Ogni locatore avrà la possibilità di utilizzare i contratti offerti da renteet. Sono dei contratti dinamici con i quali si è coperti un’anno. Essi variano con il variare dei coinquilini. Sono compilati dal locatore e possono essere modificati in ogni tempo, grazie alle guide e alle aree precompilate i contratti saranno sempre a norma di legge.</p>
+    <p>Ogni locatore avrà la possibilità di utilizzare i contratti offerti da renteet. Sono dei contratti dinamici con i quali si è coperti un’anno. Essi variano con il variare dei coinquilini. Sono compilati dal locatore e possono essere modificati in ogni momento, grazie alle guide e alle aree precompilate i contratti saranno sempre a norma di legge.</p>
 
     <h3 class="margin-top-40">Non temere il recesso dei tuoi ospiti</h3>
 
