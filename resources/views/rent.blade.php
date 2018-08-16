@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Rent '.$house->owner->first_name.'\'s house')
+@section('title', $house->name)
 
 @section('content')
 
