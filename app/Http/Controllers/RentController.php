@@ -67,7 +67,7 @@ class RentController extends Controller
                 // controllo se ci sono posti liberi
                 if($room->acceptedUsers()->count() < $room->beds) {
                     // allego l'utente alla casa
-                    $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->first();
+                    $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->where('accepted_by_owner', false)->orderBy('created_at', 'DESC')->first();
                     if($roomUser) {
                         $roomUser->accepted_by_owner = true;
 
