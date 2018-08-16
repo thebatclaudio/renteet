@@ -97,7 +97,7 @@ class UserController extends Controller
 
     public function showHouse() {
 
-        $roomUser = \App\RoomUser::where('room_id',\Auth::user()->livingRooms()->first()->id)->where('user_id',\Auth::user()->id)->first();
+        $roomUser = \App\RoomUser::where('room_id',\Auth::user()->livingRooms()->first()->id)->where('user_id',\Auth::user()->id)->orderBy('created_at', 'desc')->first();
 
         return view('house', [
             'house' => \Auth::user()->livingRooms()->first()->house,
