@@ -42,7 +42,9 @@ class Room extends Model
     }
 
     public function hasUser($id) {
-        $count = $this->belongsToMany('App\User')->where('user_id', $id)->count();
+        $count = $this->acceptedUsers()
+                        ->where('user_id', $id)
+                        ->count();
         return !!$count;
     }
 
