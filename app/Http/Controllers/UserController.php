@@ -100,9 +100,10 @@ class UserController extends Controller
         $roomUser = \App\RoomUser::where('room_id',\Auth::user()->livingRooms()->first()->id)->where('user_id',\Auth::user()->id)->orderBy('created_at', 'desc')->first();
 
         return view('house', [
-            'house' => \Auth::user()->livingRooms()->first()->house,
+            'house' => $roomUser->room->house,
             'room_user_id' => $roomUser->id,
-            'exited' => $roomUser->stop
+            'exited' => $roomUser->stop,
+            'room_id' => $roomUser->room->id
         ]);
     }
 

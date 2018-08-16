@@ -113,15 +113,17 @@ class RentController extends Controller
     }
    
     public function exitFromHouse($id, Request $request) {
-        $room = \Auth::user()->rooms()->where('room_id', $id)->wherePivot('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->wherePivot('stop', NULL)->get();
-        if($room->count()) {
-            $roomUser = RoomUser::where([
-                'user_id' => \Auth::user()->id, 
-                'room_id' => $room->first()->id
-            ])->where('start', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('stop', NULL)->first();
+        $roomUser = RoomUser::where([
+            'user_id' => \Auth::user()->id, 
+            'room_id' => $id,
+            'accepted_by_owner' => true,
+            'stop' => null
+        ])->first();
+        
+        if($roomUser) {
             $roomUser->stop = $request->stopDate;
             if($roomUser->save()) {
-                event(new ExitFromHouse(\Auth::user()->id, $room->first()->house->id));
+                event(new ExitFromHouse(\Auth::user()->id, $roomUser->room->house->id));
                 
                 if($request->stopDate == \Carbon\Carbon::now()->format('Y-m-d')){
                     $conversation = Conversation::where('house_id',$roomUser->house->id)->first();
@@ -133,12 +135,12 @@ class RentController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'status' => 'KO'
+                    'status' => 'KO1'
                 ]);                
             }
         } else {
             return response()->json([
-                'status' => 'KO'
+                'status' => 'KO2'
             ]);
         }
     }

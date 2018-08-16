@@ -263,10 +263,10 @@ $("#exitButton").on('click', function () {
 
           if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
 
-          var url = '{{route('ajax.exit.room', $user->livingRooms()->first()->id)}}';
+          var url = '{{route('ajax.exit.room', $room_id)}}';
           $.post(url, { stopDate: select.val() }, function( data ) {
             if(data.status === 'OK') {
-              swal("Operazione riuscita", "Invia un messaggio al locatore e organizzatevi per il checkout", "success");
+              swal("Operazione riuscita", "Invia un messaggio al locatore e organizzatevi per il checkout", "success").then(() => { location.reload() });
             } else {
               swal("Si è verificato un errore", "Riprova più tardi", "error");
             }

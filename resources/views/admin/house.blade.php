@@ -213,7 +213,7 @@ $(".remove-user").on('click', function () {
       var url = '{{route('ajax.remove.room', [ 'room' => ':room', 'user' => ':user'])}}';
       $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { stop: select.val() }, function( data ) {
         if(data.status === 'OK') {
-          swal("Operazione riuscita", "", "success").then(() => { location.reload() });;
+          swal("Operazione riuscita", "", "success").then(() => { location.reload() });
         } else {
           swal("Si è verificato un errore", "Riprova più tardi", "error");
         }
