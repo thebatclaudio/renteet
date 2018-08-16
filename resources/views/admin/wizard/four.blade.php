@@ -37,11 +37,11 @@
             <option value="female">Donna</option>
         </select>
 
-        <h5 class="margin-top-40">Inserisci il numero minimo di mesi di preavviso al recesso (minimo 3 mesi)</h5>
+        <!--h5 class="margin-top-40">Inserisci il numero minimo di mesi di preavviso al recesso (minimo 3 mesi)</h5>
 
         <div class="form-group">
             <input class="form-control form-control-lg w-25" type="number" min="3" value="3" name="notice_months" placeholder="Mesi di preavviso" required>
-        </div>
+        </div-->
 
         <div class="actions margin-top-20 text-right">
             <button type="submit" id="submit-btn" class="btn btn-success btn-lg">Pubblica il tuo annuncio</button>
