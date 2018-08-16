@@ -126,6 +126,23 @@
                 if(event.keyCode == 13) {
                     if($(":focus").attr('id') == 'search-input'){
                         event.preventDefault();
+
+                        var firstResult = $(".pac-container .pac-item:first").text();
+
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({"address":firstResult }, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                var lat = results[0].geometry.location.lat(),
+                                    lng = results[0].geometry.location.lng();
+
+                                $("#lat").val(lat);
+                                $("#lng").val(lng);
+                                $("#search-input").val(results[0].formatted_address);
+
+                                $("#searchForm").submit();
+                            }
+                        });
+
                         return false;
                     } else {
                         return true;
