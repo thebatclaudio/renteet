@@ -28,7 +28,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            <label for="first_name" class="col-md-4 control-label">Nome</label>
+                            <label for="first_name" class="col-md-12 control-label">Nome</label>
 
                             <div class="col-md-12">
                                 <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
@@ -42,7 +42,7 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-md-4 control-label">Cognome</label>
+                            <label for="last_name" class="col-md-12 control-label">Cognome</label>
 
                             <div class="col-md-12">
                                 <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Indirizzo E-mail</label>
+                            <label for="email" class="col-md-12 control-label">Indirizzo E-mail</label>
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
-                            <label for="birthday" class="col-md-4 control-label">Data di nascita</label>
+                            <label for="birthday" class="col-md-12 control-label">Data di nascita</label>
 
                             <div class="col-md-12">
 
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Crea una Password</label>
+                            <label for="password" class="col-md-12 control-label">Crea una Password (minimo 8 caratteri)</label>
 
                             <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Conferma Password</label>
+                            <label for="password-confirm" class="col-md-12 control-label">Conferma Password</label>
 
                             <div class="col-md-12">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -143,7 +143,7 @@
                         <div class="col-md-12">
                             <div class="form-check checkbox-primary">
                                 <input type="checkbox" class="form-check-input" id="condition" name="condition">
-                                <label for="condition" class="control-label">Ho letto e accetto i <a href="#">termini e le condizioni di utilizzo</a></label>
+                                <label for="condition" class="control-label">Ho letto e accetto i <a href="{{url('/termini-e-condizioni')}}">termini e le condizioni di utilizzo</a></label>
                                 @if ($errors->has('condition'))
                                     <span class="help-block">
                                         <br>

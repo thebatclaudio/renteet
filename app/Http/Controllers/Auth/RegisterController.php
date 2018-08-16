@@ -55,8 +55,19 @@ class RegisterController extends Controller
             'month' => 'required|integer',
             'year' => 'required|integer',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|confirmed',
             'condition' => 'accepted'
+        ], [
+            'first_name.required' => 'Il nome è un campo obbligatorio',
+            'last_name.required' => 'Il cognome è un campo obbligatorio',
+            'day.required' => 'La data di nascita è un campo obbligatorio',
+            'month.required' => 'La data di nascita è un campo obbligatorio',
+            'year.required' => 'La data di nascita è un campo obbligatorio',
+            'email.required' => 'L\'indirizzo E-mail è un campo obbligatorio',
+            'email.unique' => 'L\'indirizzo E-mail inserito è già associato ad un altro utente',
+            'password.required' => 'La password è un campo obbligatorio',
+            'password.min' => 'La password deve contenere almeno 8 caratteri',
+            'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo',
         ]);
     }
 
