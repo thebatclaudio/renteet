@@ -33,11 +33,12 @@
 .icon-circle-half:before {
   content: "\e902";
 }
-.ratingStar {
-  font-size: 36px;
+.rating-star {
+  font-size: 25px;
+  margin: 0px 3px;
 }
 
-.ratingStar:hover {
+.rating-star:hover {
   cursor:pointer;
 }
 

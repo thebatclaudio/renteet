@@ -293,7 +293,7 @@ function ratingSystem(){
         var star = document.createElement("i");
         star.classList.add('far');
         star.classList.add('fa-star');
-        star.classList.add('ratingStar');
+        star.classList.add('rating-star');
         star.dataset.rate = i;
         star.id = 'star-'+i;
         starsContainer.appendChild(star);
