@@ -46,6 +46,11 @@ li.nav-item {
     padding: 10px;
 }
 
+li.nav-item.text-link {
+  padding: 15px 5px;
+  font-size: 14px;
+}
+
 li.nav-item.dropdown {
     padding: 0px;
 }
@@ -60,7 +65,7 @@ li.nav-item.dropdown {
   border-radius: 50%;
   margin-right: 10px;
   margin-top: -2px;
-  margin-left: 20px;
+  margin-left: 0px;
 }
 
 .notifications-menu .profile-pic {
