@@ -49,19 +49,19 @@ footer.page-footer {
     </div>
 
     <div class="arrow-pulse-down">
-      <i class="fas fa-angle-down"></i>
+      <i id="scroll-down" class="fas fa-angle-down"></i>
     </div>
   </div>
   <div class="section" id="section2">
       <div class="content">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" data-aos="fade-right">
               <video width="100%" height="auto" muted loop data-autoplay>
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
-            <div class="col-md-6 text-left">
+            <div class="col-md-6 text-left" data-aos="fade-left">
               <div class="content">
                 <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong class="green-strong">con chi</strong> vivere</h3>
                 <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
@@ -76,7 +76,7 @@ footer.page-footer {
       <div class="content">
         <div class="container">
           <div class="row">
-            <div class="col-md-6 text-left">
+            <div class="col-md-6 text-left" data-aos="fade-right">
               <div class="content">
                 <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
                 <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.</h4>
@@ -84,7 +84,7 @@ footer.page-footer {
                 <a href="{{url('/scopri-i-vantaggi/locatori')}}" title="Scopri i vantaggi per i locatori" class="btn btn-primary btn-how-it-works margin-top-20">Vantaggi per i locatori</a>
               </div>
             </div>
-            <div class="col-md-6 text-left">
+            <div class="col-md-6 text-left" data-aos="fade-left">
               <div class="content">
                 <img class="img-fluid d-none d-sm-block margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
               </div>
@@ -93,14 +93,17 @@ footer.page-footer {
         </div>
       </div>
   </div>
+
   <div class="section" id="section4">
-      <div class="content">
-        <div class="container">
-          <div class="row justify-content-end">
-            <div class="col-lg-6 text-left">
-              <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
-              <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
-              <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-danger btn-how-it-works margin-top-20">Vantaggi per gli ospiti</a>
+      <div class="section4-background" data-aos="fade-right">
+        <div class="content">
+          <div class="container">
+            <div class="row justify-content-end" data-aos="fade-left">
+              <div class="col-lg-6 text-left">
+                <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
+                <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
+                <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-danger btn-how-it-works margin-top-20">Vantaggi per gli ospiti</a>
+              </div>
             </div>
           </div>
         </div>
@@ -111,9 +114,9 @@ footer.page-footer {
     <div id="call-to-action">
       <div class="blur">
         <div class="content text-center">
-          <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
-          <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
-          <div class="row justify-content-md-center">
+          <h3 class="claim" data-aos="fade-in">Fai parte di <strong>renteet</strong></h3>
+          <h4 class="claim text-white margin-top-20" data-aos="fade-in">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
+          <div class="row justify-content-md-center" data-aos="fade-in">
             <div class="col-sm-4">
               <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                 <div class="container margin-top-20">
@@ -140,24 +143,33 @@ footer.page-footer {
 @endsection
 
 @section('scripts')
+<!--Start mc_embed_signup-->
 <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 <!--End mc_embed_signup-->
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#fullpage').fullpage({
-      verticalCentered: false,
-      slidesNavigation: true,
-      onLeave: function(index, nextIndex, direction){
-        if(nextIndex == 2) {
-          $("#home-navbar").removeClass("transparent-navbar");
-        }
 
-        if(nextIndex == 1) {
-          $("#home-navbar").addClass("transparent-navbar");
-        }
-			},
-    });
-  });
+<script>
+
+var topPosition = 200;
+
+function changeHeaderStyle() {
+  if ($(window).scrollTop() > topPosition) {
+    $("#home-navbar").removeClass("transparent-navbar");
+  } else {
+    $("#home-navbar").addClass("transparent-navbar");
+  }
+}
+
+$(document).ready(function() {
+  changeHeaderStyle();
+
+  $(window).scroll(changeHeaderStyle);
+});
+
+$("#scroll-down").click(function(){
+  $('html, body').animate({
+    scrollTop: $("#section2").offset().top
+  }, 1000);
+});
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.3/aos.js"></script>
