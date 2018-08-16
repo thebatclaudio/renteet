@@ -144,7 +144,7 @@ class UserController extends Controller
             \Auth::user()->languages()->syncWithoutDetaching($languagesToAdd);
         }
 
-        \Auth::user()->signup_complete = 1;
+        \Auth::user()->signup_complete = true;
         \Auth::user()->save();
         return redirect()->to('home');
     }
