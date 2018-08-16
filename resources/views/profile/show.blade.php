@@ -159,7 +159,9 @@
                                         <div class="speech-bubble">
                                             <div class="row">
                                                 <div class="col-auto">
-                                                    <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
+                                                        <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    </a>
                                                 </div>
                                                 <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
@@ -187,7 +189,9 @@
                                         <div class="speech-bubble">
                                             <div class="row">
                                                 <div class="col-auto">
-                                                    <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
+                                                        <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    </a>
                                                 </div>
                                                 <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
@@ -217,7 +221,9 @@
                                         <div class="speech-bubble">
                                             <div class="row">
                                                 <div class="col-auto">
-                                                    <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
+                                                        <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
+                                                    </a>
                                                 </div>
                                                 <div class="col text-center">
                                                     <p>{{ $review->text }}</p>

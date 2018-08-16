@@ -213,7 +213,9 @@
                   @endif
                 @endif
                 <div class="col-md-4 text-center">
-                <img src="{{$review->fromUser->profile_pic}}" alt="{{$review->fromUser->first_name}} {{$review->fromUser->last_name}}" class="rounded-circle" style="max-width:120px;">
+                <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
+                  <img src="{{$review->fromUser->profile_pic}}" alt="{{$review->fromUser->first_name}} {{$review->fromUser->last_name}}" class="rounded-circle" style="max-width:120px;">
+                </a>
                 <h6 class="margin-top-15">{{$review->fromUser->first_name}}</h6>
                 <div class="rating-stars-container margin-top-20">
                   @for($i = 1; $i < 6; $i++)
