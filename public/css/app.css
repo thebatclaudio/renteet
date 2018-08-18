@@ -744,6 +744,13 @@ span.new-message-badge {
     right: 15px;
   }
 
+  .conversation-item.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #609ad3;
+    border-color: #5b89b7;
+  }
+
   @media (max-width: 575px) {
     .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
       color: #ffffff;

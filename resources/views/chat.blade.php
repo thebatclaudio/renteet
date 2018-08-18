@@ -20,7 +20,7 @@
                 <div style="height:400px; overflow-y:scroll">
                     <div class="list-group">
                         @forelse($conversations as $conversation)
-                            <a href="#" data-id="{{$conversation->id}}" class="conversation-item list-group-item list-group-item-action flex-column align-items-start">
+                            <a href="#" data-id="{{$conversation->id}}" class="conversation-item list-group-item list-group-item-action flex-column align-items-start {{($loop->first) ? 'active' : ''}}">
                                 <div class="row">
                                     <div class="col-md-auto">
                                         <img src="{{$conversation->image_url}}" class="img-fluid rounded-circle" style="max-width:60px;" alt="{{$conversation->name}}">
@@ -132,6 +132,8 @@ $(document).ready(function(){
     chatContent.scrollTop = chatContent.scrollHeight;
 
     $(".conversation-item").click(function(){
+        $(".conversation-item.active").removeClass("active");
+        $(this).addClass("active");
         chatId = $(this).data("id");
         var url = "{{route('ajax.chat.messages',['id'=>':id'])}}";
         $.get(url.replace(':id',chatId),{page:0},function(result){
