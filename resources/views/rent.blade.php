@@ -68,7 +68,9 @@
                   
                   @if($user->pivot->available_from)
                   <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
-                  <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                    @if(!$house->hasUser(\Auth::user()->id))
+                    <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                    @endif
                   @else
                   <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
                   @endif
@@ -82,7 +84,9 @@
               <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                 <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
                 <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
-                <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                @if(!$house->hasUser(\Auth::user()->id))
+                  <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                @endif
               </div>
               @endif
             @endforeach
@@ -270,8 +274,10 @@
                   <a href="{{$house->owner->profile_url}}">
                     <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
                   </a>
-                  @if(\Auth::user()->id != $house->owner->id)
-                    <buttom id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                  @if(\Auth::check())
+                    @if(\Auth::user()->id != $house->owner->id)
+                      <buttom id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                    @endif
                   @endif
                 </div>
                 <div class="col-sm-9 padding-left-20">
