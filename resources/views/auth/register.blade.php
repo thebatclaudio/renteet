@@ -34,9 +34,9 @@
                                 <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
                                 @if ($errors->has('first_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </span>
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('first_name') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -48,9 +48,9 @@
                                 <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
 
                                 @if ($errors->has('last_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('last_name') }}</strong>
-                                    </span>
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('last_name') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -62,9 +62,9 @@
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
                                 @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('email') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -111,9 +111,9 @@
                                 </div>
 
                                 @if ($errors->has('birthday'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('birthday') }}</strong>
-                                    </span>
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('birthday') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -125,9 +125,9 @@
                                 <input id="password" type="password" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('password') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -144,13 +144,12 @@
                             <div class="form-check checkbox-primary">
                                 <input type="checkbox" class="form-check-input" id="condition" name="condition">
                                 <label for="condition" class="control-label">Ho letto e accetto i <a href="{{url('/termini-e-condizioni')}}">termini e le condizioni di utilizzo</a></label>
-                                @if ($errors->has('condition'))
-                                    <span class="help-block">
-                                        <br>
-                                        <strong>{{ $errors->first('condition') }}</strong>
-                                    </span>
-                                @endif
                             </div>
+                            @if ($errors->has('condition'))
+                                <div class="alert alert-warning margin-top-10" role="alert">
+                                    {{ $errors->first('condition') }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group">
