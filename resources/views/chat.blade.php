@@ -183,14 +183,6 @@ $(document).ready(function(){
     channel.bind('App\\Events\\MessageReceived', function(data) {
        if(data.messageObj.conversation_id == chatId){
             $('*[data-id="'+data.messageObj.conversation_id+'"]').click();
-            {{-- var html = "";
-            html += '<div class="row margin-top-10">';
-            html+='<div class="col-auto"><a class="no-style" href="'+data.fromUser.profile_url+'" title="'+data.fromUser.complete_name+'">';
-            html+='<img src="'+data.fromUser.profile_pic+'" class="img-fluid rounded-circle" style="max-width:60px;" alt="'+data.fromUser.complete_name+'"></a></div>';
-            html+='<div class="col"><p class="text-left"><small>'+data.fromUser.complete_name+'</small><br>'+data.message+'</p></div>';
-            html+='</div>';
-            $("#chatContent").append(html);
-            chatContent.scrollTop = chatContent.scrollHeight; --}}
        }else{
             var count = $("#counter_"+data.messageObj.conversation_id).text();
             $("#counter_"+data.messageObj.conversation_id).text(parseInt(count) + 1);
