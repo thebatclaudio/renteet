@@ -255,6 +255,11 @@ small.notification-date {
   padding: 15px 15px 5px;
 }
 
+.register-container {
+  padding-bottom: 80px;
+  margin-bottom: -120px;
+}
+
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
   

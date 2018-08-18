@@ -13,7 +13,7 @@
 
 @section('content')
 <div id="register-wrapper">
-    <div class="container">
+    <div class="container register-container">
         <div class="row">
             <div class="col-sm-6">
                 <div class="card register-card">
