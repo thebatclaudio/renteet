@@ -101,7 +101,7 @@
             var counter = $('#counterMessages').text();
             $('#counterMessages').text(parseInt(counter)+1);
             $('#badge-messages').text(parseInt(counter)+1);
-            $('#newMessageBadge').fadeIn();
+            $('#newMessageBadgegi').fadeIn();
         }
     });
 
