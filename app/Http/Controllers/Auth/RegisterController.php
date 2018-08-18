@@ -67,6 +67,7 @@ class RegisterController extends Controller
             'email.unique' => 'L\'indirizzo E-mail inserito è già associato ad un altro utente',
             'password.required' => 'La password è un campo obbligatorio',
             'password.min' => 'La password deve contenere almeno 8 caratteri',
+            'password.confirmed' => 'Le due password non corrispondono',
             'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo',
         ]);
     }
