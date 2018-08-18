@@ -6,15 +6,19 @@
 <link rel="stylesheet" href="/css/myhouse.css?{{rand()}}">
 <style>
 label > input{ /* HIDE RADIO */
-  visibility: hidden; /* Makes input not-clickable */
-  position: absolute; /* Remove input from document flow */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
 }
 label > input + img{ /* IMAGE STYLES */
-  cursor:pointer;
-  border:2px solid transparent;
+    cursor:pointer;
+    border:5px solid transparent;
 }
-label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
-  border:2px solid #f00;
+label > input:checked + img {
+    border: 5px solid #619bd5;
+}
+label > input:checked ~ p {
+    color: #619bd5;
+    font-weight: 800;
 }
 textarea{
     resize:none;
@@ -124,11 +128,17 @@ $.ajaxSetup({
     }
 });
 
+
+// * SWAL PER RECENSIONI * //
+
 $('#reviewButton').on('click',function(){
 
+    // creo il radio container con utenti e casa da poter recensire
     var radioContainer = document.createElement("form");
         radioContainer.classList.add("row");
         radioContainer.id = 'radioForm';
+
+    // aggiungo il primo elemento del radio relativo alla casa
     var col = document.createElement("div");
         col.classList.add("col");
     var label = document.createElement("label");
@@ -142,38 +152,41 @@ $('#reviewButton').on('click',function(){
         image.classList.add("img-fluid"); 
         image.classList.add("rounded-circle");
     var pName = document.createElement("p");
-        pName.innerText = "{{$house->name}}";    
+        pName.innerText = "{{$house->name}}";
+        pName.classList.add("margin-top-10");
         label.appendChild(input);
         label.appendChild(image);
         label.appendChild(pName);
         col.appendChild(label);
         radioContainer.appendChild(col);
 
-        @foreach($house->rooms as $room)
-            @foreach($room->acceptedUsers as $user)
-                @if($user->id !== \Auth::user()->id)
-                    var col = document.createElement("div");
-                    col.classList.add("col");
-                    var label = document.createElement("label");
-                    var input = document.createElement("input");
-                    input.type = "radio";
-                    input.name = "type";
-                    input.classList.add("radioReview");
-                    input.value = "{{$user->id}}";
-                    var image = document.createElement("img");
-                    image.src = "{{$user->profile_pic}}";
-                    image.classList.add("img-fluid"); 
-                    image.classList.add("rounded-circle");
-                    var pName = document.createElement("p");
-                    pName.innerText = "{{$user->complete_name}}";
-                    label.appendChild(input);
-                    label.appendChild(image);
-                    label.appendChild(pName);
-                    col.appendChild(label);
-                    radioContainer.appendChild(col);
-                @endif
-            @endforeach
+    // ciclo i coinquilini e creo un elemento del radio input per ognuno di loro
+    @foreach($house->rooms as $room)
+        @foreach($room->acceptedUsers as $user)
+            @if($user->id !== \Auth::user()->id)
+                var col = document.createElement("div");
+                col.classList.add("col");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.type = "radio";
+                input.name = "type";
+                input.classList.add("radioReview");
+                input.value = "{{$user->id}}";
+                var image = document.createElement("img");
+                image.src = "{{$user->profile_pic}}";
+                image.classList.add("img-fluid"); 
+                image.classList.add("rounded-circle");
+                var pName = document.createElement("p");
+                pName.innerText = "{{$user->complete_name}}";
+                pName.classList.add("margin-top-10");
+                label.appendChild(input);
+                label.appendChild(image);
+                label.appendChild(pName);
+                col.appendChild(label);
+                radioContainer.appendChild(col);
+            @endif
         @endforeach
+    @endforeach
 
     swal({
           title: "Chi vuoi recensire?",
@@ -182,13 +195,12 @@ $('#reviewButton').on('click',function(){
             className: "nextButtonSwal",
             closeModal: false
           }],
-          content: radioContainer
+          content: radioContainer // aggiungo il radio container creato precedentemente
         })
         .then((send) => {
-
-            if (!send) throw null;
             var formVal = $('input[name=type]:checked','#radioForm').val();
-            if(!formVal) throw null;
+            if (!send || !formVal) throw null;
+
             swal({
                 title: "Lascia qui la tua recensione",
                 buttons: [true, {
@@ -215,7 +227,7 @@ $('#reviewButton').on('click',function(){
             });
         })
         .catch(err => {
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
+            if(err) swal("Si è verificato un errore", "Riprova più tardi", "error");
         });
         $('.nextButtonSwal').attr('disabled',true);
         $('.radioReview').on('change',function(){
