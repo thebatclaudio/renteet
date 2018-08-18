@@ -201,6 +201,7 @@ $('#reviewButton').on('click',function(){
             var formVal = $('input[name=type]:checked','#radioForm').val();
             if (!send || !formVal) throw null;
 
+            // se è stato selezionato un elemento allora lancio un'altra swal per il contenuto della recensione
             swal({
                 title: "Lascia qui la tua recensione",
                 buttons: [true, {
@@ -211,7 +212,8 @@ $('#reviewButton').on('click',function(){
                 content: ratingSystem()
             }).then((send) =>{
                 if(!send) throw null;
-                if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw null;
+                if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw 'MISSING_DATA';
+
                 var url = '{{route('user.rate', ':id')}}';
                 $.post(url.replace(':id',formVal), { rating: $('#hiddenInputStar').val(),message:$('#textareaReview').val(),room_user_id:{{$room_user_id}}}, function( data ) {
                     if(data.status === 'OK') {
@@ -223,13 +225,23 @@ $('#reviewButton').on('click',function(){
 
             })
             .catch((err)=>{
-                swal("Si è verificato un errore", "Riprova più tardi", "error");
+                if(err) {
+                    if(err === 'MISSING_DATA') {
+                        swal("Dati mancanti", "Completa tutti i dati per poter inserire la recensione", "error");
+                    } else {
+                        swal("Si è verificato un errore", "Riprova più tardi", "error");
+                    }
+                }
             });
+
+            $('.nextButtonSwal').attr('disabled',true);
         })
         .catch(err => {
             if(err) swal("Si è verificato un errore", "Riprova più tardi", "error");
         });
+
         $('.nextButtonSwal').attr('disabled',true);
+
         $('.radioReview').on('change',function(){
             $('.nextButtonSwal').attr('disabled',false);
         });
@@ -327,13 +339,23 @@ function ratingSystem(){
     return starsContainer;
 }
 
-$('body').on('click','.ratingStar',function(){
+$('body').on('click','.rating-star',function(){
     var rating = $(this).data('rate');
     $('#hiddenInputStar').val(rating);
-    $('.ratingStar').removeClass('checked').removeClass('fas').addClass('far');
+    $('.rating-star').removeClass('checked').removeClass('fas').addClass('far');
     
     for(i = 0; i<=rating;i++){
         $('#star-'+i).addClass('checked').removeClass('far').addClass('fas');
+    }
+
+    if($("#textareaReview").val() && $("#textareaReview").val() != "") {
+        $('.nextButtonSwal').attr('disabled',false);
+    }
+});
+
+$('body').on('keyup','#textareaReview',function(){
+    if($('#hiddenInputStar').val() && $('#hiddenInputStar').val != "" && $("#textareaReview").val() && $("#textareaReview").val() != "") {
+        $('.nextButtonSwal').attr('disabled',false);
     }
 });
 </script>
