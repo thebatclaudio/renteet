@@ -128,124 +128,7 @@ $.ajaxSetup({
     }
 });
 
-
-// * SWAL PER RECENSIONI * //
-
-$('#reviewButton').on('click',function(){
-
-    // creo il radio container con utenti e casa da poter recensire
-    var radioContainer = document.createElement("form");
-        radioContainer.classList.add("row");
-        radioContainer.id = 'radioForm';
-
-    // aggiungo il primo elemento del radio relativo alla casa
-    var col = document.createElement("div");
-        col.classList.add("col");
-    var label = document.createElement("label");
-    var input = document.createElement("input");
-        input.type = "radio";
-        input.name = "type";
-        input.classList.add("radioReview");
-        input.value = "house";
-    var image = document.createElement("img");
-        image.src = "{{$house->preview_image_url}}";
-        image.classList.add("img-fluid"); 
-        image.classList.add("rounded-circle");
-    var pName = document.createElement("p");
-        pName.innerText = "{{$house->name}}";
-        pName.classList.add("margin-top-10");
-        label.appendChild(input);
-        label.appendChild(image);
-        label.appendChild(pName);
-        col.appendChild(label);
-        radioContainer.appendChild(col);
-
-    // ciclo i coinquilini e creo un elemento del radio input per ognuno di loro
-    @foreach($house->rooms as $room)
-        @foreach($room->acceptedUsers as $user)
-            @if($user->id !== \Auth::user()->id)
-                var col = document.createElement("div");
-                col.classList.add("col");
-                var label = document.createElement("label");
-                var input = document.createElement("input");
-                input.type = "radio";
-                input.name = "type";
-                input.classList.add("radioReview");
-                input.value = "{{$user->id}}";
-                var image = document.createElement("img");
-                image.src = "{{$user->profile_pic}}";
-                image.classList.add("img-fluid"); 
-                image.classList.add("rounded-circle");
-                var pName = document.createElement("p");
-                pName.innerText = "{{$user->complete_name}}";
-                pName.classList.add("margin-top-10");
-                label.appendChild(input);
-                label.appendChild(image);
-                label.appendChild(pName);
-                col.appendChild(label);
-                radioContainer.appendChild(col);
-            @endif
-        @endforeach
-    @endforeach
-
-    swal({
-          title: "Chi vuoi recensire?",
-          buttons: [true, {
-            text: "Avanti",
-            className: "nextButtonSwal",
-            closeModal: false
-          }],
-          content: radioContainer // aggiungo il radio container creato precedentemente
-        })
-        .then((send) => {
-            var formVal = $('input[name=type]:checked','#radioForm').val();
-            if (!send || !formVal) throw null;
-
-            // se è stato selezionato un elemento allora lancio un'altra swal per il contenuto della recensione
-            swal({
-                title: "Lascia qui la tua recensione",
-                buttons: [true, {
-                    text: "Avanti",
-                    className: "nextButtonSwal",
-                    closeModal: false
-                }],
-                content: ratingSystem()
-            }).then((send) =>{
-                if(!send) throw null;
-                if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw 'MISSING_DATA';
-
-                var url = '{{route('user.rate', ':id')}}';
-                $.post(url.replace(':id',formVal), { rating: $('#hiddenInputStar').val(),message:$('#textareaReview').val(),room_user_id:{{$room_user_id}}}, function( data ) {
-                    if(data.status === 'OK') {
-                        swal("Recensione inserita correttamente", "", "success");
-                    } else {
-                        swal("Si è verificato un errore", "Riprova più tardi", "error");
-                    }
-                });
-
-            })
-            .catch((err)=>{
-                if(err) {
-                    if(err === 'MISSING_DATA') {
-                        swal("Dati mancanti", "Completa tutti i dati per poter inserire la recensione", "error");
-                    } else {
-                        swal("Si è verificato un errore", "Riprova più tardi", "error");
-                    }
-                }
-            });
-
-            $('.nextButtonSwal').attr('disabled',true);
-        })
-        .catch(err => {
-            if(err) swal("Si è verificato un errore", "Riprova più tardi", "error");
-        });
-
-        $('.nextButtonSwal').attr('disabled',true);
-
-        $('.radioReview').on('change',function(){
-            $('.nextButtonSwal').attr('disabled',false);
-        });
-});
+// * SWAL PER ABBANDONO * //
 
 $("#exitButton").on('click', function () {
 
@@ -310,9 +193,141 @@ $("#exitButton").on('click', function () {
         });
 });
 
-function ratingSystem(){
+
+// * SWAL PER RECENSIONI * //
+
+$('#reviewButton').on('click',function(){
+
+    // creo il radio container con utenti e casa da poter recensire
+    var radioContainer = document.createElement("form");
+        radioContainer.classList.add("row");
+        radioContainer.id = 'radioForm';
+
+    // aggiungo il primo elemento del radio relativo alla casa
+    var col = document.createElement("div");
+        col.classList.add("col");
+    var label = document.createElement("label");
+    var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "type";
+        input.classList.add("radioReview");
+        input.value = "house";
+        input.dataset.name = "{{$house->name}}";
+    var image = document.createElement("img");
+        image.src = "{{$house->preview_image_url}}";
+        image.classList.add("img-fluid"); 
+        image.classList.add("rounded-circle");
+    var pName = document.createElement("p");
+        pName.innerText = "{{$house->name}}";
+        pName.classList.add("margin-top-10");
+        label.appendChild(input);
+        label.appendChild(image);
+        label.appendChild(pName);
+        col.appendChild(label);
+        radioContainer.appendChild(col);
+
+    // ciclo i coinquilini e creo un elemento del radio input per ognuno di loro
+    @foreach($house->rooms as $room)
+        @foreach($room->acceptedUsers as $user)
+            @if($user->id !== \Auth::user()->id)
+                var col = document.createElement("div");
+                col.classList.add("col");
+                var label = document.createElement("label");
+                var input = document.createElement("input");
+                input.type = "radio";
+                input.name = "type";
+                input.classList.add("radioReview");
+                input.value = "{{$user->id}}";
+                input.dataset.name = "{{$user->complete_name}}";
+                var image = document.createElement("img");
+                image.src = "{{$user->profile_pic}}";
+                image.classList.add("img-fluid"); 
+                image.classList.add("rounded-circle");
+                var pName = document.createElement("p");
+                pName.innerText = "{{$user->complete_name}}";
+                pName.classList.add("margin-top-10");
+                label.appendChild(input);
+                label.appendChild(image);
+                label.appendChild(pName);
+                col.appendChild(label);
+                radioContainer.appendChild(col);
+            @endif
+        @endforeach
+    @endforeach
+
+    swal({
+          title: "Chi vuoi recensire?",
+          buttons: [true, {
+            text: "Avanti",
+            className: "nextButtonSwal",
+            closeModal: false
+          }],
+          content: radioContainer // aggiungo il radio container creato precedentemente
+        })
+        .then((send) => {
+            var formVal = $('input[name=type]:checked','#radioForm').val();
+            var name = $('input[name=type]:checked','#radioForm').data("name");
+            if (!send || !formVal) throw null;
+
+            // se è stato selezionato un elemento allora lancio un'altra swal per il contenuto della recensione
+            swal({
+                title: "Recensisci "+name,
+                buttons: [true, {
+                    text: "Avanti",
+                    className: "nextButtonSwal",
+                    closeModal: false
+                }],
+                content: ratingSystem((formVal == 'house'))
+            }).then((send) =>{
+                if(!send) throw null;
+                if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw 'MISSING_DATA';
+
+                var url = '{{route('user.rate', ':id')}}';
+                $.post(url.replace(':id',formVal), { rating: $('#hiddenInputStar').val(),message:$('#textareaReview').val(),room_user_id:{{$room_user_id}}}, function( data ) {
+                    if(data.status === 'OK') {
+                        swal("Recensione inserita correttamente", "", "success");
+                    } else {
+                        swal("Si è verificato un errore", "Riprova più tardi", "error");
+                    }
+                });
+
+            })
+            .catch((err)=>{
+                if(err) {
+                    if(err === 'MISSING_DATA') {
+                        swal("Dati mancanti", "Completa tutti i dati per poter inserire la recensione", "error");
+                    } else {
+                        swal("Si è verificato un errore", "Riprova più tardi", "error");
+                    }
+                }
+            });
+
+            $('.nextButtonSwal').attr('disabled',true);
+        })
+        .catch(err => {
+            if(err) swal("Si è verificato un errore", "Riprova più tardi", "error");
+        });
+
+        $('.nextButtonSwal').attr('disabled',true);
+
+        $('.radioReview').on('change',function(){
+            $('.nextButtonSwal').attr('disabled',false);
+        });
+});
+
+function ratingSystem(isHouse){
     var starsContainer = document.createElement("form");
     starsContainer.classList.add('rating-stars-container');
+
+    // Se sto recensendo la casa allora inserisco il messaggio
+    if(isHouse) {
+        var message = document.createElement("p");
+        message.innerText = "Nella tua recensione ricordati di valutare anche il rapporto avuto con il locatore";
+        message.classList.add("margin-top-20");
+        message.classList.add("margin-bottom-20");
+        starsContainer.appendChild(message);
+    }
+
     for(i = 0; i < 5; i++){
         var star = document.createElement("i");
         star.classList.add('far');
