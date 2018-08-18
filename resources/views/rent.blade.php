@@ -61,20 +61,30 @@
 
             {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
             @foreach($room->acceptedUsers as $user)
-              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+              <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                 <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
                   <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
+                  
+                  
+                  @if($user->pivot->available_from)
+                  <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
+                  <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                  @else
                   <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
+                  @endif
                 </a>
               </div>
             @endforeach
 
             {{-- PER OGNI STANZA STAMPO I POSTI VUOTI MA NON ANCORA DISPONIBILI --}}
             @foreach($room->notAvailableBeds as $user)
-              <div class="bed-container col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+              @if($user->pivot->stop < \Carbon\Carbon::now()->format('Y-m-d'))
+              <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                 <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
                 <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
+                <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
               </div>
+              @endif
             @endforeach
 
             {{-- se ci sono posti liberi --}}
@@ -315,6 +325,8 @@
       @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
       $(".free-bed").on("click", function () {
 
+        var button = $(this).children("p").children(".rent-house");
+
         var dateSelect = document.createElement("select");
         dateSelect.classList.add("form-control");
         dateSelect.id = "start-date";
@@ -328,7 +340,13 @@
         option.selected = true;
         dateSelect.appendChild( option );
 
-        var date = moment().subtract(1, 'days');
+        // se è una prenotazione ("Disponibile dal...") allora faccio partire la select dalla data di ritorno alla disponibilità
+
+        if(button.data('start')){
+          var date = moment(button.data("start"), 'YYYY-MM-DD').subtract(1, 'days');
+        } else {
+          var date = moment().subtract(1, 'days');
+        }
         for(var i = 0; i < 90; i++) {
           date.add(1, 'days');
           option = document.createElement('option');
@@ -350,7 +368,6 @@
 
           if (!send) throw null;
 
-          var button = $(this).children("p").children(".rent-house");
           var select = $("#start-date");
 
           if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
