@@ -93,7 +93,9 @@
             <a class="nav-link" href="{{route('chat.show')}}">
                 Messaggi
                 @if(\Auth::user()->allUnreadedCount() > 0)
-                    <span id="counterMessages" class="float-right badge badge-danger badge-pill"></span>
+                    <span id="newMessageBadge" class="new-message-badge"></span>
+                @else
+                    <span id="newMessageBadge" class="new-message-badge" style="display: none"></span>
                 @endif
             </a>
         </li>
