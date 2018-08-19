@@ -55,6 +55,14 @@ li.nav-item.dropdown {
     padding: 0px;
 }
 
+.navbar.navbar-dark .breadcrumb .nav-item .nav-link:hover, .navbar.navbar-dark .navbar-nav .nav-item .nav-link:hover {
+  color: rgb(253, 211, 126);
+}
+
+footer.page-footer ul.footer-menu>li>a:hover {
+  color: #609ad3;
+}
+
 .dropdown-toggle::after {
     display: none;
 }
