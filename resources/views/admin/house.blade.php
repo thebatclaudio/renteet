@@ -345,7 +345,9 @@
                 tenant: true
             }, function( data ) {
                 if(data.status === 'OK') {
-                    swal("Recensione inserita correttamente", "", "success");
+                    swal("Recensione inserita correttamente", "", "success").then(() => {
+                        location.reload();  
+                    });
                 } else {
                     swal("Si è verificato un errore", "Riprova più tardi", "error");
                 }
