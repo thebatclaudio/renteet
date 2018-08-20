@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function newHouseWizardStepOneSave(Request $request){
         $validatedData = $request->validate([
             'tipologia' => 'required',
-            'address' => 'required',
+            'renteet_house_address' => 'required',
             'address_lat' => 'required',
             'address_lng' => 'required',
             'address_name' => 'required',
@@ -41,7 +41,7 @@ class AdminController extends Controller
 
         //TODO: l'ideale sarebbe gestirlo con il place_id di google maps
         $house = new House;
-        $house->name = $request->address;
+        $house->name = $request->renteet_house_address;
         $house->street_name = $request->address_name;
         $house->number = $request->address_number;
         $house->city = $request->address_city;
@@ -156,14 +156,13 @@ class AdminController extends Controller
             'id' => 'required',
             'auto_accept' => 'required',
             'gender' => 'required',
-            'notice_months' => 'required'
         ]);
 
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
                 $house->auto_accept = $request->input('auto_accept');
                 $house->gender = $request->input('gender');
-                $house->notice_months = $request->input('notice_months');
+                $house->notice_months = 3;
                 $house->last_step = 4;
                 $house->save();
 

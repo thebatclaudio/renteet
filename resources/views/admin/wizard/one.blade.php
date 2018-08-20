@@ -30,7 +30,7 @@
                 <label for="address">Inserisci l'indirizzo</label>
                 <div class="row">
                     <div class="col-md-10" style="padding-right: 1px">
-                        <input id="address" name="address" class="form-control w-100" type="text" placeholder="Inserisci una via" required autocomplete="off" />
+                        <input id="address" name="renteet_house_address" class="form-control w-100" type="text" placeholder="Inserisci una via" required autocomplete="stocazzo" />
                     </div>
                     <div class="col-md-2" style="padding-left: 1px">
                         <input id="address_number" name="address_number" class="form-control w-100" type="text" placeholder="N°" required />

@@ -38,7 +38,10 @@ class Room extends Model
     }
 
     public function pendingUsers() {
-        return $this->belongsToMany('App\User')->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')->where('accepted_by_owner', false);
+        return $this->belongsToMany('App\User')
+            ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+            ->where('accepted_by_owner', false)
+            ->where('start', '>=',\Carbon\Carbon::now()->format('Y-m-d'));
     }
 
     public function hasUser($id) {
