@@ -106,7 +106,7 @@
                     @endforeach
                 </div>
                 <div class="col">
-                    <h5>Inquilini precedenti</h5>
+                    <h5>Ospiti precedenti</h5>
                     <hr>
                     @foreach($house->rooms as $room)
                         @php
@@ -125,7 +125,11 @@
                                                 <li>Ha soggiornato dal <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</strong> al <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</strong></li>
                                             </ul>
 
-                                            <button class="btn btn-outline-success btn-sm review-user" data-name="{{$user->complete_name}}" data-user="{{$user->id}}" data-room-user="{{$user->pivot->id}}">Lascia una recensione</button>
+                                            @if(\App\Review::where('room_user_id', $user->pivot->id)->where('from_user_id', \Auth::user()->id)->where('to_user_id', $user->id)->count())
+                                                <div class="alert alert-light" role="alert"><i class="fas fa-check"></i> Ospite recensito</div>
+                                            @else
+                                                <button class="btn btn-outline-success btn-sm review-user" data-name="{{$user->complete_name}}" data-user="{{$user->id}}" data-room-user="{{$user->pivot->id}}">Lascia una recensione</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
