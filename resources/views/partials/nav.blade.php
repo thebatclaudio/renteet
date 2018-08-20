@@ -30,7 +30,7 @@
                 @endif
 
                 @if(\Auth::user()->pendingRequests()->count() >= 1)
-                    <a href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
+                    <a class="dropdown-item" href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
                 @endif
                 
                 <a class="dropdown-item" href="{{route('chat.show')}}">
