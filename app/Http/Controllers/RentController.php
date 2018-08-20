@@ -25,7 +25,13 @@ class RentController extends Controller
         // controllo se esiste la stanza
         if($room = Room::find($id)){
             // controllo se ci sono posti liberi
-            if($room->acceptedUsers()->count() < $room->beds) {
+
+            // conto gli utenti presenti nella stanza nel giorno di inizio soggiorno
+            $currentUsers = $room->acceptedUsers()->where(function($query) use($request){
+                return $query->whereNull('stop')
+                    ->orWhere('available_from', '>=', $request->startDate);
+            })->count();
+            if($currentUsers < $room->beds) {
                 // controllo se l'utente è il proprietario
                 if($room->house->owner_id != \Auth::user()->id){
                     // allego l'utente alla casa
@@ -65,7 +71,14 @@ class RentController extends Controller
             //controllo se l'utente loggato è il proprietario
             if($room->house->owner->id == \Auth::user()->id) {
                 // controllo se ci sono posti liberi
-                if($room->acceptedUsers()->count() < $room->beds) {
+
+                // conto gli utenti presenti nella stanza nel giorno di inizio soggiorno
+                $currentUsers = $room->acceptedUsers()->where(function($query) use($request){
+                    return $query->whereNull('stop')
+                        ->orWhereNull('available_from');
+                })->count();
+
+                if($currentUsers < $room->beds) {
                     // allego l'utente alla casa
                     $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->where('accepted_by_owner', false)->orderBy('created_at', 'DESC')->first();
                     if($roomUser) {
