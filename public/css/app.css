@@ -59,10 +59,6 @@ li.nav-item.dropdown {
   color: rgb(253, 211, 126);
 }
 
-footer.page-footer ul.footer-menu>li>a:hover {
-  color: #609ad3;
-}
-
 .dropdown-toggle::after {
     display: none;
 }
@@ -640,6 +636,10 @@ span.new-message-badge {
 
   footer.page-footer h6, footer.page-footer ul.footer-menu>li>a:link, footer.page-footer ul.footer-menu>li>a:visited, footer.page-footer ul.footer-menu>li>a:active, .footer-menu-title {
     color: #212121;
+  }
+
+  footer.page-footer ul.footer-menu>li>a:hover {
+    color: #609ad3;
   }
 
   .footer-menu.no-title {
