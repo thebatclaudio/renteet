@@ -38,7 +38,7 @@ class Room extends Model
 
     public function previousUsers() {
         return $this->belongsToMany('App\User')
-        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from', 'id')
         ->where('accepted_by_owner', true)
         ->where('stop','<',\Carbon\Carbon::now()->format('Y-m-d'));
     }

@@ -138,13 +138,13 @@
                     <h5>Recensioni</h5>
 
                     @if($user->lessor)
-                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Coinquilino">
+                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Ospite">
                             <button id="guests-reviews-button" class="btn btn-sm btn-success">Locatore</button>
-                            <button id="roommates-reviews-button" class="btn btn-sm btn-outline-success">Coinquilino</a>
+                            <button id="roommates-reviews-button" class="btn btn-sm btn-outline-success">Ospite</a>
                         </div>
                     @else
-                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Coinquilino">
-                            <button id="roommates-reviews-button" class="btn btn-success">Coinquilino</a>
+                        <div class="btn-group margin-top-10 margin-bottom-10" role="group" aria-label="Locatore / Ospite">
+                            <button id="roommates-reviews-button" class="btn btn-success">Ospite</a>
                         </div>    
                     @endif
                 </div>
@@ -188,10 +188,14 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-auto">
+                                                <div class="col-auto text-center">
                                                     <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
                                                         <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                     </a>
+                                                    <br/>
+                                                    @if($review->tenant)
+                                                        <span class="badge elegant-color">Locatore</span>
+                                                    @endif
                                                 </div>
                                                 <div class="col text-center">
                                                     <p>{{ $review->text }}</p>
@@ -220,10 +224,14 @@
                                     <div class="review">
                                         <div class="speech-bubble">
                                             <div class="row">
-                                                <div class="col-auto">
+                                                <div class="col-auto text-center">
                                                     <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
                                                         <img src="{{ $review->fromUser->profile_pic }}" class="rounded-circle avatar">
                                                     </a>
+                                                    <br/>
+                                                    @if($review->tenant)
+                                                        <span class="badge badge-primary">Locatore</span>
+                                                    @endif
                                                 </div>
                                                 <div class="col text-center">
                                                     <p>{{ $review->text }}</p>

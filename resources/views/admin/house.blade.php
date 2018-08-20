@@ -124,8 +124,8 @@
                                             <ul class="list-unstyled">
                                                 <li>Ha soggiornato dal <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</strong> al <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</strong></li>
                                             </ul>
-                                            <!--button class="btn btn-outline-success btn-sm" data-user="{{$user->id}}" data-room="{{$room->id}}">Lascia una recensione</button-->
-                                            {{--<button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>--}}
+
+                                            <button class="btn btn-outline-success btn-sm review-user" data-name="{{$user->complete_name}}" data-user="{{$user->id}}" data-room-user="{{$user->pivot->id}}">Lascia una recensione</button>
                                         </div>
                                     </div>
                                 </div>
@@ -134,78 +134,6 @@
                     @endforeach
                 </div>
             </div>
-
-            {{--- <div class="rooms-list row">
-                @foreach($house->rooms as $index => $room)
-                <div class="col-md-12">
-                    <div class="room-el margin-top-20">
-                        <div class="card-block">
-                            <h4 class="card-title">Stanza {{$index+1}} <i class="fa fa-bed"></i> x {{$room->beds}}</h4>
-                            <hr>
-                            <h5>Inquilini</h5>
-                                @forelse($room->users as $user)
-                                @if(!$user->pivot->accepted_by_owner)
-                                    <div class="card margin-top-20 col-md-6">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <a href="{{$user->profile_url}}"><img src="{{$user->profile_pic}}" class="rounded-circle img-fluid"></a>
-                                                </div>
-                                                <div class="col-sm-9 padding-left-20">
-                                                    <h5 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}} inizierà il soggiorno il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</h5>
-                                                    <button class="btn btn-success btn-sm accept-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Accetta</button>
-                                                    <button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>
-                                                    <small class="margin-left-20">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$user->pivot->created_at)->format('d/m/Y')}}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @elseif($user->pivot->stop === null)
-
-                                <div class="card margin-top-20 col-md-6">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <a href="{{$user->profile_url}}"><img src="{{$user->profile_pic}}" class="rounded-circle img-fluid"></a>
-                                                </div>
-                                                <div class="col-sm-9 padding-left-20">
-                                                    <h5>Attuale inquilino</h5>
-                                                    <h3 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}}</h3>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                @elseif($user->pivot->stop !== null && $user->pivot->available_from === null)
-                                <div class="card margin-top-20 col-md-6">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <a href="{{$user->profile_url}}"><img src="{{$user->profile_pic}}" class="rounded-circle img-fluid"></a>
-                                                </div>
-                                                <div class="col-sm-9 padding-left-20">
-                                                    @if(\Carbon\Carbon::now()->format('Y-m-d') < $user->pivot->stop)
-                                                        <h3 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}} abbandoner&agrave; l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</h3>
-                                                    @else
-                                                        <h3 class="mb-1 margin-top-10">{{$user->first_name}} {{$user->last_name}} ha abbandonato l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</h3>
-                                                    @endif
-                                                    <p>Quando vuoi che la stanza torni disponibile?</p>
-                                                    <button class="btn btn-primary btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Seleziona una data</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                                
-                                @empty
-                                <h6 class="text-center text-muted">Nessun inquilino</h6>
-                                @endforelse                         
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div> ---}}
         </div>
     </div>
 </div>
@@ -385,6 +313,102 @@
                 swal.close();
             }
         });
+    });
+
+    $(".review-user").click(function(){
+
+        var button = $(this);
+
+        swal({
+            title: "Recensisci "+button.data('name'),
+            buttons: [true, {
+                text: "Avanti",
+                className: "nextButtonSwal",
+                closeModal: false
+            }],
+            content: ratingSystem()
+        }).then((send) =>{
+            if(!send) throw null;
+            if(!$('#hiddenInputStar').val() || !$('#textareaReview').val() || $('#textareaReview').val() == "") throw 'MISSING_DATA';
+
+            var url = '{{route('user.rate', ':id')}}';
+            $.post(url.replace(':id',button.data('user')), { 
+                rating: $('#hiddenInputStar').val(),
+                message:$('#textareaReview').val(),
+                room_user_id: button.data('room-user'),
+                tenant: true
+            }, function( data ) {
+                if(data.status === 'OK') {
+                    swal("Recensione inserita correttamente", "", "success");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
+
+        })
+        .catch((err)=>{
+            if(err) {
+                if(err === 'MISSING_DATA') {
+                    swal("Dati mancanti", "Completa tutti i dati per poter inserire la recensione", "error");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            }
+        });
+
+        $('.nextButtonSwal').attr('disabled',true);
+    });
+
+    function ratingSystem(){
+        var starsContainer = document.createElement("form");
+        starsContainer.classList.add('rating-stars-container');
+
+        for(i = 0; i < 5; i++){
+            var star = document.createElement("i");
+            star.classList.add('far');
+            star.classList.add('fa-star');
+            star.classList.add('rating-star');
+            star.dataset.rate = i;
+            star.id = 'star-'+i;
+            starsContainer.appendChild(star);
+        };
+        var inputStar = document.createElement('input');
+        inputStar.type = 'hidden';
+        inputStar.id = 'hiddenInputStar';
+        
+        var textArea = document.createElement('textarea');
+        textArea.name = 'textareaReview';
+        textArea.id = 'textareaReview';
+        textArea.classList.add('form-control');
+        textArea.classList.add('w-100');
+        textArea.classList.add('margin-top-40');
+        textArea.rows="6"; 
+        textArea.placeholder ='Lascia qui una recensione';
+        starsContainer.appendChild(inputStar);
+        starsContainer.appendChild(textArea);
+        
+        return starsContainer;
+    }
+
+
+    $('body').on('click','.rating-star',function(){
+        var rating = $(this).data('rate');
+        $('#hiddenInputStar').val(rating);
+        $('.rating-star').removeClass('checked').removeClass('fas').addClass('far');
+        
+        for(i = 0; i<=rating;i++){
+            $('#star-'+i).addClass('checked').removeClass('far').addClass('fas');
+        }
+
+        if($("#textareaReview").val() && $("#textareaReview").val() != "") {
+            $('.nextButtonSwal').attr('disabled',false);
+        }
+    });
+
+    $('body').on('keyup','#textareaReview',function(){
+        if($('#hiddenInputStar').val() && $('#hiddenInputStar').val != "" && $("#textareaReview").val() && $("#textareaReview").val() != "") {
+            $('.nextButtonSwal').attr('disabled',false);
+        }
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
