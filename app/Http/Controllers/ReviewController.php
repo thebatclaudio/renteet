@@ -71,14 +71,14 @@ class ReviewController extends Controller
                         ]);
                     }else{
                         return response()->json([
-                            'status'=>'KO1'
+                            'status'=>'KO'
                         ]);
                     }
                 }
             }
         }
         return response()->json([
-            'status'=>'KO2'
+            'status'=>'KO'
         ]);
     }
 }
