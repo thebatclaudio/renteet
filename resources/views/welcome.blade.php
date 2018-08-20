@@ -56,8 +56,8 @@ footer.page-footer {
       <div class="content">
         <div class="container">
           <div class="row">
-            <div class="col-md-6" data-aos="fade-right">
-              <video width="100%" height="auto" muted loop data-autoplay>
+            <div class="col-md-6">
+              <video width="100%" height="auto" muted loop autoplay data-autoplay>
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
@@ -84,7 +84,7 @@ footer.page-footer {
                 <a href="{{url('/scopri-i-vantaggi/locatori')}}" title="Scopri i vantaggi per i locatori" class="btn btn-primary btn-how-it-works margin-top-20">Vantaggi per i locatori</a>
               </div>
             </div>
-            <div class="col-md-6 text-left" data-aos="fade-left">
+            <div class="col-md-6 text-left">
               <div class="content">
                 <img class="img-fluid d-none d-sm-block margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
               </div>
@@ -95,7 +95,7 @@ footer.page-footer {
   </div>
 
   <div class="section" id="section4">
-      <div class="section4-background" data-aos="fade-right">
+      <div class="section4-background">
         <div class="content">
           <div class="container">
             <div class="row justify-content-end" data-aos="fade-left">
@@ -114,9 +114,9 @@ footer.page-footer {
     <div id="call-to-action">
       <div class="blur">
         <div class="content text-center">
-          <h3 class="claim" data-aos="fade-in">Fai parte di <strong>renteet</strong></h3>
-          <h4 class="claim text-white margin-top-20" data-aos="fade-in">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
-          <div class="row justify-content-md-center" data-aos="fade-in">
+          <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
+          <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
+          <div class="row justify-content-md-center">
             <div class="col-sm-4">
               <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                 <div class="container margin-top-20">
