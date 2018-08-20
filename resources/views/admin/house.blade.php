@@ -108,6 +108,30 @@
                 <div class="col">
                     <h5>Inquilini precedenti</h5>
                     <hr>
+                    @foreach($house->rooms as $room)
+                        @php
+                            $roomName = "Stanza ".($loop->index+1);
+                        @endphp
+                        @foreach($room->previousUsers()->limit(5)->get() as $user)
+                            <div class="card margin-top-20">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <a href="{{$user->profile_url}}"><img src="{{$user->profile_pic}}" class="rounded-circle img-fluid" width="80" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
+                                        </div>
+                                        <div class="col">
+                                            <h5><strong>{{$user->first_name}} {{$user->last_name}}</strong></h5>
+                                            <ul class="list-unstyled">
+                                                <li>Ha soggiornato dal <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</strong> al <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</strong></li>
+                                            </ul>
+                                            <!--button class="btn btn-outline-success btn-sm" data-user="{{$user->id}}" data-room="{{$room->id}}">Lascia una recensione</button-->
+                                            {{--<button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        @endforeach
+                    @endforeach
                 </div>
             </div>
 

@@ -34,7 +34,13 @@ class Room extends Model
             $query->where('stop','>=',\Carbon\Carbon::now()->format('Y-m-d'))
             ->orWhereNull('stop');
         });
-        
+    }
+
+    public function previousUsers() {
+        return $this->belongsToMany('App\User')
+        ->withPivot('accepted_by_owner', 'interested', 'start', 'stop', 'created_at', 'updated_at', 'available_from')
+        ->where('accepted_by_owner', true)
+        ->where('stop','<',\Carbon\Carbon::now()->format('Y-m-d'));
     }
 
     public function pendingUsers() {
