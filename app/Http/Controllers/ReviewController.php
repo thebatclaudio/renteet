@@ -30,7 +30,7 @@ class ReviewController extends Controller
                             'rate' => $request->rating + 1,
                             'from_user_id' => \Auth::user()->id,
                             'to_user_id' => $id,
-                            'room_user_id' => $request->room_user_id,
+                            'room_user_id' => $roomUser->id,
                             'lessor' => false,
                             'tenant' => true
                         ]);
