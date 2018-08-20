@@ -34,7 +34,7 @@
                                 @else
                                     <small class="mb-1 margin-top-10">Ha abbandonato l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</small>
                                 @endif
-                                <button class="btn btn-success btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Torna disponibile</button>
+                                <button class="btn btn-success btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Imposta disponibilità</button>
                             @endif
                         </div>
                     @endforeach
