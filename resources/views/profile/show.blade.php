@@ -154,6 +154,7 @@
                         <div class="tab-content" id="reviewsTabContent">
                             @if($user->lessor)
                             <div class="tab-pane fade show active" id="guests-tab" role="tabpanel" aria-labelledby="lessor-tab">
+                                <div class="list-group reviews-box">
                                 @forelse ($user->reviews()->where('lessor', true)->get() as $review)
                                     <div class="review">
                                         <div class="speech-bubble">
@@ -181,9 +182,10 @@
                                 @empty
                                     <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Locatore.</strong></div>
                                 @endforelse
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="roommate-tab" role="tabpanel" aria-labelledby="roommate-tab">
-                                <ul class="list-group">
+                                <div class="list-group reviews-box">
                                 @forelse ($user->reviews()->where('lessor', false)->get() as $review)
                                     <div class="review">
                                         <div class="speech-bubble">
@@ -215,11 +217,11 @@
                                 @empty
                                     <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong></div>
                                 @endforelse
-                                </ul>
+                                </div>
                             </div>
                             @else
                             <div class="tab-pane fade show active" id="roommate-tab" role="tabpanel" aria-labelledby="roommate-tab">
-                                <ul class="list-group">
+                                <div class="list-group reviews-box">
                                 @forelse ($user->reviews()->where('lessor', false)->get() as $review)
                                     <div class="review">
                                         <div class="speech-bubble">
@@ -251,7 +253,7 @@
                                 @empty
                                     <div class="text-center"><strong>{{ $user->first_name }} non ha ancora recensioni come Coinquilino.</strong></div>
                                 @endforelse
-                                </ul>
+                                </div>
                             </div>
                             @endif            
                         </div>                   
