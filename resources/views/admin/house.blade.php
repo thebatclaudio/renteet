@@ -96,7 +96,7 @@
                                             
                                             </ul>
                                             
-                                            <button class="btn btn-success btn-sm accept-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Accetta</button>
+                                            <button class="btn btn-success btn-sm accept-user" data-user="{{$user->id}}" data-room="{{$room->id}}" data-name="{{$user->complete_name}}">Accetta</button>
                                             {{--<button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>--}}
                                         </div>
                                     </div>
@@ -229,10 +229,22 @@
 
         var url = '{{route('allow.user', [ 'room' => ':room', 'user' => ':user'])}}';
 
-        $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), function( data ) {
-            if(data.status === 'OK') {
-                location.reload();
-            }
+        swal({
+            title: "Sei sicuro di voler approvare la richiesta di adesione di "+button.data("name")+"?",
+            icon: "warning",
+            buttons: [true, {
+                text: "Accetta"
+            }]
+        }).then((send) => {
+            if (!send) throw null;
+
+            $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), function( data ) {
+                if(data.status === 'OK') {
+                    swal("Operazione riuscita", "", "success").then(() => { location.reload() });
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
         });
     });
 
@@ -260,49 +272,49 @@
         }
 
         for(var i = 0; i < 90; i++) {
-        date.add(1, 'days');
-        option = document.createElement('option');
-        option.value = date.format("YYYY-MM-DD");
-        option.textContent =  date.format("D MMMM");
-        dateSelect.appendChild( option );
+            date.add(1, 'days');
+            option = document.createElement('option');
+            option.value = date.format("YYYY-MM-DD");
+            option.textContent =  date.format("D MMMM");
+            dateSelect.appendChild( option );
         }
 
         swal({
-        title: "Inserisci la data in cui "+button.data("name")+" dovrà abbandonare l'immobile",
-        buttons: [true, {
-            text: "Salva",
-            closeModal: false
-        }],
-        content: dateSelect
+            title: "Inserisci la data in cui "+button.data("name")+" dovrà abbandonare l'immobile",
+            buttons: [true, {
+                text: "Salva",
+                closeModal: false
+            }],
+            content: dateSelect
         })
         .then((send) => {
 
-        if (!send) throw null;
+            if (!send) throw null;
 
-        var select = $("#RemoveDate");
+            var select = $("#RemoveDate");
 
-        if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
-        var url = '{{route('ajax.remove.room', [ 'room' => ':room', 'user' => ':user'])}}';
-        $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { stop: select.val() }, function( data ) {
-            if(data.status === 'OK') {
-            swal("Operazione riuscita", "", "success").then(() => { location.reload() });
-            } else {
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
-            }
-        });
+            if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
+            var url = '{{route('ajax.remove.room', [ 'room' => ':room', 'user' => ':user'])}}';
+            $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { stop: select.val() }, function( data ) {
+                if(data.status === 'OK') {
+                    swal("Operazione riuscita", "", "success").then(() => { location.reload() });
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
         })
         .catch(err => {
-        if (err) {
-            if(err === 'MISSING_DATE') {
-            swal("Inserisci la data in cui l'utente dovrà abbandonare l'immobile", "", "error");
+            if (err) {
+                if(err === 'MISSING_DATE') {
+                    swal("Inserisci la data in cui l'utente dovrà abbandonare l'immobile", "", "error");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
             } else {
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
+                swal.stopLoading();
+                swal.close();
+                location.reload();
             }
-        } else {
-            swal.stopLoading();
-            swal.close();
-            location.reload();
-        }
         });
     });
 
@@ -330,48 +342,48 @@
         }
 
         for(var i = 0; i < 90; i++) {
-        date.add(1, 'days');
-        option = document.createElement('option');
-        option.value = date.format("YYYY-MM-DD");
-        option.textContent =  date.format("D MMMM");
-        dateSelect.appendChild( option );
+            date.add(1, 'days');
+            option = document.createElement('option');
+            option.value = date.format("YYYY-MM-DD");
+            option.textContent =  date.format("D MMMM");
+            dateSelect.appendChild( option );
         }
 
         swal({
-        title: "Inserisci la data in cui la stanza tornerà disponibile",
-        buttons: [true, {
-            text: "Salva",
-            closeModal: false
-        }],
-        content: dateSelect
+            title: "Inserisci la data in cui la stanza tornerà disponibile",
+            buttons: [true, {
+                text: "Salva",
+                closeModal: false
+            }],
+            content: dateSelect
         })
         .then((send) => {
 
-        if (!send) throw null;
+            if (!send) throw null;
 
-        var select = $("#availableFromDate");
+            var select = $("#availableFromDate");
 
-        if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
-        var url = '{{route('ajax.setAvailableFrom.room', [ 'room' => ':room', 'user' => ':user'])}}';
-        $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { available_from: select.val() }, function( data ) {
-            if(data.status === 'OK') {
-            swal("Operazione riuscita", "", "success").then(() => { location.reload() });
-            } else {
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
-            }
-        });
+            if(select.val() === null || select.val() === -1) throw 'MISSING_DATE';
+            var url = '{{route('ajax.setAvailableFrom.room', [ 'room' => ':room', 'user' => ':user'])}}';
+            $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), { available_from: select.val() }, function( data ) {
+                if(data.status === 'OK') {
+                    swal("Operazione riuscita", "", "success").then(() => { location.reload() });
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
         })
         .catch(err => {
-        if (err) {
-            if(err === 'MISSING_DATE') {
-            swal("Inserisci la data in cui la stanza tornerà disponibile", "", "error");
+            if (err) {
+                if(err === 'MISSING_DATE') {
+                    swal("Inserisci la data in cui la stanza tornerà disponibile", "", "error");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
             } else {
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
+                swal.stopLoading();
+                swal.close();
             }
-        } else {
-            swal.stopLoading();
-            swal.close();
-        }
         });
     });
 </script>
