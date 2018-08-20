@@ -196,7 +196,7 @@
                                                     </a>
                                                     <br/>
                                                     @if($review->tenant)
-                                                        <span class="badge elegant-color">Locatore</span>
+                                                        <span class="badge elegant-color"><small>Locatore</small></span>
                                                     @endif
                                                 </div>
                                                 <div class="col text-center">
@@ -232,7 +232,7 @@
                                                     </a>
                                                     <br/>
                                                     @if($review->tenant)
-                                                        <span class="badge elegant-color">Locatore</span>
+                                                        <span class="badge elegant-color"><small>Locatore</small></span>
                                                     @endif
                                                 </div>
                                                 <div class="col text-center">
