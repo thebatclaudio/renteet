@@ -18,7 +18,7 @@
                     {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
                     @foreach($room->acceptedUsers as $user)
                         <div class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                            <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
+                            <a href="{{$user->profile_url}}"><img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
                             
                             @if($user->pivot->available_from)
                                 <h6 class="free-place margin-top-10">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h6>
