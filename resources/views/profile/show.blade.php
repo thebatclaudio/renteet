@@ -99,7 +99,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col">
             <div class="timeline-column">
                 <div class="container text-center h-100">
                     <div class="row h-100">
@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col">
             <div class="container timeline-column reviews-column">
 
                 <div class="text-center">
