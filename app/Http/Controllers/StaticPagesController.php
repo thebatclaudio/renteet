@@ -37,4 +37,12 @@ class StaticPagesController extends Controller
     public function showFAQ(){
         return view('static.faq');
     }
+
+    public function showAbout(){
+        return view('static.about');
+    }
+
+    public function showOurValues(){
+        return view('static.ourValues');
+    }
 }

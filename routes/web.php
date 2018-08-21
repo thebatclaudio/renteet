@@ -26,6 +26,8 @@ Route::get('/termini-e-condizioni', 'StaticPagesController@showTermsAndCondition
 Route::get('/privacy-policy', 'StaticPagesController@showPrivacyPolicy');
 Route::get('/cookie-policy', 'StaticPagesController@showCookiePolicy');
 Route::get('/faq', 'StaticPagesController@showFAQ');
+Route::get('/chi-siamo', 'StaticPagesController@showAbout');
+Route::get('/i-nostri-valori', 'StaticPagesController@showOurValues');
 
 Auth::routes();
 Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
