@@ -58,6 +58,8 @@
 
         </main>
 
+        @include('cookieConsent::index')
+
         <script>
 
         var autocomplete = null;

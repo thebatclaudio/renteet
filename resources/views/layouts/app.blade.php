@@ -53,6 +53,8 @@
             @include('partials.footer')
         </main>
 
+        @include('cookieConsent::index')
+
         <script>
 
         var autocomplete = null;

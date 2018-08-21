@@ -28,6 +28,16 @@ a:hover, a:focus {
   color: #099154!important;
 }
 
+.js-cookie-consent.cookie-consent {
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  padding: 20px;
+  background-color: #FFF;
+  border-top: 1px solid #CCC;
+  font-size: 12px;
+}
+
 .text-success {
   color: #099154!important;
 }
