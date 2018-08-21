@@ -54,6 +54,11 @@
                     </div>
                     @endforeach
                 </div>
+                
+                <div class="margin-top-20">
+                    Altri servizi (specificare sotto):
+                    <textarea class="form-control w-100 margin-top-10" rows="4" name="other_services"></textarea>
+                </div>
             </div>
         </div>
 

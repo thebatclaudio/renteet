@@ -78,16 +78,23 @@ class AdminController extends Controller
     public function newHouseWizardStepTwoSave(Request $request){
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
-                foreach($request->input('services') as $service) {
-                    if(isset($request->input('servicesQuantity')[$service])) {
-                        $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
-                    } else {
-                        $house->services()->attach($service);
+                if($request->input('services')) {
+                    foreach($request->input('services') as $service) {
+                        if(isset($request->input('servicesQuantity')[$service])) {
+                            $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+                        } else {
+                            $house->services()->attach($service);
+                        }
+                        
                     }
-                    
                 }
 
                 $house->last_step = 2;
+                
+                if($request->input("other_services")) {
+                    $house->other_services = $request->input("other_services");
+                }
+
                 $house->save();
 
                 return redirect()->route('admin.house.wizard.three', ['id' => $house->id]);

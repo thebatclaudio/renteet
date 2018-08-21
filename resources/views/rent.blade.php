@@ -191,6 +191,11 @@
                   </div>
                 </li>
                 @endforeach
+
+                @if($house->other_services)
+                  <h5 class="margin-top-20">Altri servizi:</h5>
+                  <p>{{$house->other_services}}</p>
+                @endif
               </ul>
             </div>
             <div class="col-md-6 margin-top-120">
