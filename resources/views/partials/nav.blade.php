@@ -106,7 +106,7 @@
             <li class="nav-item text-link"><a class="nav-link" href="{{ route('pendingRequests') }}">Richieste in sospeso</a></li>
         @endif
 
-        @if(\Auth::user()->signup_complete == true)
+        @if(!isset($hideNewAdButton))
             <li class="nav-item">
                 <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-sm">
                     Inserisci un annuncio
