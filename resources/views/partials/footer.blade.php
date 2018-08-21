@@ -26,9 +26,9 @@
             </div>
             <div class="col-6 col-sm-3">
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/renteet" title="Like Renteet on Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/renteet" title="Follow Renteet on Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/renteet" title="Follow Renteet on Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
                 </div>
                 <ul class="footer-menu list-unstyled">
                     <li><a href="/faq" title="FAQ">FAQ</a></li>
