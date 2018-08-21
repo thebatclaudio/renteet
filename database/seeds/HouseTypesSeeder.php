@@ -12,7 +12,7 @@ class HouseTypesSeeder extends Seeder
      */
     public function run()
     {
-        HouseType::create(['name' => 'Casa singola']);
+        HouseType::create(['name' => 'Casa indipendente']);
         HouseType::create(['name' => 'Appartamento']);
         HouseType::create(['name' => 'Villa']);
     }
