@@ -102,6 +102,8 @@
 
         @if(\Auth::user()->isTenant())
             <li class="nav-item text-link"><a class="nav-link" href="{{ route('myHouse') }}">La tua casa</a></li>
+        @elseif(\Auth::user()->pendingRequests()->count() >= 1)
+            <li class="nav-item text-link"><a class="nav-link" href="{{ route('pendingRequests') }}">Richieste in sospeso</a></li>
         @endif
 
         @if(\Auth::user()->signup_complete == true)
