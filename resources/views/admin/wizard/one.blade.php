@@ -138,7 +138,7 @@
 
         for(var i = 0; i < value; i++) {
             html += '<div class="row"><div class="col-md-6"><label for="bedrooms">Stanza '+(i+1)+'</label><input name="rooms[]" class="form-control" type="number" min="1" default="0" /></div>';
-            html += '<div class="col-md-4"><label for="prices">Prezzo per posto letto</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">€</span></div><input name="prices[]" class="form-control" type="number" min="1" default="0" /><div class="input-group-append"><span class="input-group-text">.00</span></div></div></div>';
+            html += '<div class="col-md-4"><label for="prices">Prezzo mensile per posto letto</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">€</span></div><input name="prices[]" class="form-control" type="number" min="1" default="0" /><div class="input-group-append"><span class="input-group-text">.00</span></div></div></div>';
             html += '</div>';
         }
 
