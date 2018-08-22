@@ -79,8 +79,7 @@ footer.page-footer {
             <div class="col-md-6 text-left" data-aos="fade-right">
               <div class="content">
                 <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
-                <h4 class="sub-claim">Lascia che sia renteet a organizzare la condivisione del tuo immobile.</h4>
-                <h4 class="sub-claim">Ottimizza l’occupazione offrendo ai tuoi ospiti un’esperieza unica</h4>
+                <h4 class="sub-claim">Accetta personalmente ogni tuo ospite e ottimizza l’occupazione offrendo loro un’esperieza unica</h4>
                 <a href="{{url('/scopri-i-vantaggi/locatori')}}" title="Scopri i vantaggi per i locatori" class="btn btn-primary btn-how-it-works margin-top-20">Vantaggi per i locatori</a>
               </div>
             </div>
