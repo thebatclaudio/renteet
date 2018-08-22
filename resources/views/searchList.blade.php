@@ -114,10 +114,16 @@
               @if(\Auth::check())
                 {{-- controllo se l'utente loggato è pending, in caso positivo stampo l'utente loggato --}}
                 @if($room->hasUserPending(\Auth::user()->id))
+                  @if($bedsCount<3 OR $house->beds == 4)
                   <div class="bed-container col-lg-4 pending" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
                     <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}" width="140" height="140">
                     <h4 class="user-name {{\Auth::user()->gender}}">In attesa di approvazione</h4>
                   </div>
+                  @endif
+
+                  @php
+                    $bedsCount++;
+                  @endphp
                   {{-- quindi stampo gli altri posti liberi, sottraendo il posto pending dell'utente loggato --}}
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)
                     @if($bedsCount<3 OR $house->beds == 4)
