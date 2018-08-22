@@ -14,6 +14,10 @@ class House extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function type() {
+        return $this->belongsTo('App\HouseType');
+    }
+
     public function rooms() {
         return $this->hasMany('App\Room');
     }

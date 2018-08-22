@@ -164,7 +164,7 @@
             </div>
           <div class="margin-top-120">
             <ul class="margin-top-40 list-unstyled">
-              <li>Tipologia: </li>
+              <li>Tipologia: {{$house->type->name}}</li>
               <li>Numero stanze: {{$house->rooms()->count()}}</li>
               <li>Numero bagni: {{$house->bathrooms}}</li>
               <li>MQ: {{$house->mq}}</li>

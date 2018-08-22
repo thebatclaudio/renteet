@@ -217,6 +217,7 @@
                         <h4 class="card-title">{{$house->name}}</h4>
 
                         <ul class="list-unstyled">
+                            <li>Tipologia: {{$house->type->name}}</li>
                             <li>Numero stanze: {{$house->rooms()->count()}}</li>
                             <li>Numero bagni: {{$house->bathrooms}}</li>
                             <li>MQ: {{$house->mq}}</li>

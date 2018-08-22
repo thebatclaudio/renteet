@@ -51,6 +51,7 @@ class AdminController extends Controller
         $house->bathrooms = $request->bathrooms;
         $house->owner_id = \Auth::user()->id;
         $house->last_step = 1;
+        $house->type_id = $request->tipologia;
         if($house->save()) {
             if(count($request->rooms) == count($request->prices)){
                 foreach($request->rooms as $key => $roomBeds){
