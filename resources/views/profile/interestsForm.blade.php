@@ -1,3 +1,5 @@
+@php($hideNewAdButton = true)
+
 @extends('layouts.app')
 
 @section('title', 'Completa il tuo profilo')
