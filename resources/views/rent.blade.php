@@ -109,7 +109,7 @@
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                       <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
                       <h4 class="free-place">{{$room->bed_price}}€</h4>
-                      @if(!$house->hasUser(\Auth::user()->id))
+                      @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
                     </div>
@@ -120,7 +120,7 @@
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                       <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
                       <h4 class="free-place">{{$room->bed_price}}€</h4>
-                      @if(!$house->hasUser(\Auth::user()->id))
+                      @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
                     </div>
@@ -132,7 +132,9 @@
                   <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                     <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
                     <h4 class="free-place">{{$room->bed_price}}€</h4>
+                    @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                     <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                    @endif
                   </div>
                 @endfor
               @endif
