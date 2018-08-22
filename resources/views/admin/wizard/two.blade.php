@@ -78,5 +78,17 @@ $(".form-check-input").on('change', function() {
         $("#service_quantity_"+$(this).data('id')).attr('disabled', true).attr('value', 0);
     }
 });
+
+$(document).ready(function(){
+    $(".form-check-input").each(function(){
+        if($(this).is(':checked')) {
+            console.log('eccolo');
+            $("#service_quantity_"+$(this).data("id")).attr('disabled', false);
+            if($("#service_quantity_"+$(this).data("id")).val() == 0) {
+                $("#service_quantity_"+$(this).data("id")).val(1);
+            }
+        }
+    });
+});
 </script>
 @endsection
