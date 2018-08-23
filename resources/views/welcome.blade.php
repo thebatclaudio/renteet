@@ -37,12 +37,6 @@ footer.page-footer {
             <div class="col-md-5">
               <h1>Renteet</h1>
               <h2>Find interesting people to live with</h2>
-              <form id="searchForm" class="form-inline margin-top-20" action="{{route('search.coordinates')}}" method="GET">
-                  <input id="lat" name="lat" type="hidden" required>
-                  <input id="lng" name="lng" type="hidden" required>
-                  <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca">
-                  <i class="search-icon fa fa-search fa-2x" aria-hidden="true"></i>
-              </form>
             </div>
           </div>
         </div>
