@@ -21,7 +21,7 @@ class UploadPictureController extends Controller
         
         request()->validate([
 
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
 
         ]);
 
