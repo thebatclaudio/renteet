@@ -36,6 +36,7 @@ a:hover, a:focus {
   background-color: #FFF;
   border-top: 1px solid #CCC;
   font-size: 12px;
+  z-index: 10;
 }
 
 .text-success {
