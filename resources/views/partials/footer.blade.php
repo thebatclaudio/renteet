@@ -34,7 +34,7 @@
                     <li><a href="/faq" title="FAQ">FAQ</a></li>
                     <li><a href="/sitemap" title="Mappa del sito">Mappa del sito</a></li>
                 </ul>
-                <a href="/segnala-un-problema" title="Segnala un problema" class="btn btn-outline-elegant btn-sm margin-top-20">Segnala un problema</a>
+                <a href="/support" title="Segnala un problema" class="btn btn-outline-elegant btn-sm margin-top-20">Segnala un problema</a>
             </div>
         </div>
 
