@@ -113,6 +113,7 @@ a.btn.btn-how-it-works {
     color: #FFF;
     animation: arrow-pulse-down 1100ms linear infinite;
     text-align: center;
+    z-index: 3;
 }
 
 .arrow-pulse-down i {
@@ -282,7 +283,12 @@ h6.renteet-slogan {
     color: #ffc107;
 }
 
-@media(max-width: 1024px) {
+#section3 .mobile-image {
+    max-height: 35vh;
+    margin: 40px;
+}
+
+@media(max-width: 992px) {
     .logo {
         max-height: 40px;
         margin: 0px;
@@ -322,5 +328,20 @@ h6.renteet-slogan {
 
     #call-to-action .blur {
         background-color: rgba(19, 28, 39, 0.8);
+    }
+
+    #section4 .section4-background {
+        background-size: 100% auto;
+    }
+
+    .pie-container {
+        display: block;
+        height: 300px;
+        max-height: 300px;
+    }
+    
+    .pie-container svg {
+        height: 250px;
+        max-height: 250px;
     }
 }

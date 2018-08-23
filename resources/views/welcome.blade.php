@@ -3,7 +3,6 @@
 @section('title', 'Be friendly')
 
 @section('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.3/aos.css">
 <link rel="stylesheet" href="/css/home.css?{{rand()}}">
 <!-- Begin MailChimp Signup Form -->
 <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
@@ -80,6 +79,7 @@ footer.page-footer {
           <div class="row">
             <div class="col-md-6 text-left">
               <div class="content">
+                <img class="img-fluid d-block d-sm-none mobile-image margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
                 <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
                 <h4 class="sub-claim">Accetta personalmente ogni tuo ospite e ottimizza l’occupazione offrendo loro un’esperieza unica</h4>
                 <a href="{{url('/scopri-i-vantaggi/locatori')}}" title="Scopri i vantaggi per i locatori" class="btn btn-primary btn-how-it-works margin-top-20">Vantaggi per i locatori</a>
@@ -87,7 +87,7 @@ footer.page-footer {
             </div>
             <div class="col-md-6 text-left">
               <div class="content">
-                <img class="img-fluid d-none d-sm-block margin-top-80" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
+                <img class="img-fluid d-none d-sm-block" style="max-height: 100%" src="{{url('images/homepage/get-the-best-from-your-house.png')}}" alt="Ottieni il massimo dal tuo immobile">
               </div>
             </div>
           </div>
@@ -97,13 +97,15 @@ footer.page-footer {
 
   <div class="section" id="section4">
       <div class="section4-background">
-        <div class="content">
-          <div class="container">
-            <div class="row justify-content-end">
-              <div class="col-lg-6 text-left">
-                <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
-                <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
-                <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-danger btn-how-it-works margin-top-20">Vantaggi per gli ospiti</a>
+        <div class="blur">
+          <div class="content">
+            <div class="container">
+              <div class="row justify-content-end">
+                <div class="col-lg-6 text-left">
+                  <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
+                  <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
+                  <a href="{{url('/scopri-i-vantaggi/')}}" title="Scopri i vantaggi" class="btn btn-danger btn-how-it-works margin-top-20">Vantaggi per gli ospiti</a>
+                </div>
               </div>
             </div>
           </div>
@@ -175,6 +177,24 @@ footer.page-footer {
 
 var topPosition = 200;
 
+
+// Plugin @RokoCB :: Return the visible amount of px
+// of any element currently in viewport.
+// stackoverflow.com/questions/24768795/
+;(function($, win) {
+  $.fn.inViewport = function(cb) {
+     return this.each(function(i,el){
+       function visPx(){
+         var H = $(this).height(),
+             r = el.getBoundingClientRect(), t=r.top, b=r.bottom;
+         return cb.call(el, Math.max(0, t>0? H-t : (b<H?b:H)));  
+       } visPx();
+       $(win).on("resize scroll", visPx);
+     });
+  };
+}(jQuery, window));
+
+
 function changeHeaderStyle() {
   if ($(window).scrollTop() > topPosition) {
     $("#home-navbar").removeClass("transparent-navbar");
@@ -193,6 +213,10 @@ $("#scroll-down").click(function(){
   $('html, body').animate({
     scrollTop: $("#section2").offset().top
   }, 1000);
+});
+
+$("circle").inViewport(function(px){
+    if(px) $(this).addClass("visible") ;
 });
 </script>
 @endsection
