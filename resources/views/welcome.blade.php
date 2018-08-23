@@ -23,6 +23,8 @@ footer.page-footer {
   margin-top: 0px;
   padding: 40px 0px 0px 0px;
 }
+
+
 </style>
 @endsection
 
@@ -34,9 +36,9 @@ footer.page-footer {
         <div class="container">
           <div class="row">
             <div class="col-md-5">
-              <h1 data-aos="fade-left">Renteet</h1>
-              <h2 data-aos="fade-left">Find interesting people to live with</h2>
-              <form id="searchForm" class="form-inline margin-top-20" action="{{route('search.coordinates')}}" method="GET" data-aos="fade-left">
+              <h1>Renteet</h1>
+              <h2>Find interesting people to live with</h2>
+              <form id="searchForm" class="form-inline margin-top-20" action="{{route('search.coordinates')}}" method="GET">
                   <input id="lat" name="lat" type="hidden" required>
                   <input id="lng" name="lng" type="hidden" required>
                   <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca">
@@ -61,7 +63,7 @@ footer.page-footer {
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
               </video>
             </div>
-            <div class="col-md-6 text-left" data-aos="fade-left">
+            <div class="col-md-6 text-left">
               <div class="content">
                 <h3 class="claim">Oltre a <strong>dove</strong> vivere scegli <strong class="green-strong">con chi</strong> vivere</h3>
                 <h4 class="sub-claim">Trova persone con cui condividere casa in un modo in cui non l'hai mai fatto</h4>
@@ -76,7 +78,7 @@ footer.page-footer {
       <div class="content">
         <div class="container">
           <div class="row">
-            <div class="col-md-6 text-left" data-aos="fade-right">
+            <div class="col-md-6 text-left">
               <div class="content">
                 <h3 class="claim">Ottieni il massimo dal tuo <strong>immobile</strong></h3>
                 <h4 class="sub-claim">Accetta personalmente ogni tuo ospite e ottimizza l’occupazione offrendo loro un’esperieza unica</h4>
@@ -97,7 +99,7 @@ footer.page-footer {
       <div class="section4-background">
         <div class="content">
           <div class="container">
-            <div class="row justify-content-end" data-aos="fade-left">
+            <div class="row justify-content-end">
               <div class="col-lg-6 text-left">
                 <h3 class="claim">Migliorare il rapporto tra <strong>inquilini</strong> e <strong>locatori</strong></h3>
                 <h4 class="sub-claim">Il nostro obiettivo è creare un'esperienza coinvolgente e innovativa</h4>
@@ -113,43 +115,45 @@ footer.page-footer {
     <div id="call-to-action">
       <div class="blur">
         <div class="content text-center">
-          <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
-          <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
-          <div class="row justify-content-md-center">
-            <div class="col-sm-4">
-              <div id="mc_embed_signup">
-                <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                    <div id="mc_embed_signup_scroll">
-                  
-                    <div class="mc-field-group">
-                      <input type="email" placeholder="Indirizzo E-Mail" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-                    </div>
+          <div class="container">
+            <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
+            <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
+            <div class="row justify-content-md-center">
+              <div class="col-sm-4">
+                <div id="mc_embed_signup">
+                  <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                      <div id="mc_embed_signup_scroll">
                     
-                    <div class="row">
-                      <div class="col text-white">
-                        <input type="radio" value="Sono un locatore" name="MMERGE1" id="mce-MMERGE1-0">
-                        <label for="mce-MMERGE1-0">Sono un locatore</label>
-                        <input type="radio" value="Sono un ospite" name="MMERGE1" id="mce-MMERGE1-1" class="margin-left-10">
-                        <label for="mce-MMERGE1-1">Sono un ospite</label>
+                      <div class="mc-field-group">
+                        <input type="email" placeholder="Indirizzo E-Mail" value="" name="EMAIL" class="required email" id="mce-EMAIL">
                       </div>
-                    </div>
+                      
+                      <div class="row">
+                        <div class="col text-white">
+                          <input type="radio" value="Sono un locatore" name="MMERGE1" id="mce-MMERGE1-0">
+                          <label for="mce-MMERGE1-0">Sono un locatore</label>
+                          <input type="radio" value="Sono un ospite" name="MMERGE1" id="mce-MMERGE1-1" class="margin-left-10">
+                          <label for="mce-MMERGE1-1">Sono un ospite</label>
+                        </div>
+                      </div>
 
-                    <div class="clear text-center">
-                    <button type="submit" name="subscribe" class="btn btn-lg btn-danger btn-register margin-top-20 text-uppercase">
-                      Iscriviti
-                    </button>                    
-                    </div>
+                      <div class="clear text-center">
+                      <button type="submit" name="subscribe" class="btn btn-lg btn-danger btn-register margin-top-20 text-uppercase">
+                        Iscriviti
+                      </button>                    
+                      </div>
 
 
-                    <div id="mce-responses" class="clear">
-                      <div class="response" id="mce-error-response" style="display:none"></div>
-                      <div class="response" id="mce-success-response" style="display:none"></div>
-                    </div>
+                      <div id="mce-responses" class="clear">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                      </div>
 
-                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                      <input type="text" name="b_b095bad4ebe8facfe3dc6d62c_6dbf114f3e" tabindex="-1" value="">
-                    </div>
-                </form>
+                      <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_b095bad4ebe8facfe3dc6d62c_6dbf114f3e" tabindex="-1" value="">
+                      </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -190,10 +194,5 @@ $("#scroll-down").click(function(){
     scrollTop: $("#section2").offset().top
   }, 1000);
 });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.3/aos.js"></script>
-<script>
-AOS.init();
 </script>
 @endsection

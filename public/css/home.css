@@ -37,6 +37,7 @@ nav.transparent-navbar {
     padding-right: 5%;
     transition: background-color 0.5s ease, padding 0.5s ease, height 0.5s ease;
     height: 135px;
+    box-shadow: none;
 }
 
 .logo {
@@ -311,7 +312,7 @@ h6.renteet-slogan {
         z-index: 2;
     }
 
-    #section4 .content {
+    .section .content {
         z-index: 3;
     }
 
