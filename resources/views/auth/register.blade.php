@@ -28,7 +28,7 @@
 
                         <div class="form-group align-self-center">
                             <div class="col-md-12">
-                                <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
+                                <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Registrati con Facebook</a>
                             </div>
                         </div>
     
