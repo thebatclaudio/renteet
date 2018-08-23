@@ -91,6 +91,11 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/chat/{id}','ChatController@getMessages')->name('ajax.chat.messages');
     Route::post('/chat/{id}','ChatController@sendMessage')->name('ajax.chat.sendMessage');
     Route::post('/new-chat/{id}','ChatController@newChat')->name('chat.newChat');
+
+    //Route for support
+    Route::get('/support','SupportController@showForm')->name('support.show');
+    Route::post('/support','SupportController@sendSupport')->name('support.send');
+
 });
 Route::get('/rent/{id}', 'RentController@getHouse')->name('house');
 Route::get('/search', 'SearchController@searchByCoordinates')->name('search.coordinates');

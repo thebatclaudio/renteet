@@ -1,0 +1,36 @@
+#support-wrapper {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/images/homepage/background.jpg');
+    height: 100%;
+    padding-top: 10%;
+}
+
+textarea{
+    resize:none;
+}
+
+.support-box {
+    width: 75%;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding-top: 20px;
+}
+
+.btn-support {
+    background-color: #138d53;
+}
+
+@media (max-width: 565px) {
+    #support-wrapper {
+        padding-top: 0px;
+    }
+
+    .support-box {
+        width: 100%;
+        background-color: rgba(23, 23, 23, 0.8);
+        color: #FFF;
+        border-radius: 0px;
+    }
+}
