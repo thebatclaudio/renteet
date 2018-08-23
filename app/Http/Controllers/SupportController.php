@@ -38,6 +38,15 @@ class SupportController extends Controller
 
             if($newSupport){
                 //INSERIRE QUI L'INVIO DELLA MAIL
+
+                Mail::send('emails.supportMail',array(
+                    'name' => 'provaDiNome',
+                    'email' => 'ProvaDiEmail',
+                    'user_message' => $request->message
+                ), function($message){
+                    $message->from('massimilianoenea3@gmail.com');
+                    $message->to('massimilianoenea3@gmail.com')->subject('Cloudways Feedback');
+                });
                 return back()->with('success', 'Grazie per averci contattato');
             } 
         }
