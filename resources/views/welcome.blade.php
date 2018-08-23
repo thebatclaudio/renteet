@@ -91,7 +91,7 @@ footer.page-footer {
 
   <div class="section" id="section4">
       <div class="section4-background">
-        <div class="blur-mobile">
+        <div class="blur">
           <div class="content">
             <div class="container">
               <div class="row justify-content-end">

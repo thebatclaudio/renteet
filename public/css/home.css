@@ -246,7 +246,7 @@ a.btn.btn-how-it-works {
     background-position: left center;
 }
 
-#call-to-action .blur {
+#call-to-action .blur, #section4 .blur {
     background: none;
 }
 
@@ -326,7 +326,7 @@ h6.renteet-slogan {
         height: 60px;
     }
 
-    #call-to-action .blur {
+    #call-to-action .blur, #section4 .blur {
         background-color: rgba(19, 28, 39, 0.8);
     }
 
