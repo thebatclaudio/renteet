@@ -103,7 +103,8 @@
                         </a>
                         </div>
                     @endif
-                
+                    </div>
+
                 </div>
 
                 <div class="house-price margin-top-40 text-right">
