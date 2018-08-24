@@ -38,6 +38,7 @@ class adjustHouseImages extends Command
     public function handle()
     {
         foreach(\App\House::all() as $house) {
+            if($house->id > 9)
             foreach($house->photos as $photo) {
                 $imageName = \Carbon\Carbon::now()->timestamp.rand(0,99999);
 
