@@ -49,19 +49,23 @@
                     <div class="row">
                         @if(isset($house->photos[1]))
                         <div class="col-7 col-md-7">
+                            @if(isset($house->photos[0]))
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[0]->file_name)."-320.jpg")}})"></div>
+                            @endif
                         @else
                         <div class="col-12 col-md-12">
-                        @endif
                             @if(isset($house->photos[0]))
-                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[0]->file_name))}})"></div>
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[0]->file_name)."-670.jpg")}})"></div>
                             @endif
+                        @endif
+
                         </div>
                         <div class="col-5 col-md-5">
                             @if(isset($house->photos[1]) && isset($house->photos[2]))
-                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[1]->file_name))}})"></div>
-                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[2]->file_name))}})"></div>
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[1]->file_name)."-220.jpg")}})"></div>
+                            <div class="house-img half" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[2]->file_name)."-220.jpg")}})"></div>
                             @elseif(isset($house->photos[1]))
-                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[1]->file_name))}})"></div>
+                            <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[1]->file_name)."-220.jpg")}})"></div>
                             @endif
                         </div>
                     </div>

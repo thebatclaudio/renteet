@@ -119,10 +119,37 @@ class AdminController extends Controller
     }
 
     public function newHouseWizardStepThreeUpload(Request $request){
+        request()->validate([
+
+            'file' => 'required|image|mimes:jpeg,jpg|max:20480',
+
+        ]);
+
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
-                $imageName = request()->file->getClientOriginalName();
-                request()->file->move(public_path('images/houses/'.$house->id), $imageName);
+                $timestamp = \Carbon\Carbon::now()->timestamp;
+                $imageName = $timestamp;
+
+                \Image::make($request->file)->resize(1920, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-1920.jpg");
+
+                \Image::make($request->file)->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-320.jpg");
+
+                \Image::make($request->file)->resize(670, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-670.jpg");
+
+                \Image::make($request->file)->resize(220, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-220.jpg");
+
+                \Image::make($request->file)->resize(490, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-490.jpg");
+
                 $photo = new Photo;
                 $photo->file_name = $imageName;
                 $photo->house_id = $house->id;

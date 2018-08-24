@@ -10,9 +10,9 @@
         <div class="carousel-inner">
           @foreach($house->photos as $photo)
             @if ($loop->first)
-              <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}})"></div>
+              <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
             @else
-              <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}})"></div>
+              <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
             @endif
           @endforeach
         </div>
@@ -43,7 +43,6 @@
               @endfor
 
                 <h1 class="house-name">{{$house->name}}</h1>
-                <p class="house-location">{{$house->street_name}}</p>
               </div>
             </div>
             <div class="col-auto">
