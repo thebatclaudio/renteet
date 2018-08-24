@@ -96,11 +96,15 @@ body {
     margin-left: 100px;
 }
 
-.search-icon {
+.search-icon, .mobile-search-icon {
     z-index: 9999;
     position: absolute;
     color: rgba(253, 127, 124, 0.5);
     margin-left: 15px;
+}
+
+.mobile-search-icon {
+    z-index: 3;
 }
 
 .no-padding {

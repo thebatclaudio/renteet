@@ -58,8 +58,10 @@
         <script>
 
         var autocomplete = null;
+        var mobileAutocomplete = null;
         function initMap() {
             var input = document.getElementById('search-input');
+            var mobileInput = document.getElementById('mobile-search-input');
     
             autocomplete = new google.maps.places.Autocomplete(input);
     
@@ -82,8 +84,36 @@
 
                 $("#lat").val(place.geometry.location.lat());
                 $("#lng").val(place.geometry.location.lng());
-
+                
                 $("#searchForm").submit();
+
+
+
+            });
+
+            mobileAutocomplete = new google.maps.places.Autocomplete(mobileInput);
+    
+            mobileAutocomplete.addListener('place_changed', function() {
+                var place = mobileAutocomplete.getPlace();
+                if (!place.geometry) {
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    return;
+                }
+        
+                var address = '';
+                if (place.address_components) {
+                    address = [
+                    (place.address_components[0] && place.address_components[0].short_name || ''),
+                    (place.address_components[1] && place.address_components[1].short_name || ''),
+                    (place.address_components[2] && place.address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                $("#mobileLat").val(place.geometry.location.lat());
+                $("#mobileLng").val(place.geometry.location.lng());
+            
+                $("#mobileSearchForm").submit();
 
             });
         }
@@ -126,7 +156,7 @@
 
             $(window).keydown(function(event){
                 if(event.keyCode == 13) {
-                    if($(":focus").attr('id') == 'search-input'){
+                    if($(":focus").attr('id') == 'search-input' || $(":focus").attr('id') == 'mobile-search-input'){
                         event.preventDefault();
 
                         var firstResult = $(".pac-container .pac-item:first").text();
