@@ -68,12 +68,15 @@
                 </div>
 
                 <div class="house-users text-center text-nowrap margin-top-20">
+                    <div class="row house-users-row align-items-center justify-content-center">
                     @foreach($house->rooms as $room)
                         @foreach($room->acceptedUsers as $user)
                             @if($bedsCount<3 OR $house->beds == 4)
-                            <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
-                                <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
-                            </a>
+                            <div class="col-auto">
+                                <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
+                                    <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
+                                </a>
+                            </div>
                             @endif
                             @php
                                 $bedsCount++;   
@@ -81,7 +84,9 @@
                         @endforeach
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
                             @if($bedsCount<3 OR $house->beds == 4)
-                            <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="80" height="80">
+                            <div class="col-auto">
+                                <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero">
+                            </div>
                             @endif
                             @php
                                 $bedsCount++; 
@@ -90,11 +95,13 @@
                     @endforeach
                     
                     @if($house->beds > 4)
+                        <div class="col-auto">
                         <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
                             <div class="circle more-users border-shadow">
                                 + {{$house->beds - 3}}
                             </div>
                         </a>
+                        </div>
                     @endif
                 
                 </div>

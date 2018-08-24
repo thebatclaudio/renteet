@@ -627,10 +627,13 @@ span.new-message-badge {
   }
 
   .house .house-users {
-    position: absolute;
     z-index: 999;
     margin-top: -35px;
-    width: 85%;
+  }
+
+  .house-users-row .col-auto {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .house .house-users .small-user-pic {
