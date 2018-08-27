@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\User;
+use App\Support;
 
 class SupportMail extends Mailable
 {
@@ -16,11 +18,10 @@ class SupportMail extends Mailable
      *
      * @return void
      */
-    public function __construct(string $name, string $email, string $userMessage)
+    public function __construct(User $user, Support $support)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->userMessage = $userMessage;
+        $this->user = $user;
+        $this->support = $support;
     }
 
     /**
@@ -33,9 +34,8 @@ class SupportMail extends Mailable
         return $this->from('noreply@renteet.com')
                 ->view('emails.supportMail')
                 ->with([
-                    'name' => $this->name,
-                    'email' => $this->email,
-                    'user_message' => $this->userMessage
+                    'user' => $this->user,
+                    'support' => $this->support
                 ]);      
     }
 }

@@ -38,11 +38,13 @@ class SupportController extends Controller
             ]);
 
             if($newSupport){
-                Mail::to('labarbera.claudio@gmail.com')->send(new SupportMail(\Auth::user()->email, $request->type, $request->message));
-                return back()->with('success', 'Grazie per averci contattato');
-            } 
+                Mail::to('support@renteet.com')
+                    ->send(new SupportMail(\Auth::user(), $newSupport));
+
+                return back()->with('success', 'Grazie per averci segnalato il problema. Provvederemo a rispondere alla tua richiesta il più velocemente possibile.');
+            }
         }
-        return back()->with('success', 'Non è stato possibile consegnare il tuo messaggio, per favore prova più tardi.');
+        return back()->with('error', 'Non è stato possibile consegnare il tuo messaggio, riprova più tardi.');
     }
 
 }
