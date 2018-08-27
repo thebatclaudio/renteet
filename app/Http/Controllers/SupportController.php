@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use App\Mail\SupportMail;
 use App\Support;
 use Mail;
 
@@ -37,16 +38,7 @@ class SupportController extends Controller
             ]);
 
             if($newSupport){
-                //INSERIRE QUI L'INVIO DELLA MAIL
-
-                Mail::send('emails.supportMail',array(
-                    'name' => 'provaDiNome',
-                    'email' => 'ProvaDiEmail',
-                    'user_message' => $request->message
-                ), function($message){
-                    $message->from('massimilianoenea3@gmail.com');
-                    $message->to('massimilianoenea3@gmail.com')->subject('Cloudways Feedback');
-                });
+                Mail::to('labarbera.claudio@gmail.com')->send(new SupportMail(\Auth::user()->email, $request->type, $request->message));
                 return back()->with('success', 'Grazie per averci contattato');
             } 
         }
