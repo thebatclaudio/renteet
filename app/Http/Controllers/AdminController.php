@@ -64,6 +64,8 @@ class AdminController extends Controller
             }
         }
 
+        mkdir(public_path('images/houses/'.$house->id));
+
         return redirect()->route('admin.house.wizard.two', ['id' => $house->id]);
     }
 
@@ -120,14 +122,12 @@ class AdminController extends Controller
 
     public function newHouseWizardStepThreeUpload(Request $request){
         request()->validate([
-
-            'file' => 'required|image|mimes:jpeg,jpg|max:20480',
-
+            'file' => 'required|image|mimes:jpeg,jpg',
         ]);
 
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
-                $timestamp = \Carbon\Carbon::now()->timestamp;
+                $timestamp = \Carbon\Carbon::now()->timestamp.rand(0,99999);
                 $imageName = $timestamp;
 
                 \Image::make($request->file)->resize(1920, null, function ($constraint) {
