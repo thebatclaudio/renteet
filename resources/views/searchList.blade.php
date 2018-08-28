@@ -134,7 +134,7 @@
                         <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
                         @if(!$house->hasUser(\Auth::user()->id))
-                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                        <p><a class="btn btn-primary rent-house" href="{{$house->url}}" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Visualizza</a></p>
                         @endif
                       </div>
                     @endif
@@ -151,7 +151,7 @@
                         <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
                         @if(!$house->hasUser(\Auth::user()->id))
-                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                        <p><a class="btn btn-primary rent-house" href="{{$house->url}}" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Visualizza</a></p>
                         @endif
                       </div>
                     @endif
@@ -168,7 +168,7 @@
                       <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
                         <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="Posto libero" width="140" height="140">
                         <h4 class="free-place">{{$room->bed_price}}€</h4>
-                        <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
+                        <p><a class="btn btn-primary rent-house" href="{{$house->url}}" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Visualizza</a></p>
                       </div>
                     @endif
 
