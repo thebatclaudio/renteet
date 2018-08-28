@@ -121,7 +121,7 @@
                     @if($bedsCount + $room->beds < 4)
                     <div class="col-auto" style="padding: 0px 2px; width: {{($circleWidth)*$room->beds}}px; flex: 0 0 {{($circleWidth)*$room->beds}}px; max-width: {{($circleWidth)*$room->beds}}px;"><div class="room room-thin"></div></div>
                     @elseif($bedsCount < 4)
-                    <div class="col-auto" style="padding: 0px 2px; width: {{($circleWidth)*(4-$bedsCount)}}px; flex: 0 0 {{($circleWidth)*(4-$bedsCount)}}px; max-width: {{($circleWidth)*(4-$bedsCount)}}px;"><div class="room-thin"></div></div>
+                    <div class="col-auto" style="padding: 0px 2px; width: {{($circleWidth)*(4-$bedsCount)}}px; flex: 0 0 {{($circleWidth)*(4-$bedsCount)}}px; max-width: {{($circleWidth)*(4-$bedsCount)}}px;"><div class="room room-thin"></div></div>
                     @endif
 
                     @php
