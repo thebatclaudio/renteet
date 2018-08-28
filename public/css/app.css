@@ -515,6 +515,12 @@ span.new-message-badge {
     border-right: 2px solid #000;
   }
 
+  .room-thin {
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+  }
+
   .free-bed .btn-primary {
     background-color: rgb(97, 155, 212);
     color: #FFF;
