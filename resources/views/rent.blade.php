@@ -60,23 +60,21 @@
 
             {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
             @foreach($room->acceptedUsers as $user)
-                @if($user->pivot->start <= \Carbon\Carbon::now()->format('Y-m-d'))
-                    <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                        <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
-                        <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
-                        
-                        
-                        @if($user->pivot->available_from)
-                        <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
-                            @if(!$house->hasUser(\Auth::user()->id))
-                            <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
-                            @endif
-                        @else
-                        <h4 class="user-name">{{$user->first_name}} {{$user->last_name}}</h4>
-                        @endif
-                        </a>
-                    </div>
-                @endif
+              <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+                  <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
+                  <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
+                  
+                  
+                  @if($user->pivot->available_from)
+                  <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
+                      @if(!$house->hasUser(\Auth::user()->id))
+                      <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
+                      @endif
+                  @else
+                  <h4 class="user-name">{{$user->first_name}} {{$user->last_name}}</h4>
+                  @endif
+                  </a>
+              </div>
             @endforeach
 
             {{-- PER OGNI STANZA STAMPO I POSTI VUOTI MA NON ANCORA DISPONIBILI --}}
