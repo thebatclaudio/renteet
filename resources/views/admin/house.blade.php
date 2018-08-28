@@ -17,28 +17,30 @@
 
                     {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
                     @foreach($room->acceptedUsers as $user)
-                        @if($user->pivot->start <= \Carbon\Carbon::now()->format('Y-m-d'))
-                            <div class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                                <a href="{{$user->profile_url}}"><img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
-                                
-                                @if($user->pivot->available_from)
-                                    <h6 class="free-place margin-top-10">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h6>
-                                @else
-                                    <h6 class="user-name margin-top-10">{{$user->first_name}} {{$user->last_name}}</h6>
-                                @endif
+                        <div class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
+                            <a href="{{$user->profile_url}}"><img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
+                            
+                            @if($user->pivot->available_from)
+                                <h6 class="free-place margin-top-10">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h6>
+                            @else
+                                <h6 class="user-name margin-top-10">{{$user->first_name}} {{$user->last_name}}</h6>
+                            @endif
 
-                                @if($user->pivot->stop === null)
-                                    <button class="btn btn-elegant btn-sm remove-user" data-user="{{$user->id}}" data-name="{{$user->complete_name}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->start}}">Rimuovi</button>
-                                @elseif($user->pivot->stop !== null && $user->pivot->available_from === null)
-                                    @if(\Carbon\Carbon::now()->format('Y-m-d') < $user->pivot->stop)
-                                        <small class="mb-1 margin-top-10">Abbandoner&agrave; l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</small>
-                                    @else
-                                        <small class="mb-1 margin-top-10">Ha abbandonato l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</small>
-                                    @endif
-                                    <button class="btn btn-success btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Imposta disponibilità</button>
+                            @if($user->pivot->start > \Carbon\Carbon::now()->format('Y-m-d'))
+                                <small class="mb-1 margin-top-10">Acceder&agrave; all'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->start)->format('d/m/Y')}}</small>
+                            @endif
+
+                            @if($user->pivot->stop === null)
+                                <button class="btn btn-elegant btn-sm remove-user" data-user="{{$user->id}}" data-name="{{$user->complete_name}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->start}}">Rimuovi</button>
+                            @elseif($user->pivot->stop !== null && $user->pivot->available_from === null)
+                                @if(\Carbon\Carbon::now()->format('Y-m-d') < $user->pivot->stop)
+                                    <small class="mb-1 margin-top-10">Abbandoner&agrave; l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</small>
+                                @else
+                                    <small class="mb-1 margin-top-10">Ha abbandonato l'immobile il {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->stop)->format('d/m/Y')}}</small>
                                 @endif
-                            </div>
-                        @endif
+                                <button class="btn btn-success btn-sm selectAvailableDate" data-user="{{$user->id}}" data-room="{{$room->id}}" data-start-date="{{$user->pivot->stop}}">Imposta disponibilità</button>
+                            @endif
+                        </div>
                     @endforeach
 
                     {{-- PER OGNI STANZA STAMPO I POSTI VUOTI MA NON ANCORA DISPONIBILI --}}
