@@ -47,7 +47,7 @@ textarea{
 
             <a href="{{route('chat.show')}}" class="btn btn-block btn-outline-elegant waves-effect btn-lg">Vai alla chat della casa</a> 
             <button class="btn btn-block btn-outline-elegant waves-effect btn-lg" id="reviewButton">Lascia una recensione</button> 
-            <button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button> 
+            <!--button class="btn btn-block btn-outline-elegant waves-effect btn-lg">Leggi contratto d'affitto</button--> 
             @if(!$exited)
                 <button class="btn btn-block btn-elegant btn-lg" id="exitButton">Abbandona l'immobile</button>
             @else
@@ -69,9 +69,9 @@ textarea{
                 <div class="carousel-inner">
                     @foreach($house->photos as $photo)
                         @if ($loop->first)
-                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}}); max-height:50%;"></div>
+                          <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name."-1920.jpg")}})"></div>
                         @else
-                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name))}}); max-height:50%;"></div>
+                          <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".$photo->file_name."-1920.jpg")}})"></div>
                         @endif
                     @endforeach
                 </div>
