@@ -18,16 +18,16 @@
 
         <input type="hidden" value="{{$id}}" name="id" />
 
-        <h5 class="margin-top-20">Vuoi accettare personalmente gli ospiti?</h5>
+        <!--h5 class="margin-top-20">Vuoi approvare personalmente gli ospiti?</h5>
 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptFalse" value="0">
+            <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptFalse" value="0" checked="true">
             <label class="form-check-label" for="autoAcceptFalse">Si</label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="auto_accept" id="autoAcceptTrue" value="1">
             <label class="form-check-label" for="autoAcceptTrue">No</label>
-        </div>
+        </div-->
 
         <h5 class="margin-top-40">Qual &egrave; il genere dei tuoi ospiti?</h5>
 
