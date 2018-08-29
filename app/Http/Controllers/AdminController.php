@@ -193,13 +193,12 @@ class AdminController extends Controller
 
         $validatedData = $request->validate([
             'id' => 'required',
-            'auto_accept' => 'required',
             'gender' => 'required',
         ]);
 
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
-                $house->auto_accept = $request->input('auto_accept');
+                $house->auto_accept = false;
                 $house->gender = $request->input('gender');
                 $house->notice_months = 3;
                 $house->last_step = 4;
