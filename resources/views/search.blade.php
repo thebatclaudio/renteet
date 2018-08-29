@@ -110,6 +110,25 @@
                     </div>
 
                 </div>
+                
+                <div class="rooms-container row align-items-center justify-content-center" style="margin-top: 5px">
+                @php
+                    $bedsCount = 0;
+                    $circleWidth = 70;
+                @endphp
+
+                @foreach($house->rooms as $room)
+                    @if($bedsCount + $room->beds < 4)
+                    <div class="col-auto" style="padding: 0px 2px; width: {{($circleWidth)*$room->beds}}px; flex: 0 0 {{($circleWidth)*$room->beds}}px; max-width: {{($circleWidth)*$room->beds}}px;"><div class="room room-thin"></div></div>
+                    @elseif($bedsCount < 4)
+                    <div class="col-auto" style="padding: 0px 2px; width: {{($circleWidth)*(4-$bedsCount)}}px; flex: 0 0 {{($circleWidth)*(4-$bedsCount)}}px; max-width: {{($circleWidth)*(4-$bedsCount)}}px;"><div class="room room-thin"></div></div>
+                    @endif
+
+                    @php
+                    $bedsCount+=$room->beds;
+                    @endphp
+                @endforeach
+                </div><!-- /.row -->
 
                 <div class="house-price margin-top-40 text-right">
                     A partire da <strong class="price">{{$house->minorBedPrice()}}€</strong>

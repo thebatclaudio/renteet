@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use App\Mail\SupportMail;
 use App\Support;
 use Mail;
 
@@ -37,20 +38,13 @@ class SupportController extends Controller
             ]);
 
             if($newSupport){
-                //INSERIRE QUI L'INVIO DELLA MAIL
+                Mail::to('support@renteet.com')
+                    ->send(new SupportMail(\Auth::user(), $newSupport));
 
-                Mail::send('emails.supportMail',array(
-                    'name' => 'provaDiNome',
-                    'email' => 'ProvaDiEmail',
-                    'user_message' => $request->message
-                ), function($message){
-                    $message->from('massimilianoenea3@gmail.com');
-                    $message->to('massimilianoenea3@gmail.com')->subject('Cloudways Feedback');
-                });
-                return back()->with('success', 'Grazie per averci contattato');
-            } 
+                return back()->with('success', 'Grazie per averci segnalato il problema. Provvederemo a rispondere alla tua richiesta il più velocemente possibile.');
+            }
         }
-        return back()->with('success', 'Non è stato possibile consegnare il tuo messaggio, per favore prova più tardi.');
+        return back()->with('error', 'Non è stato possibile consegnare il tuo messaggio, riprova più tardi.');
     }
 
 }

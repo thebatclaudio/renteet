@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Amsterdam',
 
     /*
     |--------------------------------------------------------------------------
@@ -180,6 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Spatie\Geocoder\GeocoderServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
     ],
 
     /*

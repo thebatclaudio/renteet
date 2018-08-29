@@ -1,6 +1,6 @@
 @extends('layouts.home')
 
-@section('title', 'Be friendly')
+@section('title', 'Oltre a dove vivere scegli con chi vivere')
 
 @section('styles')
 <link rel="stylesheet" href="/css/home.css?{{rand()}}">
