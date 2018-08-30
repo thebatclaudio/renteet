@@ -31,9 +31,12 @@
                 <a class="navbar-brand" href="{{url('/')}}" title="{{ config('app.name', 'Renteet') }} - Home">
                     <img class="logo" src="/images/renteet-logo.png">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> --}}
+
+                <a class="nav-link text-white d-block d-sm-none" href="{{ url('/') }}">&larr; Torna alla Home</a>
+
                 <form id="searchForm" class="form-inline d-none d-sm-inline-flex" action="{{route('search.coordinates')}}" method="GET">
                     <input id="lat" name="lat" type="hidden" required>
                     <input id="lng" name="lng" type="hidden" required>
