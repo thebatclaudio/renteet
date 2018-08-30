@@ -29,7 +29,7 @@
                 <a class="navbar-brand" href="{{url('/')}}" title="{{ config('app.name', 'Renteet') }} - Home">
                     <img class="logo" src="/images/renteet-logo.png">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -43,7 +43,7 @@
                 <ul class="navbar-nav mr-auto d-none d-sm-flex flex-row-reverse">
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Iscriviti</a></li>
-                </ul>
+                </ul> --}}
             </nav>
         </header>
         

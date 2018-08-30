@@ -4,9 +4,9 @@
 
     @guest
         <!-- OSPITI -->
-        <li class="nav-item"><a class="nav-link" href="{{url('come-funziona')}}" title="Come funziona?">Come funziona?</a></li>
+        {{-- <li class="nav-item"><a class="nav-link" href="{{url('come-funziona')}}" title="Come funziona?">Come funziona?</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrati</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Accedi</a></li> --}}
     @else
         <!-- LOGGATI -->
         <li class="nav-item profile-nav-item">
