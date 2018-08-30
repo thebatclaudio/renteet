@@ -467,6 +467,7 @@ span.new-message-badge {
 
   .bed-container .rounded-circle {
     box-shadow: 0 0 3pt 1pt rgba(66, 66, 66, 1);
+    max-width: 100%;
   }
 
   .bed-container:hover .rounded-circle {
@@ -813,6 +814,34 @@ span.new-message-badge {
     .house {
       margin: 0px 0px 80px;
     }
+
+    h1.house-name {
+      font-size: 24px;
+    }
+
+    .house-info .container {
+      max-width: 100%;
+    }
+
+    .owner-pic {
+      height: 60px;
+      width: 60px;
+    }
+
+    .carousel-item {
+      height: 360px;
+    }
+
+    .house-info {
+      margin-top: -425px;
+      height: 90px;
+    }
+
+    .users {
+      margin-top: -105px;
+    }
+
+
   }
 
   /* RESPONSIVE CSS
