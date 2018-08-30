@@ -116,7 +116,8 @@ class SocialAuthController extends Controller
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
             'birthday' => \Carbon\Carbon::createFromFormat('m/d/Y', $user['birthday'])->format('Y-m-d'),
-            'email' => $user['email']
+            'email' => $user['email'],
+            'verified' => true
         ]);
           
         SocialAccount::create([

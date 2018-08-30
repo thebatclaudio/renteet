@@ -97,3 +97,15 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+@if(session('success'))
+swal('Il tuo account è stato verificato', 'Adesso puoi effettuare l\'accesso', 'success');
+@elseif(session('error'))
+swal('Si è verificato un errore', 'Riprova più tardi', 'error');
+@elseif(session('unverified'))
+swal('Account non verificato', 'Verifica il tuo account cliccando sul pulsante contenuto nell\'email che hai ricevuto', 'warning');
+@endif
+</script>
+@endsection

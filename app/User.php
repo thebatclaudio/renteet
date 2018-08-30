@@ -150,4 +150,9 @@ class User extends Authenticatable
     public function allUnreadedCount(){
         return Message::where('to_user_id',$this->id)->sum('unreaded');
     }
+
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
 }
