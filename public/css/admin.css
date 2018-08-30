@@ -52,3 +52,7 @@ p.name-hints {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.beds-row .rounded-circle {
+    max-width: 100%;
+}
