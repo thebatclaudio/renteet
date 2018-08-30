@@ -29,10 +29,10 @@
             <div class="col-md-6">
                 <label for="address">Inserisci l'indirizzo</label>
                 <div class="row">
-                    <div class="col-md-10" style="padding-right: 1px">
+                    <div class="col-10" style="padding-right: 1px">
                         <input id="address" name="renteet_house_address" class="form-control w-100" type="text" placeholder="Inserisci una via" required autocomplete="stocazzo" />
                     </div>
-                    <div class="col-md-2" style="padding-left: 1px">
+                    <div class="col-2" style="padding-left: 1px">
                         <input id="address_number" name="address_number" class="form-control w-100" type="text" placeholder="N°" required />
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
         <div class="row margin-top-20">
             <div class="col-md-6">
-                <label for="mq">Quante &egrave; grande il tuo immobile?</label>
+                <label for="mq">Quanto &egrave; grande il tuo immobile?</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">m<sup>2</sup></span>
@@ -137,7 +137,7 @@
         var html = '';
 
         for(var i = 0; i < value; i++) {
-            html += '<div class="row"><div class="col-md-6"><label for="bedrooms">Stanza '+(i+1)+'</label><input name="rooms[]" class="form-control" type="number" min="1" default="0" /></div>';
+            html += '<div class="row margin-top-40"><div class="col-md-6"><label for="bedrooms">N<sup>o</sup> posti letto stanza '+(i+1)+'</label><input name="rooms[]" class="form-control" type="number" min="1" default="0" /></div>';
             html += '<div class="col-md-4"><label for="prices">Prezzo mensile per posto letto</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">€</span></div><input name="prices[]" class="form-control" type="number" min="1" default="0" /><div class="input-group-append"><span class="input-group-text">.00</span></div></div></div>';
             html += '</div>';
         }
