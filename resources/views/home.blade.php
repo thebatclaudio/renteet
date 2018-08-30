@@ -4,13 +4,24 @@
 
 @section('content')
 <div id="main-container" class="container margin-top-20" style="display: none">
-    
-    <div class="row">
+
+    <div class="row d-none d-sm-block">
         <div class="col-auto">
-            <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$locationName}}</strong></h3>
+            @if($locationName)
+                <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$locationName}}</strong></h3>
+            @else
+                <h3>Immobili attualmente disponibili nei tuoi dintorni</h3>
+            @endif
         </div>
     </div>
     
+    <form id="mobileSearchForm" class="form-inline d-inline-flex d-sm-none w-100" action="{{route('search.coordinates')}}" method="GET">
+        <input id="mobileLat" name="lat" type="hidden" required>
+        <input id="mobileLng" name="lng" type="hidden" required>
+        <input id="mobile-search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" value="{{$locationName}}" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca">
+        <i class="search-icon mobile-search-icon fa fa-search fa-2x" aria-hidden="true"></i>
+    </form>
+
     <hr>
 
     <div class="search-results row margin-top-40">
