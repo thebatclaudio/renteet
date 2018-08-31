@@ -295,7 +295,9 @@
                   <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
                   <ul class="list-unstyled">
                     <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
-                    <li>{{$house->owner->livingCity()->getResults()->text}}</li>
+                    @if($house->owner->livingCity()->count())
+                      <li>{{$house->owner->livingCity()->getResults()->text}}</li>
+                    @endif
                   </ul>
                   <p>Email: <a href="mailto:{{$house->owner->email}}">{{$house->owner->email}}</a></p>
                   @if($house->owner->telephone)
