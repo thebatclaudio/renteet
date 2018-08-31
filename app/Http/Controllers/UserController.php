@@ -81,7 +81,7 @@ class UserController extends Controller
        
         if($request->job !== "") $user->job = $request->job;
 
-        if($user->description !== "") $user->description = $request->description;
+        if($request->description !== "") $user->description = $request->description;
 
         
         if($user->save()) {
