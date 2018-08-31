@@ -115,8 +115,8 @@ footer.page-footer {
         <div class="content text-center">
           <div class="container">
             <h3 class="claim">Fai parte di <strong>renteet</strong></h3>
-            <h4 class="claim text-white margin-top-20">Iscriviti alla newsletter,<br> non perderti il lancio!</h4>
-            <div class="row justify-content-md-center">
+            <a href="/register" title="Iscriviti adesso" class="btn btn-danger btn-lg margin-top-20">Iscriviti adesso</a>
+            <!--div class="row justify-content-md-center">
               <div class="col-sm-4">
                 <div id="mc_embed_signup">
                   <form action="https://renteet.us18.list-manage.com/subscribe/post?u=b095bad4ebe8facfe3dc6d62c&amp;id=6dbf114f3e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -153,7 +153,7 @@ footer.page-footer {
                   </form>
                 </div>
               </div>
-            </div>
+            </div-->
           </div>
         </div>
       </div>
