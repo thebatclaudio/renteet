@@ -135,6 +135,25 @@
                     placeName = results[0].address_components[0].long_name,
                     latlng = new google.maps.LatLng(lat, lng);
 
+            document.getElementById('address_lat').value = results[0].geometry.location.lat();
+            document.getElementById('address_lng').value = results[0].geometry.location.lng();
+
+            for(var i in results[0].address_components){
+                var element = results[0].address_components[i];
+
+                if(element.types.indexOf('street_number') !== -1) {
+                    document.getElementById('address_number').value = element.long_name;
+                }
+
+                if(element.types.indexOf('route') !== -1) {
+                    document.getElementById('address_name').value = element.long_name;
+                }
+
+                if(element.types.indexOf('locality') !== -1) {
+                    document.getElementById('address_city').value = element.long_name;
+                }
+            }
+
                 $(".pac-container .pac-item:first").addClass("pac-selected");
                 $(".pac-container").css("display","none");
                 $("#address").val(firstResult);
