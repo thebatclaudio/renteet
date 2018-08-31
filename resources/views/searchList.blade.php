@@ -55,6 +55,8 @@
                             <div class="col-md-12">
                                 @if(isset($house->photos[0]))
                                 <div class="house-img house-img-big" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[0]->file_name)."-1920.jpg")}})"></div>
+                                @else
+                                <div class="house-img" style="background-image: url({{URL::to("/images/homepage/background.jpg"))}})"></div>
                                 @endif
                             @endif
                             </div>
