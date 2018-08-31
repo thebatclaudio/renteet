@@ -127,7 +127,7 @@
 <script type="text/javascript">
     google.load("maps", "3.x", {callback: initialize, other_params:'sensor=false&libraries=places&key=AIzaSyAgn7e4Tc95WlmbyqCz71oGDctx3rXf6oQ'});
     
-    function populateAddressValues(place) {
+    function populateAddressValues(focus, place) {
         document.getElementById('address_lat').value = place.geometry.location.lat();
         document.getElementById('address_lng').value = place.geometry.location.lng();
 
@@ -138,7 +138,7 @@
                 document.getElementById('address_number').value = element.long_name;
             } else {
                 document.getElementById('address_number').style.display = 'block';
-                $("#address_number").focus();
+                if(focus) $("#address_number").focus();
             }
 
             if(element.types.indexOf('route') !== -1) {
@@ -160,7 +160,7 @@
                 return;
             }
 
-            populateAddressValues(place);
+            populateAddressValues(true, place);
         });
     }
 
@@ -179,7 +179,7 @@
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({"address":firstResult }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                populateAddressValues(results[0]);
+                populateAddressValues(true, results[0]);
 
                 $(".pac-container .pac-item:first").addClass("pac-selected");
                 $(".pac-container").css("display","none");
@@ -193,7 +193,7 @@
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({"address":$("#address").val()+' '+$(this).val() }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                populateAddressValues(results[0]);
+                populateAddressValues(false, results[0]);
 
                 $(".pac-container .pac-item:first").addClass("pac-selected");
                 $(".pac-container").css("display","none");
