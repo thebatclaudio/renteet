@@ -287,7 +287,7 @@
                   </a>
                   @if(\Auth::check())
                     @if(\Auth::user()->id != $house->owner->id)
-                      <buttom id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</buttom>
+                      <button id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</button>
                     @endif
                   @endif
                 </div>
@@ -298,6 +298,9 @@
                     <li>{{$house->owner->livingCity()->getResults()->text}}</li>
                   </ul>
                   <p>Email: <a href="mailto:{{$house->owner->email}}">{{$house->owner->email}}</a></p>
+                  @if($house->owner->telephone)
+                  <p>Telefono: {{$house->owner->telephone}}</p>
+                  @endif
                 </div>
               </div>
             </div>

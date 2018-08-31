@@ -84,6 +84,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
+                            <label for="telephone" class="col-md-12 control-label">Telefono <small> (facoltativo)</small></label>
+
+                            <div class="col-md-12">
+                                <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ old('telephone') }}">
+
+                                @if ($errors->has('telephone'))
+                                    <div class="alert alert-warning margin-top-10" role="alert">
+                                        {{ $errors->first('telephone') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                             <label for="birthday" class="col-md-12 control-label">Data di nascita</label>
 
