@@ -56,3 +56,8 @@ p.name-hints {
 .beds-row .rounded-circle {
     max-width: 100%;
 }
+
+.hint {
+    color: #609ad3!important;
+    cursor: pointer;
+}

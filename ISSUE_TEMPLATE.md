@@ -4,6 +4,7 @@ Sostituisci i valori sottostanti con i tuoi
 
 - **Sistema operativo** Ubuntu 14.04
 - **Browser:** Google Chrome 64
+- **Modello del dispositivo (se mobile):** Apple iPhone X
 
 
 ### Comportamento aspettato

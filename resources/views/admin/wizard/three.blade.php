@@ -71,8 +71,8 @@ button.close.fileinput-remove {
             <div class="row margin-top-20">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <input class="form-control form-control-lg w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" required>
-                        <p class="name-hints">Prova <strong>La casa di {{\Auth::user()->first_name}}</strong> o <strong>La casa di {{$streetName}}</strong></p>
+                        <input id="name" class="form-control form-control-lg w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" required>
+                        <p class="name-hints">Prova <a class="hint"><strong>La casa di {{\Auth::user()->first_name}}</strong></a> o <a class="hint"><strong>La casa di {{$streetName}}</strong></a></p>
                     </div>
                     <div class="form-group">
                         <textarea class="form-control w-100" rows="6" placeholder="Aggiungi una descrizione del tuo immobile" name="description" required></textarea>
@@ -135,6 +135,10 @@ button.close.fileinput-remove {
         $("#step-small-title").text("Aggiungi una descrizione");
         $(".progress-bar").width("83%");
         window.scrollTo(0,0);
+    });
+
+    $(".hint").click(function() {
+        $("#name").val($(this).text());
     });
 </script>
 @endsection

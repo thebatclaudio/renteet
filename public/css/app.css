@@ -468,6 +468,7 @@ span.new-message-badge {
   .bed-container .rounded-circle {
     box-shadow: 0 0 3pt 1pt rgba(66, 66, 66, 1);
     max-width: 100%;
+    width: 140px;
   }
 
   .bed-container:hover .rounded-circle {

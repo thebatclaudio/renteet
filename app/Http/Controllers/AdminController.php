@@ -33,13 +33,27 @@ class AdminController extends Controller
             'address_number' => 'required',
             'address_city' => 'required',
             'bedrooms' => 'required',
-            'rooms' => 'required',
-            'prices' => 'required',
+            'rooms' => 'required|array',
+            'prices' => 'required|array',
             'mq' => 'required',
             'bathrooms' => 'required'
+        ], [
+            'address_lat.required' => 'Inserisci un indirizzo valido',
+            'address_lng.required' => 'Inserisci un indirizzo valido',
+            'address_name.required' => 'Inserisci un indirizzo valido',
+            'address_number.required' => 'Inserisci un indirizzo valido',
+            'address_city.required' => 'Inserisci un indirizzo valido',
+            'renteet_house_address.required' => 'Inserisci un indirizzo valido',
+            'tipologia.required' => 'Inserisci una tipologia',
+            'bedrooms.required' => 'Inserisci il numero di stanze da letto',
+            'rooms.required' => 'Inserisci il numero di posti letto per ogni stanza',
+            'prices.required' => 'Inserisci il prezzo per posto letto per ogni stanza',
+            'rooms.array' => 'Inserisci il numero di posti letto per ogni stanza',
+            'prices.array' => 'Inserisci il prezzo per posto letto per ogni stanza',
+            'mq.required' => 'Inserisci la grandezza del tuo immobile',
+            'bathrooms.required' => 'Inserisci il numero di bagni',
         ]);
 
-        //TODO: l'ideale sarebbe gestirlo con il place_id di google maps
         $house = new House;
         $house->name = $request->renteet_house_address;
         $house->street_name = $request->address_name;
@@ -52,21 +66,50 @@ class AdminController extends Controller
         $house->owner_id = \Auth::user()->id;
         $house->last_step = 1;
         $house->type_id = $request->tipologia;
-        if($house->save()) {
-            if(count($request->rooms) == count($request->prices)){
-                foreach($request->rooms as $key => $roomBeds){
-                    $room = new Room;
-                    $room->beds = $roomBeds;
-                    $room->house_id = $house->id;
-                    $room->bed_price = $request->prices[$key];
-                    $room->save();
-                }
+
+        if(count($request->rooms) != count($request->prices) || count($request->rooms) != $request->bedrooms) {
+            return back()->withErrors([
+                'Inserisci il numero di posti letto per ogni stanza'
+            ]);            
+        }
+
+        foreach($request->rooms as $room) {
+            if($room < 1) {
+                return back()->withErrors([
+                    'Inserisci il numero di posti letto per ogni stanza'
+                ]);
             }
         }
 
-        mkdir(public_path('images/houses/'.$house->id));
+        foreach($request->prices as $price) {
+            if($price < 1) {
+                return back()->withErrors([
+                    'Inserisci il prezzo per posto letto per ogni stanza'
+                ]);
+            }
+        }
 
-        return redirect()->route('admin.house.wizard.two', ['id' => $house->id]);
+        if($house->save()) {
+            foreach($request->rooms as $key => $roomBeds){
+                $room = new Room;
+                $room->beds = $roomBeds;
+                $room->house_id = $house->id;
+                $room->bed_price = $request->prices[$key];
+                $room->save();
+            }
+
+            mkdir(public_path('images/houses/'.$house->id));
+
+            return redirect()->route('admin.house.wizard.two', ['id' => $house->id]);
+        } else {
+            foreach($request->prices as $price) {
+                if($price < 1) {
+                    return back()->withErrors([
+                        'Si è verificato un errore'
+                    ]);
+                }
+            }            
+        }
     }
 
 
