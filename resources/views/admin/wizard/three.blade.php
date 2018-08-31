@@ -134,6 +134,7 @@ button.close.fileinput-remove {
         $("#step-two-container").show();
         $("#step-small-title").text("Aggiungi una descrizione");
         $(".progress-bar").width("83%");
+        window.scrollTo(0,0);
     });
 </script>
 @endsection

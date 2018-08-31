@@ -32,9 +32,11 @@ Route::get('/i-nostri-valori', 'StaticPagesController@showOurValues');
 Auth::routes();
 Route::get('/facebook/redirect', 'Auth\SocialAuthController@redirect');
 Route::get('/facebook/callback', 'Auth\SocialAuthController@callback');
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+
 
 // authenticated routes
-Route::middleware(['auth'])->group(function (){
+Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/home', 'HomeController@index')->name('home')->middleware('profile.complete');
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');

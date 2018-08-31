@@ -31,7 +31,7 @@
 
         <h5 class="margin-top-40">Qual &egrave; il genere dei tuoi ospiti?</h5>
 
-        <select class="form-control form-control-lg w-25" name="gender" id="gender">
+        <select class="form-control form-control-lg col-md-3" name="gender" id="gender">
             <option value="mixed">Misto</option>
             <option value="male">Uomo</option>
             <option value="female">Donna</option>

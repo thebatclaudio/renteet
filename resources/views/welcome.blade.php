@@ -54,6 +54,8 @@ footer.page-footer {
             <div class="col-md-6">
               <video width="100%" height="auto" muted loop autoplay data-autoplay>
                 <source src="{{url('videos/blending-animation.mp4')}}" type="video/mp4" />
+                <source src="{{url('videos/blending-animation.webm')}}" type='video/webm; codecs="vp8, vorbis"' />
+                <img src="{{url('videos/blending-animation.jpg')}}" title="Your browser does not support the <video> tag">
               </video>
             </div>
             <div class="col-md-6 text-left">

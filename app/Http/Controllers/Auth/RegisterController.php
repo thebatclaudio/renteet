@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\VerifyUser;
+use App\Mail\VerifyMail;
+use Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -84,7 +87,8 @@ class RegisterController extends Controller
     {
         $telephone = null;
         if($data['telephone'] != "") $telephone = $data['telephone'];
-        return User::create([
+        
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'birthday' => \Carbon\Carbon::create($data['year'], $data['month'], $data['day'])->format('Y-m-d'),
@@ -92,5 +96,33 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'telephone' => $telephone
         ]);
+
+        $verifyUser = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => str_random(40)
+        ]);
+
+        Mail::to($user->email)->send(new VerifyMail($user));
+
+        return $user;
+    }
+
+    public function verifyUser($token)
+    {
+        $verifyUser = VerifyUser::where('token', $token)->first();
+        if(isset($verifyUser) ){
+            $user = $verifyUser->user;
+            if(!$user->verified) {
+                $verifyUser->user->verified = 1;
+                $verifyUser->user->save();
+                $success = "Il tuo account è stato verificato. Adesso puoi effettuare l'accesso";
+            }else{
+                $success = "Il tuo account è stato verificato. Adesso puoi effettuare l'accesso";
+            }
+        }else{
+            return redirect('/login')->with('warning', "Si è verificato un errore");
+        }
+ 
+        return redirect('/login')->with('success', $success);
     }
 }

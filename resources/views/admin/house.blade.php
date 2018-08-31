@@ -12,13 +12,13 @@
             <hr>
 
             <div class="container" style="{{($house->beds > 4) ? 'max-width: 90%;' : ''}}">
-                <div class="row">
+                <div class="row beds-row">
                 @foreach($house->rooms as $room)
 
                     {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
                     @foreach($room->acceptedUsers as $user)
                         <div class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                            <a href="{{$user->profile_url}}"><img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
+                            <a href="{{$user->profile_url}}"><img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" data-toggle="tooltip" data-placement="bottom" title="Visualizza profilo"></a>
                             
                             @if($user->pivot->available_from)
                                 <h6 class="free-place margin-top-10">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h6>
@@ -47,7 +47,7 @@
                     @foreach($room->notAvailableBeds as $user)
                         @if($user->pivot->stop < \Carbon\Carbon::now()->format('Y-m-d'))
                             <div class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
+                                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile">
                                 <h6 class="free-place margin-top-10">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h6>
                             </div>
                         @endif
@@ -57,7 +57,7 @@
                     @if($room->beds - ($room->acceptedUsers->count() + $room->notAvailableBeds->count()))
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
                             <div id="bed-{{$room->id}}-{{$i}}" class="text-center col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                            <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                            <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€">
                             <h6 class="free-place margin-top-10">{{$room->bed_price}}€</h6>
                             </div>
                         @endfor
@@ -77,7 +77,7 @@
 
 
             <div class="row margin-top-80">
-                <div class="col">
+                <div class="col-sm-6">
                     <h5>Richieste di adesione</h5>
                     <hr>
                     @foreach($house->rooms as $room)
@@ -109,7 +109,7 @@
                         @endforeach
                     @endforeach
                 </div>
-                <div class="col">
+                <div class="col-sm-6">
                     <h5>Ospiti precedenti</h5>
                     <hr>
                     @foreach($house->rooms as $room)

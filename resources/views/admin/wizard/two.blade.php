@@ -24,7 +24,7 @@
                     @foreach($servicesQuantity as $service)
                     <div class="list-group-item flex-column align-items-start">
                         <div class="row">
-                            <div class="col-md-9 checkbox-column">
+                            <div class="col-7 checkbox-column">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input data-id="{{$service->id}}" class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="{{$service->id}}">
@@ -32,7 +32,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-5">
                                 <input id="service_quantity_{{$service->id}}" class="form-control pull-right" type="number" name="servicesQuantity[{{$service->id}}]" min="0" default="0" value="0" disabled>
                             </div>                            
                         </div>

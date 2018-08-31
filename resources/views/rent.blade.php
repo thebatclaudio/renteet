@@ -62,7 +62,7 @@
             @foreach($room->acceptedUsers as $user)
               <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
                   <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
-                  <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
+                  <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}">
                   
                   @if($user->pivot->available_from)
                   <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
@@ -80,7 +80,7 @@
             @foreach($room->notAvailableBeds as $user)
               @if($user->pivot->stop < \Carbon\Carbon::now()->format('Y-m-d'))
               <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile" width="140" height="140">
+                <img class="rounded-circle" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNU/A8AAUcBIofjvNQAAAAASUVORK5CYII=" alt="Posto non disponibile">
                 <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
                 @if(!$house->hasUser(\Auth::user()->id))
                   <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
@@ -97,13 +97,13 @@
                 {{-- controllo se l'utente loggato è pending, in caso positivo stampo l'utente loggato --}}
                 @if($room->hasUserPending(\Auth::user()->id))
                   <div class="bed-container col-lg-4 pending" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}" width="140" height="140">
+                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}">
                     <h4 class="user-name {{\Auth::user()->gender}}">In attesa di approvazione</h4>
                   </div>
                   {{-- quindi stampo gli altri posti liberi, sottraendo il posto pending dell'utente loggato --}}
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count()-1; $i++)   
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€">
                       <h4 class="free-place">{{$room->bed_price}}€</h4>
                       @if(\Auth::check())
                       @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
@@ -116,7 +116,7 @@
                   {{-- viceversa stampo TUTTI gli altri posti liberi --}}
                   @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
                     <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                      <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€">
                       <h4 class="free-place">{{$room->bed_price}}€</h4>
                       @if(\Auth::check())
                       @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
@@ -130,7 +130,7 @@
                 {{-- se l'utente non è loggato stampo TUTTI gli altri posti liberi --}}
                 @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)   
                   <div id="bed-{{$room->id}}-{{$i}}" class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                    <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€" width="140" height="140">
+                    <img class="rounded-circle" src="{{url('/images/free-bed.png')}}" alt="{{$room->bed_price}}€">
                     <h4 class="free-place">{{$room->bed_price}}€</h4>
                     @if(\Auth::check())
                     @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
@@ -186,10 +186,10 @@
                 @foreach($house->services()->quantityNeeded(true)->get() as $service)
                 <li>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col">
                       {{$service->name}}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-auto">
                     <h5><span class="badge badge-dark">{{$service->pivot->quantity}}</span></h5>
                     </div>
                   </div>
@@ -281,7 +281,7 @@
           <div class="card margin-top-180 col-md-8">
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-3 text-center">
+                <div class="col-4 text-center">
                   <a href="{{$house->owner->profile_url}}">
                     <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
                   </a>
@@ -291,7 +291,7 @@
                     @endif
                   @endif
                 </div>
-                <div class="col-sm-9 padding-left-20">
+                <div class="col-8 padding-left-20">
                   <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
                   <ul class="list-unstyled">
                     <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
