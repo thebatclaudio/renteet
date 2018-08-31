@@ -57,7 +57,7 @@
                             @if(isset($house->photos[0]))
                             <div class="house-img" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($house->photos[0]->file_name)."-670.jpg")}})"></div>
                             @else
-                            <div class="house-img" style="background-image: url({{URL::to("/images/homepage/background.jpg"))}})"></div>
+                            <div class="house-img" style="background-image: url({{URL::to("/images/homepage/background.jpg")}})"></div>
                             @endif
                         @endif
 
