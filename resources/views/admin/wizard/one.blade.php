@@ -124,6 +124,25 @@
         });
     });
 
+    $("#address").focusout(function(){
+        var firstResult = $(".pac-container .pac-item:first").text();
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({"address":firstResult }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var lat = results[0].geometry.location.lat(),
+                    lng = results[0].geometry.location.lng(),
+                    placeName = results[0].address_components[0].long_name,
+                    latlng = new google.maps.LatLng(lat, lng);
+
+                $(".pac-container .pac-item:first").addClass("pac-selected");
+                $(".pac-container").css("display","none");
+                $("#address").val(firstResult);
+                $(".pac-container").css("visibility","hidden");
+            }
+        });
+    });
+
     $("#bedrooms").on('change', function() {
         var value = $(this).val();
         var roomsContainer = $("#rooms-container");
