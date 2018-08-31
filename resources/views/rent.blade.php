@@ -8,13 +8,15 @@
 
       <div id="houseCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          @foreach($house->photos as $photo)
+          @forelse($house->photos as $photo)
             @if ($loop->first)
               <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
             @else
               <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
             @endif
-          @endforeach
+          @empty
+            <div class="carousel-item active" style="background-image: url({{URL::to("/images/homepage/background.jpg")}})"></div>
+          @endforelse
         </div>
         <a class="carousel-control-prev" href="#houseCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
