@@ -112,6 +112,10 @@ class SocialAuthController extends Controller
             return $createUser;
         }
 
+        if(!isset($user['birthday'])) {
+            $user['birthday'] = '00/00/0000';
+        }
+
         $createUser = User::create([
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
