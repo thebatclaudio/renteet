@@ -113,7 +113,7 @@ class SocialAuthController extends Controller
         }
 
         if(!isset($user['birthday'])) {
-            $user['birthday'] = '00/00/0000';
+            $user['birthday'] = '1/1/0000';
         }
 
         $createUser = User::create([
