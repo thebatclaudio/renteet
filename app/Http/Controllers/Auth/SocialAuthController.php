@@ -65,7 +65,7 @@ class SocialAuthController extends Controller
     protected function callback()
     {
         $user = Socialite::driver('facebook')->fields([
-            'first_name', 'last_name', 'email', 'gender', 'birthday', 'hometown', 'location'
+            'first_name', 'last_name', 'email', /*'gender', 'birthday', 'hometown', 'location'*/
         ])->user();
         
         $authUser = $this->findOrCreateUser($user);
