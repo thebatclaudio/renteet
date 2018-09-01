@@ -49,16 +49,29 @@ class UserController extends Controller
             'born_city' => 'required_if:born_city_required,true',
         ];
 
-        if(\Auth::user()->birthday == '01-01-0000') {
+        $validatorMessages = [
+            'gender.required' => 'Inserisci il tuo genere',
+            'living_city.required_if' => 'Inserisci la tua città di residenza',
+            'born_city.required_if' => 'Inserisci la tua città di nascita'
+        ];
+
+        if(\Auth::user()->birthday == '0000-01-01') {
             $validatorRules['day'] = 'required|integer';
             $validatorRules['month'] = 'required|integer';
             $validatorRules['year'] = 'required|integer';
+            $validatorMessages['day.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['month.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['year.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['day.ineger'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['month.ineger'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['year.ineger'] = 'Inserisci la tua data di nascita';
         }
         
-        $validatedData = $request->validate($validatorRules);
+        $validatedData = $request->validate($validatorRules, $validatorMessages);
 
         $user = \Auth::user();
         $user->gender = $request->gender;
+        $user->birthday = \Carbon\Carbon::create($request->year, $request->month, $request->day)->format('Y-m-d');
         // controllo se le città esistono già
         if($request->living_city){
             if(!$livingCity = \App\City::where('text', $request->living_city)->first()) {

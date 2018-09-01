@@ -82,8 +82,14 @@
                     <form id="personal-info-form" class="form-horizontal" method="POST" action="{{ route('complete-personal-info') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        @if(isset($error))
-                            {{$error}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger col-md-6">
+                                <ul class="list-unstyled">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
 
                         <div class="row">
@@ -101,14 +107,14 @@
                             </div>
                         </div>
 
-                        @if($user->birthday == '01-01-0000')
+                        @if($user->birthday == '0000-01-01')
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label for="birthday" class="col-md-4 col-form-label">Data di nascita</label>
                                         <div class="col-md-8">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" style="padding-right: 1px">
                                                     <select name="day" class="form-control" required>
                                                         <option disabled selected value="-1">Giorno:</option>
                                                         @for($i=1;$i<=31;$i++)
@@ -116,7 +122,7 @@
                                                         @endfor
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="padding: 0px 1px">
                                                     <select name="month" class="form-control" required>
                                                             <option disabled selected value="-1">Mese:</option>
                                                             <option value="1">Gennaio</option>
@@ -133,7 +139,7 @@
                                                             <option value="12">Dicembre</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" style="padding-left: 1px">
                                                     <select name="year" class="form-control" required>
                                                         <option disabled selected value="-1">Anno:</option>
                                                         @for($i=(int)date("Y")-18;$i>(int)date("Y")-118;$i--)

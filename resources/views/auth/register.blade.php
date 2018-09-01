@@ -25,10 +25,7 @@
                     </div>
 
                     <hr> 
-            <!--
-
-                ACCESSO CON FACEBOOK BLOCCATO NELLA VERSIONE BETA FINO A VALIDAZIONE DI FB
-
+                    
                     <div class="form-group align-self-center">
                         <div class="col-md-12">
                             <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Registrati con Facebook</a>
@@ -38,7 +35,7 @@
                     <div class="form-group text-center">
                         <span class="text-uppercase"><small>oppure</small></span>
                     </div>
-            -->
+
                     <form class="form-horizontal margin-top-20" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
