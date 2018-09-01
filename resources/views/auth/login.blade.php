@@ -76,10 +76,6 @@
                 </div>
             </div>
 
-            <!--
-
-                ACCESSO CON FACEBOOK BLOCCATO NELLA VERSIONE BETA FINO A VALIDAZIONE DI FB
-
             <hr>
 
             <div class="form-group text-center">
@@ -91,8 +87,6 @@
                     <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
                 </div>
             </div>
-            -->
-        
         </form>
     </div>
 </div>
