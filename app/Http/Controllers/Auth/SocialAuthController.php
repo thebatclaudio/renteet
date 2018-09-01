@@ -134,8 +134,6 @@ class SocialAuthController extends Controller
         if(file_exists($path) === false){
             \Image::make(str_replace("type=normal","width=1920",$user->getAvatar()))->save($path);
         }
-        
-        \Log::info("gender ".$createUser->gender);
 
         if($createUser->gender === NULL AND !empty($user['gender'])){
             $createUser->gender = $user['gender'];

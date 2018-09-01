@@ -101,6 +101,53 @@
                             </div>
                         </div>
 
+                        @if($user->birthday == '01-01-0000')
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label for="birthday" class="col-md-4 col-form-label">Data di nascita</label>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <select name="day" class="form-control" required>
+                                                        <option disabled selected value="-1">Giorno:</option>
+                                                        @for($i=1;$i<=31;$i++)
+                                                        <option value="{{$i}}">{{$i}}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select name="month" class="form-control" required>
+                                                            <option disabled selected value="-1">Mese:</option>
+                                                            <option value="1">Gennaio</option>
+                                                            <option value="2">Febbraio</option>
+                                                            <option value="3">Marzo</option>
+                                                            <option value="4">Aprile</option>
+                                                            <option value="5">Maggio</option>
+                                                            <option value="6">Giugno</option>
+                                                            <option value="7">Luglio</option>
+                                                            <option value="8">Agosto</option>
+                                                            <option value="9">Settembre</option>
+                                                            <option value="10">Ottobre</option>
+                                                            <option value="11">Novembre</option>
+                                                            <option value="12">Dicembre</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="year" class="form-control" required>
+                                                        <option disabled selected value="-1">Anno:</option>
+                                                        @for($i=(int)date("Y")-18;$i>(int)date("Y")-118;$i--)
+                                                        <option value="{{$i}}">{{$i}}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif  
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">

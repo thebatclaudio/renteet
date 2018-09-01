@@ -42,12 +42,20 @@ class UserController extends Controller
     }
 
     public function completePersonalInfo(Request $request) {
-        
-        $validatedData = $request->validate([
+
+        $validatorRules = [
             'gender' => 'required',
             'living_city' => 'required_if:living_city_required,true',
             'born_city' => 'required_if:born_city_required,true',
-        ]);
+        ];
+
+        if(\Auth::user()->birthday == '01-01-0000') {
+            $validatorRules['day'] = 'required|integer';
+            $validatorRules['month'] = 'required|integer';
+            $validatorRules['year'] = 'required|integer';
+        }
+        
+        $validatedData = $request->validate($validatorRules);
 
         $user = \Auth::user();
         $user->gender = $request->gender;
