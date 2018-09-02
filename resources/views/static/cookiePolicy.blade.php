@@ -9,7 +9,7 @@
 
 <p align="justify" class="margin-top-40">
 La
-nostra Cookie Policy ha lintento
+nostra Cookie Policy ha l'intento
 di descrivere le tipologie di cookie utilizzati dal sito web
 www.renteet.com (di seguito </span>),
 le finalit</span>à
