@@ -41,7 +41,7 @@ class AdhesionToHouse extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -53,9 +53,13 @@ class AdhesionToHouse extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Nuova richiesta di adesione')
+            ->view(
+                'emails.adhesionToHouse', [
+                    'user' => $this->user,
+                    'house' => $this->house
+                ]
+            );
     }
 
     /**
@@ -70,5 +74,15 @@ class AdhesionToHouse extends Notification
             'user_id' => $this->user->id,
             'house_id' => $this->house->id,
         ];
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->house->owner->email;
     }
 }
