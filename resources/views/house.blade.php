@@ -218,7 +218,7 @@ $('#reviewButton').on('click',function(){
         image.classList.add("img-fluid"); 
         image.classList.add("rounded-circle");
     var pName = document.createElement("p");
-        pName.innerText = "{{$house->name}}";
+        pName.innerText = "{!! $house->name !!}";
         pName.classList.add("margin-top-10");
         label.appendChild(input);
         label.appendChild(image);
@@ -244,7 +244,7 @@ $('#reviewButton').on('click',function(){
                 image.classList.add("img-fluid"); 
                 image.classList.add("rounded-circle");
                 var pName = document.createElement("p");
-                pName.innerText = "{{$user->complete_name}}";
+                pName.innerText = "{!! $user->complete_name !!}";
                 pName.classList.add("margin-top-10");
                 label.appendChild(input);
                 label.appendChild(image);
