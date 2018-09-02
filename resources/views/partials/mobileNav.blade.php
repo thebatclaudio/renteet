@@ -34,6 +34,17 @@
             </div>
         </li>
 
+        <li class="nav-item">
+            <a href="{{route('chat.show')}}">
+                I tuoi messaggi
+                @if(\Auth::user()->allUnreadedCount() > 0)
+                    <span id="counterMessages" class="float-right badge badge-danger badge-pill">{{\Auth::user()->allUnreadedCount()}}</span>
+                @else
+                    <span id="counterMessages" class="float-right badge badge-danger badge-pill" style="display:none;">{{\Auth::user()->allUnreadedCount()}}</span>
+                @endif
+            </a>
+        </li>
+
         @if(\Auth::user()->isLessor())
         <li class="nav-item">
             <a href="{{ route('admin.dashboard') }}">Gestisci le tue case</a>
