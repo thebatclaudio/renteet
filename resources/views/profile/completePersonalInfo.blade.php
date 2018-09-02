@@ -82,11 +82,22 @@
                     <form id="personal-info-form" class="form-horizontal" method="POST" action="{{ route('complete-personal-info') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
+                        <?php $found = false; ?>
+
+
                         @if ($errors->any())
                             <div class="alert alert-danger col-md-6">
                                 <ul class="list-unstyled">
                                     @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                        @if(strpos($error, 'data di nascita'))
+                                            @if(!$found)
+                                                <li>{{ $error }}</li>
+
+                                                <?php $found = true; ?>
+                                            @endif
+                                        @else
+                                            <li>{{ $error }}</li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
