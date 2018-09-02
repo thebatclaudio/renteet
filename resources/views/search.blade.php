@@ -5,7 +5,7 @@
 @section('content')
 <div class="container margin-top-20">
     
-    <div class="row d-none d-sm-block">
+    <div class="row d-none d-sm-flex">
         <div class="col-auto">
             @if($searchInput)
                 <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
