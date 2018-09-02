@@ -98,7 +98,8 @@ class AdminController extends Controller
                 $room->save();
             }
 
-            mkdir(public_path('images/houses/'.$house->id));
+            if(!file_exists(public_path('images/houses/'.$house->id)))
+                mkdir(public_path('images/houses/'.$house->id));
 
             return redirect()->route('admin.house.wizard.two', ['id' => $house->id]);
         } else {
