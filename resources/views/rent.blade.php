@@ -160,7 +160,7 @@
               <h3 class="page-target">Descrizione</h3>
             </div>
           <div class="margin-top-120">
-            <p class="margin-top-40">{{$house->description}}</p>
+            <p class="margin-top-40">{!! nl2br($house->description) !!}</p>
           </div>  
         </div>
         
