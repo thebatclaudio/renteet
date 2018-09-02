@@ -415,6 +415,8 @@
             } else {
               swal("Si è verificato un errore", "Riprova più tardi", "error");
             }
+          }).fail(function() {
+            swal("Si è verificato un errore", "Riprova più tardi", "error");
           });
         })
         .catch(err => {
