@@ -55,6 +55,7 @@ p.name-hints {
 
 .beds-row .rounded-circle {
     max-width: 100%;
+    width: 140px;
 }
 
 .hint {
