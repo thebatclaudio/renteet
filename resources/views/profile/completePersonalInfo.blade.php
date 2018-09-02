@@ -84,7 +84,6 @@
 
                         <?php $found = false; ?>
 
-
                         @if ($errors->any())
                             <div class="alert alert-danger col-md-6">
                                 <ul class="list-unstyled">
