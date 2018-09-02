@@ -30,6 +30,7 @@ class VerifyMail extends Mailable
     public function build()
     {
         return $this->from('noreply@renteet.com')
+                ->subject('Verifica il tuo account')
                 ->view('emails.verifyMail')
                 ->with([
                     'user' => $this->user
