@@ -72,11 +72,13 @@ class UserController extends Controller
         $user = \Auth::user();
         $user->gender = $request->gender;
 
-        if(\Carbon\Carbon::create($request->year, $request->month, $request->day) > \Carbon\Carbon::now()->subYears(18)) {
-            return back()->withErrors(['Inserisci una data di nascita valida']);
-        }
+        if(\Auth::user()->birthday == '0000-01-01') {
+            if(\Carbon\Carbon::create($request->year, $request->month, $request->day) > \Carbon\Carbon::now()->subYears(18)) {
+                return back()->withErrors(['Inserisci una data di nascita valida']);
+            }
 
-        $user->birthday = \Carbon\Carbon::create($request->year, $request->month, $request->day)->format('Y-m-d');
+            $user->birthday = \Carbon\Carbon::create($request->year, $request->month, $request->day)->format('Y-m-d');
+        }
         // controllo se le città esistono già
         if($request->living_city){
             if(!$livingCity = \App\City::where('text', $request->living_city)->first()) {
