@@ -66,6 +66,22 @@ class NotificationsController extends Controller
                     }
                 break;
 
+                case "App\Notifications\ExitFromHouse":
+                    if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $user->profile_pic;
+                        $new_notification->text = $user->first_name." ".$user->last_name." abbandonerà il tuo immobile ".$house->name." dal ".\Carbon\Carbon::createFromFormat('Y-m-d', $user->rooms()->where('house_id', $house->id)->first()->pivot->stop)->format('d/m/Y');
+                        $new_notification->url = route("admin.house", $notification->data['house_id']);
+                        $new_notification->created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->timestamp * 1000;
+                        if($notification->read_at !== null){
+                            $new_notification->read_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->read_at)->timestamp * 1000;
+                        }else{
+                            $new_notification->read_at = $notification->read_at;
+                        }
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
 
             }
             $notification->read_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
@@ -120,6 +136,23 @@ class NotificationsController extends Controller
                         $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
                         $new_notification->user = $user;
 
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
+                case "App\Notifications\ExitFromHouse":
+                    if($user = \App\User::find($notification->data['user_id']) AND $house = \App\House::find($notification->data['house_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $user->profile_pic;
+                        $new_notification->text = $user->first_name." ".$user->last_name." abbandonerà il tuo immobile ".$house->name." dal ".$user->rooms()->where('house_id', $house->id)->first()->pivot->stop.".";
+
+                        if(!$user->rooms()->where('house_id', $house->id)->first()->pivot->available_from) {
+                            $new_notification->text .= " Seleziona la data in cui tornerà disponibile.";
+                        }
+
+                        $new_notification->url = route("admin.house", $notification->data['house_id']);
+                        $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
+                        $new_notification->user = $user;
                         $notifications[] = $new_notification;
                     }
                 break;

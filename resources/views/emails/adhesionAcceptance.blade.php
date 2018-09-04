@@ -10,11 +10,11 @@
 
 <br/>
 <div><!--[if mso]>
-  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{url($house->url)}}" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#04673b" fillcolor="#099154">
+  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{url('/house')}}" style="height:40px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#04673b" fillcolor="#099154">
     <w:anchorlock/>
     <center style="color:#ffffff;font-family:Ubuntu, sans-serif;font-size:13px;font-weight:bold;">Visualizza la tua casa</center>
   </v:roundrect>
-<![endif]--><a href="{{url($house->url)}}"
+<![endif]--><a href="{{url('/house')}}"
 style="background-color:#099154;border:1px solid #04673b;border-radius:4px;color:#ffffff;display:inline-block;font-family:Ubuntu, sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Visualizza la tua casa</a></div>
 
 
