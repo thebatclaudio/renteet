@@ -47,7 +47,7 @@
                     <div class="list-group-item flex-column align-items-start">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="">
+                                <input class="form-check-input" type="checkbox" name="services[{{$service->id}}]" value="{{$service->id}}">
                                 {{$service->name}}
                             </label>
                         </div>

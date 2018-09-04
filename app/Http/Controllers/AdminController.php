@@ -125,6 +125,7 @@ class AdminController extends Controller
     public function newHouseWizardStepTwoSave(Request $request){
         if($house = House::find($request->input('id'))) {
             if($house->owner->id === \Auth::user()->id) {
+                $house->services()->detach();
                 if($request->input('services')) {
                     foreach($request->input('services') as $service) {
                         if(isset($request->input('servicesQuantity')[$service])) {
@@ -137,7 +138,6 @@ class AdminController extends Controller
                 }
 
                 $house->last_step = 2;
-                
                 if($request->input("other_services")) {
                     $house->other_services = $request->input("other_services");
                 }
