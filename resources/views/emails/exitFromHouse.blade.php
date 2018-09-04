@@ -1,6 +1,6 @@
 @extends('layouts.email')
 
-@section('title', $user->complete_name.' ha abbandonato il tuo immobile')'
+@section('title', $user->complete_name.' ha abbandonato il tuo immobile')
 
 @section('content')
 

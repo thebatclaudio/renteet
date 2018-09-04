@@ -24,7 +24,7 @@
                                 <img class="img-fluid rounded-circle" src="{{$notification->image}}" width="80" height="80">
                             </div>
                             <div class="col">
-                                <h5 class="margin-top-10">{{$notification->user->first_name}}{{$notification->user->last_name}}</h5> 
+                                <h5 class="margin-top-10">{{$notification->user->complete_name}}</h5> 
                                 <small class="notification-date">{{$notification->date}}</small>
                             </div>
                         </div>

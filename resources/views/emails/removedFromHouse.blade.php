@@ -1,12 +1,12 @@
 @extends('layouts.email')
 
-@section('title', 'Richiesta di adesione accettata')
+@section('title', $house->owner->complete_name.' ti ha rimosso dall\'immobile '.$house->name)
 
 @section('content')
 
 <h1>Ciao {{$user->first_name}}<h1>
 
-<p><strong>{{$house->owner->complete_name}}</strong> ha accettato la tua richiesta di adesione per l'immobile <strong>{{$house->name}}</strong>.</p>
+<p><strong>{{$house->owner->complete_name}}</strong> ti ha rimosso dall'immobile <strong>{{$house->name}}</strong>.</p>
 
 <br/>
 <div><!--[if mso]>

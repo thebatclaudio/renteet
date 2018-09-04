@@ -1,6 +1,6 @@
 @extends('layouts.email')
 
-@section('title', 'Conferma il tuo account')'
+@section('title', 'Conferma il tuo account')
 
 @section('content')
 <h2>Benvenuto su renteet, {{$user->first_name}}</h2>

@@ -1,6 +1,6 @@
 @extends('layouts.email')
 
-@section('title', 'Nuova richiesta di adesione')'
+@section('title', 'Nuova richiesta di adesione')
 
 @section('content')
 

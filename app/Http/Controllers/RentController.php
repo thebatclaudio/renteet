@@ -205,7 +205,10 @@ class RentController extends Controller
                     $roomUser->stop = $request->stop;
                     if($roomUser->save()){
                         event(new RemovedFromHouse($user, $currentRoom->house->id));
-                        
+
+                        // creo la notifica nel db
+                        User::find($user)->notify(new \App\Notifications\RemovedFromHouse($user, $currentRoom->house->id));
+
                         if($request->stop == \Carbon\Carbon::now()->format('Y-m-d')){
                             $conversation = Conversation::where('house_id',$currentRoom->house->id)->first();
                             $conversation->users()->detach($user);
@@ -217,7 +220,7 @@ class RentController extends Controller
                     }else{
                         return response()->json([
                             'status' => 'KO'
-                        ]);       
+                        ]);
                     }
                 }else{
                     return response()->json([
