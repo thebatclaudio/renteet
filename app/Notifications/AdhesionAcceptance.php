@@ -41,7 +41,7 @@ class AdhesionAcceptance extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -53,9 +53,13 @@ class AdhesionAcceptance extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('La tua richiesta di adesione è stata accettata')
+            ->view(
+                'emails.adhesionAcceptance', [
+                    'user' => $this->user,
+                    'house' => $this->house
+                ]
+            );
     }
 
     /**
