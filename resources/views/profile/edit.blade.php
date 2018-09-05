@@ -2,6 +2,21 @@
 
 @section('title', 'Modifica il tuo profilo')
 
+@section('styles')
+<link rel="stylesheet" href="/css/tagsinput.css">
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function(){
+    $('.tagsinput').tagsinput({
+        confirmKeys: [13,32,188,44]
+    });
+});
+</script>
+<script src="/js/tagsinput.js"></script>
+@endsection
+
 @section('scripts')
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -73,12 +88,13 @@
 
     <!-- left column -->
         <div class="col-md-3">
-            <div class="text-center">
+            <div class="view overlay">
                 <img src="{{$user->profile_pic}}" class="avatar rounded-circle fluid" alt="avatar" style="width:200px; height:200px;">
-                <h6>Upload a different photo...</h6> 
-                <input type="file" class="form-control">
+                <div class="mask flex-center rgba-stylish-strong avatar rounded-circle fluid" style="width:200px; height:200px;">
+                    <a class="white-text" href="{{route('show-upload-picture')}}">Modifica Immagine</a>
+                </div>
             </div>
-        </div>
+        </div>    
 
     <!-- edit form column -->
         <div class="col-md-9">
@@ -112,23 +128,15 @@
 
                         <div class="form-group col-sm-10">
                             <label for="first_name" class="col-sm-3 control-label">Nome</label>
-                            <div class="col-sm-9 float-right">
-                                @if($user->first_name)
-                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ $user->first_name }}" required autofocus>
-                                @else
-                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
-                                @endif    
+                            <div class="col-sm-9 float-right">                              
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ (old('first_name')) ? old('first_name') : $user->first_name }}" required autofocus>                           
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
                             <label for="last_name" class="col-sm-3 control-label">Cognome</label>
                             <div class="col-sm-9 float-right">
-                                @if($user->first_name)
-                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ $user->last_name }}" required autofocus>
-                                @else
-                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
-                                @endif    
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ (old('last_name')) ? old('last_name') : $user->last_name }}" required autofocus>                                
                             </div>
                         </div>
 
@@ -180,18 +188,13 @@
                                     <div class="col-md-6" style="padding: 0px 4px">
                                         <select name="month" class="form-control" required>
                                                 <option disabled value="-1">Mese:</option>
-                                                <option value="1">Gennaio</option>
-                                                <option value="2">Febbraio</option>
-                                                <option value="3">Marzo</option>
-                                                <option value="4">Aprile</option>
-                                                <option value="5">Maggio</option>
-                                                <option value="6">Giugno</option>
-                                                <option value="7">Luglio</option>
-                                                <option value="8">Agosto</option>
-                                                <option value="9">Settembre</option>
-                                                <option value="10">Ottobre</option>
-                                                <option value="11">Novembre</option>
-                                                <option value="12">Dicembre</option>
+                                                @for($i=1;$i<=12;$i++)
+                                                    @if($i == $birth_month)
+                                                    <option value="{{$i}}" selected="selected">{{$months_it[$i-1]}}</option>
+                                                    @else
+                                                    <option value="{{$i}}">{{$months_it[$i-1]}}</option>
+                                                    @endif
+                                                @endfor    
                                         </select>
                                     </div>
                                     <div class="col-md-3" style="padding-left: 4px">
@@ -264,22 +267,14 @@
                         <div class="form-group col-sm-10">
                             <label for="email" class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-9 float-right">
-                                @if($user->email)
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
-                                @else    
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                                @endif
+                                <input id="email" type="email" class="form-control" name="email" value="{{ (old('email')) ? old('email') : $user->email }}" required>
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
                             <label for="telephone" class="col-sm-3 control-label">Numero Telefono</label>
                             <div class="col-sm-9 float-right">
-                                @if($user->telephone)
-                                    <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ $user->telephone }}">
-                                @else
-                                    <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ old('telephone') }}">
-                                @endif
+                                <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ (old('telephone')) ? old('telephone') : $user->telephone }}">                              
                             </div>
                         </div>
 
@@ -295,44 +290,46 @@
                     <div class="panel-body">
 
                         <div class="form-group col-sm-10">
-                            <label class="col-sm-3 control-label">Universit&agrave;</label>
+                            <label for="university" class="col-sm-3 control-label">Universit&agrave;</label>
                             <div class="col-sm-9 float-right">
-                                <input type="text" class="form-control">
+                                <input type="text" id="university" name="university" class="form-control" value="{{ (old('university')) ? old('university') : $user->university }}" placeholder="Inserisci la tua Università"> 
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
-                            <label class="col-sm-3 control-label">Lavoro</label>
+                            <label for="job" class="col-sm-3 control-label">Lavoro</label>
                             <div class="col-sm-9 float-right">
-                                <input type="text" class="form-control">
+                                <input type="text" id="job" name="job" class="form-control" value="{{ (old('job')) ? old('job') : $user->job }}" placeholder="Inserisci il tuo lavoro">
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
-                            <label class="col-sm-3 control-label">Interessi</label>
+                            <label for="interests" class="col-sm-3 control-label">Interessi</label>
                             <div class="col-sm-9 float-right">
-                                <input type="text" class="form-control">
+                                <input type="text" placeholder="I tuoi interessi" name="interests" class="tagsinput" value="{{(old('interests')) ? old('interests') : $interests}}">
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
-                            <label class="col-sm-3 control-label">Lingue</label>
+                            <label for="languages" class="col-sm-3 control-label">Lingue</label>
                             <div class="col-sm-9 float-right">
-                                <input type="text" class="form-control">
+                                <input type="text" placeholder="Che lingue conosci ?" name="languages" class="tagsinput" value="{{(old('languages')) ? old('languages') : $languages}}">
                             </div>
                         </div>
 
                         <div class="form-group col-sm-10">
-                            <label class="col-sm-3 control-label">Descrizione</label>
+                            <label for="description" class="col-sm-3 control-label">Descrizione</label>
                             <div class="col-sm-9 float-right">
-                                <input type="text" class="form-control">
+                                <textarea placeholder="Scrivi una breve descrizione di te..." rows="4" maxlength="150" id="description" name="description" class="form-control" style="resize:none;">{{(old('description')) ? old('description') : $user->description}}</textarea>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-success" disabled="disabled">Salva</button>
+                <div class="row margin-top-60">
+                    <button type="submit" class="btn btn-success float-right" disabled="disabled">Salva</button>
+                </div>
             </form>
         </div>
     

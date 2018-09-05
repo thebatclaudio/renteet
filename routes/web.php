@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
     Route::get('/profile/requests/pending', 'UserController@pendingRequests')->name('pendingRequests');
     // step 1: carica foto
-    Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm');
+    Route::get('/complete-signup/upload-picture/', 'UploadPictureController@showUploadPictureForm')->name("show-upload-picture");
     Route::post('/complete-signup/upload-picture/', 'UploadPictureController@uploadPicture')->name("upload-picture");
     // step 2: crop foto
     Route::get('/complete-signup/crop-picture/', 'UploadPictureController@showCropPicture');

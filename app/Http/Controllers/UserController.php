@@ -8,11 +8,33 @@ use \Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function showEditProfileForm() {
+        $interests = "";
+        $languages = "";
+
+        foreach(\Auth::user()->interests as $interest){
+            if($interests == ""){
+                $interests=$interest->name;
+            }else{
+                $interests=$interests.",".$interest->name;
+            }
+        }
+
+        foreach(\Auth::user()->languages as $language){
+            if($languages == ""){
+                $languages=$language->name;
+            }else{
+                $languages=$languages.",".$language->name;
+            }
+        }
+
         return view('profile.edit',[
             'user' => \Auth::user(),
             'birth_day' => \Carbon\Carbon::parse(\Auth::user()->birthday)->day,
             'birth_month' => \Carbon\Carbon::parse(\Auth::user()->birthday)->month,
             'birth_year' => \Carbon\Carbon::parse(\Auth::user()->birthday)->year,
+            'interests' => $interests,
+            'languages' => $languages,
+            'months_it' => ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']
         ]);
     }
 
