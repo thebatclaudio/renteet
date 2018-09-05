@@ -8,7 +8,12 @@ use \Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function showEditProfileForm() {
-        return view('profile.edit');
+        return view('profile.edit',[
+            'user' => \Auth::user(),
+            'birth_day' => \Carbon\Carbon::parse(\Auth::user()->birthday)->day,
+            'birth_month' => \Carbon\Carbon::parse(\Auth::user()->birthday)->month,
+            'birth_year' => \Carbon\Carbon::parse(\Auth::user()->birthday)->year,
+        ]);
     }
 
     public function showProfile($id) {
