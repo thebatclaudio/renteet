@@ -10,9 +10,9 @@
         <div class="carousel-inner">
           @forelse($house->photos as $photo)
             @if ($loop->first)
-              <div class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
+            <div href="{{'/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg'}}" data-toggle="lightbox" data-gallery="example-gallery" class="carousel-item active" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}}); cursor: pointer;"></div>
             @else
-              <div class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}})"></div>
+            <div href="{{'/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg'}}" data-toggle="lightbox" data-gallery="example-gallery" class="carousel-item" style="background-image: url({{URL::to("/images/houses/".$house->id."/".rawurlencode($photo->file_name)."-1920.jpg")}}); cursor: pointer;"></div>
             @endif
           @empty
             <div class="carousel-item active" style="background-image: url({{URL::to("/images/homepage/background.jpg")}})"></div>
@@ -439,42 +439,47 @@
       });
       @endif;
 
-$("#new-message-button").on('click',function(){
-  var messageContainer = document.createElement("form");
-  var textArea = document.createElement('textarea');
-  textArea.name = 'textareaMessage';
-  textArea.id = 'textareaMessage';
-  textArea.classList.add('form-control');
-  textArea.classList.add('margin-top-40');
-  textArea.rows="6"; 
-  textArea.placeholder ='Inserisci il testo del messaggio';
-  messageContainer.appendChild(textArea);
-  
-  swal({
-          title: "Invia un messaggio a {{$house->owner->first_name}}",
-          buttons: [true, {
-              text: "Invia",
-              className: "nextButtonSwal",
-              closeModal: false
-          }],
-          content: messageContainer
-      }).then((send) =>{
-          if(!send) throw null;
-          if($('#textareaMessage').val() == "") throw null;
-          var url = '{{route('chat.newChat', ':id')}}';
-          $.post(url.replace(':id','{{$house->owner->id}}'), {message:$('#textareaMessage').val()}, function( data ) {
-              if(data.status === 'OK') {
-                  swal("Messaggio inviato correttamente", "", "success");
-              } else {
-                  swal("Si è verificato un errore", "Riprova più tardi", "error");
-              }
-          });
+  $("#new-message-button").on('click',function(){
+    var messageContainer = document.createElement("form");
+    var textArea = document.createElement('textarea');
+    textArea.name = 'textareaMessage';
+    textArea.id = 'textareaMessage';
+    textArea.classList.add('form-control');
+    textArea.classList.add('margin-top-40');
+    textArea.rows="6"; 
+    textArea.placeholder ='Inserisci il testo del messaggio';
+    messageContainer.appendChild(textArea);
+    
+    swal({
+            title: "Invia un messaggio a {{$house->owner->first_name}}",
+            buttons: [true, {
+                text: "Invia",
+                className: "nextButtonSwal",
+                closeModal: false
+            }],
+            content: messageContainer
+        }).then((send) =>{
+            if(!send) throw null;
+            if($('#textareaMessage').val() == "") throw null;
+            var url = '{{route('chat.newChat', ':id')}}';
+            $.post(url.replace(':id','{{$house->owner->id}}'), {message:$('#textareaMessage').val()}, function( data ) {
+                if(data.status === 'OK') {
+                    swal("Messaggio inviato correttamente", "", "success");
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
 
-      })
-      .catch((err)=>{
-          swal("Si è verificato un errore", "Riprova più tardi", "error");
-      });
-});
+        })
+        .catch((err)=>{
+            swal("Si è verificato un errore", "Riprova più tardi", "error");
+        });
+  });
+
+  $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox();
+  });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 @endsection
