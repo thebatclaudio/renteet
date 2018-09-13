@@ -42,8 +42,8 @@
         attribution=setup_tool
         page_id="1545497615573228"
         theme_color="#099154"
-        logged_in_greeting="Ciao, come possiamo aiutarti?"
-        logged_out_greeting="Ciao, come possiamo aiutarti?">
+        logged_in_greeting="Hai bisogno di aiuto? Chiedi pure"
+        logged_out_greeting="Hai bisogno di aiuto? Chiedi pure">
         </div>
 
         <header>
