@@ -38,7 +38,10 @@ Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 // authenticated routes
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/home', 'HomeController@index')->name('home')->middleware('profile.complete');
+
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
+    Route::post('/edit-profile', 'UserController@editPersonalInfo')->name("edit-personal-info");
+
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
     Route::get('/profile/requests/pending', 'UserController@pendingRequests')->name('pendingRequests');
     // step 1: carica foto
