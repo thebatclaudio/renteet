@@ -59,6 +59,14 @@ class House extends Model
         }
     }
 
+    public function getRealLatitude() {
+        return $this->getOriginal('latitude');
+    }
+
+    public function getRealLongitude() {
+        return $this->getOriginal('longitude');
+    }
+
     public function getPreviewImageUrlAttribute() {
         return route('house.thumbnail',$this->id);
     }

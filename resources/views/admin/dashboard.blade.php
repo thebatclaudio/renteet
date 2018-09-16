@@ -11,7 +11,7 @@
             <hr>
             <div class="row houses-list">
                 @foreach($houses as $house)
-                <div class="col-md-3">
+                <div class="col-sm-6 col-md-4">
 
 
                     <!-- Card -->
@@ -19,7 +19,7 @@
 
                         <!-- Card image -->
                         <div class="view overlay">
-                            <img class="card-img-top" src="{{url('/images/houses/'.$house->id.'/'.$house->photos[0]->file_name."-1920.jpg")}}" alt="{{$house->name}}" height="auto">
+                            <img class="card-img-top" src="{{$house->getPreviewImageUrlAttribute()}}" alt="{{$house->name}}" height="auto">
                             <a href="#!">
                             <div class="mask rgba-white-slight"></div>
                             </a>
@@ -64,11 +64,7 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
+                                            <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
                                         </div>
                                     </div>
                                     @break
