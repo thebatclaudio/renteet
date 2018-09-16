@@ -95,6 +95,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
             Route::prefix('edit/{id}/')->name('edit.')->group(function () {
                 Route::get('info', 'AdminController@showEditInfo')->name('info');
                 Route::post('info', 'AdminController@editInfo')->name('info.save');
+                Route::get('services', 'AdminController@showEditServices')->name('services');
+                Route::post('services', 'AdminController@editServices')->name('services.save');
             });
         });
         Route::get('house/{id}', 'AdminController@house')->name('house');
