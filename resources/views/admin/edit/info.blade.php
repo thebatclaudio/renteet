@@ -1,15 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard')
+@section('title', 'Modifica le informazioni del tuo immobile '.$house->name)
 
 @section('content')
-<div class="progress wizard-progress">
-    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-
 <div class="container margin-top-20">
-    <h6 class="step-number">Modifica le informazioni</h6>
-    <h3 class="step-title">Di che ambiente si tratta?</h3>
+    <h6 class="step-number">{{$house->name}}</h6>
+    <h3 class="step-title">Modifica le informazioni</h3>
 
     <hr>
 
