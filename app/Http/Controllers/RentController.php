@@ -138,6 +138,9 @@ class RentController extends Controller
             if($roomUser->save()) {
                 event(new ExitFromHouse(\Auth::user()->id, $roomUser->room->house->id));
                 
+                // creo la notifica nel db
+                User::find($roomUser->room->house->owner->id)->notify(new \App\Notifications\ExitFromHouse(\Auth::user()->id, $roomUser->room->house->id));
+                
                 if($request->stopDate == \Carbon\Carbon::now()->format('Y-m-d')){
                     $conversation = Conversation::where('house_id',$roomUser->house->id)->first();
                     $conversation->users()->detach($user);
@@ -148,12 +151,12 @@ class RentController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'status' => 'KO1'
+                    'status' => 'KO'
                 ]);                
             }
         } else {
             return response()->json([
-                'status' => 'KO2'
+                'status' => 'KO'
             ]);
         }
     }
@@ -202,7 +205,10 @@ class RentController extends Controller
                     $roomUser->stop = $request->stop;
                     if($roomUser->save()){
                         event(new RemovedFromHouse($user, $currentRoom->house->id));
-                        
+
+                        // creo la notifica nel db
+                        User::find($user)->notify(new \App\Notifications\RemovedFromHouse($user, $currentRoom->house->id));
+
                         if($request->stop == \Carbon\Carbon::now()->format('Y-m-d')){
                             $conversation = Conversation::where('house_id',$currentRoom->house->id)->first();
                             $conversation->users()->detach($user);
@@ -214,7 +220,7 @@ class RentController extends Controller
                     }else{
                         return response()->json([
                             'status' => 'KO'
-                        ]);       
+                        ]);
                     }
                 }else{
                     return response()->json([

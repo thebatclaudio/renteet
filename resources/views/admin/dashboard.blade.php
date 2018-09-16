@@ -11,42 +11,74 @@
             <hr>
             <div class="row houses-list">
                 @foreach($houses as $house)
-                <div class="col-md-4">
+                <div class="col-md-3">
+
+
+                    <!-- Card -->
                     <div class="card">
-                        <div class="house-card-img card-img-top" style="background-image: url({{$house->preview_image_url}})"></div>
-                        <div class="card-block">
-                            <h5 class="card-title text-truncate">{{$house->name}}</h5>
-                            <!--p class="card-text"></p-->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @if($house->last_step != 4)
-                                        <span class="badge badge-warning">Da completare</span>
-                                    @else
-                                        <span class="badge badge-success">Pubblicato</span>
-                                    @endif
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    @switch($house->last_step)
-                                        @case(1)
-                                            <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
-                                            @break
 
-                                        @case(2)
-                                            <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
-                                            @break
-
-                                        @case(3)
-                                            <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary btn-sm">Completa annuncio</a>
-                                            @break
-
-                                        @case(4)
-                                            <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary btn-sm">Gestisci</a>
-                                            @break
-                                    @endswitch
-                                </div>
-                            </div>
+                        <!-- Card image -->
+                        <div class="view overlay">
+                            <img class="card-img-top" src="{{url('/images/houses/'.$house->id.'/'.$house->photos[0]->file_name."-1920.jpg")}}" alt="{{$house->name}}" height="auto">
+                            <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                            </a>
                         </div>
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h4 class="card-title">{{$house->name}}</h4>
+
+                            <div>
+                                @if($house->last_step != 4)
+                                    <span class="badge badge-warning">Da completare</span>
+                                @else
+                                    <span class="badge badge-success">Pubblicato</span>
+                                @endif
+                            </div>
+
+                            <div class="text-right">
+                            <!-- Button -->
+                            @switch($house->last_step)
+                                @case(1)
+                                    <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                    @break
+
+                                @case(2)
+                                    <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                    @break
+
+                                @case(3)
+                                    <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                    @break
+
+                                @case(4)
+
+                                    <!-- Split button -->
+                                    <div class="btn-group">
+                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary">Gestisci</a>
+                                        <button type="button" class="btn btn-primary dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-caret-down"></i>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </div>
+                                    @break
+                            @endswitch
+                            </div>
+
+                        </div>
+
                     </div>
+                    <!-- Card -->
                 </div>
                 @endforeach
             </div>

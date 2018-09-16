@@ -1,6 +1,6 @@
 @extends('layouts.email')
 
-@section('title', 'Nuova richiesta di supporto')'
+@section('title', 'Nuova richiesta di supporto')
 
 @section('content')
 <ul>

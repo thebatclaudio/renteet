@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\User;
 use App\House;
 
-class AdhesionAcceptance extends Notification
+class RemovedFromHouse extends Notification
 {
     use Queueable;
 
@@ -53,9 +53,9 @@ class AdhesionAcceptance extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('La tua richiesta di adesione è stata accettata')
+            ->subject($this->house->owner->complete_name.' ti ha rimosso dall\'immobile '.$this->house->name)
             ->view(
-                'emails.adhesionAcceptance', [
+                'emails.removedFromHouse', [
                     'user' => $this->user,
                     'house' => $this->house
                 ]
@@ -76,6 +76,7 @@ class AdhesionAcceptance extends Notification
             'owner_id' => $this->owner->id
         ];
     }
+
 
     /**
      * Route notifications for the mail channel.
