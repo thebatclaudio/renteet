@@ -117,7 +117,7 @@ $(document).ready(function(){
                         </ul>
                 </div>
             @endif
-            <form id="personal-info-form" class="form-horizontal" method="POST" action="{{ route('complete-personal-info') }}" enctype="multipart/form-data">
+            <form id="personal-info-form" class="form-horizontal" method="POST" action="{{ route('edit-personal-info') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 
                 <div class="panel panel-default">
@@ -328,7 +328,7 @@ $(document).ready(function(){
                 </div>
                 
                 <div class="row margin-top-60">
-                    <button type="submit" class="btn btn-success float-right" disabled="disabled">Salva</button>
+                    <button type="submit" class="btn btn-success float-right">Salva</button>
                 </div>
             </form>
         </div>

@@ -38,6 +38,132 @@ class UserController extends Controller
         ]);
     }
 
+    public function editPersonalInfo(Request $request){
+
+        $validatorRules = [
+            'gender' => 'required',
+            'living_city' => 'required_if:living_city_required,true',
+            'born_city' => 'required_if:born_city_required,true',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'telephone' => 'max:20'
+        ];
+
+        $validatorMessages = [
+            'gender.required' => 'Inserisci il tuo genere',
+            'living_city.required_if' => 'Inserisci la tua città di residenza',
+            'born_city.required_if' => 'Inserisci la tua città di nascita',
+            'first_name.required' => 'Il nome è un campo obbligatorio',
+            'last_name.required' => 'Il cognome è un campo obbligatorio',
+            'telephone.max' => 'Il numero non risulta valido'
+        ];
+
+        if(\Auth::user()->birthday == '0000-01-01') {
+            $validatorRules['day'] = 'required|integer';
+            $validatorRules['month'] = 'required|integer';
+            $validatorRules['year'] = 'required|integer';
+            $validatorMessages['day.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['month.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['year.required'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['day.ineger'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['month.ineger'] = 'Inserisci la tua data di nascita';
+            $validatorMessages['year.ineger'] = 'Inserisci la tua data di nascita';
+        }
+
+        if(\Auth::user()->email != $request->email){
+            $validatorRules['email'] = 'required|string|email|max:255|unique:users';
+            $validatorMessages['email.required'] = 'L\'indirizzo E-mail è un campo obbligatorio';
+            $validatorMessages['email.unique'] = 'L\'indirizzo E-mail inserito è già associato ad un altro utente';
+        }
+        
+        $validatedData = $request->validate($validatorRules, $validatorMessages);
+
+        $user = \Auth::user();
+        $user->gender = $request->gender;
+
+        if($request->first_name != "") $user->first_name = $request->first_name;
+        if($request->last_name != "") $user->last_name = $request->last_name;
+        if($request->email != "") $user->email = $request->email;
+        if($request->telephone != "") $user->telephone = $request->telephone;
+
+        if(\Auth::user()->birthday != '0000-01-01') {
+            if(\Carbon\Carbon::create($request->year, $request->month, $request->day) > \Carbon\Carbon::now()->subYears(18)) {
+                return back()->withErrors(['Inserisci una data di nascita valida']);
+            }
+            $user->birthday = \Carbon\Carbon::create($request->year, $request->month, $request->day)->format('Y-m-d');
+        }
+        // controllo se le città esistono già
+        if($request->living_city){
+            if(!$livingCity = \App\City::where('text', $request->living_city)->first()) {
+                $city = \Geocoder::getCoordinatesForAddress($request->living_city);
+                $livingCity = new \App\City;
+                $livingCity->text = $city['formatted_address'];
+                $livingCity->latitude = $city['lat'];
+                $livingCity->longitude = $city['lng'];
+                $livingCity->save();
+            }
+            $user->living_city_id = $livingCity->id;
+        }
+
+        if($request->born_city){
+            if(!$bornCity = \App\City::where('text',$request->born_city)->first()) {
+                $city = \Geocoder::getCoordinatesForAddress($request->born_city);
+                $bornCity = new \App\City;
+                $bornCity->text = $city['formatted_address'];
+                $bornCity->latitude = $city['lat'];
+                $bornCity->longitude = $city['lng'];
+                $bornCity->save();
+            }
+
+            $user->born_city_id = $bornCity->id;
+        }
+
+        if($request->university !== "") $user->university = $request->university;
+       
+        if($request->job !== "") $user->job = $request->job;
+
+        if($request->description !== "") $user->description = $request->description;
+        
+        $interests = explode(",",$request->interests);
+        $interestsToAdd = [];
+        foreach($interests as $interest){
+
+            if($checkInterest = \App\Interest::where('name', $interest)->first()) {
+                $interestsToAdd[] = $checkInterest->id;
+            } else {
+                $newInterest = new \App\Interest;
+                $newInterest->name = $interest;
+                $newInterest->save();
+                $interestsToAdd[] = $newInterest->id;
+            }
+
+            $user->interests()->syncWithoutDetaching($interestsToAdd);
+        }
+
+        $languages = explode(",",$request->languages);
+        $languagesToAdd = [];
+        foreach($languages as $language){
+
+            if($checkLanguage = \App\Language::where('name', $language)->first()) {
+                $languagesToAdd[] = $checkLanguage->id;
+            } else {
+                $newLanguage = new \App\Language;
+                $newLanguage->name = $language;
+                $newLanguage->save();
+                $languagesToAdd[] = $newLanguage->id;
+            }
+
+            $user->languages()->syncWithoutDetaching($languagesToAdd);
+        }
+
+        if($user->save()) {
+            return redirect()->to('/profile/'.$user->id);
+        } else {
+            return back()->withInput(\Input::all());
+        }
+
+    }
+
     public function showProfile($id) {
         if($user = \App\User::find($id)){
             $attributes = [
