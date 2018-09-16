@@ -5,7 +5,7 @@
 @section('content')
 <div class="container margin-top-20">
     <div class="panel panel-default">
-        <div class="panel-heading">Immobile</div>
+        <div class="panel-heading">Gestisci immobile</div>
 
         <div class="panel-body">
             <h2>{{$house->name}}</h2>

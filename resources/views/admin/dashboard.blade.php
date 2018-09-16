@@ -11,7 +11,7 @@
             <hr>
             <div class="row houses-list">
                 @foreach($houses as $house)
-                <div class="col-md-3">
+                <div class="col-sm-6 col-md-4">
 
 
                     <!-- Card -->
@@ -19,17 +19,53 @@
 
                         <!-- Card image -->
                         <div class="view overlay">
-                            <img class="card-img-top" src="{{url('/images/houses/'.$house->id.'/'.$house->photos[0]->file_name."-1920.jpg")}}" alt="{{$house->name}}" height="auto">
-                            <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
+                            <img class="card-img-top" src="{{$house->getPreviewImageUrlAttribute()}}" alt="{{$house->name}}" height="auto">
+                            <a href="{{route('admin.house', $house->id)}}">
+                                <div class="mask rgba-white-slight"></div>
                             </a>
                         </div>
 
                         <!-- Card content -->
                         <div class="card-body">
 
-                            <!-- Title -->
-                            <h4 class="card-title">{{$house->name}}</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title">{{$house->name}}</h4>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="text-right">
+                                        <!-- Button -->
+                                        @switch($house->last_step)
+                                            @case(1)
+                                                <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                @break
+
+                                            @case(2)
+                                                <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                @break
+
+                                            @case(3)
+                                                <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                @break
+
+                                            @case(4)
+
+                                                <!-- Split button -->
+                                                <div class="btn-group">
+                                                    <a href="{{route('admin.house', $house->id)}}" class="btn btn-sm btn-elegant">Gestisci</a>
+                                                    <button type="button" class="btn btn-sm btn-elegant dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-caret-down"></i>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
+                                                    </div>
+                                                </div>
+                                                @break
+                                        @endswitch
+                                        </div>
+                                </div>
+                            </div>
 
                             <div>
                                 @if($house->last_step != 4)
@@ -37,42 +73,6 @@
                                 @else
                                     <span class="badge badge-success">Pubblicato</span>
                                 @endif
-                            </div>
-
-                            <div class="text-right">
-                            <!-- Button -->
-                            @switch($house->last_step)
-                                @case(1)
-                                    <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
-                                    @break
-
-                                @case(2)
-                                    <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
-                                    @break
-
-                                @case(3)
-                                    <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
-                                    @break
-
-                                @case(4)
-
-                                    <!-- Split button -->
-                                    <div class="btn-group">
-                                        <a href="{{route('admin.house', $house->id)}}" class="btn btn-primary">Gestisci</a>
-                                        <button type="button" class="btn btn-primary dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-caret-down"></i>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
-                                        </div>
-                                    </div>
-                                    @break
-                            @endswitch
                             </div>
 
                         </div>

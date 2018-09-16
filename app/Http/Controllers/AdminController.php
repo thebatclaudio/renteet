@@ -261,4 +261,64 @@ class AdminController extends Controller
         
         return redirect()->back();
     }
+
+    public function showEditInfo($id){
+        if($house = House::find($id)) {
+            return view('admin.edit.info', [
+                'houseTypes' => \App\HouseType::all(),
+                'house' => $house
+            ]);
+        } else {
+            return redirect()->to('404');
+        }
+    }
+
+    public function editInfo($id, Request $request){
+        $validatedData = $request->validate([
+            'tipologia' => 'required',
+            'renteet_house_address' => 'required',
+            'address_lat' => 'required',
+            'address_lng' => 'required',
+            'address_name' => 'required',
+            'address_number' => 'required',
+            'address_city' => 'required',
+            'mq' => 'required',
+            'bathrooms' => 'required'
+        ], [
+            'address_lat.required' => 'Inserisci un indirizzo valido',
+            'address_lng.required' => 'Inserisci un indirizzo valido',
+            'address_name.required' => 'Inserisci un indirizzo valido',
+            'address_number.required' => 'Inserisci un indirizzo valido',
+            'address_city.required' => 'Inserisci un indirizzo valido',
+            'renteet_house_address.required' => 'Inserisci un indirizzo valido',
+            'tipologia.required' => 'Inserisci una tipologia',
+            'mq.required' => 'Inserisci la grandezza del tuo immobile',
+            'bathrooms.required' => 'Inserisci il numero di bagni',
+        ]);
+
+        if($house = House::find($id)) {
+            $house->street_name = $request->address_name;
+            $house->number = $request->address_number;
+            $house->city = $request->address_city;
+            $house->latitude = $request->address_lat;
+            $house->longitude = $request->address_lng;
+            $house->mq = $request->mq;
+            $house->bathrooms = $request->bathrooms;
+            $house->type_id = $request->tipologia;
+    
+            if($house->save()) {
+                return redirect()->route('admin.dashboard');
+            } else {
+                foreach($request->prices as $price) {
+                    if($price < 1) {
+                        return back()->withErrors([
+                            'Si è verificato un errore'
+                        ]);
+                    }
+                }            
+            }
+        } else {
+            return redirect()->to('404');
+        }
+    }
 }

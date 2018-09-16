@@ -90,6 +90,13 @@ Route::middleware(['auth', 'verified'])->group(function (){
                 Route::post('last-step', 'AdminController@newHouseWizardStepFourSave')->name('four.save');
             });
         });
+
+        Route::prefix('house')->name('house.')->group(function () {
+            Route::prefix('edit/{id}/')->name('edit.')->group(function () {
+                Route::get('info', 'AdminController@showEditInfo')->name('info');
+                Route::post('info', 'AdminController@editInfo')->name('info.save');
+            });
+        });
         Route::get('house/{id}', 'AdminController@house')->name('house');
     });
     Route::get('/chat','ChatController@showChat')->name('chat.show');
