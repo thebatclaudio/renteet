@@ -62,3 +62,7 @@ p.name-hints {
     color: #609ad3!important;
     cursor: pointer;
 }
+
+.file-drag-handle {
+    display: none;
+}

@@ -330,7 +330,6 @@ class AdminController extends Controller
         } else {
             return redirect()->to('404');
         }
-
     }
 
     public function editServices($id, Request $request){
@@ -359,5 +358,27 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+    }
+
+    public function showEditPhotos($id, Request $request){
+        if($house = House::find($id)) {
+            return view('admin.edit.photos', ['id' => $id, 'house' => $house]);
+        } else {
+            return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+        }
+    }
+    
+    public function deletePhoto($id, Request $request) {
+        if($photo = \App\Photo::find($request->input('key'))) {
+            if($photo->house->owner->id == \Auth::user()->id) {
+                $photo->delete();
+
+                return response()->json(['status' => 'OK']);
+            }
+
+            return response()->json(['status' => 'KO']);
+        }
+        
+        return response()->json(['status' => 'KssO']);
     }
 }

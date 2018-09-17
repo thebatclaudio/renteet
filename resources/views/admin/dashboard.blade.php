@@ -73,6 +73,7 @@
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
                                                         <a class="dropdown-item" href="{{route('admin.house.edit.services', $house->id)}}">Modifica i servizi</a>
+                                                        <a class="dropdown-item" href="{{route('admin.house.edit.photos', $house->id)}}">Modifica le foto</a>
                                                     </div>
                                                 </div>
                                                 @break
