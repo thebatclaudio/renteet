@@ -297,6 +297,8 @@ class AdminController extends Controller
         ]);
 
         if($house = House::find($id)) {
+            $house->name = $request->name;
+            $house->description = $request->description;
             $house->street_name = $request->address_name;
             $house->number = $request->address_number;
             $house->city = $request->address_city;
