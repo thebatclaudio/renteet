@@ -379,6 +379,6 @@ class AdminController extends Controller
             return response()->json(['status' => 'KO']);
         }
         
-        return response()->json(['status' => 'KssO']);
+        return response()->json(['status' => 'KO']);
     }
 }
