@@ -9,10 +9,6 @@ div.btn.btn-primary.btn-file {
     margin: 0px;
 }
 
-.file-footer-buttons {
-    display: none;
-}
-
 button.close.fileinput-remove {
     font-size: 32px;
     padding: 5px;
@@ -25,18 +21,24 @@ button.close.fileinput-remove {
 .text-success {
     color: #128d52!important;
 }
+
+.btn.kv-file-zoom, .btn.kv-file-download {
+    display: none;
+}
+
+.btn.kv-file-remove {
+    padding: 1px!important;
+    border-color: #212121!important;
+    color: #212121!important;
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
-<div class="progress wizard-progress">
-    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-
 <div class="container margin-top-20">
-    <h6 class="step-number">Terzo passo</h6>
-    <h3 class="step-title">Rendi unico il tuo immobile <small id="step-small-title">Aggiungi le tue foto</small></h3>
+    <h6 class="step-number">{{$house->name}}</h6>
+    <h3 class="step-title">Modifica le foto</h3>
 
     <hr>
 
@@ -59,38 +61,8 @@ button.close.fileinput-remove {
         </div>
 
         <div class="actions margin-top-20 text-right">
-            <button type="button" id="next-btn" class="btn btn-primary btn-lg" disabled>Avanti</button>
+            <a href="{{route('admin.dashboard')}}" class="btn btn-primary btn-lg">Completato</a>
         </div>
-    </div>
-
-    <div id="step-two-container" style="display: none">
-        <form method="post" action="{{route('admin.house.wizard.three.save')}}">
-            {{ csrf_field() }}
-            <input type="hidden" value="{{$id}}" name="id" />
-
-            <div class="row margin-top-20">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <input id="name" class="form-control form-control-lg w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" required>
-                        <p class="name-hints">Prova <a class="hint"><strong>La casa di {{\Auth::user()->first_name}}</strong></a> o <a class="hint"><strong>La casa di {{$streetName}}</strong></a></p>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control w-100" rows="6" placeholder="Aggiungi una descrizione del tuo immobile" name="description" required></textarea>
-                    </div>
-                </div>
-                <div class="col-md-4 hints-container">
-                    <h6 class="hints-title">Alcuni suggerimenti</h6>
-                    <ul>
-                        <li>Aggiungi valore con una descrizione attraente</li>
-                        <li>Menziona locali, università, monumenti, bar o supermercati vicini</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="actions margin-top-20 text-right">
-                <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">Avanti</button>
-            </div>
-        </form>
     </div>
 
 </div>
@@ -101,6 +73,9 @@ button.close.fileinput-remove {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.8/js/locales/it.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.8/themes/fa/theme.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+    var photos = {!!json_encode($house->photos->pluck('id'))!!};
+
     var $files = $("#files");
     $files.fileinput({
         theme: 'fa',
@@ -111,8 +86,13 @@ button.close.fileinput-remove {
                 id: {{$id}}
             };
         },
+        deleteExtraData: function(key) {
+            return {
+                _token: $("input[name='_token']").val()
+            };
+        },
         allowedFileExtensions: ['jpg', 'jpeg', 'png'],
-        overwriteInitial: false,
+        //overwriteInitial: false,
         maxFilesNum: 10,
         slugCallback: function (filename) {
             return filename.replace('(', '_').replace(']', '_');
@@ -120,25 +100,20 @@ button.close.fileinput-remove {
         language: 'it',
         uploadAsync: true,
         showUpload: false,
-        showRemove: false,
+        showRemove: true,
+        deleteUrl: "{{route('admin.house.edit.photos.delete', $house->id)}}",
         minFileCount: 1,
-        initialPreviewAsData: true
+        initialPreview: {!!json_encode($house->photos->pluck('image_url'))!!},
+        initialPreviewAsData: true,
+        initialPreviewConfig: [
+            @foreach($house->photos as $photo)
+            {caption: "{{$photo->file_name}}", downloadUrl: "{{$photo->image_url}}", size: 930321, width: "120px", key: {{$photo->id}}},
+            @endforeach
+        ],
     }).on("filebatchselected", function(event, files) {
         $files.fileinput("upload");
 
         $("#next-btn").attr('disabled', false);
-    });
-
-    $("#next-btn").on('click', function () {
-        $("#step-one-container").hide();
-        $("#step-two-container").show();
-        $("#step-small-title").text("Aggiungi una descrizione");
-        $(".progress-bar").width("83%");
-        window.scrollTo(0,0);
-    });
-
-    $(".hint").click(function() {
-        $("#name").val($(this).text());
     });
 </script>
 @endsection

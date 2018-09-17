@@ -95,6 +95,11 @@ Route::middleware(['auth', 'verified'])->group(function (){
             Route::prefix('edit/{id}/')->name('edit.')->group(function () {
                 Route::get('info', 'AdminController@showEditInfo')->name('info');
                 Route::post('info', 'AdminController@editInfo')->name('info.save');
+                Route::get('services', 'AdminController@showEditServices')->name('services');
+                Route::post('services', 'AdminController@editServices')->name('services.save');
+                Route::get('photos', 'AdminController@showEditPhotos')->name('photos');
+                Route::post('photos', 'AdminController@editPhotos')->name('photos.save');
+                Route::post('photos', 'AdminController@deletePhoto')->name('photos.delete');
             });
         });
         Route::get('house/{id}', 'AdminController@house')->name('house');

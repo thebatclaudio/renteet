@@ -30,6 +30,10 @@ class House extends Model
         return $this->belongsToMany('App\Service', 'houses_services')->withPivot('quantity');
     }
 
+    public function hasService($id) {
+        return !!$this->services()->where(['services.id' => $id])->count();
+    }
+
     public function getBedsAttribute($value) {
         return $this->rooms()->sum("beds");
     }

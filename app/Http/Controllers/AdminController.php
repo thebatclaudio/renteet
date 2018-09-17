@@ -131,7 +131,7 @@ class AdminController extends Controller
                         if(isset($request->input('servicesQuantity')[$service])) {
                             $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
                         } else {
-                            $house->services()->attach($service);
+                            $house->services()->attach([$service => ['quantity' => 1]]);
                         }
                         
                     }
@@ -307,18 +307,78 @@ class AdminController extends Controller
             $house->type_id = $request->tipologia;
     
             if($house->save()) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.dashboard')->with('success', 'Informazioni modificate');
             } else {
                 foreach($request->prices as $price) {
                     if($price < 1) {
-                        return back()->withErrors([
-                            'Si è verificato un errore'
-                        ]);
+                        return back()->with('error', "Si è verificato un errore. Riprova");
                     }
                 }            
             }
         } else {
+            return redirect()->to('404')->with('error', "Si è verificato un errore. Riprova");;
+        }
+    }
+
+    public function showEditServices($id, Request $request){
+        if($house = House::find($id)) {
+            return view('admin.edit.services', [
+                'servicesQuantity' => \App\Service::quantityNeeded(true)->get(),
+                'servicesWithoutQuantity' => \App\Service::quantityNeeded(false)->get(),
+                'house' => $house
+            ]);
+        } else {
             return redirect()->to('404');
         }
+    }
+
+    public function editServices($id, Request $request){
+        if($house = House::find($id)) {
+            if($house->owner->id === \Auth::user()->id) {
+                $house->services()->detach();
+                if($request->input('services')) {
+                    foreach($request->input('services') as $service) {
+                        if(isset($request->input('servicesQuantity')[$service])) {
+                            $house->services()->attach([$service => ['quantity' => $request->input('servicesQuantity')[$service]]]);
+                        } else {
+                            $house->services()->attach([$service => ['quantity' => 1]]);
+                        }
+                        
+                    }
+                }
+
+                if($request->input("other_services")) {
+                    $house->other_services = $request->input("other_services");
+                }
+
+                $house->save();
+
+                return redirect()->route('admin.dashboard')->with('success', "Servizi modificati");
+            }
+        }
+
+        return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+    }
+
+    public function showEditPhotos($id, Request $request){
+        if($house = House::find($id)) {
+            return view('admin.edit.photos', ['id' => $id, 'house' => $house]);
+        } else {
+            return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+        }
+    }
+    
+    public function deletePhoto($id, Request $request) {
+        if($photo = \App\Photo::find($request->input('key'))) {
+            if($photo->house->owner->id == \Auth::user()->id) {
+                $photo->delete();
+
+                return response()->json(['status' => 'OK']);
+            }
+
+            return response()->json(['status' => 'KO']);
+        }
+        
+        return response()->json(['status' => 'KssO']);
     }
 }

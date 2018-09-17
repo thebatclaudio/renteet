@@ -9,6 +9,19 @@
         <div class="panel-body">
             <h3 class="page-title margin-top-10">Gestisci i tuoi immobili</h3>
             <hr>
+
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{session('success')}}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{session('error')}}
+                </div>
+            @endif
+
             <div class="row houses-list">
                 @foreach($houses as $house)
                 <div class="col-sm-6 col-md-4">
@@ -37,15 +50,15 @@
                                         <!-- Button -->
                                         @switch($house->last_step)
                                             @case(1)
-                                                <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                <a href="{{route('admin.house.wizard.two', ['id' => $house->id])}}" class="btn btn-sm btn-outline-primary">Completa annuncio</a>
                                                 @break
 
                                             @case(2)
-                                                <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                <a href="{{route('admin.house.wizard.three', ['id' => $house->id])}}" class="btn btn-sm btn-outline-primary">Completa annuncio</a>
                                                 @break
 
                                             @case(3)
-                                                <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-outline-primary">Completa annuncio</a>
+                                                <a href="{{route('admin.house.wizard.four', ['id' => $house->id])}}" class="btn btn-sm btn-outline-primary">Completa annuncio</a>
                                                 @break
 
                                             @case(4)
@@ -55,10 +68,12 @@
                                                     <a href="{{route('admin.house', $house->id)}}" class="btn btn-sm btn-elegant">Gestisci</a>
                                                     <button type="button" class="btn btn-sm btn-elegant dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-caret-down"></i>
-                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                        <span class="sr-only">Apri Dropdown</span>
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
+                                                        <a class="dropdown-item" href="{{route('admin.house.edit.services', $house->id)}}">Modifica i servizi</a>
+                                                        <a class="dropdown-item" href="{{route('admin.house.edit.photos', $house->id)}}">Modifica le foto</a>
                                                     </div>
                                                 </div>
                                                 @break
