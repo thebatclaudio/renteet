@@ -7,17 +7,6 @@
 @endsection
 
 @section('scripts')
-<script>
-$(document).ready(function(){
-    $('.tagsinput').tagsinput({
-        confirmKeys: [13,32,188,44]
-    });
-});
-</script>
-<script src="/js/tagsinput.js"></script>
-@endsection
-
-@section('scripts')
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("maps", "3.x", {callback: initialize, other_params:'sensor=false&libraries=places&key=AIzaSyAgn7e4Tc95WlmbyqCz71oGDctx3rXf6oQ'});
@@ -69,9 +58,16 @@ $(document).ready(function(){
             }
         });
     });
-
-
 </script>
+
+<script>
+$(document).ready(function(){
+    $('.tagsinput').tagsinput({
+        confirmKeys: [13,32,188,44]
+    });
+});
+</script>
+<script src="/js/tagsinput.js"></script>
 @endsection
 
 @section('content')
