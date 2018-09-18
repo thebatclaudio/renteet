@@ -383,4 +383,12 @@ class AdminController extends Controller
         
         return response()->json(['status' => 'KO']);
     }
+
+    public function showEditRooms($id, Request $request){
+        if($house = House::find($id)) {
+            return view('admin.edit.rooms', ['house' => $house]);
+        } else {
+            return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+        }
+    }
 }

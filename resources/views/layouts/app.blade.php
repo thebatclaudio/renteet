@@ -113,31 +113,33 @@
 
             });
 
-            mobileAutocomplete = new google.maps.places.Autocomplete(mobileInput);
-    
-            mobileAutocomplete.addListener('place_changed', function() {
-                var place = mobileAutocomplete.getPlace();
-                if (!place.geometry) {
-                    // User entered the name of a Place that was not suggested and
-                    // pressed the Enter key, or the Place Details request failed.
-                    return;
-                }
+            if(mobileAutocomplete) {
+                mobileAutocomplete = new google.maps.places.Autocomplete(mobileInput);
         
-                var address = '';
-                if (place.address_components) {
-                    address = [
-                    (place.address_components[0] && place.address_components[0].short_name || ''),
-                    (place.address_components[1] && place.address_components[1].short_name || ''),
-                    (place.address_components[2] && place.address_components[2].short_name || '')
-                    ].join(' ');
-                }
-
-                $("#mobileLat").val(place.geometry.location.lat());
-                $("#mobileLng").val(place.geometry.location.lng());
+                mobileAutocomplete.addListener('place_changed', function() {
+                    var place = mobileAutocomplete.getPlace();
+                    if (!place.geometry) {
+                        // User entered the name of a Place that was not suggested and
+                        // pressed the Enter key, or the Place Details request failed.
+                        return;
+                    }
             
-                $("#mobileSearchForm").submit();
+                    var address = '';
+                    if (place.address_components) {
+                        address = [
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+                        (place.address_components[2] && place.address_components[2].short_name || '')
+                        ].join(' ');
+                    }
 
-            });
+                    $("#mobileLat").val(place.geometry.location.lat());
+                    $("#mobileLng").val(place.geometry.location.lng());
+                
+                    $("#mobileSearchForm").submit();
+
+                });
+            }
         }
 
         function geolocate() {
@@ -240,6 +242,7 @@
         @include('partials.notifications')
         @endif
 
+        @if(!env('APP_DEBUG'))
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123147608-1"></script>
         <script>
@@ -249,5 +252,6 @@
 
         gtag('config', 'UA-123147608-1');
         </script>
+        @endif
     </body>
 </html>

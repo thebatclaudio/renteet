@@ -100,6 +100,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
                 Route::get('photos', 'AdminController@showEditPhotos')->name('photos');
                 Route::post('photos', 'AdminController@editPhotos')->name('photos.save');
                 Route::post('photos', 'AdminController@deletePhoto')->name('photos.delete');
+                Route::get('rooms', 'AdminController@showEditRooms')->name('rooms');
+                Route::post('rooms', 'AdminController@editRooms')->name('rooms.save');
             });
         });
         Route::get('house/{id}', 'AdminController@house')->name('house');
