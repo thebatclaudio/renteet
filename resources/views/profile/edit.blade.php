@@ -122,21 +122,21 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-body">
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="first_name" class="col-sm-3 control-label">Nome</label>
                             <div class="col-sm-9 float-right">                              
                                 <input id="first_name" type="text" class="form-control" name="first_name" value="{{ (old('first_name')) ? old('first_name') : $user->first_name }}" required autofocus>                           
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="last_name" class="col-sm-3 control-label">Cognome</label>
                             <div class="col-sm-9 float-right">
                                 <input id="last_name" type="text" class="form-control" name="last_name" value="{{ (old('last_name')) ? old('last_name') : $user->last_name }}" required autofocus>                                
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="gender" class="col-sm-3 control-label">Genere</label>
                             <div class="col-sm-9 float-right">
 
@@ -165,11 +165,11 @@ $(document).ready(function(){
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="birthday" class="col-sm-3 control-label">Data di Nascita</label>
                             <div class="col-sm-9 float-right">
                                 <div class="row">
-                                    <div class="col-md-3" style="padding-right: 4px">
+                                    <div class="col-md-3 col-3" style="padding-right: 4px">
                                         <select name="day" class="form-control" value="{{$birth_day}}" required>
                                             <option disabled value="-1">Giorno:</option>
                                             @for($i=1;$i<=31;$i++)
@@ -181,7 +181,7 @@ $(document).ready(function(){
                                             @endfor
                                         </select>
                                     </div>
-                                    <div class="col-md-6" style="padding: 0px 4px">
+                                    <div class="col-md-6 col-5" style="padding: 0px 4px">
                                         <select name="month" class="form-control" required>
                                                 <option disabled value="-1">Mese:</option>
                                                 @for($i=1;$i<=12;$i++)
@@ -193,7 +193,7 @@ $(document).ready(function(){
                                                 @endfor    
                                         </select>
                                     </div>
-                                    <div class="col-md-3" style="padding-left: 4px">
+                                    <div class="col-md-3 col-4" style="padding-left: 4px">
                                         <select name="year" class="form-control" value="{{$birth_year}}" required>
                                             <option disabled value="-1">Anno:</option>
                                             @for($i=(int)date("Y")-18;$i>(int)date("Y")-118;$i--)
@@ -209,7 +209,7 @@ $(document).ready(function(){
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="living_city" class="col-sm-3 control-label">Citt&agrave; di residenza</label>
                             <div class="col-sm-9 float-right">
                                 @if(!empty(old('living_city')))
@@ -229,7 +229,7 @@ $(document).ready(function(){
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="born_city" class="col-sm-3 control-label">Citt&agrave; di nascita</label>
                             <div class="col-sm-9 float-right">
                                 @if(!empty(old('born_city')))
@@ -260,14 +260,14 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-body">
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="email" class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-9 float-right">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ (old('email')) ? old('email') : $user->email }}" required>
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="telephone" class="col-sm-3 control-label">Numero Telefono</label>
                             <div class="col-sm-9 float-right">
                                 <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ (old('telephone')) ? old('telephone') : $user->telephone }}">                              
@@ -285,35 +285,35 @@ $(document).ready(function(){
                     </div>
                     <div class="panel-body">
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="university" class="col-sm-3 control-label">Universit&agrave;</label>
                             <div class="col-sm-9 float-right">
                                 <input type="text" id="university" name="university" class="form-control" value="{{ (old('university')) ? old('university') : $user->university }}" placeholder="Inserisci la tua Università"> 
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="job" class="col-sm-3 control-label">Lavoro</label>
                             <div class="col-sm-9 float-right">
                                 <input type="text" id="job" name="job" class="form-control" value="{{ (old('job')) ? old('job') : $user->job }}" placeholder="Inserisci il tuo lavoro">
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="interests" class="col-sm-3 control-label">Interessi</label>
                             <div class="col-sm-9 float-right">
                                 <input type="text" placeholder="I tuoi interessi" name="interests" class="tagsinput" value="{{(old('interests')) ? old('interests') : $interests}}">
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="languages" class="col-sm-3 control-label">Lingue</label>
                             <div class="col-sm-9 float-right">
                                 <input type="text" placeholder="Che lingue conosci ?" name="languages" class="tagsinput" value="{{(old('languages')) ? old('languages') : $languages}}">
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-10">
+                        <div class="form-group col-sm-10 col-12">
                             <label for="description" class="col-sm-3 control-label">Descrizione</label>
                             <div class="col-sm-9 float-right">
                                 <textarea placeholder="Scrivi una breve descrizione di te..." rows="4" maxlength="150" id="description" name="description" class="form-control" style="resize:none;">{{(old('description')) ? old('description') : $user->description}}</textarea>
@@ -323,7 +323,7 @@ $(document).ready(function(){
                     </div>
                 </div>
                 
-                <div class="row margin-top-60">
+                <div class="row margin-top-120">
                     <button type="submit" class="btn btn-success float-right">Salva</button>
                 </div>
             </form>
