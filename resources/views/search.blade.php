@@ -39,7 +39,7 @@
             <div id="house-{{$house->id}}" class="house">
                 
                 <div class="owner-container {{$house->owner->gender}}">
-                    <a class="no-style" href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
+                    <a class="no-style" href="{{$house->url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
                         <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
                         <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
                     </a>
@@ -79,7 +79,7 @@
                         @foreach($room->acceptedUsers as $user)
                             @if($bedsCount<3 OR $house->beds == 4)
                             <div class="col-auto">
-                                <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
+                                <a class="no-style" href="{{$house->url}}" title="{{$user->first_name}} {{$user->last_name}}">
                                     <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
                                 </a>
                             </div>
@@ -91,7 +91,9 @@
                         @for($i = 0; $i < $room->beds - $room->acceptedUsers->count(); $i++)
                             @if($bedsCount<3 OR $house->beds == 4)
                             <div class="col-auto">
-                                <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero">
+                                <a href="{{$house->url}}" title="Visualizza l'appartamento" target="_blank">
+                                    <img class="rounded-circle border-shadow small-user-pic" src="{{url('/images/free-bed.png')}}" alt="Posto libero">
+                                </a>
                             </div>
                             @endif
                             @php
@@ -132,9 +134,14 @@
                 @endforeach
                 </div><!-- /.row -->
 
-                <div class="house-price margin-top-40 text-right">
+                <div class="house-price margin-top-40 text-right d-none d-sm-block">
                     A partire da <strong class="price">{{$house->minorBedPrice()}}€</strong>
                     <a href="{{$house->url}}" class="btn btn-dark btn-sm margin-left-5">Visualizza L'appartamento</a>
+                </div>
+
+                <div class="house-price margin-top-40 text-right d-block d-sm-none text-center">
+                    A partire da <strong class="price">{{$house->minorBedPrice()}}€</strong><br />
+                    <a href="{{$house->url}}" class="btn btn-success margin-top-10 margin-left-5">Visualizza L'appartamento</a>
                 </div>
             </div>
         </div>
