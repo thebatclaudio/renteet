@@ -4,14 +4,28 @@
 
 @section('content')
 <div class="container margin-top-20">
+    <!-- Split button -->
+    <div class="btn-group float-sm-right">
+        <a class="btn btn-outline-elegant" href="{{route('admin.house.edit.info', $house->id)}}">Modifica informazioni</a>
+        <button type="button" class="btn btn-outline-elegant dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-caret-down"></i>
+            <span class="sr-only">Apri Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('admin.house.edit.services', $house->id)}}">Modifica i servizi</a>
+            <a class="dropdown-item" href="{{route('admin.house.edit.photos', $house->id)}}">Modifica le foto</a>
+            <a class="dropdown-item" href="{{route('admin.house.edit.rooms', $house->id)}}">Modifica stanze e prezzi</a>
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">Gestisci immobile</div>
 
         <div class="panel-body">
-            <h2>{{$house->name}}</h2>
+                    <h2>{{$house->name}}</h2>
             <hr>
 
-            <div class="container" style="{{($house->beds > 4) ? 'max-width: 90%;' : ''}}">
+            <div class="container margin-top-40" style="{{($house->beds > 4) ? 'max-width: 90%;' : ''}}">
                 <div class="row beds-row">
                 @foreach($house->rooms as $room)
 

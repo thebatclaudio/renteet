@@ -799,6 +799,20 @@ span.new-message-badge {
     border-color: #5b89b7;
   }
 
+  .button-plus, .button-minus {
+    cursor: pointer;
+  }
+
+  .button-plus, .button-minus {
+    cursor: pointer;
+  }
+
+  .beds-input {
+    padding: 5px 20px;
+    border-radius: 0px;
+    background-color: #f9f9f9;
+  }
+
   @media (max-width: 575px) {
     .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
       color: #ffffff;
