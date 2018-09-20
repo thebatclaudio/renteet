@@ -32,7 +32,7 @@
         <div class="house-col col-md-4">
             <div id="house-{{$house->id}}" class="house">
                 
-                <div class="owner-container {{$house->owner->gender}}">
+                <div class="owner-container">
                     <a class="no-style" href="{{$house->url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
                         <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
                         <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
