@@ -297,6 +297,8 @@ class AdminController extends Controller
         ]);
 
         if($house = House::find($id)) {
+            $house->name = $request->name;
+            $house->description = $request->description;
             $house->street_name = $request->address_name;
             $house->number = $request->address_number;
             $house->city = $request->address_city;
@@ -379,6 +381,88 @@ class AdminController extends Controller
             return response()->json(['status' => 'KO']);
         }
         
-        return response()->json(['status' => 'KssO']);
+        return response()->json(['status' => 'KO']);
+    }
+
+    public function showEditRooms($id, Request $request){
+        if($house = House::find($id)) {
+            return view('admin.edit.rooms', ['house' => $house]);
+        } else {
+            return redirect()->back()->with('error', "Si è verificato un errore. Riprova");
+        }
+    }
+
+    public function editRooms($id, Request $request) {
+        if($house = House::find($id)) {
+            if($house->owner_id == \Auth::user()->id) {
+                foreach($request->input("rooms") as $room) {
+                    if(strpos($room['id'], 'new') !== false && $room['beds'] != 0) {
+                        $newRoom = new \App\Room;
+                        $newRoom->house_id = $id;
+                        $newRoom->beds = $room['beds'];
+                        $newRoom->bed_price = $room['bed_price'];
+                        if(!$newRoom->save()) {
+                            return response()->json([
+                                'status' => 'KO10'
+                            ]);
+                        }
+                    } else if($roomToEdit = \App\Room::find($room['id'])) {
+                        if($roomToEdit->beds > $room['beds']) {
+                            //controllo se posso diminuire il numero di posti
+                            $placesToRemove = $roomToEdit->beds - $room['beds'];
+                            $placesCantRemove = $roomToEdit->acceptedUsers->count()+$roomToEdit->notAvailableBeds->count();
+
+                            if($roomToEdit->beds - $placesToRemove >= $placesCantRemove) {
+                                if($room['beds'] <= 0) {
+                                    //se non rimangono posti la stanza viene eliminata
+                                    if(!$roomToEdit->delete()) {
+                                        return response()->json([
+                                            'status' => 'KO1'
+                                        ]);
+                                    }
+                                } else {
+                                    //se rimangono posti modifico la stanza
+                                    $roomToEdit->bed_price = $room['bed_price'];
+                                    $roomToEdit->beds = $room['beds'];
+                                    if(!$roomToEdit->save()) {
+                                        return response()->json([
+                                            'status' => 'KO2'
+                                        ]);
+                                    }
+                                }
+                            }
+                        } else if($roomToEdit->beds < $room['beds']) {
+                            $roomToEdit->bed_price = $room['bed_price'];
+                            $roomToEdit->beds = $room['beds'];
+                            if(!$roomToEdit->save()) {
+                                return response()->json([
+                                    'status' => 'KO3'
+                                ]);
+                            }
+                        } else if($roomToEdit->bed_price != $room['bed_price']) {
+                            $roomToEdit->bed_price = $room['bed_price'];
+
+                            if(!$roomToEdit->save()) {
+                                return response()->json([
+                                    'status' => 'KO3'
+                                ]);
+                            }
+                        }
+                    } else {
+                        return response()->json([
+                            'status' => 'KO4'
+                        ]);
+                    }
+                }
+
+                return response()->json([
+                    'status' => 'OK'
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => 'KO5'
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard')
+@section('title', 'Modifica le foto del tuo immobile '.$house->name)
 
 @section('styles')
 @parent
