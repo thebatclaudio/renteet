@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard')
+@section('title', 'Modifica i servizi del tuo immobile '.$house->name)
 
 @section('content')
 <div class="container margin-top-20">

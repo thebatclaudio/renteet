@@ -21,6 +21,26 @@
                 </ul>
             </div>
         @endif
+
+        <div class="row margin-top-20">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <input id="name" class="form-control form-control-lg w-100" type="text" name="name" placeholder="Dai un nome al tuo immobile" value="{{$house->name}}" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control w-100" rows="6" placeholder="Aggiungi una descrizione del tuo immobile" name="description" required>{{$house->description}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-4 hints-container">
+                <h6 class="hints-title">Alcuni suggerimenti</h6>
+                <ul>
+                    <li>Aggiungi valore con una descrizione attraente</li>
+                    <li>Menziona locali, università, monumenti, bar o supermercati vicini</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
         
         <div class="row">
             <div class="col-md-6">

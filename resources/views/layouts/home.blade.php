@@ -141,6 +141,7 @@
         });
         </script>
 
+        @if(!env('APP_DEBUG'))
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123147608-1"></script>
         <script>
@@ -150,5 +151,6 @@
 
         gtag('config', 'UA-123147608-1');
         </script>
+        @endif
     </body>
 </html>

@@ -42,7 +42,6 @@
 $(document).ready(function(){
     moment.locale('it');
     $(".date").each(function() {
-        console.log()
         $(this).text(moment.utc($(this).text(), 'x').fromNow());
     });
 });
