@@ -84,7 +84,11 @@ class UserController extends Controller
         if($request->first_name != "") $user->first_name = $request->first_name;
         if($request->last_name != "") $user->last_name = $request->last_name;
         if($request->email != "") $user->email = $request->email;
-        if($request->telephone != "") $user->telephone = $request->telephone;
+        if($request->telephone != ""){
+            $user->telephone = $request->telephone;
+        }else{
+            $user->telephone = null;
+        }
 
         if(\Auth::user()->birthday != '0000-01-01') {
             if(\Carbon\Carbon::create($request->year, $request->month, $request->day) > \Carbon\Carbon::now()->subYears(18)) {
@@ -118,11 +122,23 @@ class UserController extends Controller
             $user->born_city_id = $bornCity->id;
         }
 
-        if($request->university !== "") $user->university = $request->university;
+        if($request->university !== ""){
+            $user->university = $request->university;
+        }else{
+            $user->university = null;
+        }
        
-        if($request->job !== "") $user->job = $request->job;
+        if($request->job !== ""){
+            $user->job = $request->job;
+        }else{
+            $user->job = null;
+        }
 
-        if($request->description !== "") $user->description = $request->description;
+        if($request->description !== ""){ 
+            $user->description = $request->description;
+        }else{
+            $user->description = null;
+        }
         
         $interests = explode(",",$request->interests);
         $interestsToAdd = [];

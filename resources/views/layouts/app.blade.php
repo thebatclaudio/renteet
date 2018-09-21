@@ -70,6 +70,13 @@
         </header>
         
         <main role="main">
+        @if(\Auth::user())
+            @if(\Auth::user()->verified != true)
+            <div class="alert alert-warning margin-top-10" role="alert">
+                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora due giorni per confermare il tuo account con la mail che ti abbiamo inviato.
+            </div>
+            @endif
+        @endif
             @yield('content')
 
             @include('partials.footer')
