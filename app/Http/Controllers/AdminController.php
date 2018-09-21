@@ -396,7 +396,6 @@ class AdminController extends Controller
         if($house = House::find($id)) {
             if($house->owner_id == \Auth::user()->id) {
                 foreach($request->input("rooms") as $room) {
-                    \Log::info(print_r($room, true));
                     if(strpos($room['id'], 'new') !== false && $room['beds'] != 0) {
                         $newRoom = new \App\Room;
                         $newRoom->house_id = $id;
@@ -423,6 +422,7 @@ class AdminController extends Controller
                                     }
                                 } else {
                                     //se rimangono posti modifico la stanza
+                                    $roomToEdit->bed_price = $room['bed_price'];
                                     $roomToEdit->beds = $room['beds'];
                                     if(!$roomToEdit->save()) {
                                         return response()->json([
@@ -432,7 +432,16 @@ class AdminController extends Controller
                                 }
                             }
                         } else if($roomToEdit->beds < $room['beds']) {
+                            $roomToEdit->bed_price = $room['bed_price'];
                             $roomToEdit->beds = $room['beds'];
+                            if(!$roomToEdit->save()) {
+                                return response()->json([
+                                    'status' => 'KO3'
+                                ]);
+                            }
+                        } else if($roomToEdit->bed_price != $room['bed_price']) {
+                            $roomToEdit->bed_price = $room['bed_price'];
+
                             if(!$roomToEdit->save()) {
                                 return response()->json([
                                     'status' => 'KO3'
