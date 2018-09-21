@@ -120,7 +120,7 @@
 
             });
 
-            if(mobileAutocomplete) {
+            if(mobileInput) {
                 mobileAutocomplete = new google.maps.places.Autocomplete(mobileInput);
         
                 mobileAutocomplete.addListener('place_changed', function() {
