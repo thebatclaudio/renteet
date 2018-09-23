@@ -174,7 +174,15 @@
               <li>Numero stanze: {{$house->rooms()->count()}}</li>
               <li>Numero bagni: {{$house->bathrooms}}</li>
               <li>MQ: {{$house->mq}}</li>
-              <li>Genere coinquilini: {{$house->gender}}</li>
+              <li>Genere coinquilini: 
+                @if($house->gender == 'male')
+                  Maschi
+                @elseif($house->gender == 'female')
+                  Femmine
+                @else
+                  Misto
+                @endif
+              </li>
             </ul>
           </div>  
         </div>
