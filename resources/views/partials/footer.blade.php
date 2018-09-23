@@ -7,6 +7,7 @@
                     <li><a href="/come-funziona" title="Come funziona">Come funziona</a></li>
                     <li><a href="/chi-siamo" title="Chi siamo">Chi siamo</a></li>
                     <li><a href="/i-nostri-valori" title="I nostri valori">I nostri valori</a></li>
+                    <li><a href="https://blog.renteet.com" title="Renteet Blog" target="_blank">Blog</a></li>
                 </ul>
             </div>
             <div class="col-6 col-sm-3 text-left">
