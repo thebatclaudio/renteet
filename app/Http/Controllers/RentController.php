@@ -16,7 +16,7 @@ use \App\Events\RemovedFromHouse;
 class RentController extends Controller
 {
     public function getHouse($house_id){
-        if($house = House::find($id)) {
+        if($house = House::find($house_id)) {
             if($house->last_step == 4) {
                 return view('rent', [
                     'house' => House::find($house_id)
