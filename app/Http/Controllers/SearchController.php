@@ -35,6 +35,7 @@ class SearchController extends Controller
         return \App\House::whereBetween('latitude', [$latitude-$latOffset, $latitude+$latOffset])
                     ->whereBetween('longitude', [$longitude-$lngOffset, $longitude+$lngOffset])
                     ->where('last_step', 4)
+                    ->inRandomOrder()
                     ->get()
                     ->filter(function($house){
                         foreach($house->rooms as $room){
