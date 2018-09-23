@@ -504,7 +504,8 @@
 
         })
         .catch((err)=>{
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
+            if(err)
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
         });
   });
 
