@@ -174,27 +174,27 @@ class AdminController extends Controller
                 $timestamp = \Carbon\Carbon::now()->timestamp.rand(0,99999);
                 $imageName = $timestamp;
 
-                \Image::make($request->file)->resize(1920, null, function ($constraint) {
+                \Image::make($request->file)->orientate()->resize(1920, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-1920.jpg");
 
-                \Image::make($request->file)->resize(320, null, function ($constraint) {
+                \Image::make($request->file)->orientate()->resize(320, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-320.jpg");
 
-                \Image::make($request->file)->resize(670, null, function ($constraint) {
+                \Image::make($request->file)->orientate()->resize(670, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-670.jpg");
 
-                \Image::make($request->file)->resize(220, null, function ($constraint) {
+                \Image::make($request->file)->orientate()->resize(220, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-220.jpg");
 
-                \Image::make($request->file)->resize(490, null, function ($constraint) {
+                \Image::make($request->file)->orientate()->resize(490, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-490.jpg");
 
-                \Image::make($request->file)->resize(300, 300)->save(public_path('images/houses/'.$house->id). "/". $timestamp."-thumb.jpg");
+                \Image::make($request->file)->orientate()->resize(300, 300)->save(public_path('images/houses/'.$house->id). "/". $timestamp."-thumb.jpg");
 
                 $photo = new Photo;
                 $photo->file_name = $imageName;
