@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class House extends Model
 {
+    use SoftDeletes;
+
     protected $appends = ['url', 'admin_url', 'latitude', 'longitude','previewReviews','beds','rating'];
     protected $hiddens = ['latitude', 'longitude'];
     
