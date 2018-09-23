@@ -14,7 +14,7 @@ class AddSoftDeleteToHousesTable extends Migration
     public function up()
     {
         Schema::table('houses', function (Blueprint $table) {
-            //
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +26,7 @@ class AddSoftDeleteToHousesTable extends Migration
     public function down()
     {
         Schema::table('houses', function (Blueprint $table) {
-            //
+            $table->dropColumn('deleted_at');
         });
     }
 }
