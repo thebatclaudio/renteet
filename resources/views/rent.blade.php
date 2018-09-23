@@ -303,7 +303,7 @@
 
                   @if(\Auth::check())
                     @if(\Auth::user()->id != $house->owner->id)
-                      <button id="new-message-button" class="btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
+                      <button class="new-message-button btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
                     @endif
                   @endif
                 </div>
@@ -334,7 +334,7 @@
 
                   @if(\Auth::check())
                     @if(\Auth::user()->id != $house->owner->id)
-                      <button id="new-message-button" class="btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
+                      <button class="new-message-button btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
                     @endif
                   @endif
                 </div>
@@ -471,7 +471,7 @@
       });
       @endif;
 
-  $("#new-message-button").on('click',function(){
+  $(".new-message-button").on('click',function(){
     var messageContainer = document.createElement("form");
     var textArea = document.createElement('textarea');
     textArea.name = 'textareaMessage';
