@@ -99,7 +99,8 @@ class RegisterController extends Controller
 
         $verifyUser = VerifyUser::create([
             'user_id' => $user->id,
-            'token' => str_random(40)
+            'token' => str_random(40),
+            'counter' => 0
         ]);
 
         Mail::to($user->email)->send(new VerifyMail($user));

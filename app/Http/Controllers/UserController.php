@@ -4,9 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Auth;
+use App\Mail\VerifyMail;
+use Mail;
 
 class UserController extends Controller
 {
+    public function sendNewVerifyToken(){
+
+        $user = \Auth::user();
+        $verifyUser = VerifyUser::where('user_id', $user->id)->first();
+        if(isset($verifyUser)){
+            $verifyUser->token = str_random(40);
+            $verifyUser->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+            $verifyUser->counter = $verifyUser + 1;
+            $verifyUser->save();
+        }else{
+            $verifyUser = VerifyUser::create([
+                'user_id' => $user->id,
+                'token' => str_random(40),
+                'counter' => 0
+            ]);
+        }
+        Mail::to($user->email)->send(new VerifyMail($user));
+
+    }
+
     public function showEditProfileForm() {
         $interests = "";
         $languages = "";
