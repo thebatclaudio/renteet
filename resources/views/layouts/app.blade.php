@@ -71,9 +71,11 @@
         
         <main role="main">
         @if(\Auth::user())
-            @if(\Auth::user()->verified != true)
+            @if(\Auth::user()->verified == true)
             <div class="alert alert-warning margin-top-10" role="alert">
-                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora due giorni per confermare il tuo account con la mail che ti abbiamo inviato.
+                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account con la mail che ti abbiamo inviato.
+                <a href="#" class="btn btn-xs btn-primary pull-right">Cambia email</a>
+                <a href="#" class="btn btn-xs btn-primary pull-right">Invia nuova email</a>
             </div>
             @endif
         @endif
