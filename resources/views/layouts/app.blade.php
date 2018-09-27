@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col">
                             <h6 class="margin-top-10">
-                                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account con la mail che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
+                                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account attraverso il link che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
                             </h6>
                         </div>
                         <div class="col-auto">
