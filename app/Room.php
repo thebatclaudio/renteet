@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'bed_price'
     ];

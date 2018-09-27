@@ -16,9 +16,15 @@ use \App\Events\RemovedFromHouse;
 class RentController extends Controller
 {
     public function getHouse($house_id){
-        return view('rent', [
-            'house' => House::find($house_id)
-        ]);
+        if($house = House::find($house_id)) {
+            if($house->last_step == 4) {
+                return view('rent', [
+                    'house' => House::find($house_id)
+                ]);
+            }
+        }
+
+        return redirect()->to('404');
     }
 
     public function rentHouse($id, Request $request){

@@ -174,7 +174,15 @@
               <li>Numero stanze: {{$house->rooms()->count()}}</li>
               <li>Numero bagni: {{$house->bathrooms}}</li>
               <li>MQ: {{$house->mq}}</li>
-              <li>Genere coinquilini: {{$house->gender}}</li>
+              <li>Genere coinquilini: 
+                @if($house->gender == 'male')
+                  Maschi
+                @elseif($house->gender == 'female')
+                  Femmine
+                @else
+                  Misto
+                @endif
+              </li>
             </ul>
           </div>  
         </div>
@@ -280,20 +288,15 @@
           <div class="page-target-container margin-top-80">
             <h3 class="page-target">Proprietario</h3>
           </div>
-          <div class="card margin-top-180 col-md-8">
+          <div class="card margin-top-180 col-md-8 d-none d-sm-block">
             <div class="card-body">
               <div class="row">
-                <div class="col-4 text-center">
+                <div class="col-auto text-center">
                   <a href="{{$house->owner->profile_url}}">
-                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid" width="150px">
                   </a>
-                  @if(\Auth::check())
-                    @if(\Auth::user()->id != $house->owner->id)
-                      <button id="new-message-button" class="btn btn-elegant btn-sm  margin-top-20">Invia messaggio</button>
-                    @endif
-                  @endif
                 </div>
-                <div class="col-8 padding-left-20">
+                <div class="col padding-left-20">
                   <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
                   <ul class="list-unstyled">
                     <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
@@ -304,6 +307,43 @@
                   <p>Email: <a href="mailto:{{$house->owner->email}}">{{$house->owner->email}}</a></p>
                   @if($house->owner->telephone)
                   <p>Telefono: {{$house->owner->telephone}}</p>
+                  @endif
+
+                  @if(\Auth::check())
+                    @if(\Auth::user()->id != $house->owner->id)
+                      <button class="new-message-button btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
+                    @endif
+                  @endif
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card margin-top-180 col-md-8 d-block d-sm-none">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <a href="{{$house->owner->profile_url}}">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid" width="150px">
+                  </a>
+                </div>
+                <div class="col-12 text-center padding-left-20">
+                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
+                  <ul class="list-unstyled">
+                    <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
+                    @if($house->owner->livingCity()->count())
+                      <li>{{$house->owner->livingCity()->getResults()->text}}</li>
+                    @endif
+                  </ul>
+                  <p>Email: <a href="mailto:{{$house->owner->email}}">{{$house->owner->email}}</a></p>
+                  @if($house->owner->telephone)
+                  <p>Telefono: {{$house->owner->telephone}}</p>
+                  @endif
+
+                  @if(\Auth::check())
+                    @if(\Auth::user()->id != $house->owner->id)
+                      <button class="new-message-button btn btn-elegant btn-sm margin-top-20">Invia messaggio</button>
+                    @endif
                   @endif
                 </div>
               </div>
@@ -439,7 +479,7 @@
       });
       @endif;
 
-  $("#new-message-button").on('click',function(){
+  $(".new-message-button").on('click',function(){
     var messageContainer = document.createElement("form");
     var textArea = document.createElement('textarea');
     textArea.name = 'textareaMessage';
@@ -472,7 +512,8 @@
 
         })
         .catch((err)=>{
-            swal("Si è verificato un errore", "Riprova più tardi", "error");
+            if(err)
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
         });
   });
 
