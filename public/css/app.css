@@ -199,6 +199,7 @@ h3.page-target {
   background-image: url('/images/homepage/background.jpg');
   height: 100%;
   padding-top: 10%;
+  margin-bottom: -120px;
 }
 
 #btn-notifications.unread {
@@ -744,9 +745,10 @@ span.new-message-badge {
 
     .login-box {
       width: 100%;
-      background-color: rgba(23, 23, 23, 0.8);
+      background-color: rgba(47, 47, 47, 0.8);
       color: #FFF;
       border-radius: 0px;
+      height: 100%;
     }
   }
   
@@ -813,14 +815,18 @@ span.new-message-badge {
     background-color: #f9f9f9;
   }
 
-  @media (max-width: 575px) {
-    .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
-      color: #ffffff;
-    }
+  .birthday-input-row .col-6 {
+    padding-right: 2px;
+    padding-left: 2px;
+  }
 
-    .nav-item a.btn-notifications {
-      color: #000;
-    }
+  .birthday-input-row .col-3 {
+    padding-left: 2px;
+  }
+
+  .birthday-input-row .col-3:first-child {
+    padding-right: 2px;
+    padding-left: 15px;
   }
 
   @media (max-width: 992px) {
@@ -862,6 +868,20 @@ span.new-message-badge {
     }
 
 
+  }
+
+  @media (max-width: 575px) {
+    .nav-item a:link, .nav-item a:hover, .nav-item a:visited, .nav-item a:active {
+      color: #ffffff;
+    }
+
+    .nav-item a.btn-notifications {
+      color: #000;
+    }
+
+    .container {
+      max-width: 100%;
+    }
   }
 
   /* RESPONSIVE CSS
