@@ -12,6 +12,7 @@ use \App\Events\AdhesionToHouse;
 use \App\Events\AdhesionAcceptance;
 use \App\Events\ExitFromHouse;
 use \App\Events\RemovedFromHouse;
+use \App\Events\Refused;
 
 class RentController extends Controller
 {
@@ -118,6 +119,44 @@ class RentController extends Controller
                     return response()->json([
                         'status' => 'KO'
                     ]);                
+                }
+            } else {
+                return response()->json([
+                    'status' => 'KO'
+                ]);                
+            }
+        } else {
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
+
+    public function refuseUser($room, $user, Request $request){
+        // controllo se esiste la stanza
+        if($room = Room::find($room)){
+            //controllo se l'utente loggato è il proprietario
+            if($room->house->owner->id == \Auth::user()->id) {
+                $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->where('accepted_by_owner', false)->orderBy('created_at', 'DESC')->first();
+                if($roomUser) {
+                    if($roomUser->delete()) {
+                        // lancio l'evento per inviare la notifica push
+                        event(new Refused($user, $room->house->id));
+                        // creo la notifica nel db
+                        User::find($user)->notify(new \App\Notifications\Refused($user, $room->house->id));
+
+                        return response()->json([
+                            'status' => 'OK'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => 'KO'
+                        ]);                            
+                    }
+                } else {
+                    return response()->json([
+                        'status' => 'KO'
+                    ]);
                 }
             } else {
                 return response()->json([

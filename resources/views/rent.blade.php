@@ -383,7 +383,7 @@
         });
       });
 
-      @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
+      @if(\Auth::check() && !$house->hasUser(\Auth::user()->id) && $house->owner->id != \Auth::user()->id)
       $(".free-bed").on("click", function () {
 
         var button = $(this).children("p").children(".rent-house");

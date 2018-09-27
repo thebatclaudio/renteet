@@ -42,6 +42,22 @@ class NotificationsController extends Controller
                     }
                 break;
 
+                case "App\Notifications\Refused":
+                    if($user = \App\User::find($notification->data['user_id']) AND $owner = \App\User::find($notification->data['owner_id']) AND $house = \App\House::find($notification->data['house_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $owner->profile_pic;
+                        $new_notification->text = $owner->first_name." ".$owner->last_name." ha rifiutato la tua richiesta d'adesione per l'immobile ".$house->name." dal ".\Carbon\Carbon::createFromFormat('Y-m-d', $user->rooms()->where('house_id', $house->id)->first()->pivot->start)->format('d/m/Y');
+                        $new_notification->url = $house->url;
+                        $new_notification->created_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->timestamp * 1000;
+                        if($notification->read_at !== null){
+                            $new_notification->read_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->read_at)->timestamp * 1000;
+                        }else{
+                            $new_notification->read_at = $notification->read_at;
+                        }
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
                 case "App\Notifications\ReviewReceived":
                     if($user = \App\User::find($notification->data['user_id']) AND $review = \App\Review::find($notification->data['review_id'])) {
                         $new_notification = new \stdClass();
@@ -127,6 +143,18 @@ class NotificationsController extends Controller
                         $new_notification->image = $owner->profile_pic;
                         $new_notification->text = $owner->first_name." ".$owner->last_name." ha accettato la tua richiesta d'adesione per l'immobile ".$house->name." dal ".\Carbon\Carbon::createFromFormat('Y-m-d', $user->rooms()->where('house_id', $house->id)->first()->pivot->start)->format('d/m/Y');
                         $new_notification->url = $house->url;
+                        $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
+                        $new_notification->user = $owner;
+                        $notifications[] = $new_notification;
+                    }
+                break;
+
+                case "App\Notifications\Refused":
+                    if($user = \App\User::find($notification->data['user_id']) AND $owner = \App\User::find($notification->data['owner_id']) AND $house = \App\House::find($notification->data['house_id'])) {
+                        $new_notification = new \stdClass();
+                        $new_notification->image = $owner->profile_pic;
+                        $new_notification->text = $owner->first_name." ".$owner->last_name." ha rifiutato la tua richiesta d'adesione per l'immobile ".$house->name." dal ".\Carbon\Carbon::createFromFormat('Y-m-d', $user->rooms()->where('house_id', $house->id)->first()->pivot->start)->format('d/m/Y');
+                        $new_notification->url = url('/');
                         $new_notification->date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $notification->created_at)->format('d M Y H:i');
                         $new_notification->user = $owner;
                         $notifications[] = $new_notification;
