@@ -194,7 +194,7 @@ class AdminController extends Controller
                     $constraint->aspectRatio();
                 })->save(public_path('images/houses/'.$house->id). "/". $timestamp."-490.jpg");
 
-                \Image::make($request->file)->orientate()->resize(300, 300)->save(public_path('images/houses/'.$house->id). "/". $timestamp."-thumb.jpg");
+                \Image::make($request->file)->orientate()->fit(300, 300)->save(public_path('images/houses/'.$house->id). "/". $timestamp."-thumb.jpg");
 
                 $photo = new Photo;
                 $photo->file_name = $imageName;
