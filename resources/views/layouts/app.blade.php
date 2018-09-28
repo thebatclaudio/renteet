@@ -72,25 +72,6 @@
         </header>
         
         <main role="main">
-        @if(\Auth::user())
-            @if(\Auth::user()->verified == true)
-            <div class="container">
-                <div class="alert alert-warning margin-top-10" role="alert">
-                    <div class="row">
-                        <div class="col">
-                            <h6 class="margin-top-10">
-                                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account attraverso il link che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
-                            </h6>
-                        </div>
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-sm btn-elegant">Cambia email</a>
-                            <a href="#" class="btn btn-sm btn-yellow dark-ic">Invia di nuovo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-        @endif
             @yield('content')
 
             @include('partials.footer')
