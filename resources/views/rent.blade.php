@@ -2,6 +2,17 @@
 
 @section('title', $house->name)
 
+@section('meta')
+<meta property="og:type" content="product">
+<meta property="og:title" content="{{$house->name}} - Renteet">
+<meta property="og:url" content="{{Str::words($house->description,10)}}">
+@foreach($house->photos as $photo)
+<meta property="og:image" content="{{'/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg'}}">
+@endforeach
+<meta property="product:price:amount" content="{{$house->minorBedPrice()}}">
+<meta property="product:price:currency" content="EUR">
+@endsection
+
 @section('content')
 
   @include("modals.login_modal")
@@ -206,17 +217,14 @@
                 </li>
                 @endforeach
 
+                @foreach($house->services()->quantityNeeded(false)->get() as $service)
+                  <li>{{$service->name}}</li>
+                @endforeach
+
                 @if($house->other_services)
                   <h5 class="margin-top-20">Altri servizi:</h5>
                   <p>{{$house->other_services}}</p>
                 @endif
-              </ul>
-            </div>
-            <div class="col-md-6 margin-top-120">
-              <ul class="margin-top-40 list-unstyled">
-              @foreach($house->services()->quantityNeeded(false)->get() as $service)
-                <li>{{$service->name}}</li>
-              @endforeach
               </ul>
             </div>
         </div>
@@ -386,7 +394,7 @@
         });
       });
 
-      @if(\Auth::check() && !$house->hasUser(\Auth::user()->id))
+      @if(\Auth::check() && !$house->hasUser(\Auth::user()->id) && $house->owner->id != \Auth::user()->id)
       $(".free-bed").on("click", function () {
 
         var button = $(this).children("p").children(".rent-house");
