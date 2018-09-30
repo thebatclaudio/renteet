@@ -71,7 +71,7 @@
         
         <main role="main">
         @if(\Auth::user())
-            @if(\Auth::user()->verified == true)
+            @if(\Auth::user()->verified != true)
             <div class="container">
                 <div class="alert alert-warning margin-top-10" role="alert">
                     <div class="row">
