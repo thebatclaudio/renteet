@@ -7,7 +7,7 @@
 <meta property="og:title" content="{{$house->name}} - Renteet">
 <meta property="og:url" content="{{Str::words($house->description,10)}}">
 @foreach($house->photos as $photo)
-<meta property="og:image" content="{{'/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg'}}">
+<meta property="og:image" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
 @endforeach
 <meta property="product:price:amount" content="{{$house->minorBedPrice()}}">
 <meta property="product:price:currency" content="EUR">
