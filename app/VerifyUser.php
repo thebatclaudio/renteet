@@ -9,7 +9,7 @@ class VerifyUser extends Model
     protected $table = 'verify_users';
 
     protected $fillable = [
-        'user_id', 'token','counter'
+        'user_id', 'token','counter','updated_at'
     ];
 
     public function user()

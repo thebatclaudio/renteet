@@ -41,6 +41,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
     Route::post('/edit-profile', 'UserController@editPersonalInfo')->name("edit-personal-info");
+    
+    //resend new token
+    Route::post('/edit-email','UserController@editEmail')->name('user.editEmail');
+    Route::post('/send-new','UserController@sendNewVerifyToken')->name('user.sendNew');
 
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
     Route::get('/profile/requests/pending', 'UserController@pendingRequests')->name('pendingRequests');

@@ -5,18 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Auth;
 use App\Mail\VerifyMail;
+use App\VerifyUser;
 use Mail;
 
 class UserController extends Controller
 {
-    public function sendNewVerifyToken(){
+    public function sendNewVerifyToken(request $request){
         if($user = \Auth::user()){
             $verifyUser = VerifyUser::where('user_id', $user->id)->first();
             if(isset($verifyUser)){
                 $verifyUser->token = str_random(40);
                 $verifyUser->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
-                $verifyUser->counter = $verifyUser + 1;
-                $verifyUser->save();
+                $verifyUser->counter = $verifyUser->counter + 1;
+                if(!$verifyUser->save()){
+                    return response()->json([
+                        'status' => 'KO1'
+                    ]);
+                }
             }else{
                 $verifyUser = VerifyUser::create([
                     'user_id' => $user->id,
@@ -25,8 +30,35 @@ class UserController extends Controller
                 ]);
             }
             Mail::to($user->email)->send(new VerifyMail($user));
+            return response()->json([
+                'status' => 'OK',
+                'email' => $user->email
+            ]);
         }
-    
+        return response()->json([
+            'status' => 'KO2'
+        ]);
+    }
+
+    public function editEmail(request $request){   
+
+        if(\Auth::user()->email != $request->email){
+            $validatorRules['email'] = 'required|string|email|max:255|unique:users';
+            $validatorMessages['email.required'] = 'L\'indirizzo E-mail è un campo obbligatorio';
+            $validatorMessages['email.unique'] = 'L\'indirizzo E-mail inserito è già associato ad un altro utente';
+        }
+
+        $validatedData = $request->validate($validatorRules, $validatorMessages);
+        
+        if($request->email != "") \Auth::user()->email = $request->email;
+        if(\Auth::user()->save()){
+            return response()->json([
+                'status' => 'OK'
+            ]);
+        }
+        return response()->json([
+            'status' => 'KO'
+        ]);
     }
 
     public function showEditProfileForm() {

@@ -123,7 +123,7 @@ class RegisterController extends Controller
         }else{
             return redirect('/login')->with('warning', "Si è verificato un errore");
         }
- 
+
         return redirect('/login')->with('success', $success);
     }
 }
