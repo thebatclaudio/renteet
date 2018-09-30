@@ -233,6 +233,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'Str'   => Illuminate\Support\Str::class,
     ],
 
 ];

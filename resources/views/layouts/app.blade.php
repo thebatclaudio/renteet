@@ -9,6 +9,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
         <title>{{ config('app.name', 'Renteet') }} - @yield('title')</title>
+
+        @yield('meta')
     
         <!-- Styles -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -70,13 +72,6 @@
         </header>
         
         <main role="main">
-        @if(\Auth::user())
-            @if(\Auth::user()->verified != true)
-            <div class="alert alert-warning margin-top-10" role="alert">
-                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora due giorni per confermare il tuo account con la mail che ti abbiamo inviato.
-            </div>
-            @endif
-        @endif
             @yield('content')
 
             @include('partials.footer')
