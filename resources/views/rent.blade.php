@@ -12,6 +12,8 @@
 @endforeach
 <meta property="product:price:amount" content="{{$house->minorBedPrice()}}">
 <meta property="product:price:currency" content="EUR">
+<meta property="fb:page_id" content="1545497615573228" />
+<meta property="fb:app_id" content="1084523911685328" />
 @endsection
 
 @section('content')
