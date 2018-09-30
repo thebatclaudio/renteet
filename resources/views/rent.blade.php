@@ -5,7 +5,8 @@
 @section('meta')
 <meta property="og:type" content="product">
 <meta property="og:title" content="{{$house->name}} - Renteet">
-<meta property="og:url" content="{{Str::words($house->description,10)}}">
+<meta property="og:description" content="{{Str::words($house->description,12)}}">
+<meta property="og:url" content="{{$house->url}}">
 @foreach($house->photos as $photo)
 <meta property="og:image" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
 @endforeach
