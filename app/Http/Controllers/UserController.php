@@ -19,7 +19,7 @@ class UserController extends Controller
                 $verifyUser->counter = $verifyUser->counter + 1;
                 if(!$verifyUser->save()){
                     return response()->json([
-                        'status' => 'KO1'
+                        'status' => 'KO2'
                     ]);
                 }
             }else{
@@ -29,7 +29,7 @@ class UserController extends Controller
                     'counter' => 0
                 ]);
             }
-            Mail::to($user->email)->send(new VerifyMail($user));
+            Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
             return response()->json([
                 'status' => 'OK',
                 'email' => $user->email

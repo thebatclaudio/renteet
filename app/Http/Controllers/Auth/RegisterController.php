@@ -103,7 +103,7 @@ class RegisterController extends Controller
             'counter' => 0
         ]);
 
-        Mail::to($user->email)->send(new VerifyMail($user));
+        Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
 
         return $user;
     }
@@ -111,9 +111,20 @@ class RegisterController extends Controller
     public function verifyUser($token)
     {
         $verifyUser = VerifyUser::where('token', $token)->first();
-        if(isset($verifyUser) ){
+        if(isset($verifyUser)){
             $user = $verifyUser->user;
             if(!$user->verified) {
+                if($verifyUser->updated_at->lt(\Carbon\Carbon::now()->subDays(3))){
+                    $verifyUser->token = str_random(40);
+                    $verifyUser->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $verifyUser->counter = $verifyUser->counter + 1;
+                    if($verifyUser->save()){
+                        Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
+                        return redirect('/login')->with('expired', $user->email);
+                    }else{
+                        return redirect('/login')->with('warning', "Si è verificato un errore");
+                    }
+                }
                 $verifyUser->user->verified = 1;
                 $verifyUser->user->save();
                 $success = "Il tuo account è stato verificato. Adesso puoi effettuare l'accesso";
