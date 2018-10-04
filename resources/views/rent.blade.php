@@ -2,6 +2,19 @@
 
 @section('title', $house->name)
 
+@section('meta')
+<meta property="og:type" content="product">
+<meta property="og:title" content="{{$house->name}} - Renteet">
+<meta property="og:description" content="{{Str::words($house->description,12)}}">
+<meta property="og:url" content="{{$house->url}}">
+@foreach($house->photos as $photo)
+<meta property="og:image" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
+@endforeach
+<meta property="product:price:amount" content="{{$house->minorBedPrice()}}">
+<meta property="product:price:currency" content="EUR">
+<meta property="fb:app_id" content="1084523911685328" />
+@endsection
+
 @section('content')
 
   @include("modals.login_modal")

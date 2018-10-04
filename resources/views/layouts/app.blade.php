@@ -9,6 +9,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
         <title>{{ config('app.name', 'Renteet') }} - @yield('title')</title>
+
+        @yield('meta')
     
         <!-- Styles -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -70,29 +72,29 @@
         </header>
         
         <main role="main">
-        @if(\Auth::user())
-            @if(\Auth::user()->verified != true)
-            <div class="container">
-                <div class="alert alert-warning margin-top-10" role="alert">
-                    <div class="row">
-                        <div class="col">
-                            <h6 class="margin-top-10">
-                                @if(isset(\Auth::user()->verifyUser))
-                                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account attraverso il link che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
-                                @else
-                                <strong>Ciao {{\Auth::user()->first_name}}!</strong> Sembra che ci sia stato un piccolo problema con la conferma del tuo account. Richiedi un nuovo link all'indirizzo <strong>{{\Auth::user()->email}}</strong>
-                                @endif
-                            </h6>
-                        </div>
-                        <div class="col-auto">
-                            <a href="#" id="cambia-email" class="btn btn-sm btn-elegant">Cambia email</a>
-                            <a href="#" id="send-new" class="btn btn-sm btn-yellow dark-ic">Invia di nuovo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-        @endif
+          @if(\Auth::user())
+              @if(\Auth::user()->verified != true)
+              <div class="container">
+                  <div class="alert alert-warning margin-top-10" role="alert">
+                      <div class="row">
+                          <div class="col">
+                              <h6 class="margin-top-10">
+                                  @if(isset(\Auth::user()->verifyUser))
+                                  <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account attraverso il link che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
+                                  @else
+                                  <strong>Ciao {{\Auth::user()->first_name}}!</strong> Sembra che ci sia stato un piccolo problema con la conferma del tuo account. Richiedi un nuovo link all'indirizzo <strong>{{\Auth::user()->email}}</strong>
+                                  @endif
+                              </h6>
+                          </div>
+                          <div class="col-auto">
+                              <a href="#" id="cambia-email" class="btn btn-sm btn-elegant">Cambia email</a>
+                              <a href="#" id="send-new" class="btn btn-sm btn-yellow dark-ic">Invia di nuovo</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endif
+          @endif
             @yield('content')
 
             @include('partials.footer')
