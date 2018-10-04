@@ -403,7 +403,7 @@ class AdminController extends Controller
                         $newRoom->bed_price = $room['bed_price'];
                         if(!$newRoom->save()) {
                             return response()->json([
-                                'status' => 'KO10'
+                                'status' => 'KO'
                             ]);
                         }
                     } else if($roomToEdit = \App\Room::find($room['id'])) {
@@ -417,7 +417,7 @@ class AdminController extends Controller
                                     //se non rimangono posti la stanza viene eliminata
                                     if(!$roomToEdit->delete()) {
                                         return response()->json([
-                                            'status' => 'KO1'
+                                            'status' => 'KO'
                                         ]);
                                     }
                                 } else {
@@ -426,7 +426,7 @@ class AdminController extends Controller
                                     $roomToEdit->beds = $room['beds'];
                                     if(!$roomToEdit->save()) {
                                         return response()->json([
-                                            'status' => 'KO2'
+                                            'status' => 'KO'
                                         ]);
                                     }
                                 }
@@ -436,7 +436,7 @@ class AdminController extends Controller
                             $roomToEdit->beds = $room['beds'];
                             if(!$roomToEdit->save()) {
                                 return response()->json([
-                                    'status' => 'KO3'
+                                    'status' => 'KO'
                                 ]);
                             }
                         } else if($roomToEdit->bed_price != $room['bed_price']) {
@@ -444,13 +444,13 @@ class AdminController extends Controller
 
                             if(!$roomToEdit->save()) {
                                 return response()->json([
-                                    'status' => 'KO3'
+                                    'status' => 'KO'
                                 ]);
                             }
                         }
                     } else {
                         return response()->json([
-                            'status' => 'KO4'
+                            'status' => 'KO'
                         ]);
                     }
                 }
@@ -462,7 +462,7 @@ class AdminController extends Controller
         }
 
         return response()->json([
-            'status' => 'KO5'
+            'status' => 'KO'
         ]);
     }
 }
