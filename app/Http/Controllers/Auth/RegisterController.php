@@ -59,8 +59,7 @@ class RegisterController extends Controller
             'year' => 'required|integer',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'condition' => 'accepted',
-            'telephone' => 'max:20'
+            'condition' => 'accepted'
         ], [
             'first_name.required' => 'Il nome è un campo obbligatorio',
             'last_name.required' => 'Il cognome è un campo obbligatorio',
@@ -72,8 +71,7 @@ class RegisterController extends Controller
             'password.required' => 'La password è un campo obbligatorio',
             'password.min' => 'La password deve contenere almeno 8 caratteri',
             'password.confirmed' => 'Le due password non corrispondono',
-            'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo',
-            'telephone.max' => 'Il numero non risulta valido'
+            'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo'
         ]);
     }
 
@@ -85,16 +83,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $telephone = null;
-        if($data['telephone'] != "") $telephone = $data['telephone'];
-        
+
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'birthday' => \Carbon\Carbon::create($data['year'], $data['month'], $data['day'])->format('Y-m-d'),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'telephone' => $telephone
         ]);
 
         $verifyUser = VerifyUser::create([
