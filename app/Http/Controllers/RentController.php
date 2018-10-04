@@ -206,6 +206,30 @@ class RentController extends Controller
         }
     }
 
+    public function cancelRequest($id, Request $request) {
+        $roomUser = RoomUser::where([
+            'user_id' => \Auth::user()->id, 
+            'room_id' => $id,
+            'accepted_by_owner' => false
+        ])->first();
+        
+        if($roomUser) {
+            if($roomUser->delete()) {
+                return response()->json([
+                    'status' => 'OK'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'KO'
+                ]);                
+            }
+        } else {
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
+
     public function selectAvailableDate($room, $user, Request $request){
         $roomUser = RoomUser::where([
             'user_id' => $user, 
@@ -242,7 +266,6 @@ class RentController extends Controller
             'user_id' => $user, 
             'room_id' => $room
         ])->where('stop',NULL)->where('accepted_by_owner',true);
-       // \Log::info(\Carbon\Carbon::now()->format('Y-m-d'));
             if($roomUser->count()){
                 $currentRoom = Room::find($room);
                 if($currentRoom->house->owner_id === \Auth::user()->id){

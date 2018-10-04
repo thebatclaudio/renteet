@@ -64,6 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
     Route::post('/room/{room}/user/{user}/refuse', 'RentController@refuseUser')->name('refuse.user');
+    Route::post('/room/{room}/cancelRequest', 'RentController@cancelRequest')->name('cancel.request');
     Route::prefix('ajax')->name('ajax.')->group(function () {
         Route::get('notifications', 'NotificationsController@ajaxIndex')->name('notifications');
         Route::post('/room/{id}/exit', 'RentController@exitFromHouse')->name('exit.room');
