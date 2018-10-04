@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSoftDeleteToRoomUserTable extends Migration
+class ReaddSoftDeleteToRoomUserTable extends Migration
 {
     /**
      * Run the migrations.
