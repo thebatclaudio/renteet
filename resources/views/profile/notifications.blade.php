@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="page-target-container margin-top-40">
+        <div class="page-target-container margin-target-container">
             <h3 class="page-target">Le tue notifiche</h3>
         </div>
     </div>

@@ -156,7 +156,7 @@
       <div class="container">
 
         <div class="row">
-            <div class="page-target-container margin-top-80">
+            <div class="page-target-container margin-target-container-80">
               <h3 class="page-target">Descrizione</h3>
             </div>
           <div class="margin-top-120">
@@ -165,7 +165,7 @@
         </div>
         
         <div class="row">
-            <div class="page-target-container margin-top-80">
+            <div class="page-target-container margin-target-container-80">
               <h3 class="page-target">Informazioni</h3>
             </div>
           <div class="margin-top-120">
@@ -188,7 +188,7 @@
         </div>
 
         <div class="row">
-          <div class="page-target-container margin-top-80">
+          <div class="page-target-container margin-target-container-80">
             <h3 class="page-target">Servizi</h3>
           </div>
             <div class="col-md-6 margin-top-120">
@@ -219,7 +219,7 @@
         </div>
 
         <div class="row">
-          <div class="page-target-container margin-top-80">
+          <div class="page-target-container margin-target-container-80">
             <h3 class="page-target">Posizione approssimata</h3>
           </div>
           <div class="col-md-6 margin-top-120">
@@ -229,7 +229,7 @@
 
         @if($house->previewReviews->count())
         <div class="row">
-          <div class="page-target-container margin-top-80">
+          <div class="page-target-container margin-target-container-80">
             <h3 class="page-target">Recensioni</h3>
           </div>
           <div id="reviewsCarousel" class="carousel slide col-md-12" data-ride="carousel">
@@ -282,7 +282,7 @@
         @endif
 
         <div class="row margin-bottom-40" id="owner-box">
-          <div class="page-target-container margin-top-80">
+          <div class="page-target-container margin-target-container-80">
             <h3 class="page-target">Proprietario</h3>
           </div>
           <div class="card margin-top-180 col-md-8 d-none d-sm-block">
