@@ -12,6 +12,7 @@ use \App\Events\AdhesionToHouse;
 use \App\Events\AdhesionAcceptance;
 use \App\Events\ExitFromHouse;
 use \App\Events\RemovedFromHouse;
+use \App\Events\Refused;
 
 class RentController extends Controller
 {
@@ -130,6 +131,44 @@ class RentController extends Controller
             ]);
         }
     }
+
+    public function refuseUser($room, $user, Request $request){
+        // controllo se esiste la stanza
+        if($room = Room::find($room)){
+            //controllo se l'utente loggato è il proprietario
+            if($room->house->owner->id == \Auth::user()->id) {
+                $roomUser = RoomUser::where('user_id', $user)->where('room_id', $room->id)->where('accepted_by_owner', false)->orderBy('created_at', 'DESC')->first();
+                if($roomUser) {
+                    if($roomUser->delete()) {
+                        // lancio l'evento per inviare la notifica push
+                        event(new Refused($user, $room->house->id));
+                        // creo la notifica nel db
+                        User::find($user)->notify(new \App\Notifications\Refused($user, $room->house->id));
+
+                        return response()->json([
+                            'status' => 'OK'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => 'KO'
+                        ]);                            
+                    }
+                } else {
+                    return response()->json([
+                        'status' => 'KO'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 'KO'
+                ]);                
+            }
+        } else {
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
    
     public function exitFromHouse($id, Request $request) {
         $roomUser = RoomUser::where([
@@ -152,6 +191,30 @@ class RentController extends Controller
                     $conversation->users()->detach($user);
                 }
 
+                return response()->json([
+                    'status' => 'OK'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'KO'
+                ]);                
+            }
+        } else {
+            return response()->json([
+                'status' => 'KO'
+            ]);
+        }
+    }
+
+    public function cancelRequest($id, Request $request) {
+        $roomUser = RoomUser::where([
+            'user_id' => \Auth::user()->id, 
+            'room_id' => $id,
+            'accepted_by_owner' => false
+        ])->first();
+        
+        if($roomUser) {
+            if($roomUser->delete()) {
                 return response()->json([
                     'status' => 'OK'
                 ]);
@@ -203,7 +266,6 @@ class RentController extends Controller
             'user_id' => $user, 
             'room_id' => $room
         ])->where('stop',NULL)->where('accepted_by_owner',true);
-       // \Log::info(\Carbon\Carbon::now()->format('Y-m-d'));
             if($roomUser->count()){
                 $currentRoom = Room::find($room);
                 if($currentRoom->house->owner_id === \Auth::user()->id){

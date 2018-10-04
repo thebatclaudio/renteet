@@ -18,9 +18,14 @@ class Verified
         if(\Auth::check()){
             $user = \Auth::user();
 
-            if(!$user->verified && $user->created_at->lt(\Carbon\Carbon::now()->subDays(3))) {
-                \Log::info('quia');
-                return redirect('/login')->with('unverified', true);
+            if(!$user->verified){
+                if(isset($user->verifyUser)){
+                    if($user->verifyUser->updated_at->lt(\Carbon\Carbon::now()->subDays(3))) {
+                        return redirect('/login')->with('unverified', true);
+                    }
+                }else{
+                    return redirect('/login')->with('error', true);
+                }
             }
         }
 

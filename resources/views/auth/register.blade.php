@@ -81,27 +81,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
-                            <label for="telephone" class="col-md-12 control-label">Telefono <small> (facoltativo)</small></label>
-
-                            <div class="col-md-12">
-                                <input id="telephone" type="tel" class="form-control" name="telephone" value="{{ old('telephone') }}">
-
-                                @if ($errors->has('telephone'))
-                                    <div class="alert alert-warning margin-top-10" role="alert">
-                                        {{ $errors->first('telephone') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                             <label for="birthday" class="col-md-12 control-label">Data di nascita</label>
 
                             <div class="col-md-12">
 
-                                <div class="row">
-                                    <div class="col-md-3">
+                                <div class="row birthday-input-row">
+                                    <div class="col-3">
                                         <select name="day" class="form-control">
                                             <option disabled selected value="-1">Giorno:</option>
                                             @for($i=1;$i<=31;$i++)
@@ -109,7 +95,7 @@
                                             @endfor
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <select name="month" class="form-control">
                                                 <option disabled selected value="-1">Mese:</option>
                                                 <option value="1">Gennaio</option>
@@ -126,7 +112,7 @@
                                                 <option value="12">Dicembre</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-3">
                                         <select name="year" class="form-control">
                                             <option disabled selected value="-1">Anno:</option>
                                             @for($i=(int)date("Y")-18;$i>(int)date("Y")-118;$i--)

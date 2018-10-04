@@ -17,9 +17,10 @@ class VerifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, string $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -33,7 +34,8 @@ class VerifyMail extends Mailable
                 ->subject('Verifica il tuo account')
                 ->view('emails.verifyMail')
                 ->with([
-                    'user' => $this->user
+                    'user' => $this->user,
+                    'token' => $this->token
                 ]);      
     }
 }

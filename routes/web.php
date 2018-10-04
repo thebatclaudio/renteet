@@ -41,6 +41,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::get('/edit-profile', 'UserController@showEditProfileForm')->name("user.edit");
     Route::post('/edit-profile', 'UserController@editPersonalInfo')->name("edit-personal-info");
+    
+    //resend new token
+    Route::post('/edit-email','UserController@editEmail')->name('user.editEmail');
+    Route::post('/send-new','UserController@sendNewVerifyToken')->name('user.sendNew');
 
     Route::get('/profile/notifications', 'NotificationsController@index')->name('notifications');
     Route::get('/profile/requests/pending', 'UserController@pendingRequests')->name('pendingRequests');
@@ -59,6 +63,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
  
     Route::get('/profile/{id}', 'UserController@showProfile')->name('user.profile');
     Route::post('/room/{room}/user/{user}', 'RentController@allowUser')->name('allow.user');
+    Route::post('/room/{room}/user/{user}/refuse', 'RentController@refuseUser')->name('refuse.user');
+    Route::post('/room/{room}/cancelRequest', 'RentController@cancelRequest')->name('cancel.request');
     Route::prefix('ajax')->name('ajax.')->group(function () {
         Route::get('notifications', 'NotificationsController@ajaxIndex')->name('notifications');
         Route::post('/room/{id}/exit', 'RentController@exitFromHouse')->name('exit.room');

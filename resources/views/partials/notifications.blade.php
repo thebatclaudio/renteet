@@ -35,6 +35,21 @@
             globalPosition: 'bottom right',
         });
     });
+
+    channel.bind('App\\Events\\Refused', function(data) {
+
+        $.notify({
+            title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+'</strong> ha rifiutato la tua richiesta di adesione per l\'immobile <strong>'+data.house.name+'</strong>',
+            image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
+            profileLink: ''
+        }, {
+            style: 'notification',
+            autoHide: false,
+            clickToHide: false,
+            autoHideDelay: 15000,
+            globalPosition: 'bottom right',
+        });
+    });
     
     channel.bind('App\\Events\\ExitFromHouse', function(data) {
 

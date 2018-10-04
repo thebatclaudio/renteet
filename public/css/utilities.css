@@ -44,6 +44,27 @@ body {
     margin-top: 180px;
 }
 
+.margin-target-container{
+    margin-top:40px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    .margin-target-container{
+        margin-top:-80px;
+    }
+} 
+
+.margin-target-container-80{
+    margin-top:80px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    .margin-target-container-80{
+        margin-top:80px;
+    }
+}
+  
+
 .margin-house-topbar {
     margin-top: 160px;
 }

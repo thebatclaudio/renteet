@@ -100,6 +100,8 @@ swal('Il tuo account è stato verificato', 'Adesso puoi effettuare l\'accesso', 
 swal('Si è verificato un errore', 'Riprova più tardi', 'error');
 @elseif(session('unverified'))
 swal('Account non verificato', 'Verifica il tuo account cliccando sul pulsante contenuto nell\'email che hai ricevuto', 'warning');
+@elseif(session('expired'))
+swal('Il link è scaduto', 'Ti è stato inviato un nuovo link di conferma all\'email ' + "{{session('expired')}}", 'warning');
 @endif
 </script>
 @endsection

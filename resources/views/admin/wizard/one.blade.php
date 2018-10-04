@@ -166,7 +166,7 @@
 
     $(document).ready(function() {
         $(window).keydown(function(event){
-            if( (event.keyCode == 13) && (validationFunction() == false) ) {
+            if( (event.keyCode == 13 || event.which == 13) && (validationFunction() == false) ) {
                 event.preventDefault();
                 return false;
             }

@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="page-target-container margin-top-40">
+        <div class="page-target-container margin-target-container">
             <h3 class="page-target">Richieste di adesione in sospeso</h3>
         </div>
     </div>
@@ -29,6 +29,11 @@
                                 <small class="notification-date">Inviata <strong class="date">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $request->pivot->created_at)->timestamp}}000</strong></small>
                             </div>
                         </div>
+                        <div class="row margin-top-10 text-right">
+                            <div class="col">
+                                <a class="btn btn-elegant btn-cancel btn-sm" data-room="{{$request->id}}">Annulla richiesta</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </a>
@@ -43,6 +48,40 @@ $(document).ready(function(){
     moment.locale('it');
     $(".date").each(function() {
         $(this).text(moment.utc($(this).text(), 'x').fromNow());
+    });
+});
+
+$(".btn-cancel").on("click", function () {
+    var button = $(this);
+
+    var url = '{{route('cancel.request', [ 'room' => ':room'])}}';
+
+    swal({
+        title: "Sei sicuro di voler annullare la richiesta di adesione?",
+        text: "",
+        buttons: [true, {
+            text: 'Annulla richiesta',
+            closeModal: false
+          }]
+    })
+    .then((send) => {
+        if (!send) throw null;
+        $.post(url.replace(':room', button.data("room")), function( data ) {
+            if(data.status === 'OK') {
+                swal("Richiesta di adesione annullata!", "", "success").then(() => { location.reload() });;;
+                button.attr('disabled', true);
+            }else {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");
+            }
+        });    
+    })
+    .catch(err => {
+          if (err) {
+              swal("Si è verificato un errore", "Riprova più tardi", "error");  
+          } else {
+            swal.stopLoading();
+            swal.close();
+          }
     });
 });
 </script>

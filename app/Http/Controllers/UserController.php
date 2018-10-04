@@ -4,9 +4,63 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Auth;
+use App\Mail\VerifyMail;
+use App\VerifyUser;
+use Mail;
 
 class UserController extends Controller
 {
+    public function sendNewVerifyToken(request $request){
+        if($user = \Auth::user()){
+            $verifyUser = VerifyUser::where('user_id', $user->id)->first();
+            if(isset($verifyUser)){
+                $verifyUser->token = str_random(40);
+                $verifyUser->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                $verifyUser->counter = $verifyUser->counter + 1;
+                if(!$verifyUser->save()){
+                    return response()->json([
+                        'status' => 'KO2'
+                    ]);
+                }
+            }else{
+                $verifyUser = VerifyUser::create([
+                    'user_id' => $user->id,
+                    'token' => str_random(40),
+                    'counter' => 0
+                ]);
+            }
+            Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
+            return response()->json([
+                'status' => 'OK',
+                'email' => $user->email
+            ]);
+        }
+        return response()->json([
+            'status' => 'KO2'
+        ]);
+    }
+
+    public function editEmail(request $request){   
+
+        if(\Auth::user()->email != $request->email){
+            $validatorRules['email'] = 'required|string|email|max:255|unique:users';
+            $validatorMessages['email.required'] = 'L\'indirizzo E-mail è un campo obbligatorio';
+            $validatorMessages['email.unique'] = 'L\'indirizzo E-mail inserito è già associato ad un altro utente';
+        }
+
+        $validatedData = $request->validate($validatorRules, $validatorMessages);
+        
+        if($request->email != "") \Auth::user()->email = $request->email;
+        if(\Auth::user()->save()){
+            return response()->json([
+                'status' => 'OK'
+            ]);
+        }
+        return response()->json([
+            'status' => 'KO'
+        ]);
+    }
+
     public function showEditProfileForm() {
         $interests = "";
         $languages = "";
@@ -75,6 +129,11 @@ class UserController extends Controller
             $validatorMessages['email.required'] = 'L\'indirizzo E-mail è un campo obbligatorio';
             $validatorMessages['email.unique'] = 'L\'indirizzo E-mail inserito è già associato ad un altro utente';
         }
+
+        if($request->degree_course != ""){
+            $validatorRules['university'] = 'required';
+            $validatorMessages['university.required'] = 'Per poter inserire il corso di studi è necessario definire anche la relativa Università';
+        }
         
         $validatedData = $request->validate($validatorRules, $validatorMessages);
 
@@ -126,6 +185,12 @@ class UserController extends Controller
             $user->university = $request->university;
         }else{
             $user->university = null;
+        }
+
+        if($request->degree_course !== ""){
+            $user->degree_course = $request->degree_course;
+        }else{
+            $user->degree_course = null;
         }
        
         if($request->job !== ""){
@@ -216,12 +281,14 @@ class UserController extends Controller
             'gender' => 'required',
             'living_city' => 'required_if:living_city_required,true',
             'born_city' => 'required_if:born_city_required,true',
+            'telephone' => 'max:20'
         ];
 
         $validatorMessages = [
             'gender.required' => 'Inserisci il tuo genere',
             'living_city.required_if' => 'Inserisci la tua città di residenza',
-            'born_city.required_if' => 'Inserisci la tua città di nascita'
+            'born_city.required_if' => 'Inserisci la tua città di nascita',
+            'telephone.max' => 'Il numero non risulta valido'
         ];
 
         if(\Auth::user()->birthday == '0000-01-01') {
@@ -234,6 +301,11 @@ class UserController extends Controller
             $validatorMessages['day.ineger'] = 'Inserisci la tua data di nascita';
             $validatorMessages['month.ineger'] = 'Inserisci la tua data di nascita';
             $validatorMessages['year.ineger'] = 'Inserisci la tua data di nascita';
+        }
+
+        if($request->degree_course != ""){
+            $validatorRules['university'] = 'required';
+            $validatorMessages['university.required'] = 'Per poter inserire il corso di studi è necessario definire anche la relativa Università';
         }
         
         $validatedData = $request->validate($validatorRules, $validatorMessages);
@@ -274,8 +346,12 @@ class UserController extends Controller
             $user->born_city_id = $bornCity->id;
         }
 
+        if($request->telephone != "") $user->telephone = $request->telephone;
+
         if($request->university !== "") $user->university = $request->university;
        
+        if($request->degree_course !== "") $user->degree_course = $request->degree_course;
+
         if($request->job !== "") $user->job = $request->job;
 
         if($request->description !== "") $user->description = $request->description;

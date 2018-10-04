@@ -115,7 +115,7 @@
                                             </ul>
                                             
                                             <button class="btn btn-success btn-sm accept-user" data-user="{{$user->id}}" data-room="{{$room->id}}" data-name="{{$user->complete_name}}">Accetta</button>
-                                            {{--<button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}">Rifiuta</button>--}}
+                                            <button class="btn btn-elegant btn-sm refuse-user" data-user="{{$user->id}}" data-room="{{$room->id}}" data-name="{{$user->complete_name}}">Rifiuta</button>
                                         </div>
                                     </div>
                                 </div>
@@ -177,13 +177,38 @@
     $(".accept-user").on("click", function () {
         var button = $(this);
 
-        var url = '{{route('allow.user', [ 'room' => ':room', 'user' => ':user'])}}';
+        var url = '{{route('refuse.user', [ 'room' => ':room', 'user' => ':user'])}}';
 
         swal({
             title: "Sei sicuro di voler approvare la richiesta di adesione di "+button.data("name")+"?",
             icon: "warning",
             buttons: [true, {
                 text: "Accetta"
+            }]
+        }).then((send) => {
+            if (!send) throw null;
+
+            $.post(url.replace(':room', button.data("room")).replace(':user', button.data("user")), function( data ) {
+                if(data.status === 'OK') {
+                    swal("Operazione riuscita", "", "success").then(() => { location.reload() });
+                } else {
+                    swal("Si è verificato un errore", "Riprova più tardi", "error");
+                }
+            });
+        });
+    });
+
+    /** REFUSE USER **/
+    $(".refuse-user").on("click", function () {
+        var button = $(this);
+
+        var url = '{{route('refuse.user', [ 'room' => ':room', 'user' => ':user'])}}';
+
+        swal({
+            title: "Sei sicuro di voler rifiutare la richiesta di adesione di "+button.data("name")+"?",
+            icon: "warning",
+            buttons: [true, {
+                text: "Rifiuta"
             }]
         }).then((send) => {
             if (!send) throw null;

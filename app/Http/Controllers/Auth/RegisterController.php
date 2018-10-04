@@ -59,8 +59,7 @@ class RegisterController extends Controller
             'year' => 'required|integer',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'condition' => 'accepted',
-            'telephone' => 'max:20'
+            'condition' => 'accepted'
         ], [
             'first_name.required' => 'Il nome è un campo obbligatorio',
             'last_name.required' => 'Il cognome è un campo obbligatorio',
@@ -72,8 +71,7 @@ class RegisterController extends Controller
             'password.required' => 'La password è un campo obbligatorio',
             'password.min' => 'La password deve contenere almeno 8 caratteri',
             'password.confirmed' => 'Le due password non corrispondono',
-            'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo',
-            'telephone.max' => 'Il numero non risulta valido'
+            'condition.accepted' => 'Per registrarti devi accettare i termini e le condizioni di utilizzo'
         ]);
     }
 
@@ -85,24 +83,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $telephone = null;
-        if($data['telephone'] != "") $telephone = $data['telephone'];
-        
+
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'birthday' => \Carbon\Carbon::create($data['year'], $data['month'], $data['day'])->format('Y-m-d'),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'telephone' => $telephone
         ]);
 
         $verifyUser = VerifyUser::create([
             'user_id' => $user->id,
-            'token' => str_random(40)
+            'token' => str_random(40),
+            'counter' => 0
         ]);
 
-        Mail::to($user->email)->send(new VerifyMail($user));
+        Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
 
         return $user;
     }
@@ -110,9 +106,20 @@ class RegisterController extends Controller
     public function verifyUser($token)
     {
         $verifyUser = VerifyUser::where('token', $token)->first();
-        if(isset($verifyUser) ){
+        if(isset($verifyUser)){
             $user = $verifyUser->user;
             if(!$user->verified) {
+                if($verifyUser->updated_at->lt(\Carbon\Carbon::now()->subDays(3))){
+                    $verifyUser->token = str_random(40);
+                    $verifyUser->updated_at = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $verifyUser->counter = $verifyUser->counter + 1;
+                    if($verifyUser->save()){
+                        Mail::to($user->email)->send(new VerifyMail($user,$verifyUser->token));
+                        return redirect('/login')->with('expired', $user->email);
+                    }else{
+                        return redirect('/login')->with('warning', "Si è verificato un errore");
+                    }
+                }
                 $verifyUser->user->verified = 1;
                 $verifyUser->user->save();
                 $success = "Il tuo account è stato verificato. Adesso puoi effettuare l'accesso";
@@ -122,7 +129,7 @@ class RegisterController extends Controller
         }else{
             return redirect('/login')->with('warning', "Si è verificato un errore");
         }
- 
+
         return redirect('/login')->with('success', $success);
     }
 }

@@ -107,7 +107,7 @@ class User extends Authenticatable
     }
 
     public function pendingRequests() {
-        return $this->rooms()->where('accepted_by_owner', false);
+        return $this->rooms()->where('accepted_by_owner', false)->whereNull('room_user.deleted_at');
     }
 
     public function interests() {

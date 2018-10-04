@@ -75,6 +75,9 @@ class House extends Model
     }
 
     public function getPreviewImageUrlAttribute() {
+        if($this->photos()->count()) {
+            return url('/images/houses/'.$this->id.'/'.$this->photos[0]->file_name.'-670.jpg');
+        }
         return route('house.thumbnail',$this->id);
     }
 

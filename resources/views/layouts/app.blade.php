@@ -72,6 +72,29 @@
         </header>
         
         <main role="main">
+          @if(\Auth::user())
+              @if(\Auth::user()->verified != true)
+              <div class="container">
+                  <div class="alert alert-warning margin-top-10" role="alert">
+                      <div class="row">
+                          <div class="col">
+                              <h6 class="margin-top-10">
+                                  @if(isset(\Auth::user()->verifyUser))
+                                  <strong>Ciao {{\Auth::user()->first_name}}!</strong> Hai ancora {{\Auth::user()->verifyUser->daysLeftConfirm()}} giorni per confermare il tuo account attraverso il link che ti abbiamo inviato all'indirizzo <strong>{{\Auth::user()->email}}</strong>. 
+                                  @else
+                                  <strong>Ciao {{\Auth::user()->first_name}}!</strong> Sembra che ci sia stato un piccolo problema con la conferma del tuo account. Richiedi un nuovo link all'indirizzo <strong>{{\Auth::user()->email}}</strong>
+                                  @endif
+                              </h6>
+                          </div>
+                          <div class="col-auto">
+                              <a href="#" id="cambia-email" class="btn btn-sm btn-elegant">Cambia email</a>
+                              <a href="#" id="send-new" class="btn btn-sm btn-yellow dark-ic">Invia di nuovo</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endif
+          @endif
             @yield('content')
 
             @include('partials.footer')
@@ -179,7 +202,74 @@
         @yield('scripts')
 
         <script>
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+        
         $(document).ready(function() {
+
+            $("#cambia-email").on('click',function(){
+                var cambiaEmailContainer = document.createElement("form");
+                var input = document.createElement('input');
+                input.name = 'email';
+                input.id = 'email';
+                input.classList.add('form-control');
+                input.classList.add('margin-top-40');
+                input.placeholder ='Inserisci un nuovo indirizzo email';
+                input.required = 'required';
+                cambiaEmailContainer.appendChild(input);  
+                swal({
+                        title: "Cambia il tuo indirizzo Email",
+                        buttons: [true, {
+                            text: "Salva",
+                            className: "nextButtonSwal",
+                            closeModal: false
+                        }],
+                        content: cambiaEmailContainer
+                    }).then((send) =>{
+                        if(!send) throw null;
+                        $.ajax({
+                            url: '{{route('user.editEmail')}}',
+                            type: "post",
+                            dataType: "json",
+                            data: {email:$('#email').val()},
+                            success: function (data) {
+                                swal("L'indirizzo email è stato modificato con successo", "", "success");
+                            },
+                            error: function (data) {
+                                if(data.responseJSON.errors.email != undefined){
+                                    swal("Si è verificato un errore",data.responseJSON.errors.email[0], "error");
+                                }else{
+                                    swal("Si è verificato un errore","riprova più tardi", "error");
+                                }
+                            }
+                        });
+                    })
+                    .catch((err)=>{
+                        if(err)
+                        swal("Si è verificato un errore", "Riprova più tardi", "error");
+                    });
+            });
+
+            $("#send-new").on('click',function(){
+                $.ajax({
+                    url: '{{route('user.sendNew')}}',
+                    type: "post",
+                    success: function (data) {
+                        if(data.status == 'OK'){
+                            swal("E' stato inviato una nuova email di conferma all'indirizzo "+data.email, "", "success");
+                        }else{
+                            console.log(data);
+                            swal("Si è verificato un errore","riprova più tardi", "error");
+                        }
+                    },
+                    error: function (data) {
+                        swal("Si è verificato un errore","riprova più tardi", "error");
+                    }
+                });
+            });
 
             $(window).keydown(function(event){
                 if(event.keyCode == 13) {
