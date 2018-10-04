@@ -67,6 +67,14 @@
                 return false;
             }
         });
+
+        $("#university").on('input',function() {
+            if($("#university").val().length > 0){
+                $("#degree_course_div").removeClass('d-none');
+            }else{
+                $("#degree_course_div").addClass('d-none');
+            }
+        });
     });
 
 
@@ -213,6 +221,17 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="telephone" class="col-md-4 col-form-label">Telefono <small> (facoltativo)</small></label>
+                                    <div class="col-md-8">
+                                        <input type="tel" id="telephone" name="telephone" class="form-control" value="{{ old('telephone') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -220,6 +239,17 @@
                                     <label for="university" class="col-md-4 col-form-label">Universit&agrave;</label>
                                     <div class="col-md-8">
                                         <input type="text" id="university" name="university" class="form-control" value="{{ old('university') }}" placeholder="Inserisci la tua Università">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row d-none" id="degree_course_div">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="degree_course" class="col-md-4 col-form-label">Corso di Studi</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="degree_course" name="degree_course" class="form-control" value="{{ old('degree_course') }}" placeholder="Inserisci il tuo corso di Studi">
                                     </div>
                                 </div>
                             </div>

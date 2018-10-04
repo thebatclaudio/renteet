@@ -57,6 +57,14 @@
                 return false;
             }
         });
+
+        $("#university").on('input',function() {
+            if($("#university").val().length > 0){
+                $("#degree_course_div").removeClass('d-none');
+            }else{
+                $("#degree_course_div").addClass('d-none');
+            }
+        });
     });
 </script>
 
@@ -289,6 +297,13 @@ $(document).ready(function(){
                             <label for="university" class="col-sm-3 control-label">Universit&agrave;</label>
                             <div class="col-sm-9 float-right">
                                 <input type="text" id="university" name="university" class="form-control" value="{{ (old('university')) ? old('university') : $user->university }}" placeholder="Inserisci la tua Università"> 
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-10 col-12 d-none" id="degree_course_div">
+                            <label for="degree_course" class="col-sm-3 control-label">Corso di Studi</label>
+                            <div class="col-sm-9 float-right">
+                                <input type="text" id="degree_course" name="degree_course" class="form-control" value="{{ (old('degree_course')) ? old('degree_course') : $user->degree_course }}" placeholder="Inserisci il tuo corso di studi"> 
                             </div>
                         </div>
 

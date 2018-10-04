@@ -68,6 +68,11 @@
                         @if($user->university)
                         <li>{{$user->university}}</li>
                         @endif
+
+                        @if($user->degree_course)
+                        <li>{{$user->degree_course}}</li>
+                        @endif
+                        
                     </ul>
                 @if($user->id == \Auth::user()->id)
                 <buttom id="edit-profile-button" class="btn btn-outline-elegant waves-effect btn-sm margin-top-10" style="margin-left: 0px">Modifica profilo</buttom>
