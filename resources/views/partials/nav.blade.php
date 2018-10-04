@@ -33,6 +33,7 @@
                     <a class="dropdown-item" href="{{ route('pendingRequests') }}">Le tue richieste in sospeso</a>
                 @endif
                 
+            @if(!isset($hideNewAdButton))
                 <a class="dropdown-item" href="{{route('chat.show')}}">
                     I tuoi messaggi
                     @if(\Auth::user()->allUnreadedCount() > 0)
@@ -41,11 +42,12 @@
                         <span id="counterMessages" class="float-right badge badge-danger badge-pill" style="display:none;">{{\Auth::user()->allUnreadedCount()}}</span>
                     @endif
                 </a>
-
+                
                 <a class="dropdown-item" href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
                 
                 <div class="dropdown-divider"></div>
-                
+            @endif
+
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Esci da Renteet</a>
                 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -89,6 +91,7 @@
             <li class="nav-item text-link"><a class="nav-link" href="{{ route('admin.dashboard') }}">Area del locatore</a></li>
         @endif
 
+    @if(!isset($hideNewAdButton))
         <li class="nav-item text-link">
             <a class="nav-link" href="{{route('chat.show')}}">
                 Messaggi
@@ -99,7 +102,8 @@
                 @endif
             </a>
         </li>
-
+    @endif
+    
         @if(\Auth::user()->isTenant())
             <li class="nav-item text-link"><a class="nav-link" href="{{ route('myHouse') }}">La tua casa</a></li>
         @elseif(\Auth::user()->pendingRequests()->count() >= 1)

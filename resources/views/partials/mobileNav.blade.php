@@ -16,7 +16,9 @@
                 </div>
                 <div class="col">
                     <h5>{{ Auth::user()->complete_name }}</h5>
-                    <a href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
+                    @if(!isset($hideNewAdButton))
+                        <a href="{{ route('user.profile', \Auth::user()->id) }}">Visualizza il tuo profilo</a>
+                    @endif
                 </div>
                 <div class="col-auto align-self-end">
                     <div class="align-vertical-center">
@@ -34,6 +36,7 @@
             </div>
         </li>
 
+    @if(!isset($hideNewAdButton))
         <li class="nav-item">
             <a href="{{route('chat.show')}}">
                 I tuoi messaggi
@@ -44,7 +47,8 @@
                 @endif
             </a>
         </li>
-
+    @endif 
+    
         @if(\Auth::user()->isLessor())
         <li class="nav-item">
             <a href="{{ route('admin.dashboard') }}">Gestisci le tue case</a>
@@ -68,7 +72,7 @@
         </li> 
 
         </li>
-        @if(\Auth::user()->signup_complete == true)
+        @if(!isset($hideNewAdButton))
             <li class="nav-item">
                 <a href="{{route('admin.house.wizard.one')}}" class="btn btn-success btn-block">
                     Inserisci un annuncio
