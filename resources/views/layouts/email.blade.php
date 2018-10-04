@@ -88,7 +88,7 @@
   <body class="" style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
 
     <div style="width: 100%; text-align: center; margin-bottom: 20px;">
-      <img src="https://www.renteet.com/images/renteet-logo.png" style="max-width: 50%;">
+      <img src="https://www.renteet.com/images/renteet-logo-email.png" style="max-width: 50%;">
     </div>
 
     <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">      
