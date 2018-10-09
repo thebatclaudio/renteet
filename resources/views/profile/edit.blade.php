@@ -62,6 +62,7 @@
             if($("#university").val().length > 0){
                 $("#degree_course_div").removeClass('d-none');
             }else{
+                $("#degree_course").val("");
                 $("#degree_course_div").addClass('d-none');
             }
         });
