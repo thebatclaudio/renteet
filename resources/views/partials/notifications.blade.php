@@ -26,7 +26,7 @@
         $.notify({
             title: '<strong>'+data.owner.first_name+' '+data.owner.last_name+'</strong> ha accettato la tua richiesta di adesione per l\'immobile <strong>'+data.house.name+'</strong>',
             image: '<img class="img-flud rounded-circle" height="80" width="80" src="'+data.owner.profile_pic+'">',
-            profileLink: '<a href="'+data.house.url+'" class="btn btn-elegant btn-sm">Visualizza l\'immobile</a>'
+            profileLink: '<a href="{{url('house')}}" class="btn btn-elegant btn-sm">Vai alla tua casa</a>'
         }, {
             style: 'notification',
             autoHide: false,
