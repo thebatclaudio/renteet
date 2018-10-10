@@ -68,9 +68,38 @@
               </div>
             </div>
             <div class="col-auto">
+              @if($house->owner->id === \Auth::user()->id)
+              <div class="btn-group d-none d-sm-flex">
+                  <a href="{{route('admin.house', $house->id)}}" class="btn btn-success">Gestisci il tuo immobile</a>
+                  <button type="button" class="btn btn-success dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-caret-down"></i>
+                      <span class="sr-only">Apri Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.services', $house->id)}}">Modifica i servizi</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.photos', $house->id)}}">Modifica le foto</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.rooms', $house->id)}}">Modifica stanze e prezzi</a>
+                  </div>
+              </div>
+              <div class="btn-group d-flex d-sm-none">
+                  <a href="{{route('admin.house', $house->id)}}" class="btn btn-success btn-sm">Gestisci</a>
+                  <button type="button" class="btn btn-success btn-sm dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-caret-down"></i>
+                      <span class="sr-only">Apri Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="{{route('admin.house.edit.info', $house->id)}}">Modifica le informazioni</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.services', $house->id)}}">Modifica i servizi</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.photos', $house->id)}}">Modifica le foto</a>
+                      <a class="dropdown-item" href="{{route('admin.house.edit.rooms', $house->id)}}">Modifica stanze e prezzi</a>
+                  </div>
+              </div>
+              @else
               <a href="#owner-box">
                 <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}">
               </a>
+              @endif
             </div>
           </div>
         </div>

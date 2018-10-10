@@ -138,7 +138,7 @@ a.btn.btn-notifications {
   max-width: 95%;
 }
 
-.btn-success {
+.btn-success, .btn-success.dropdown-toggle {
   background-color: #099154!important;
 }
 
