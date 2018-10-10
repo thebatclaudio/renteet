@@ -3,17 +3,24 @@
 @section('title', $house->name)
 
 @section('meta')
-<meta property="og:type" content="product">
+<meta property="og:type" content="website">
 <meta property="og:title" content="{{$house->name}} - Renteet">
-<meta property="og:description" content="{{Str::words($house->description,12)}}">
+<meta property="og:description" content="{{$house->name}} su Renteet. Affitta la tua stanza a partire da {{$house->minorBedPrice()}}&euro;">
 <meta property="og:url" content="{{$house->url}}">
+<?php $count = 0; ?>
 @foreach($house->photos as $photo)
+<?php if($count == 3) break; ?>
 <meta property="og:image" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
+<meta property="og:image:url" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
+<meta property="og:image:secure_url" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1920" />
+<meta property="og:image:height" content="{{Image::make('/usr/share/nginx/renteet_com/public/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')->height()}}" />
+<?php $count++; ?>
 @endforeach
-<meta property="product:price:amount" content="{{$house->minorBedPrice()}}">
-<meta property="product:price:currency" content="EUR">
 <meta property="fb:app_id" content="1084523911685328" />
 @endsection
+
 
 @section('content')
 
