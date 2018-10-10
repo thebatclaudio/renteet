@@ -112,8 +112,8 @@
             {{-- PER OGNI STANZA STAMPO GLI UTENTI PRESENTI --}}
             @foreach($room->acceptedUsers as $user)
               <div class="bed-container free-bed col-lg-4" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                  <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
-                  <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}">
+                  <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}}">
+                  <img class="rounded-circle" src="{{$user->profile_pic}}" alt="{{$user->first_name}}">
                   
                   @if($user->pivot->available_from)
                   <h4 class="free-place">Disponibile dal {{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('d/m/Y')}}</h4>
@@ -121,7 +121,7 @@
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}" data-start="{{\Carbon\Carbon::createFromFormat('Y-m-d',$user->pivot->available_from)->format('Y-m-d')}}">Prenota il tuo posto</a></p>
                       @endif
                   @else
-                  <h4 class="user-name">{{$user->first_name}} {{$user->last_name}}</h4>
+                  <h4 class="user-name">{{$user->first_name}}</h4>
                   @endif
                   </a>
               </div>
@@ -148,7 +148,7 @@
                 {{-- controllo se l'utente loggato è pending, in caso positivo stampo l'utente loggato --}}
                 @if($room->hasUserPending(\Auth::user()->id))
                   <div class="bed-container col-lg-4 pending" style="width: {{100/$house->beds}}%; flex: 0 0 {{100/$house->beds}}%; max-width: {{100/$house->beds}}%;">
-                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}">
+                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}}">
                     <h4 class="user-name {{\Auth::user()->gender}}">In attesa di approvazione</h4>
                   </div>
                   {{-- quindi stampo gli altri posti liberi, sottraendo il posto pending dell'utente loggato --}}
@@ -294,8 +294,8 @@
                   @endif
                 @endif
                 <div class="col-md-4 text-center">
-                <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->complete_name}}">
-                  <img src="{{$review->fromUser->profile_pic}}" alt="{{$review->fromUser->first_name}} {{$review->fromUser->last_name}}" class="rounded-circle" style="max-width:120px;">
+                <a href="{{$review->fromUser->profile_url}}" title="{{$review->fromUser->first_name}}">
+                  <img src="{{$review->fromUser->profile_pic}}" alt="{{$review->fromUser->first_name}}" class="rounded-circle" style="max-width:120px;">
                 </a>
                 <h6 class="margin-top-15">{{$review->fromUser->first_name}}</h6>
                 <div class="rating-stars-container margin-top-20">
@@ -339,11 +339,11 @@
               <div class="row">
                 <div class="col-auto text-center">
                   <a href="{{$house->owner->profile_url}}">
-                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid" width="150px">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}}" class="rounded-circle img-fluid" width="150px">
                   </a>
                 </div>
                 <div class="col padding-left-20">
-                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
+                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}}</h3>
                   <ul class="list-unstyled">
                     <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
                     @if($house->owner->livingCity()->count())
@@ -370,11 +370,11 @@
               <div class="row">
                 <div class="col-12 text-center">
                   <a href="{{$house->owner->profile_url}}">
-                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->last_name}}" class="rounded-circle img-fluid" width="150px">
+                    <img src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}}" class="rounded-circle img-fluid" width="150px">
                   </a>
                 </div>
                 <div class="col-12 text-center padding-left-20">
-                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}} {{$house->owner->last_name}}</h3>
+                  <h3 class="mb-1 margin-top-10">{{$house->owner->first_name}}</h3>
                   <ul class="list-unstyled">
                     <li>{{\Carbon\Carbon::parse($house->owner->birthday)->age}} Anni, {{$house->owner->job}}</li>
                     @if($house->owner->livingCity()->count())
@@ -487,7 +487,7 @@
             if(data.status === 'OK') {
               $("#bed-"+button.data("id")+"-"+button.data("bed")).removeClass("free-bed").addClass("{{\Auth::user()->gender}}");
               $("#bed-"+button.data("id")+"-"+button.data("bed")+" img").attr("src", "{{URL::to("/images/profile_pics/".\Auth::user()->id."-cropped.jpg")}}");
-              $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}");
+              $("#bed-"+button.data("id")+"-"+button.data("bed")+" h4").removeClass("free-place").addClass("user-name").text("{{\Auth::user()->first_name}}");
               $("#bed-"+button.data("id")+"-"+button.data("bed")+" p").remove();
 
               swal("Buona convivenza!", "Contatta il locatore per organizzare il primo incontro", "success");

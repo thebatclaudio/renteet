@@ -39,9 +39,9 @@
             <div id="house-{{$house->id}}" class="house">
                 
                 <div class="owner-container">
-                    <a class="no-style" href="{{$house->url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}" target="_blank">
-                        <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
-                        <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
+                    <a class="no-style" href="{{$house->url}}" title="{{$house->owner->first_name}}" target="_blank">
+                        <div class="owner-name">{{$house->owner->first_name}}</div>
+                        <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}}" width="80" height="80">
                     </a>
                 </div>
 
@@ -79,7 +79,7 @@
                         @foreach($room->acceptedUsers as $user)
                             @if($bedsCount<3 OR $house->beds == 4)
                             <div class="col-auto">
-                                <a class="no-style" href="{{$house->url}}" title="{{$user->first_name}} {{$user->last_name}}">
+                                <a class="no-style" href="{{$house->url}}" title="{{$user->first_name}}">
                                     <img src="{{$user->profile_pic}}" alt="{{$user->name}}" class="rounded-circle small-user-pic border-shadow">
                                 </a>
                             </div>

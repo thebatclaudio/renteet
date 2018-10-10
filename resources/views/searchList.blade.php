@@ -38,9 +38,9 @@
                 <div id="house-{{$house->id}}" class="house">
                     
                     <div class="owner-container {{$house->owner->gender}}">
-                      <a class="no-style" href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}} {{$house->owner->last_name}}">
-                        <div class="owner-name">{{$house->owner->first_name}} {{$house->owner->last_name}}</div>
-                        <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}} {{$house->owner->first_name}}" width="80" height="80">
+                      <a class="no-style" href="{{$house->owner->profile_url}}" title="{{$house->owner->first_name}}">
+                        <div class="owner-name">{{$house->owner->first_name}}</div>
+                        <img class="owner-pic rounded-circle" src="{{$house->owner->profile_pic}}" alt="{{$house->owner->first_name}}" width="80" height="80">
                       </a>
                     </div>
 
@@ -85,9 +85,9 @@
             @foreach($room->acceptedUsers as $user)
               @if($bedsCount<3 OR $house->beds == 4)
               <div class="bed-container col-lg-4" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
-                <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}} {{$user->last_name}}">
-                  <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}} {{$user->last_name}}" width="140" height="140">
-                  <h4 class="user-name {{$user->gender}}">{{$user->first_name}} {{$user->last_name}}</h4>
+                <a class="no-style" href="{{$user->profile_url}}" title="{{$user->first_name}}">
+                  <img class="rounded-circle {{$user->gender}}" src="{{$user->profile_pic}}" alt="{{$user->first_name}}" width="140" height="140">
+                  <h4 class="user-name {{$user->gender}}">{{$user->first_name}}</h4>
                 </a>
               </div>
               @endif
@@ -121,7 +121,7 @@
                 @if($room->hasUserPending(\Auth::user()->id))
                   @if($bedsCount<3 OR $house->beds == 4)
                   <div class="bed-container col-lg-4 pending" style="width: {{$circleWidth}}%; flex: 0 0 {{$circleWidth}}%; max-width: {{$circleWidth}}%;">
-                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}} {{\Auth::user()->last_name}}" width="140" height="140">
+                    <img class="rounded-circle {{\Auth::user()->gender}}" src="{{\Auth::user()->profile_pic}}" alt="{{\Auth::user()->first_name}}" width="140" height="140">
                     <h4 class="user-name {{\Auth::user()->gender}}">In attesa di approvazione</h4>
                   </div>
                   @endif
