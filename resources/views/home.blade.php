@@ -18,7 +18,7 @@
     <form id="mobileSearchForm" class="form-inline d-inline-flex d-sm-none w-100" action="{{route('search.coordinates')}}" method="GET">
         <input id="mobileLat" name="lat" type="hidden" required>
         <input id="mobileLng" name="lng" type="hidden" required>
-        <input id="mobile-search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" value="{{$locationName}}" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca">
+        <input id="mobile-search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" value="{{$locationName}}" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca" @if(isset($searchInput)) value="{{$searchInput}}" @endif>
         <i class="search-icon mobile-search-icon fa fa-search fa-2x" aria-hidden="true"></i>
     </form>
 

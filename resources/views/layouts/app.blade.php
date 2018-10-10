@@ -61,7 +61,7 @@
                 <form id="searchForm" class="form-inline d-none d-sm-inline-flex" action="{{route('search.coordinates')}}" method="GET">
                     <input id="lat" name="lat" type="hidden" required>
                     <input id="lng" name="lng" type="hidden" required>
-                    <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca">
+                    <input id="search-input" name="searchInput" class="form-control" type="text" onFocus="geolocate()" placeholder="Prova &quot;Palermo&quot;" aria-label="Cerca" @if(isset($searchInput)) value="{{$searchInput}}" @endif>
                     <i class="search-icon fa fa-search fa-2x" aria-hidden="true"></i>
                 </form>
 
