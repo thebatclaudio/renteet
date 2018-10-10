@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="col-auto">
-              @if($house->owner->id === \Auth::user()->id)
+              @if(\Auth::check() && $house->owner->id === \Auth::user()->id)
               <div class="btn-group d-none d-sm-flex">
                   <a href="{{route('admin.house', $house->id)}}" class="btn btn-success">Gestisci il tuo immobile</a>
                   <button type="button" class="btn btn-success dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
