@@ -179,7 +179,7 @@
             <div class="page-target-container margin-target-container-80">
               <h3 class="page-target">Descrizione</h3>
             </div>
-          <div class="margin-top-120">
+          <div class="col margin-top-120">
             <p class="margin-top-40">{!! nl2br($house->description) !!}</p>
           </div>  
         </div>
@@ -188,7 +188,7 @@
             <div class="page-target-container margin-target-container-80">
               <h3 class="page-target">Informazioni</h3>
             </div>
-          <div class="margin-top-120">
+          <div class="col margin-top-120">
             <ul class="margin-top-40 list-unstyled">
               <li>Tipologia: {{$house->type->name}}</li>
               <li>Numero stanze: {{$house->rooms()->count()}}</li>
