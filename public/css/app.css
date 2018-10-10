@@ -738,6 +738,36 @@ span.new-message-badge {
     padding: 20px;
   }
 
+  .chip {
+    display: inline-block;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0,0,0,.6);
+    line-height: 48px;
+    padding: 0 12px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    background-color: #eceff1;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+  }
+
+  .chip i {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 48px;
+    padding-left: 15px;
+    -webkit-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear;
+  }
+
   @media (max-width: 565px) {
     #login-wrapper {
       padding-top: 0px;

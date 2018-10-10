@@ -6,13 +6,23 @@
 <div class="container margin-top-20">
     
     <div class="row d-none d-sm-flex">
+
         <div class="col-auto">
-            @if($searchInput)
-                <h3>Immobili attualmente disponibili nei dintorni di <strong>{{$searchInput}}</strong></h3>
-            @else
-                <h3>Immobili attualmente disponibili nei tuoi dintorni</h3>
+            @if(isset($searchInput))
+            <div class="chip elegant-border lighten-2waves-effect waves-effect">
+                Citt&agrave;: <strong>{{$searchInput}}</strong>
+            </div>
+            @endif
+
+            @if(isset($radius))
+            <div class="chip elegant-border lighten-2waves-effect waves-effect">
+                Raggio: <strong>{{$radius / 1000}} KM</strong>
+
+                <i id="edit-radius" class="fas fa-pencil-alt" data-value="{{$radius / 1000}}"></i>
+            </div>
             @endif
         </div>
+
         <div class="col text-right">
             <div class="btn-group" role="group" aria-label="Cambia la modalità di visualizzazione degli annunci">
                 <a class="btn btn-change-view btn-elegant" title="Visualizzazione a griglia" data-view="grid"><i class="fas fa-th"></i></a>
@@ -159,5 +169,59 @@
 $("#list-view").click(function(){
     window.location = window.location + "&view=list";
 });
+
+$("#edit-radius").on('click', function() {
+    var radius = $(this).data('value');
+    var radiusContainer = document.createElement("form");
+
+    var textInput = document.createElement('div');
+    textInput.id = 'input-radius-text';
+    textInput.innerHTML = '<h4>'+radius+'KM</h4>';
+    var input = document.createElement('input');
+    input.name = 'inputRadius';
+    input.id = 'input-radius';
+    input.type = "range"
+    input.classList.add('form-control');
+    input.classList.add('margin-top-40');
+    input.placeholder = radius;
+    input.min = 0;
+    input.max = 1000;
+    input.step = 50;
+    radiusContainer.appendChild(textInput);
+    radiusContainer.appendChild(input);
+
+    swal({
+        title: "Modifica il raggio",
+        buttons: [true, {
+            text: "Modifica",
+            className: "nextButtonSwal",
+            closeModal: false
+        }],
+        content: radiusContainer
+    }).then((send) =>{
+        if(!send) throw null;
+
+        window.location = updateQueryStringParameter(window.location.href, 'radius', input.value*1000);
+
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
+});
+
+$("body").on('change', '#input-radius', function() {
+    $("#input-radius-text").html('<h4>'+$("#input-radius").val()+'KM</h4>');
+});
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
+}
 </script>
 @endsection

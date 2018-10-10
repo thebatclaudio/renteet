@@ -10,27 +10,31 @@ class SearchController extends Controller
         $latitude = $request->lat;
         $longitude = $request->lng;
 
-        $houses = $this->getHousesByLatLng($latitude, $longitude);
+        $radius = (isset($request->radius)) ? $request->radius : 100*100;
+
+        $houses = $this->getHousesByLatLng($latitude, $longitude, $radius);
 
         if($request->view == "list") {
             return view('searchList')->with([
                 'houses' => $houses,
-                'searchInput' => $request->searchInput
+                'searchInput' => $request->searchInput,
+                'radius' => $radius
             ]);
         }
 
         return view('search')->with([
             'houses' => $houses,
-            'searchInput' => $request->searchInput
+            'searchInput' => $request->searchInput,
+            'radius' => $radius
         ]);
     }
 
-    public static function getHousesByLatLng($latitude, $longitude) {
+    public static function getHousesByLatLng($latitude, $longitude, $radius) {
         $mMult = cos($latitude * (pi()/180));
         $meterValue = 0.0000089831; //1 Metro espresso in gradi (equatore)
 
-        $latOffset = 100*100 * ($meterValue * $mMult);
-        $lngOffset = 100*100 * $meterValue;
+        $latOffset = $radius * ($meterValue * $mMult);
+        $lngOffset = $radius * $meterValue;
 
         return \App\House::whereBetween('latitude', [$latitude-$latOffset, $latitude+$latOffset])
                     ->whereBetween('longitude', [$longitude-$lngOffset, $longitude+$lngOffset])
