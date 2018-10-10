@@ -15,7 +15,7 @@
 <meta property="og:image:secure_url" content="{{url('/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')}}">
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1920" />
-<meta property="og:image:height" content="{{Image::make('/usr/share/nginx/renteet_com/public/images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg')->height()}}" />
+<meta property="og:image:height" content="{{Image::make(public_path('images/houses/'.$house->id.'/'.rawurlencode($photo->file_name).'-1920.jpg'))->height()}}" />
 <?php $count++; ?>
 @endforeach
 <meta property="fb:app_id" content="1084523911685328" />
