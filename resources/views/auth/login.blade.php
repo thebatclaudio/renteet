@@ -10,10 +10,20 @@
 <div id="login-wrapper">
     <div class="card login-box">
 
-        <h3 class="text-center">Accedi</h3>
-
         <form class="form-horizontal margin-top-20" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
+
+            <div class="form-group">
+                <div class="col-md-12 col-md-offset-4">
+                    <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <span class="text-uppercase"><small>oppure</small></span>
+            </div>
+
+            <hr>
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="col-md-12">
@@ -76,17 +86,6 @@
                 </div>
             </div>
 
-            <hr>
-
-            <div class="form-group text-center">
-                <span class="text-uppercase"><small>oppure</small></span>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-12 col-md-offset-4">
-                    <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
-                </div>
-            </div>
         </form>
     </div>
 </div>

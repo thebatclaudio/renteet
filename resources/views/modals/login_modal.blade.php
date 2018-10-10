@@ -11,6 +11,18 @@
         <div class="modal-body">
             {{ csrf_field() }}
 
+            <div class="form-group">
+                <div class="col-md-12 col-md-offset-4">
+                    <a class="btn btn-fb btn-block" href="/facebook/redirect"><i class="fab fa-facebook-f pr-1"></i> Accedi con Facebook</a>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <span class="text-uppercase"><small>oppure</small></span>
+            </div>
+
+            <hr>
+
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="col-md-12">
                     <input id="email" placeholder="Indirizzo email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
