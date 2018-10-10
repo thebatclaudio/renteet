@@ -160,6 +160,8 @@
                       @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
+                      @else
+                      <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
                     </div>
                   @endfor
@@ -173,6 +175,8 @@
                       @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                       <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
+                      @else
+                      <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                       @endif
                     </div>
                   @endfor
@@ -187,6 +191,8 @@
                     @if(!in_array(\Auth::user()->id, $house->relatedUsers()))
                     <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                     @endif
+                    @else
+                    <p><a class="btn btn-primary rent-house" href="#" role="button" data-id="{{$room->id}}" data-bed="{{$i}}">Prendi posto</a></p>
                     @endif
                   </div>
                 @endfor
