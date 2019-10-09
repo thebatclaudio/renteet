@@ -25,7 +25,8 @@
         "filp/whoops": "~2.0",
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
-        "squizlabs/php_codesniffer": "^3.2"
+        "squizlabs/php_codesniffer": "^3.2",
+        "wnx/laravel-stats": "^2.0"
     },
     "autoload": {
         "classmap": [
